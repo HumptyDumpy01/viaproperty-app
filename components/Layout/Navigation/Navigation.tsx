@@ -10,7 +10,7 @@ import Input from '@/components/UI/Input/Input';
 import Logo from '@/components/UI/Logo/Logo';
 import Heart from '@/components/UI/Icon/Heart';
 import Bell from '@/components/UI/Icon/Bell';
-import UserCredentials from '@/components/UI/Layout/UserCredentials';
+import UserCredentials from '@/components/Layout/Other/UserCredentials';
 
 export default function Navigation(/*{  }: NavigationType*/) {
   return (
