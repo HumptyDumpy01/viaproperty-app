@@ -21,12 +21,12 @@ export default function Home() {
 
           <div className={`flex items-center`}>
             <div className={`relative`}>
-              <input className={`bg-zinc-100 pl-5 py-3.5 rounded-2xl border-2 border-transparent
+              <input className={`bg-zinc-100 text-sm pl-5 py-3.5 rounded-2xl border-2 border-transparent
               focus:outline-none focus:border-2 focus:border-red-500 transition-all duration-150
-              focus:bg-white w-[108%]`} type="seach"
+              focus:bg-white w-[112%]`} type="seach"
                      placeholder={`Search`} />
               <div
-                className={`absolute w-14 h-14 bg-red-500 top-0 -right-8 rounded-2xl flex items-center justify-center
+                className={`absolute w-[50px] h-[50px] bg-red-500 top-0 -right-12 rounded-2xl flex items-center justify-center
                 hover:scale-110 transition-all duration-200 cursor-pointer
                 active:bg-red-300`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="23" viewBox="0 0 21 20" fill="none">
@@ -35,8 +35,8 @@ export default function Home() {
                     stroke="white" stroke-width="1.24111" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
-              <div className={`absolute top-[17px] right-7 text-sm`}>
-                <select className={`bg-transparent`} name="propertyType" id="propertyType">
+              <div className={`absolute top-[15px] right-3 text-sm`}>
+                <select className={`bg-transparent text-sm text-stone-500`} name="propertyType" id="propertyType">
                   <option value="buy">Buy</option>
                   <option value="rent">Rent</option>
                 </select>

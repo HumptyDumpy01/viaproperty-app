@@ -10,7 +10,7 @@ type NavLinkType = {
 }
 
 export default function NavLink({ type, label, path }: NavLinkType) {
-  const defaultStyles = `text-[15px] font-semibold text-zinc-600`;
+  const defaultStyles = `text-[15px] font-semibold text-zinc-500`;
   const activeStyles = `text-[15px] font-bold bg-clip-text text-transparent bg-linear-main-red`;
   return (
     <>
