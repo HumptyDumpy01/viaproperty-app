@@ -18,7 +18,8 @@ export default function CallToAction({ span, buttonLabel, message }: CallToActio
                   text-center inline-block mt-5 mb-1.5`}>{span}</span>
         <p className={`text-white text-[12px] text-center mb-5`}>{message}</p>
         <button
-          className={`h-11 bg-linear-main-red rounded-full px-7 font-semibold text-white`}>{buttonLabel}</button>
+          className={`h-11 bg-linear-main-red rounded-full px-7 font-semibold text-white
+          transition-all duration-200 hover:scale-105`}>{buttonLabel}</button>
       </div>
     </>
   );

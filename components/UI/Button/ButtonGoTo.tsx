@@ -12,7 +12,8 @@ export default function ButtonGoTo({ type, absolute = false, ...props }: ButtonG
   return (
     <>
       <div {...props}
-           className={`w-16 h-9 ${absolute ? `absolute` : ``} ${type === `white` ? `bg-neutral-50` : `bg-linear-main-red`} bottom-4 left-3 flex items-center justify-center rounded-full`}>
+           className={`w-16 h-9 ${absolute ? `absolute` : ``} ${type === `white` ? `bg-neutral-50` : `bg-linear-main-red`} bottom-4 left-3 flex items-center justify-center rounded-full
+           transition-all duration-200 hover:scale-110 cursor-pointer`}>
         <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
           {type === `white` && (
             <path
