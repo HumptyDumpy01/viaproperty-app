@@ -13,7 +13,7 @@ export default function UserCredentials({ initials, abbrInitials, location }: Us
   return (
     <>
       <div className={`flex items-center gap-2`}>
-        <div className={`flex flex-col gap-0.5`}>
+        <div className={`hidden bp-480:flex flex-col gap-0.5`}>
           <p className={`text-[15px] font-semibold`}>{initials}</p>
           <p className={`text-[11px] font-medium text-zinc-500`}>{location}</p>
         </div>
