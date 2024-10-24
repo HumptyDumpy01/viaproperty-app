@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 /*type NavigationType = {
   // children: ReactNode;
@@ -25,10 +25,10 @@ export default function Navigation(/*{  }: NavigationType*/) {
                     stroke-linejoin="round" />
             </svg>
           </div>
-          <div className={`bp-1178:flex gap-12 mr-20 hidden`}>
-            <NavLink label={`Home`} path={`/`} type={`active`} />
-            <NavLink label={`Properties`} path={`/properties`} type={`default`} />
-            <NavLink label={`Sell My Property`} path={`/sell`} type={`default`} />
+          <div className={`bp-1178:flex gap-12 mr-20 hidden items-center`}>
+            <NavLink label={`Home`} path={`/`} />
+            <NavLink label={`Properties`} path={`/properties`} />
+            <NavLink label={`Sell My Property`} path={`/sell`} />
           </div>
           <div className={`hidden bp-750:flex`}>
             <Input />
