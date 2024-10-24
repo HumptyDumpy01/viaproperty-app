@@ -15,7 +15,7 @@ import React from 'react';
 export default function LatestPosts(/*{  }: LatestPostsType*/) {
   return (
     <>
-      <section className={`mb-24`}>
+      <section>
         <div className={`max-w-7xl mx-auto w-full`}>
           <HeadingAndLink heading={`Latest Posts`} headingSpan={`latest viaproperty news`} linkLabel={`explore`}
                           linkHref={`/blog`} />
