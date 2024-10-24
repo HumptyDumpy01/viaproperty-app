@@ -24,10 +24,10 @@ export default function HeadingAndLink({
                                        }: HeadingAndLinkType) {
   return (
     <>
-      <div className={`flex items-center gap-9 mb-11`}>
+      <div className={`flex flex-col bp-620:flex-row bp-620:items-center gap-9 mb-11`}>
         <Heading headingCapitalized={headingCapitalized} span={headingSpan} heading={heading} />
         <div className={`flex gap-2 text-[15px] items-center cursor-pointer  transition-all duration-200 
-      hover:scale-110`}>
+      bp-620:hover:scale-110`}>
           <Link className={`uppercase font-semibold`} href={linkHref}>{linkLabel}</Link>
           {showLink && (
             <>
