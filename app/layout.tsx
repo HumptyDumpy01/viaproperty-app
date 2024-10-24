@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import React from 'react';
+import Navigation from '@/components/Layout/Navigation/Navigation';
 
 export const metadata: Metadata = {
   title: 'Viaproperty Fullstack Project',
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
     <body className="antialiased">
+    <Navigation />
     {children}
     </body>
     </html>
