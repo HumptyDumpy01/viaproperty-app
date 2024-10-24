@@ -17,7 +17,8 @@ export default function HeadingAndLink({ headingSpan, heading, linkLabel, linkHr
     <>
       <div className={`flex items-center gap-9 mb-11`}>
         <Heading span={headingSpan} heading={heading} />
-        <div className={`flex gap-2 text-[15px] items-center cursor-pointer`}>
+        <div className={`flex gap-2 text-[15px] items-center cursor-pointer  transition-all duration-200 
+      hover:scale-110`}>
           <Link className={`uppercase font-semibold`} href={linkHref}>{linkLabel}</Link>
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="10" viewBox="0 0 12 10" fill="none">
             <path
