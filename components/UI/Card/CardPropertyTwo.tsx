@@ -46,7 +46,7 @@ export default function
           <p className={`text-zinc-600 text-sm mb-5`}>{paragraph}</p>
 
           <div className={`group-hover:animate-pulse`}>
-            <ButtonLink href={btnLinkHref} buttonLabel={btnLinkLabel} animationPulse />
+            <ButtonLink type={`button`} href={btnLinkHref} buttonLabel={btnLinkLabel} animationPulse />
           </div>
         </div>
       </Link>

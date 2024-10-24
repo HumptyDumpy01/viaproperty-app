@@ -16,9 +16,7 @@ export default function AboutCol({ text, metrics }: AboutFirstColType) {
         <p className={`text-zinc-800 text-[15px]`}>{text}</p>
         {metrics.map(function(metric) {
           return (
-            <>
-              <MetricDisplayNumbers number={metric.number} metric={metric.metric} />
-            </>
+            <MetricDisplayNumbers key={`${metric.metric}`} number={metric.number} metric={metric.metric} />
           );
         })}
       </div>
