@@ -10,15 +10,13 @@ import PriceRange from '@/components/Layout/Filter/FilterProperties/PriceRange';
 import QuantityFilter from '@/components/Layout/Filter/FilterProperties/QuantityFilter';
 import PropertyAreaRange from '@/components/Layout/Filter/FilterProperties/PropertyAreaRange';
 import AdditionalConveniences from '@/components/Layout/Filter/FilterProperties/AdditionalConveniences';
+import FilterHeading from '@/components/Layout/Filter/FilterProperties/FilterHeading';
 
 export default function FilterProperties(/*{  }: FilterType*/) {
   return (
     <>
       <div>
-        <div className={`flex items-center justify-between mb-5`}>
-          <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-3xl`}>Filters</h1>
-          <button className={`text-zinc-600`}>Clear Filters</button>
-        </div>
+        <FilterHeading />
         <PropertyType />
         <SearchingFor />
         <PriceRange />

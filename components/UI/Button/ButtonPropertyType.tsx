@@ -18,7 +18,7 @@ export default function ButtonPropertyType({ icon, label }: ButtonPropertyTypeTy
   return (
     <>
       <div className={`flex flex-col items-center justify-center border-2 
-              ${!activePropertyType ? `border-zinc-400` : ``} w-[124px] h-[70px] pt-3.5 pb-2.5 rounded-[6px] cursor-pointer
+              ${!activePropertyType ? `border-zinc-300` : ``} w-[124px] h-[70px] pt-3.5 pb-2.5 rounded-[6px] cursor-pointer
               transition-all duration-300 ease-in-out 
               ${activePropertyType ? `bg-zinc-950 text-white` : ``}`}
            onClick={() => toggleActiveState()}>

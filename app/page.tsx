@@ -7,7 +7,6 @@ import BuyProperty from '@/components/Home/Layout/BuyProperty';
 import CustomerTestimonials from '@/components/Home/Layout/CustomerTestimonialsSection';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
 import LatestPosts from '@/components/Home/Layout/LatestPosts';
-import Footer from '@/components/Layout/Footer/Footer';
 
 export default function Home() {
   return (
@@ -20,7 +19,6 @@ export default function Home() {
       <CustomerTestimonials />
       <CallToActionBlock />
       <LatestPosts />
-      <Footer />
     </main>
   );
 }
