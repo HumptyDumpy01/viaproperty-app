@@ -32,13 +32,16 @@ export default function Range({ min, max, maxFormatted, step, name, metric }: Ra
           onChange={handleRangeChange}
           className={`w-full accent-zinc-900`}
         />
-        <div className={`flex justify-between text-zinc-600 text-[14px] mt-2`}>
+        <div className={`flex items-center justify-between gap-2 text-zinc-600 text-[14px] mt-2`}>
+          <div>
               <span
                 className={`bg-zinc-100 px-4 py-1 text-[13px] rounded text-zinc-900 font-medium`}>
                 {metric === `dollars` ? `$${priceRange}` : `${priceRange} sqft`}</span>
-          <span
-            className={`bg-zinc-100 px-4 py-1 text-[13px] rounded text-zinc-900 font-medium`}>
+            <span
+              className={`bg-zinc-100 px-4 py-1 text-[13px] rounded text-zinc-900 font-medium`}>
             {metric === `dollars` ? `$${maxFormatted}` : `${maxFormatted}sqft`}</span>
+          </div>
+          <button className={`text-white font-semibold uppercase bg-linear-main-red p-1 px-2 rounded`}>ok</button>
         </div>
       </div>
     </>
