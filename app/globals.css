@@ -16,3 +16,9 @@ body {
     background: #e72828;
     color: #fff;
 }
+
+/* Override selection styles for elements with gradient background */
+.bg-clip-text::selection {
+    background: #e72828;
+    color: #ffffff; /* Change to a color that contrasts with the selection background */
+}
