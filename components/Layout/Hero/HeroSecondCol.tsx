@@ -17,21 +17,27 @@ export default function HeroSecondCol(/*{  }: HeroSecondColType*/) {
   return (
     <>
       <div className={`grid grid-cols-3 gap-6`}>
-        <div className={`self-end`}>
+        <div className={`self-center bp-1235:self-end`}>
           <Image className={`object-fit ml-auto rounded-2xl`} src={HeroImg1} alt={`Hero Image 1`} />
         </div>
         <div className={`relative`}>
           <Image className={`object-cover w-full h-full rounded-3xl`} src={HeroImg2} alt={`Hero Image 2`} />
           <ButtonGoTo type={`white`} absolute />
-          <Badge city={`California`} absolute price={`215,000$`} title={`Wooden House`} />
+          <div className={`hidden bp-790:flex`}>
+            <Badge city={`California`} absolute price={`215,000$`} title={`Wooden House`} />
+          </div>
         </div>
         <div className={`relative`}>
           <div className={`relative`}>
             <Image src={HeroImg3} alt={`Hero Image 3`} />
-            <Badge city={`California`} absolute price={`215,000$`} title={`Wooden House`} />
+            <div className={`hidden bp-790:flex`}>
+              <Badge city={`California`} absolute price={`215,000$`} title={`Wooden House`} />
+            </div>
             <ButtonGoTo type={`red`} absolute />
           </div>
-          <CallToAction span={`on sale!`} buttonLabel={`See More`} message={`Lorem ipsum dolor sit amet`} />
+          <div className={`hidden bp-1235:block`}>
+            <CallToAction span={`on sale!`} buttonLabel={`See More`} message={`Lorem ipsum dolor sit amet`} />
+          </div>
         </div>
       </div>
     </>
