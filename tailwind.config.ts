@@ -41,6 +41,9 @@ const config: Config = {
         'bp-1160': '1160px'
         ///////////////////////////////////////
 
+      },
+      gridTemplateColumns: {
+        'custom-3-cols': '280px 603px 422px'
       }
     }
   },
