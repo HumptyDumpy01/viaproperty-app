@@ -13,15 +13,15 @@ import UlList from '@/components/UI/FeatureList/UlList';
 export default function FooterColTwo(/*{  }: FooterColTwoType*/) {
   return (
     <>
-      <div className={`col-span-3 bg-slate-950 rounded-2xl pt-12 px-12 pb-10`}>
-        <div className={`grid grid-cols-4`}>
+      <div className={`col-span-3 bg-slate-950 bp-1160:rounded-2xl pt-12 px-12 pb-10`}>
+        <div className={`bp-732:grid bp-732:grid-cols-4`}>
           <div className={`col-span-2 flex flex-col text-white`}>
             <LogoFull />
             <div className={`mb-9`}>
               <p className={`text-zinc-500 mb-2.5 select-all`}>1-(800)-435-1414-1413-341</p>
               <p className={`select-all`}>viaproperty.test@gmail.com</p>
             </div>
-            <div className={`flex items-center gap-3`}>
+            <div className={`flex items-center gap-3 bp-732:mb-0 mb-9`}>
               <MetaIcon type={`facebook`} background={true} />
               <MetaIcon type={`instagram`} background={true} />
               <MetaIcon type={`x`} background={true} />

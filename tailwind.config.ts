@@ -19,23 +19,27 @@ const config: Config = {
         'linear-white-to-blue': 'linear-gradient(103deg, #F6F6F6 52.39%, #00202A 69.9%)'
       },
       screens: {
+        /* IMPORTANT: HOME PAGE */
         // NAVIGATION
         'bp-1178': '1178px',
         'bp-750': '750px',
         'bp-480': '480px',
-        // HERO(HOME)
+        // HERO
         'bp-1235': '1235px',
         'bp-790': '790px',
         'bp-700': '700px',
         'bp-620': '620px',
         'bp-464': '464px',
-        // ABOUT(HOME)
+        // ABOUT
         'bp-1087': '1087px',
-        // TESTIMONIALS(HOME),
+        // TESTIMONIALS,
         'bp-1165': '1165px',
-        // CTA SECTION(HOME),
+        // CTA SECTION,
         'bp-1009': '1009px',
-        'bp-732': '732px'
+        'bp-732': '732px',
+        // FOOTER SECTION
+        'bp-1160': '1160px'
+        ///////////////////////////////////////
 
       }
     }

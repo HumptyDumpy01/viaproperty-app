@@ -11,7 +11,7 @@ import React from 'react';
 export default function UlList({ list }: UlListType) {
   return (
     <>
-      <ul className={`font-semibold text-xl space-y-2`}>
+      <ul className={`font-semibold text-xl bp-732:space-y-2 space-y-4`}>
         {list.map(function(list) {
           return (
             <li key={list.href}>
