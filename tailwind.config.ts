@@ -19,14 +19,18 @@ const config: Config = {
         'linear-white-to-blue': 'linear-gradient(103deg, #F6F6F6 52.39%, #00202A 69.9%)'
       },
       screens: {
+        // NAVIGATION
         'bp-1178': '1178px',
         'bp-750': '750px',
         'bp-480': '480px',
+        // HERO(HOME)
         'bp-1235': '1235px',
         'bp-790': '790px',
         'bp-700': '700px',
         'bp-620': '620px',
-        'bp-464': '464px'
+        'bp-464': '464px',
+        // ABOUT(HOME)
+        'bp-1087': '1087px'
 
       }
     }

@@ -13,10 +13,10 @@ export default function About(/*{  }: AboutType*/) {
     <>
       <section className={`mt-16 mb-24`}>
         <div className={`max-w-7xl mx-auto w-full`}>
-          <div className={`flex gap-72`}>
+          <div className={`flex flex-col bp-1087:flex-row bp-1087:gap-72 gap-24`}>
 
             <Heading span={`Why us?`} heading={`About`} />
-            <div className={`grid grid-cols-2 gap-12`}>
+            <div className={`bp-700:grid bp-700:grid-cols-2 flex flex-wrap bp-700:gap-12 gap-24`}>
               <AboutCol
                 text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
