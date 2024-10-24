@@ -12,7 +12,7 @@ export default function HeroFirstCol(/*{  }: HeroFirstColType*/) {
   return (
     <>
       <div className={`flex flex-col my-auto min-w-[450px]`}>
-        <h1 className={`text-5xl font-bold tracking-wide leading-11
+        <h1 className={`text-5xl font-bold tracking-wide leading-tight
                 bg-clip-text text-transparent bg-linear-main-red mb-6`}>Exquisite design <br />
           combined with <br />
           posh interior</h1>
