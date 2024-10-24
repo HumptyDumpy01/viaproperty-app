@@ -15,11 +15,13 @@ import React from 'react';
 export default function MetricDisplayPositiveReviews({ numbers }: MetricDisplayPositiveReviewsType) {
   return (
     <>
-      <div className={`flex items-center`}>
-        <Image className={`w-14 h-14 -mr-4`} src={CustomerImg1} alt={`Customer Image 1`} />
-        <Image className={`w-14 h-14 -mr-4`} src={CustomerImg2} alt={`Customer Image 2`} />
-        <Image className={`w-14 h-14 -mr-4`} src={CustomerImg3} alt={`Customer Image 3`} />
-        <Image className={`w-14 h-14 -mr-4`} src={CustomerImg4} alt={`Customer Image 4`} />
+      <div className={`flex bp-620:items-center bp-620:flex-row flex-col gap-7 bp-620:gap-0`}>
+        <div className={`flex items-center`}>
+          <Image className={`w-14 h-14 -mr-4`} src={CustomerImg1} alt={`Customer Image 1`} />
+          <Image className={`w-14 h-14 -mr-4`} src={CustomerImg2} alt={`Customer Image 2`} />
+          <Image className={`w-14 h-14 -mr-4`} src={CustomerImg3} alt={`Customer Image 3`} />
+          <Image className={`w-14 h-14 -mr-4`} src={CustomerImg4} alt={`Customer Image 4`} />
+        </div>
         <p className={`ml-8`}><span className={`font-semibold text-zinc-700`}>{numbers}</span> more positive reviews
         </p>
       </div>

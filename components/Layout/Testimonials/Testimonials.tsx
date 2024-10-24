@@ -13,7 +13,7 @@ import MetricDisplayPositiveReviews from '@/components/UI/MetricDisplay/MetricDi
 export default function Testimonials(/*{  }: CustomerTestimonialsType*/) {
   return (
     <>
-      <div className={`flex gap-32`}>
+      <div className={`flex bp-1165:flex-row flex-col bp-1165:gap-32 gap-10`}>
         <div className={`min-w-[590px] pr-36 border-r-4 border-r-zinc-300`}>
           <div className={`-mb-8`}>
             <HeadingAndLink heading={`we like to do things differently`} headingSpan={`what our customers think`}

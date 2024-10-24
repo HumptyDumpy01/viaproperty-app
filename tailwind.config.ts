@@ -30,7 +30,9 @@ const config: Config = {
         'bp-620': '620px',
         'bp-464': '464px',
         // ABOUT(HOME)
-        'bp-1087': '1087px'
+        'bp-1087': '1087px',
+        // TESTIMONIALS(HOME),
+        'bp-1165': '1165px'
 
       }
     }

@@ -15,7 +15,7 @@ export default function CustomerTestimonial({ paragraph, AltImg, srcImg, initial
   return (
     <>
       <div>
-        <p className={`text-zinc-800`}>{paragraph}</p>
+        <p className={`text-zinc-800 bp-620:text-[17px] leading-relaxed text-sm`}>{paragraph}</p>
         <div className={`flex gap-6 items-center  mt-10`}>
           <div>
             <Image className={`w-16 h-16`} src={srcImg} alt={AltImg} />

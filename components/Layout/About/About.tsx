@@ -11,7 +11,7 @@ import AboutCol from '@/components/Layout/About/AboutCol';
 export default function About(/*{  }: AboutType*/) {
   return (
     <>
-      <section className={`mt-16 mb-24`}>
+      <section className={`mt-20 mb-24`}>
         <div className={`max-w-7xl mx-auto w-full`}>
           <div className={`flex flex-col bp-1087:flex-row bp-1087:gap-72 gap-24`}>
 
