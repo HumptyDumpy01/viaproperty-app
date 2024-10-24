@@ -9,3 +9,10 @@ body {
     /*  inject a montserrat font */
     font-family: 'Montserrat', sans-serif;
 }
+
+/* use selection as red*`//
+ */
+::selection {
+    background: #e72828;
+    color: #fff;
+}

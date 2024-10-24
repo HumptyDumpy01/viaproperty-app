@@ -22,7 +22,7 @@ export default function CardLink({ heading, altImg, srcImg, metricText, metric, 
         <Image className={`mb-6`} src={srcImg} alt={altImg} />
         <div className={`text-center`}>
           <h3 className={`text-red-600 font-bold text-3xl mb-3
-          group-hover:text-zinc-900 transition-all duration-200`}>{heading}</h3>
+          group-hover:animate-pulse transition-all duration-200`}>{heading}</h3>
           <p className={`text-zinc-400 font-medium`}><span>{metric}</span> {metricText}</p>
         </div>
       </Link>
