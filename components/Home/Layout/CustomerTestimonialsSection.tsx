@@ -10,7 +10,7 @@ import Testimonials from '@/components/Layout/Testimonials/Testimonials';
 export default function CustomerTestimonials(/*{  }: CustomerTestimonialsType*/) {
   return (
     <>
-      <section className={`mb-14`}>
+      <section className={`mb-28`}>
         <div className={`max-w-7xl mx-auto w-full`}>
           <Testimonials />
         </div>
