@@ -19,7 +19,7 @@ export default function BuyProperty(/*{  }: BuyPropertyType*/) {
         <div className={`max-w-7xl mx-auto w-full`}>
           <HeadingAndLink heading={`Buy Your Dream!`} headingSpan={`want to buy a property?`}
                           linkLabel={`see all`} linkHref={`/properties?type=buy`} />
-          <div className={`flex gap-7`}>
+          <div className={`flex gap-7 bp-790:flex-nowrap flex-wrap items-center justify-center`}>
             <CardPropertyTwo
               srcImg={BuyProperty1}
               altImg={`Property 1`}
