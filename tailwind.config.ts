@@ -32,7 +32,10 @@ const config: Config = {
         // ABOUT(HOME)
         'bp-1087': '1087px',
         // TESTIMONIALS(HOME),
-        'bp-1165': '1165px'
+        'bp-1165': '1165px',
+        // CTA SECTION(HOME),
+        'bp-1009': '1009px',
+        'bp-732': '732px'
 
       }
     }
