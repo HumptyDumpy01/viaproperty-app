@@ -19,7 +19,7 @@ export default function MetricDisplayRating({ rating, label, size = `md` }: Metr
           <h3 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-3xl`}>{label}</h3>
           <div className={`flex gap-2`}>
             {[...Array(5)].map((_, index) => (
-              <StarIcon key={index} size={`md`} state={index < roundedRating ? `filled` : `empty`} />
+              <StarIcon key={index} size={size} state={index < roundedRating ? `filled` : `empty`} />
             ))}
           </div>
         </div>
