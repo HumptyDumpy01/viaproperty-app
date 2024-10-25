@@ -9,6 +9,9 @@ type GalleryImageType = {
   imgsLeft?: number;
   colSpan?: number;
   roundedStyle?: string;
+  scale?: boolean;
+  rotate?: boolean;
+  customDivClasses?: string;
   // children: ReactNode;
 }
 
@@ -17,17 +20,21 @@ export default function
                  imgSrc,
                  imgAlt,
                  type = `default`,
-                 imgsLeft = 1,
                  colSpan,
-                 roundedStyle
+                 roundedStyle,
+                 scale = true,
+                 rotate = true,
+                 customDivClasses
                }: GalleryImageType) {
   return (
     <>
       {type === `default` && (
         <>
-          <div className={`${colSpan ? `col-span-${colSpan}` : ``} overflow-hidden cursor-pointer w-full h-full`}>
+          <div
+            className={`${colSpan ? `col-span-${colSpan}` : ``} overflow-hidden cursor-pointer w-full h-full ${customDivClasses}`}>
             <Image className={`object-cover w-full h-full ${roundedStyle ? roundedStyle : ``} brightness-90 
-              hover:scale-125 transition-all duration-150 hover:rotate-2 `} src={imgSrc}
+              ${scale ? `hover:scale-125` : ``} transition-all duration-150 ${rotate ? `hover:rotate-2` : ``} `}
+                   src={imgSrc}
                    alt={imgAlt} />
 
           </div>
