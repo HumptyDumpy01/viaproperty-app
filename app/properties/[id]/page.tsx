@@ -15,8 +15,7 @@ import PropertyConveniences from '@/components/PropertyDescription/Layout/Proper
 import AboutLandlord from '@/components/PropertyDescription/Layout/AboutLandlord';
 import PropertyComments from '@/components/PropertyDescription/Layout/PropertyComments';
 import HeadingMedium from '@/components/Typography/HeadingMedium';
-import StarIcon from '@/components/UI/Icon/FilledStar';
-import MetricDisplayRating from '@/components/UI/MetricDisplay/MetricDisplayRating';
+import RenterReviewsMetrics from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -56,49 +55,9 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
                 fugiat nulla pariatur....`} />
 
 
-            <div className={`mb-20`}>
-              <HeadingMedium customClasses={`mb-8`} heading={`Renter Reviews & Ratings`} />
-              <div className={`flex items-center gap-6 w-fit border-b-2 border-r-zinc-200 pb-10 mb-11`}>
-                <div>
-                  <span
-                    className={`inline-block text-9xl bg-clip-text text-transparent bg-linear-main-red font-bold`}>4.4</span>
-                </div>
-                <div className={`flex flex-col gap-2`}>
-                  <div className={`flex items-center gap-2`}>
-                    <StarIcon size={`lg`} state={`filled`} />
-                    <StarIcon size={`lg`} state={`filled`} />
-                    <StarIcon size={`lg`} state={`filled`} />
-                    <StarIcon size={`lg`} state={`filled`} />
-                    <StarIcon size={`lg`} state={`empty`} />
-                  </div>
-                  <p>Based on <span className={`font-medium border-r-zinc-800`}>576 ratings</span></p>
-                </div>
-              </div>
-              <div>
-                <div className={`flex items-center gap-y-24`}>
-                  <div className={`flex flex-col gap-6 items-center`}>
-                    <div className={`flex gap-24 items-center mr-auto`}>
-                      <MetricDisplayRating label={`Location`} rating={4.5} size={`md`} />
-                      <MetricDisplayRating label={`Condition`} rating={3.9} size={`md`} />
-                    </div>
-
-                    <div className={`flex gap-24  mr-auto`}>
-                      <MetricDisplayRating label={`Ownership`} rating={4} size={`md`} />
-                      <MetricDisplayRating label={`Security`} rating={3.33} size={`md`} />
-                    </div>
-
-                    <div className={`flex gap-24  mr-auto`}>
-                      <MetricDisplayRating label={`Noise Level`} rating={2} size={`md`} />
-                      <MetricDisplayRating label={`Amenities`} rating={4} size={`md`} />
-                    </div>
-                  </div>
-
-                  <div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
+            <RenterReviewsMetrics
+              metrics={{ location: 4.44, condition: 4.1, ownership: 4.2, noiseLevel: 2, amenities: 4.4, security: 3.8 }}
+              overallRating={4.3} ratings={534} />
 
             <PropertyComments />
 

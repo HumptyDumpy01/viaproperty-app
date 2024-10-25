@@ -1,6 +1,6 @@
 // 'use client';
 
-import StarIcon from '@/components/UI/Icon/FilledStar';
+import StarIcon from '@/components/UI/Icon/StarIcon';
 
 type MetricDisplayRatingType = {
   rating: number;
