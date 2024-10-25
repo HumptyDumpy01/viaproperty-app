@@ -4,6 +4,8 @@ import User from '@/components/UI/User/User';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Button from '@/components/UI/Button/Button';
 import { useState } from 'react';
+import StarIcon from '@/components/UI/Icon/StarIcon';
+import { roundNumber } from '@/utils/functions/roundNumber';
 
 type CommentType = {
   userType: `user` | `landlord`;
@@ -19,20 +21,45 @@ type CommentType = {
     text: string;
     createdAt: string;
   }[]
+  rating?: number;
 
   // children: ReactNode;
 }
 
-export default function Comment({ userType, createdAt, likes, responses, text, abbrInitials, initials }: CommentType) {
+export default function
+  Comment({
+            userType,
+            createdAt,
+            likes,
+            responses,
+            text,
+            abbrInitials,
+            initials,
+            rating
+          }: CommentType) {
 
   const [showReplies, setShowReplies] = useState<boolean>(false);
+  let roundedRating = null;
+  if (rating) {
+    roundedRating = rating ? roundNumber(rating) : null;
+  }
 
   return (
     <>
       <div className={`flex flex-col gap-5`}>
-
-        <User type={userType} abbrInitials={abbrInitials} initials={initials}
-              createdAt={createdAt} />
+        <div className={`flex items-center gap-6`}>
+          <User type={userType} abbrInitials={abbrInitials} initials={initials}
+                createdAt={createdAt} />
+          {(rating && roundedRating) && (
+            <>
+              <div className={`flex items-center gap-1`}>
+                {[...Array(5)].map((_, index) => (
+                  <StarIcon key={index} size={`md`} state={index < roundedRating ? `filled` : `empty`} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
         <div>
           <p className={`leading-relaxed text-zinc-800`}>{text}</p>
         </div>

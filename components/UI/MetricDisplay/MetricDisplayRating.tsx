@@ -1,6 +1,7 @@
 // 'use client';
 
 import StarIcon from '@/components/UI/Icon/StarIcon';
+import { roundNumber } from '@/utils/functions/roundNumber';
 
 type MetricDisplayRatingType = {
   rating: number;
@@ -10,7 +11,7 @@ type MetricDisplayRatingType = {
 }
 
 export default function MetricDisplayRating({ rating, label, size = `md` }: MetricDisplayRatingType) {
-  const roundedRating = rating % 1 >= 0.5 ? Math.ceil(rating) : Math.floor(rating);
+  const roundedRating = roundNumber(rating);
 
   return (
     <>

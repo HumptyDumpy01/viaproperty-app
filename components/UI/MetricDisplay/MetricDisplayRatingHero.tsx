@@ -1,15 +1,16 @@
 // 'use client';
 
+import { roundNumber } from '@/utils/functions/roundNumber';
+import StarIcon from '@/components/UI/Icon/StarIcon';
+
 type MetricDisplayRatingHeroType = {
   overallRating: number;
   ratingsCount: number;
   // children: ReactNode;
 }
 
-import StarIcon from '@/components/UI/Icon/StarIcon';
-
-export default function MetricDisplayRatingHero({overallRating, ratingsCount}: MetricDisplayRatingHeroType) {
-  const roundedRating = overallRating % 1 >= 0.5 ? Math.ceil(overallRating) : Math.floor(overallRating);
+export default function MetricDisplayRatingHero({ overallRating, ratingsCount }: MetricDisplayRatingHeroType) {
+  const roundedRating = roundNumber(overallRating);
 
   return (
     <>

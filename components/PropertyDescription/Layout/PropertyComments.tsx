@@ -120,6 +120,68 @@ export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
           </>
         )}
 
+        {activeComments === `Reviews` && (
+          <>
+            <div className={`flex flex-col gap-12`}>
+              <Comment rating={4.3} initials={`John Doe`} abbrInitials={`J.D`}
+                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
+                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
+                userType: `landlord`,
+                abbrInitials: `N.B`,
+                initials: `Nikolas Baker`,
+                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
+                createdAt: `August 2024, May 02 at 14:55`
+              }, {
+                userType: `user`,
+                abbrInitials: `J.D`,
+                initials: `John Doe`,
+                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
+                createdAt: `August 2024, May 02 at 14:55`
+              }
+              ]} userType={`user`}
+              />
+
+              <Comment rating={4.5} initials={`John Doe`} abbrInitials={`J.D`}
+                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
+                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
+                userType: `landlord`,
+                abbrInitials: `N.B`,
+                initials: `Nikolas Baker`,
+                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
+                createdAt: `August 2024, May 02 at 14:55`
+              }, {
+                userType: `user`,
+                abbrInitials: `J.D`,
+                initials: `John Doe`,
+                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
+                createdAt: `August 2024, May 02 at 14:55`
+              }
+              ]} userType={`user`} />
+
+              <Comment rating={4.1} initials={`John Doe`} abbrInitials={`J.D`}
+                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
+                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
+                userType: `landlord`,
+                abbrInitials: `N.B`,
+                initials: `Nikolas Baker`,
+                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
+                createdAt: `August 2024, May 02 at 14:55`
+              }, {
+                userType: `user`,
+                abbrInitials: `J.D`,
+                initials: `John Doe`,
+                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
+                createdAt: `August 2024, May 02 at 14:55`
+              }
+              ]} userType={`user`} />
+            </div>
+
+            <div className={`w-fit mt-14`}>
+              <Button label={`See more`} mode={`md`} linearGradient />
+            </div>
+          </>
+        )}
+
       </div>
     </>
   );
