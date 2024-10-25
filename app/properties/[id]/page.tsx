@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 import PropertyGalleryImg1 from '@/assets/property-description/gallery/property-description-1.png';
 import PropertyGalleryImg2 from '@/assets/property-description/gallery/property-description-2.png';
@@ -9,12 +9,18 @@ import BadgeType from '@/components/UI/Badge/BadgeType';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import BadgeTag from '@/components/UI/Badge/BadgeTag';
 import BadgeTagWithIcon from '@/components/UI/Badge/BadgeTagWithIcon';
+import { useState } from 'react';
+import { AccordionFeatureType } from '@/utils/types/AccordionFeatureType';
+import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
 }*/
 
+
 export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
+  const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
+
   return (
     <main className={`max-w-[1320px] mx-auto w-full mb-24`}>
       <div className={`grid grid-cols-property-description mt-10 gap-5`}>
@@ -53,7 +59,7 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
           <h1 className={`text-4xl bg-clip-text max-w-xl text-transparent bg-linear-main-red font-bold mb-6`}>Exquisite
             design
             combined with posh interior</h1>
-          <div className={`flex gap-6 overflow-y-auto max-h-8 w-full scrollbar-hide`}>
+          <div className={`flex gap-6 overflow-y-auto max-h-8 pb-3 w-full scrollbar-hide mb-5`}>
             <BadgeTagWithIcon icon={`wifi`} label={`Wi-Fi`} />
             <BadgeTag abbreviation={`sqft`} metric={`Size`} number={1256} />
             <BadgeTag metric={`Beds`} number={4} />
@@ -61,13 +67,8 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
             <BadgeTag metric={`Baths`} number={2} />
             <BadgeTag metric={`Bedrooms`} number={3} />
             <BadgeTag metric={`Full Kitchen`} />
-            <BadgeTag metric={`Full Kitchen`} />
-            <BadgeTag metric={`Full Kitchen`} />
-            <BadgeTag metric={`Full Kitchen`} />
-            <BadgeTag metric={`Full Kitchen`} />
-            <BadgeTag metric={`Full Kitchen`} />
-            <BadgeTag metric={`Full Kitchen`} />
           </div>
+          <Accordion setActiveState={setActiveState} activeState={activeState} />
         </div>
         <div>
           JKERJ
