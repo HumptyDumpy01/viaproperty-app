@@ -35,7 +35,7 @@ export default function
         <button  {...props} className={`font-bold bg-white text-red-500 rounded-full flex 
                w-fit h-[62px] border border-red-500
               px-12 py-6 text-lg items-center
-              transition-all duration-200 hover:bg-zinc-900 hover:text-white hover:border-transparent active:bg-zinc-700`}> {label} </button>
+              transition-all duration-200 hover:bg-linear-main-red hover:text-white hover:border-transparent active:bg-zinc-700`}> {label} </button>
       )}
 
       {(mode === 'sm' && btnVariant === `white`) && (
