@@ -17,7 +17,7 @@ export default function Navigation(/*{  }: NavigationType*/) {
     <>
       <div className={`max-w-7xl mx-auto w-full mt-9`}>
         <nav className={`flex items-center`}>
-          <Logo label={``} />
+          <Logo link href={`/`} label={``} />
           <div className={`flex mr-4 bp-1178:hidden`}>
             <svg className={``} xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
                  fill="none">
