@@ -12,6 +12,8 @@ import PropertyGalleryImg4 from '@/assets/property-description/gallery/property-
 import PropertyTags from '@/components/PropertyDescription/Layout/PropertyTags';
 import { PropertyTagsEnum } from '@/utils/enums/PropertyTags';
 import PropertyConveniences from '@/components/PropertyDescription/Layout/PropertyConveniences';
+import AboutLandlord from '@/components/PropertyDescription/Layout/AboutLandlord';
+import PropertyComments from '@/components/PropertyDescription/Layout/PropertyComments';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -38,6 +40,22 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
           <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
                                 sqftSize={1258} />
           <Accordion setActiveState={setActiveState} activeState={activeState} />
+          <div className={`mt-14`}>
+            <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit 
+            mb-8`}>About
+              Landlord</h2>
+
+            <AboutLandlord online={true} initials={`Nikolas Baker`} abbrInitials={`N.B`} text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do
+                eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur....`} />
+
+            <PropertyComments />
+
+          </div>
         </div>
         <div>
           JKERJ
