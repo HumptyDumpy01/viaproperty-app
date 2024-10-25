@@ -4,9 +4,8 @@
   // children: ReactNode;
 }*/
 
-import SettingsIcon from '@/components/UI/Icon/SettingsIcon';
 import InputSearch from '@/components/UI/Input/InputSearch';
-import MapIcon from '@/components/UI/Icon/MapIcon';
+import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 
 export default function FormSearch(/*{  }: FormSearchType*/) {
   return (
@@ -16,10 +15,11 @@ export default function FormSearch(/*{  }: FormSearchType*/) {
           <InputSearch placeholder={`Country, City, Street`} />
           <div className={`flex gap-4`}>
             <div className={` bp-1364:hidden`}>
-              <SettingsIcon />
+              <ViapropertyIcon icon={`settings`}
+                               animation={`duration-200 bp-620:hover:scale-150 bp-620:w-[27px] bp-620:h-[28px] `} />
             </div>
             <div className={`bp-896:hidden`}>
-              <MapIcon />
+              <ViapropertyIcon icon={`map`} />
             </div>
           </div>
         </div>

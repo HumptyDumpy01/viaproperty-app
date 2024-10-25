@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import React from 'react';
 import Navigation from '@/components/Layout/Navigation/Navigation';
-import Footer from '@/components/Layout/Footer/Footer';
+// import Footer from '@/components/Layout/Footer/Footer';
 
 export const metadata: Metadata = {
   title: 'Viaproperty Fullstack Project',
@@ -21,7 +21,7 @@ export default function RootLayout({
     <body className="antialiased px-3 bp-480:px-6">
     <Navigation />
     {children}
-    <Footer />
+    {/*<Footer />*/}
     </body>
     </html>
   );

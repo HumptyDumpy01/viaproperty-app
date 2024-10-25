@@ -22,3 +22,24 @@ body {
     background: #e72828;
     color: #ffffff; /* Change to a color that contrasts with the selection background */
 }
+
+@layer utilities {
+    .scrollbar-thin {
+        scrollbar-width: thin;
+        scrollbar-color: #c9d0e3 #EDF2F7;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+        background-color: #4A5568;
+        border-radius: 4px;
+    }
+
+    .scrollbar-thin::-webkit-scrollbar-track {
+        background-color: #EDF2F7;
+    }
+}

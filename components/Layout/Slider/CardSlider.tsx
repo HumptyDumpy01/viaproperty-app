@@ -34,7 +34,7 @@ export default function CardSlider({
                             linkHref={linkHref} />
           </>
         )}
-        <div className={`flex gap-7 overflow-x-auto overflow-y-hidden pb-8`}>
+        <div className={`flex gap-7 overflow-x-auto overflow-y-hidden pb-8 scrollbar-thin`}>
           {children}
         </div>
       </div>

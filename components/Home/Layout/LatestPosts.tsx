@@ -19,7 +19,7 @@ export default function LatestPosts(/*{  }: LatestPostsType*/) {
         <div className={`max-w-7xl mx-auto w-full`}>
           <HeadingAndLink heading={`Latest Posts`} headingSpan={`latest viaproperty news`} linkLabel={`explore`}
                           linkHref={`/blog`} />
-          <div className={`flex gap-9 overflow-x-auto pb-6`}>
+          <div className={`flex gap-9 overflow-x-auto pb-6 scrollbar-thin`}>
             <CardPost href={`/blog/1`} srcImg={PostImg1} paragraphHighlighted={`Lorem ipsum dolor`}
                       paragraph={`consectetur adipiscing elit, sed do eiusmod tempor inci..`} altImg={`post-1`} />
             <CardPost href={`/blog/2`} srcImg={PostImg2} paragraphHighlighted={`Lorem ipsum dolor`}

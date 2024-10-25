@@ -1,5 +1,8 @@
 // tailwind.config.ts
 import type { Config } from 'tailwindcss';
+// @ts-ignore
+import scrollbarHide from 'tailwind-scrollbar-hide';
+import scrollbar from 'tailwind-scrollbar';
 
 const config: Config = {
   content: [
@@ -47,7 +50,8 @@ const config: Config = {
 
       },
       gridTemplateColumns: {
-        'custom-3-cols': '280px 603px 422px'
+        'properties': '280px 603px 422px',
+        'property-description': '914px auto'
       }
     }
   },
@@ -63,7 +67,9 @@ const config: Config = {
           '-webkit-text-fill-color': 'transparent'
         }
       });
-    }
+    },
+    scrollbarHide,
+    scrollbar
   ]
 };
 export default config;

@@ -8,10 +8,9 @@ import NavLink from '@/components/UI/Link/NavLInk';
 import React from 'react';
 import Input from '@/components/UI/Input/Input';
 import Logo from '@/components/UI/Logo/Logo';
-import Heart from '@/components/UI/Icon/Heart';
-import Bell from '@/components/UI/Icon/Bell';
 import UserCredentials from '@/components/Layout/Other/UserCredentials';
 import NavigationFullScreen from '@/components/Layout/Navigation/NavigationFullScreen';
+import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 
 export default function Navigation(/*{  }: NavigationType*/) {
   return (
@@ -40,8 +39,8 @@ export default function Navigation(/*{  }: NavigationType*/) {
           </div>
           <div className={`ml-auto flex gap-7 items-center`}>
             <div className={`hidden bp-480:flex gap-7 items-center`}>
-              <Heart />
-              <Bell />
+              <ViapropertyIcon icon={`heart`} />
+              <ViapropertyIcon icon={`bell`} />
             </div>
             <UserCredentials initials={`Nikolas Tuz`} location={`California, USA`} abbrInitials={`N.B`} />
           </div>
