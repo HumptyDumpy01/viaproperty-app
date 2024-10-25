@@ -16,7 +16,7 @@ export default function AboutLandlord({ abbrInitials, online, initials, text }: 
       <div className={`flex flex-col gap-6 mb-16`}>
         <div className={`flex gap-5`}>
           <div
-            className={`flex items-center border-2 border-red-500 w-[72px] h-[72px] justify-center rounded-full`}>
+            className={`flex items-center border border-red-500 w-[72px] h-[72px] justify-center rounded-full`}>
                 <span
                   className={`inline-block text-xl bg-clip-text text-transparent bg-linear-main-red font-bold`}>{abbrInitials}</span>
           </div>
