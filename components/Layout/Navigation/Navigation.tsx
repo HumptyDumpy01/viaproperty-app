@@ -11,28 +11,14 @@ import Logo from '@/components/UI/Logo/Logo';
 import Heart from '@/components/UI/Icon/Heart';
 import Bell from '@/components/UI/Icon/Bell';
 import UserCredentials from '@/components/Layout/Other/UserCredentials';
+import NavigationFullScreen from '@/components/Layout/Navigation/NavigationFullScreen';
 
 export default function Navigation(/*{  }: NavigationType*/) {
   return (
     <>
       <div className={`inset-0 w-screen h-screen fixed bg-white/95 z-50 bp-1178:opacity-0 opacity-100 pointer-events-hidden
       bp-1178:pointer-events-none translate-y-full transition-all duration-200`}>
-        <div>
-          <ul className={`flex items-center justify-center flex-col gap-6 h-screen text-center`}>
-            <li>
-              <NavLink customFontSizeActive={`text-[30px]`} customFontSizeDefault={`text-[25px]`} label={`Home`}
-                       path={`/`} />
-            </li>
-            <li>
-              <NavLink customFontSizeActive={`text-[30px]`} customFontSizeDefault={`text-[25px]`} label={`Properties`}
-                       path={`/properties`} />
-            </li>
-            <li>
-              <NavLink customFontSizeActive={`text-[30px]`} customFontSizeDefault={`text-[25px]`}
-                       label={`Sell My Property`} path={`/sell`} />
-            </li>
-          </ul>
-        </div>
+        <NavigationFullScreen />
       </div>
       <div className={`max-w-7xl mx-auto w-full mt-9`}>
         <nav className={`flex items-center`}>
