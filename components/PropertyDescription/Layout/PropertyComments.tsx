@@ -8,6 +8,7 @@ import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
 import { useState } from 'react';
 import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
 import Comment from '@/components/Layout/Comment/Comment';
+import Button from '@/components/UI/Button/Button';
 
 
 export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
@@ -85,6 +86,9 @@ export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
           ]} userType={`user`} />
         </div>
 
+        <div className={`w-fit mt-14`}>
+          <Button label={`See more`} mode={`md`} linearGradient />
+        </div>
 
       </div>
     </>
