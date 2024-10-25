@@ -7,15 +7,17 @@ type ButtonType = ComponentPropsWithoutRef<'button'> & {
   mode?: 'lg' | 'md' | 'sm';
   btnVariant?: `red` | `white`
   linearGradient?: boolean;
+  scale?: boolean;
   // children: ReactNode;
 };
 
-export default function Button({ label, mode = 'lg', btnVariant = `red`, linearGradient, ...props }: ButtonType) {
+export default function
+  Button({ label, mode = 'lg', btnVariant = `red`, linearGradient, scale, ...props }: ButtonType) {
 
   return (
     <>
       {(mode === 'lg' && btnVariant === `red`) && (
-        <button {...props} className={`font-bold bg-red-500 rounded-full flex 
+        <button {...props} className={`font-bold ${linearGradient ? `bg-linear-main-red` : `bg-red-500`} rounded-full flex 
                w-fit h-19 text-white 
               px-12 py-6 bp-620:text-xl
               transition-all duration-200 hover:bg-red-700 active:bg-red-400
