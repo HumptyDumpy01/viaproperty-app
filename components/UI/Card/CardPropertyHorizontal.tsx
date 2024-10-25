@@ -24,9 +24,10 @@ export default function
                          }: CardPropertyLongType) {
   return (
     <>
-      <div className={`flex gap-6`}>
-        <div className={`h-44 w-80`}>
-          <Image className={`object-cover `} src={imgSrc} alt={imgAlt} />
+      <div className={`flex flex-col bp-620:flex-row gap-6`}>
+        <div className={`h-44 bp-1364:w-80 mb-4 bp-620:mb-0`}>
+          <Image className={`object-cover rounded-2xl`} src={imgSrc}
+                 alt={imgAlt} />
         </div>
         <div>
           <h3 className={`text-slate-900 font-semibold text-[17px] mb-2`}>{heading}</h3>

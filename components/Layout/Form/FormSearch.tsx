@@ -11,7 +11,7 @@ export default function FormSearch(/*{  }: FormSearchType*/) {
   return (
     <>
       <form className={`relative flex`}>
-        <div className={`flex items-center justify-center gap-10`}>
+        <div className={`flex bp-620:items-center justify-center gap-4 bp-620:gap-11 flex-col bp-620:flex-row`}>
           <InputSearch placeholder={`Country, City, Street`} />
           <div>
             <SettingsIcon />

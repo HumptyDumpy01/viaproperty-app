@@ -5,7 +5,7 @@
 }*/
 
 import FormSearch from '@/components/Layout/Form/FormSearch';
-import CardPropertyHorizontal from '@/components/UI/Card/CadPropertyHorizontal';
+import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import PropertyImg1 from '@/assets/properties/property-1.png';
 import PropertyImg2 from '@/assets/properties/property-2.png';
 import PropertyImg3 from '@/assets/properties/property-3.png';
@@ -16,7 +16,7 @@ import SearchResultsMetrics from '@/components/Layout/Filter/SearchResults/Searc
 export default function SearchResults(/*{  }: SearchResultsType*/) {
   return (
     <>
-      <div className={`ml-11 mr-11`}>
+      <div className={`bp-620:mx-11 mx-6`}>
         <h3 className={`bg-clip-text text-transparent bg-linear-main-red mb-6
           text-3xl font-bold`}>Search any property you&#39;d
           like!</h3>

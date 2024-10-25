@@ -5,7 +5,8 @@ const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}'
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/globals.css' // Add this line
   ],
   theme: {
     extend: {
@@ -38,8 +39,11 @@ const config: Config = {
         'bp-1009': '1009px',
         'bp-732': '732px',
         // FOOTER SECTION
-        'bp-1160': '1160px'
+        'bp-1160': '1160px',
         ///////////////////////////////////////
+        /* IMPORTANT: PROPERTIES */
+        'bp-1364': '1364px',
+        'bp-896': '896px'
 
       },
       gridTemplateColumns: {
