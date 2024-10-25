@@ -15,8 +15,12 @@ export default function FormSearch(/*{  }: FormSearchType*/) {
         <div className={`flex bp-620:items-center justify-center gap-4 bp-620:gap-11 flex-col bp-620:flex-row`}>
           <InputSearch placeholder={`Country, City, Street`} />
           <div className={`flex gap-4`}>
-            <SettingsIcon />
-            <MapIcon />
+            <div className={` bp-1364:hidden`}>
+              <SettingsIcon />
+            </div>
+            <div className={`bp-896:hidden`}>
+              <MapIcon />
+            </div>
           </div>
         </div>
       </form>
