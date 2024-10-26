@@ -1,7 +1,7 @@
 // 'use client';
 
 type ReplyOnCommentType = {
-  textareaWidth: number;
+  textareaWidth: string;
   textareaName: string;
   setLeaveReplyOpen: (arg: boolean) => void;
   btnLabel: string;
@@ -20,7 +20,7 @@ export default function ReplyOnComment({
     <>
       <div className={`flex`}>
         <form className={`flex flex-col gap-3`}>
-          <Textarea name={textareaName} width={textareaWidth} />
+          <Textarea name={textareaName} widthClass={textareaWidth} />
           <div className={`flex items-center gap-3`}>
             <button
               className={`text-left transition-all duration-200 text-sm 

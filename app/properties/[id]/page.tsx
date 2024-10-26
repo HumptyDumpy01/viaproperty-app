@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { AccordionFeatureType } from '@/utils/types/AccordionFeatureType';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
 import PropertyGallery from '@/components/PropertyDescription/Layout/PropertyGallery';
@@ -16,9 +16,9 @@ import AboutLandlord from '@/components/PropertyDescription/Layout/AboutLandlord
 import PropertyComments, { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import HeadingMedium from '@/components/Typography/HeadingMedium';
 import RenterReviewsMetrics from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
-import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
 import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
-import StarRating from '@/components/UI/Input/StarRating';
+import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
+import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -29,9 +29,18 @@ export type LeaveCommentBadgeType = `Leave Review` | `Ask Question`;
 export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
   const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
   const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(`Leave Review`);
+  const [reviewsAvailable, setReviewsAvailable] = useState<boolean>(true);
 
 
   const handleSetLeaveCommentBadge = (switchTo: CommentType | ActiveFilterTypeQuestions | LeaveCommentBadgeType) => {
+
+    if (switchTo === 'Leave Review') {
+      setReviewsAvailable(true);
+    }
+    if (switchTo === 'Ask Question') {
+      setReviewsAvailable(false);
+    }
+
     if (switchTo === 'Leave Review' || switchTo === 'Ask Question') {
       setActiveLeaveCommentBadge(switchTo);
     }
@@ -82,40 +91,20 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
               <PropertyComments />
             </div>
 
-            <div className={``}>
-              <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-dark-blue font-bold flex w-fit
-                mb-8`}>Share your Experience or Ask <br /> a Question</h2>
+            <div>
+              <LeaveComment available={{ reviews: reviewsAvailable, questions: true }} badges={
+                (
+                  <>
+                    <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
+                                  type={`lg`}
+                                  state={activeLeaveCommentBadge} />
 
-              <div className={`flex gap-3 mb-9`}>
-
-                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
-                              type={`lg`}
-                              state={activeLeaveCommentBadge} />
-
-                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
-                              type={`lg`}
-                              state={activeLeaveCommentBadge} />
-
-              </div>
-
-              <div className={`flex flex-col gap-8`}>
-                <div className={`flex items-center gap-16`}>
-                  <StarRating name={`location`} label={`Location`} />
-                  <StarRating label={`Security`} name={`security`} />
-                </div>
-
-                <div className={`flex items-center gap-16`}>
-                  <StarRating name={`condition`} label={`Condition`} />
-                  <StarRating name={`noiseLevel`} label={`Noise Level`} />
-                </div>
-
-                <div className={`flex items-center gap-16`}>
-                  <StarRating name={`ownership`} label={`Ownership`} />
-                  <StarRating name={`amenities`} label={`Amenities`} />
-                </div>
-                <div>
-                </div>
-              </div>
+                    <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
+                                  type={`lg`}
+                                  state={activeLeaveCommentBadge} />
+                  </>
+                )
+              } />
 
             </div>
 
