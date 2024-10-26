@@ -43,3 +43,20 @@ body {
         background-color: #EDF2F7;
     }
 }
+
+
+.star-rating-container {
+    input[type="radio"] {
+        appearance: none;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: url('/stars/blue-star-empty.png') no-repeat center center;
+        background-size: contain;
+        background-color: #fff !important;
+        cursor: pointer;
+        @media only screen and (max-width: 26.25em) {
+            width: 1.8rem;
+            height: 1.8rem;
+        }
+    }
+}
