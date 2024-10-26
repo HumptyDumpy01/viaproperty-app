@@ -49,7 +49,7 @@ export default function StarRating({ label, name }: StarRatingType) {
               id={`${name}-${star}`}
               name={name}
               value={star}
-              className="leave-a-reply__form-rate-input"
+              className="mr-1"
               required
               onClick={() => handleRating(star)}
               onMouseEnter={() => handleMouseEnter(star)}
