@@ -6,6 +6,7 @@ import Button from '@/components/UI/Button/Button';
 import { useState } from 'react';
 import StarIcon from '@/components/UI/Icon/StarIcon';
 import { roundNumber } from '@/utils/functions/roundNumber';
+import ReplyOnComment from '@/components/Layout/Comment/ReplyOnComment';
 
 type CommentType = {
   userType: `user` | `landlord`;
@@ -43,6 +44,8 @@ export default function
   if (rating) {
     roundedRating = rating ? roundNumber(rating) : null;
   }
+
+  const [leaveReplyOpen, setLeaveReplyOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -89,9 +92,21 @@ export default function
             </div>
           )}
 
-          <Button mode={`sm`} label={`Reply`}
-                  btnVariant={`black`} />
+          {!leaveReplyOpen && (
+            <>
+              <div onClick={() => setLeaveReplyOpen(true)}>
+                <Button mode={`sm`} label={`Reply`}
+                        btnVariant={`black`} />
+              </div>
+            </>
+          )}
         </div>
+        {leaveReplyOpen && (
+          <>
+            <ReplyOnComment setLeaveReplyOpen={setLeaveReplyOpen} btnLabel={`Add Reply`} textareaName={`reply`}
+                            textareaWidth={340} />
+          </>
+        )}
       </div>
     </>
   );

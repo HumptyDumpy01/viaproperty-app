@@ -15,7 +15,7 @@ export default function PropertyGallery({ images }: PropertyGalleryType) {
     <>
       <div className={`grid grid-cols-3 gap-2.5`}>
         <div className={`col-span-2 overflow-hidden cursor-pointer`}>
-          <GalleryImage customDivClasses={`rounded-tl-3xl rounded-bl-3xl`} scale={true} rotate={false}
+          <GalleryImage customDivClasses={`rounded-tl-3xl rounded-bl-3xl`} scale={true}
                         roundedStyle={`rounded-l-2xl`}
                         colSpan={2} imgSrc={heroImage}
                         imgAlt={`Property Image 1`} />
