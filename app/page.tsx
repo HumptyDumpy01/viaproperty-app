@@ -10,7 +10,7 @@ import LatestPosts from '@/components/Home/Layout/LatestPosts';
 
 export default function Home() {
   return (
-    <main className={`overflow-hidden`}>
+    <main className={`overflow-hidden px-3 bp-480:px-6`}>
       <Hero />
       <About />
       <OurServices />

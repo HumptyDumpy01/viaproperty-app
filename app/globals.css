@@ -8,6 +8,7 @@
 body {
     /*  inject a montserrat font */
     font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
 }
 
 /* use selection as red*`//
