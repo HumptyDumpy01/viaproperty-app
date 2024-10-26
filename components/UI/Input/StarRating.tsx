@@ -31,8 +31,8 @@ export default function StarRating({ label, name }: StarRatingType) {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      <label htmlFor="location"
+    <div className="flex items-center gap-4 w-[340px]">
+      <label htmlFor={name}
              className="mr-4 bg-clip-text text-transparent bg-linear-main-dark-blue text-[28px] font-bold">{label}</label>
       <div className="flex items-center gap-2">
         <div className="star-rating-container">
