@@ -36,7 +36,7 @@ export default function Range({ min, max, maxFormatted, step, name, metric }: Ra
           <div className={`flex items-center justify-between gap-4`}>
               <span
                 className={`bg-zinc-100 px-4 py-1 text-[13px] rounded text-zinc-900 font-medium`}>
-                {metric === `dollars` ? `$${priceRange}` : `${priceRange} sqft`}</span>
+                {metric === `dollars` ? `$${priceRange}` : `${priceRange}`}</span>
             <span
               className={`bg-zinc-100 px-4 py-1 text-[13px] rounded text-zinc-900 font-medium`}>
             {metric === `dollars` ? `$${maxFormatted}` : `${maxFormatted}sqft`}</span>

@@ -12,6 +12,7 @@ import PropertyImg3 from '@/assets/properties/property-3.png';
 import PropertyImg4 from '@/assets/properties/property-4.png';
 import PropertyImg5 from '@/assets/properties/property-5.png';
 import SearchResultsMetrics from '@/components/Layout/Filter/SearchResults/SearchResultsMetrics';
+import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
 
 export default function SearchResults(/*{  }: SearchResultsType*/) {
   return (
@@ -20,7 +21,9 @@ export default function SearchResults(/*{  }: SearchResultsType*/) {
         <h3 className={`bg-clip-text text-transparent bg-linear-main-red mb-6
           text-3xl font-bold`}>Search any property you&#39;d
           like!</h3>
-        <FormSearch />
+        <ReduxProvider>
+          <FormSearch />
+        </ReduxProvider>
         <SearchResultsMetrics results={547} />
         <div className={`flex flex-col gap-9`}>
           <CardPropertyHorizontal type={`buy`} createdAt={`4`}

@@ -16,11 +16,11 @@ export default function Navigation(/*{  }: NavigationType*/) {
   const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
   return (
     <>
-      <div onClick={() => setNavigationOpen(false)} className={`inset-0 w-screen h-screen fixed bg-white/95 z-50 bp-1178:opacity-0 opacity-100 pointer-events-hidden
-      bp-1178:pointer-events-none ${navigationOpen ? `translate-x-0` : `translate-x-full`} transition-all duration-300`}>
+      <div onClick={() => setNavigationOpen(false)} className={`inset-0 w-screen h-screen fixed bg-white/95 z-50 bp-1178:opacity-0 pointer-events-hidden
+      bp-1178:pointer-events-none ${navigationOpen ? `translate-x-0 opacity-100` : `translate-x-full  opacity-0`} transition-all duration-300`}>
         <NavigationFullScreen setNavigationOpen={setNavigationOpen} />
       </div>
-      <div className={`max-w-7xl mx-auto w-full mt-9`}>
+      <div className={`max-w-7xl mx-auto w-full mt-9 px-4`}>
         <nav className={`flex items-center`}>
           <Logo link href={`/`} label={``} />
           <div className={`flex mr-4 bp-1178:hidden`}>
