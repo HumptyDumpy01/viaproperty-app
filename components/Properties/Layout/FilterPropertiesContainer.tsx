@@ -18,7 +18,6 @@ export default function FilterPropertiesContainer(/*{  }: FilterPropertiesContai
 
   return (
     <>
-
       <CloseLayoutIcon extraClasses={`bp-1364:opacity-0 bp-1364:pointer-events-none`} fixedPosition={`top-6 right-5`}
                        layoutOpen={filterOpen}
                        dispatch={() => dispatch(propertiesActions.toggleFilter(false))} />
