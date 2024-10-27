@@ -14,7 +14,10 @@ export default function Home() {
       <Hero />
       <About />
       <OurServices />
-      <FeaturedProperties />
+      <FeaturedProperties
+        headingLabel={`Featured Properties`}
+        headingSpan={`viaproperty recommends!`}
+        headingHref={`/properties?tags=featured`} />
       <BuyProperty />
       <CustomerTestimonials />
       <CallToActionBlock />

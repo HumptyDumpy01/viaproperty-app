@@ -20,6 +20,7 @@ import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestio
 import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
 import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
+import FeaturedProperties from '@/components/Home/Layout/FeaturedProperties';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -120,6 +121,10 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
       </div>
       <div>
         <CallToActionBlock rounded={false} fullScreen type={`sell-rent`} />
+      </div>
+      <div>
+        <FeaturedProperties
+          headingLabel={`You might also like...`} headingSpan={`based on your search!`} headingHref={`/properties`} />
       </div>
     </main>
   );

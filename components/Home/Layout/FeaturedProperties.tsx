@@ -1,8 +1,11 @@
 // 'use client';
 
-/*type FeaturedPropertiesType = {
+type FeaturedPropertiesType = {
+  headingLabel: string;
+  headingSpan: string;
+  headingHref: string;
   // children: ReactNode;
-}*/
+}
 
 import CardSlider from '@/components/Layout/Slider/CardSlider';
 import CardProperty from '@/components/UI/Card/CardProperty';
@@ -13,12 +16,12 @@ import FeaturedProperty4 from '@/assets/home/featured/featured-4.png';
 import FeaturedProperty5 from '@/assets/home/featured/featured-5.png';
 import React from 'react';
 
-export default function FeaturedProperties(/*{  }: FeaturedPropertiesType*/) {
+export default function FeaturedProperties({ headingLabel, headingHref, headingSpan }: FeaturedPropertiesType) {
   return (
     <>
       <section className={`mb-20`}>
-        <CardSlider showHeading heading={`Featured Properties`} headingSpan={`viaproperty recommends`}
-                    linkHref={`/properties?tags=featured`} linkLabel={`see all`}>
+        <CardSlider showHeading heading={headingLabel} headingSpan={headingSpan}
+                    linkHref={headingHref} linkLabel={`see all`}>
           <CardProperty href={`properties/1`} heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
                         altImg={`A featured property 1`} srcImg={FeaturedProperty1} createdAt={`4`} type={`rent`}
                         paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a...`}
