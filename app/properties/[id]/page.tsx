@@ -22,6 +22,8 @@ import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
 import FeaturedProperties from '@/components/Home/Layout/FeaturedProperties';
 import ViapropertySidebar from '@/components/Layout/Sidebar/ViapropertySidebar';
+import { Provider } from 'react-redux';
+import store from '@/store/store';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -50,28 +52,29 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
   };
 
   return (
-    <main className={`mb-24`}>
-      <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
-        <div className={`grid grid-cols-property-description mt-10 gap-5`}>
-          <div>
-            <PropertyGallery
-              images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
+    <Provider store={store}>
+      <main className={`mb-24`}>
+        <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
+          <div className={`grid grid-cols-property-description mt-10 gap-5`}>
+            <div>
+              <PropertyGallery
+                images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
 
-            <PropertyTags
-              tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
+              <PropertyTags
+                tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
 
-            <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={`Exquisite
+              <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={`Exquisite
           design
           combined with posh interior`} />
 
-            <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
-                                  sqftSize={1258} />
-            <Accordion setActiveState={setActiveState} activeState={activeState} />
-            <div className={`mt-14`}>
-              <HeadingMedium customClasses={`mb-8`} heading={`About
+              <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
+                                    sqftSize={1258} />
+              <Accordion setActiveState={setActiveState} activeState={activeState} />
+              <div className={`mt-14`}>
+                <HeadingMedium customClasses={`mb-8`} heading={`About
             Landlord`} />
 
-              <AboutLandlord online={true} initials={`Nikolas Baker`} abbrInitials={`N.B`} text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                <AboutLandlord online={true} initials={`Nikolas Baker`} abbrInitials={`N.B`} text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
               do
               eiusmod tempor incididunt ut labore et
               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -80,55 +83,56 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
               fugiat nulla pariatur....`} />
 
 
-              <RenterReviewsMetrics
-                metrics={{
-                  location: 4.44,
-                  condition: 4.1,
-                  ownership: 4.2,
-                  noiseLevel: 2,
-                  amenities: 4.4,
-                  security: 3.8
-                }}
-                overallRating={4.3} ratings={534} />
+                <RenterReviewsMetrics
+                  metrics={{
+                    location: 4.44,
+                    condition: 4.1,
+                    ownership: 4.2,
+                    noiseLevel: 2,
+                    amenities: 4.4,
+                    security: 3.8
+                  }}
+                  overallRating={4.3} ratings={534} />
 
-              <div className={`mb-16`}>
-                <PropertyComments />
-              </div>
+                <div className={`mb-16`}>
+                  <PropertyComments />
+                </div>
 
-              <div>
-                <LeaveComment available={{ reviews: reviewsAvailable, questions: true }} badges={
-                  (
-                    <>
-                      <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
-                                    type={`lg`}
-                                    state={activeLeaveCommentBadge} />
+                <div>
+                  <LeaveComment available={{ reviews: reviewsAvailable, questions: true }} badges={
+                    (
+                      <>
+                        <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
+                                      type={`lg`}
+                                      state={activeLeaveCommentBadge} />
 
-                      <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
-                                    type={`lg`}
-                                    state={activeLeaveCommentBadge} />
-                    </>
-                  )
-                } />
+                        <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
+                                      type={`lg`}
+                                      state={activeLeaveCommentBadge} />
+                      </>
+                    )
+                  } />
 
+                </div>
               </div>
             </div>
-          </div>
 
-          <div>
-            <ViapropertySidebar />
-          </div>
+            <div>
+              <ViapropertySidebar />
+            </div>
 
+          </div>
+          <div className={`mt-20`}>
+          </div>
         </div>
-        <div className={`mt-20`}>
+        <div>
+          <CallToActionBlock rounded={false} fullScreen type={`sell-rent`} />
         </div>
-      </div>
-      <div>
-        <CallToActionBlock rounded={false} fullScreen type={`sell-rent`} />
-      </div>
-      <div>
-        <FeaturedProperties
-          headingLabel={`You might also like...`} headingSpan={`based on your search!`} headingHref={`/properties`} />
-      </div>
-    </main>
+        <div>
+          <FeaturedProperties
+            headingLabel={`You might also like...`} headingSpan={`based on your search!`} headingHref={`/properties`} />
+        </div>
+      </main>
+    </Provider>
   );
 }

@@ -5,7 +5,7 @@
 }*/
 
 import NavLink from '@/components/UI/Link/NavLInk';
-import React from 'react';
+import React, { useState } from 'react';
 import Input from '@/components/UI/Input/Input';
 import Logo from '@/components/UI/Logo/Logo';
 import UserCredentials from '@/components/Layout/Other/UserCredentials';
@@ -13,17 +13,19 @@ import NavigationFullScreen from '@/components/Layout/Navigation/NavigationFullS
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 
 export default function Navigation(/*{  }: NavigationType*/) {
+  const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
   return (
     <>
-      <div className={`inset-0 w-screen h-screen fixed bg-white/95 z-50 bp-1178:opacity-0 opacity-100 pointer-events-hidden
-      bp-1178:pointer-events-none translate-y-full transition-all duration-200`}>
-        <NavigationFullScreen />
+      <div onClick={() => setNavigationOpen(false)} className={`inset-0 w-screen h-screen fixed bg-white/95 z-50 bp-1178:opacity-0 opacity-100 pointer-events-hidden
+      bp-1178:pointer-events-none ${navigationOpen ? `translate-x-0` : `translate-x-full`} transition-all duration-300`}>
+        <NavigationFullScreen setNavigationOpen={setNavigationOpen} />
       </div>
       <div className={`max-w-7xl mx-auto w-full mt-9`}>
         <nav className={`flex items-center`}>
           <Logo link href={`/`} label={``} />
           <div className={`flex mr-4 bp-1178:hidden`}>
-            <svg className={``} xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+            <svg onClick={() => setNavigationOpen(true)} className={``} xmlns="http://www.w3.org/2000/svg" width="32"
+                 height="32" viewBox="0 0 24 24"
                  fill="none">
               <path d="M4 5H20M18 12H6M8 19H16" stroke="#FF3030" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
