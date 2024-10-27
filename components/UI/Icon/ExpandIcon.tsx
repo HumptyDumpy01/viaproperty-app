@@ -1,16 +1,16 @@
 // 'use client';
 
 type ExpandIconType = {
-  type: `expand` | `collapse`;
+  state: boolean;
   // children: ReactNode;
 }
 
 import React from 'react';
 
-export default function ExpandIcon({ type }: ExpandIconType) {
+export default function ExpandIcon({ state }: ExpandIconType) {
   return (
     <>
-      {type === `collapse` && (
+      {state && (
         <>
           <svg className={`cursor-pointer`} xmlns="http://www.w3.org/2000/svg" width="13" height="3" viewBox="0 0 13 3"
                fill="none">
@@ -26,7 +26,7 @@ export default function ExpandIcon({ type }: ExpandIconType) {
           </svg>
         </>
       )}
-      {type === `expand` && (
+      {!state && (
         <>
           <svg className={`cursor-pointer`} xmlns="http://www.w3.org/2000/svg" width="12" height="10"
                viewBox="0 0 12 10" fill="none">
