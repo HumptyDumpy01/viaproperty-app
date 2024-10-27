@@ -21,7 +21,7 @@ export default function FormSearch(/*{  }: FormSearchType*/) {
               <ViapropertyIcon icon={`settings`}
                                animation={`duration-200 bp-620:hover:scale-150 bp-620:w-[27px] bp-620:h-[28px] `} />
             </div>
-            <div className={`bp-896:hidden`}>
+            <div className={`bp-896:hidden`} onClick={() => dispatch(propertiesActions.toggleMap(true))}>
               <ViapropertyIcon icon={`map`} />
             </div>
           </div>

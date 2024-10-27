@@ -7,6 +7,7 @@
 import FilterProperties from '@/components/Layout/Filter/FilterProperties/FilterProperties';
 import { useCartDispatch, useCartSelector } from '@/store/hooks';
 import { propertiesActions } from '@/store/features/properties';
+import CloseLayoutIcon from '@/components/UI/Button/CloseLayoutIcon';
 
 export default function FilterPropertiesContainer(/*{  }: FilterPropertiesContainerType*/) {
   const filterOpen = useCartSelector((state) => state.properties.openFilter);
@@ -17,6 +18,10 @@ export default function FilterPropertiesContainer(/*{  }: FilterPropertiesContai
 
   return (
     <>
+
+      <CloseLayoutIcon extraClasses={`bp-1364:opacity-0 bp-1364:pointer-events-none`} fixedPosition={`top-6 right-5`}
+                       layoutOpen={filterOpen}
+                       dispatch={() => dispatch(propertiesActions.toggleFilter(false))} />
       {filterOpen && (
         <>
           <div onClick={() => dispatch(propertiesActions.toggleFilter(false))}

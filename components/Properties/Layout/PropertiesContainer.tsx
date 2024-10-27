@@ -18,7 +18,9 @@ export default function PropertiesContainer(/*{  }: PropertiesContainerType*/) {
           <FilterPropertiesContainer />
         </ReduxProvider>
         <SearchResultsContainer />
-        <MapContainer />
+        <ReduxProvider>
+          <MapContainer />
+        </ReduxProvider>
       </div>
       <Pagination pages={3} showing={6} total={19} />
     </div>

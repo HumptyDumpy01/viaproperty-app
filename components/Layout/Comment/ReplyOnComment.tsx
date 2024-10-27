@@ -1,5 +1,8 @@
 // 'use client';
 
+import CloseIcon from '@/components/UI/Icon/CloseIcon';
+import Textarea from '@/components/UI/Textarea/Textarea';
+
 type ReplyOnCommentType = {
   textareaWidth: string;
   textareaName: string;
@@ -7,8 +10,6 @@ type ReplyOnCommentType = {
   btnLabel: string;
   // children: ReactNode;
 }
-
-import Textarea from '@/components/UI/Textarea/Textarea';
 
 export default function ReplyOnComment({
                                          textareaWidth,
@@ -28,9 +29,7 @@ export default function ReplyOnComment({
                  hover:bg-zinc-800 active:bg-zinc-400 rounded-full font-semibold`}>{btnLabel}</button>
             <div className={`flex transition-all duration-200 hover:scale-150 cursor-pointer`}
                  onClick={() => setLeaveReplyOpen(false)}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                <path d="M20 20L4 4M20 4L4 20" stroke="#222" stroke-width="2" stroke-linecap="round" />
-              </svg>
+              <CloseIcon />
             </div>
           </div>
         </form>
