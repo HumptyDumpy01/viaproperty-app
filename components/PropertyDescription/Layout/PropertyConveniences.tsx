@@ -26,7 +26,7 @@ export default function
                        }: PropertyConveniencesType) {
   return (
     <>
-      <div className={`flex gap-6 overflow-y-auto max-h-8 pb-3 w-full scrollbar-hide mb-5`}>
+      <div className={`flex gap-6 overflow-y-auto max-h-8 pb-3 w-full scrollbar-thin mb-5`}>
         {wifi && (
           <BadgeTagWithIcon icon={`wifi`} label={`Wi-Fi`} />
         )}
@@ -36,7 +36,9 @@ export default function
         <BadgeTag metric={`Baths`} number={baths} />
         <BadgeTag metric={`Bedrooms`} number={bedrooms} />
         {fullKitchen && (
-          <BadgeTag metric={`Full Kitchen`} />
+          <>
+            <BadgeTag metric={`Full Kitchen`} />
+          </>
         )}
       </div>
     </>

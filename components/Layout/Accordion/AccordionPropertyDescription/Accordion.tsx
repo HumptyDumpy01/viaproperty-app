@@ -10,7 +10,7 @@ export default function Accordion({ setActiveState, activeState }: AccordionType
     <>
       <div>
         <div className={`flex flex-col`}>
-          <div className={`flex gap-5 overflow-y-auto max-h-20 pb-3 w-full scrollbar-hide mb-5`}>
+          <div className={`flex gap-5 overflow-y-auto max-h-20 pb-3 w-full scrollbar-thin mb-5`}>
             <AccordionFeature setActiveState={setActiveState} activeState={activeState}
                               type={`description`} label={`Description`} />
             <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`features`}
