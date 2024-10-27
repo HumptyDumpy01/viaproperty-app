@@ -21,6 +21,9 @@ import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
 import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
 import FeaturedProperties from '@/components/Home/Layout/FeaturedProperties';
+import LabelAndTextBadge from '@/components/UI/Badge/LabelAndTextBadge';
+import ExpandIcon from '@/components/UI/Icon/ExpandIcon';
+import Checkbox from '@/components/UI/Checkbox/Checkbox';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -112,8 +115,67 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
               </div>
             </div>
           </div>
-          <div>
-            Sidebar
+          <div className={`border h-fit border-red-500 rounded-3xl p-7 w-full`}>
+            <div className={`flex items-center justify-between mb-6`}>
+              <div className={`flex gap-5 items-center`}>
+                <span
+                  className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>$144,698</span>
+                <span className={`text-zinc-300 inline-block line-through`}>$180,872</span>
+              </div>
+              <span
+                className={`inline-block text-[13px] font-semibold bg-linear-main-red text-white px-3 py-1 rounded-full`}>20%</span>
+            </div>
+            <div>
+              <h2 className={`bg-clip-text mb-4 text-transparent bg-linear-main-red font-bold text-3xl`}>Let&#39;s Buy
+                it!</h2>
+              <div className={`flex flex-col gap-3.5 mb-7`}>
+                <LabelAndTextBadge label={`Location`} text={`UK, Birmingham, Lauchester street 14`} />
+                <LabelAndTextBadge label={`Selling Options`} text={`Buy a Property`} />
+              </div>
+              <div className={`flex flex-col gap-2 justify-center`}>
+                <div className={`flex justify-between items-center mb-4`}>
+                  <h3 className={`bg-clip-text text-xl text-transparent bg-linear-main-red font-bold`}>Extra
+                    Features</h3>
+                  <ExpandIcon type={`collapse`} />
+                </div>
+
+                <div className={`flex items-center justify-between`}>
+                  <div>
+                    <Checkbox label={`Garage`} name={`garage`} />
+                  </div>
+                  <div>
+                    <span className={`text-sm bg-clip-text text-transparent bg-linear-main-dark-blue`}>177$</span>
+                  </div>
+                </div>
+
+                <div className={`flex items-center justify-between`}>
+                  <div>
+                    <Checkbox label={`Home Warranty`} name={`HomeWarranty`} />
+                  </div>
+                  <div>
+                    <span className={`text-sm bg-clip-text text-transparent bg-linear-main-dark-blue`}>1277$</span>
+                  </div>
+                </div>
+
+                <div className={`flex items-center justify-between`}>
+                  <div>
+                    <Checkbox label={`Home Inspection`} name={`HomeInspection`} />
+                  </div>
+                  <div>
+                    <span className={`text-sm bg-clip-text text-transparent bg-linear-main-dark-blue`}>456$</span>
+                  </div>
+                </div>
+
+                <div className={`flex items-center justify-between`}>
+                  <div>
+                    <Checkbox label={`Include Furniture`} name={`IncludeFurniture`} />
+                  </div>
+                  <div>
+                    <span className={`text-sm bg-clip-text text-transparent bg-linear-main-dark-blue`}>2177$</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={`mt-20`}>
