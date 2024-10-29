@@ -28,21 +28,22 @@ export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
   return (
     <>
       <div>
-        <div className={`flex gap-14`}>
+        <div className={`flex bp-620:gap-14 flex-col bp-620:flex-row mb-7 bp-620:mb-0`}>
           <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit
                   mb-8`}>Comments</h2>
-          <div className={`flex gap-3`}>
-
-            <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Reviews`} color={`blue`} type={`lg`}
-                          state={activeComments} />
-
-            <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
-                          state={activeComments} />
-
+          <div className={`flex gap-3 flex-wrap`}>
+            <div>
+              <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Reviews`} color={`blue`} type={`lg`}
+                            state={activeComments} />
+            </div>
+            <div>
+              <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
+                            state={activeComments} />
+            </div>
           </div>
         </div>
 
-        <div className={`flex items-center gap-2.5 mb-12`}>
+        <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
           <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
           <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
           {activeComments === `Questions` && (

@@ -23,24 +23,20 @@ export default function RenterReviewsMetrics({ ratings, overallRating, metrics }
         <div>
           <div className={`flex items-center gap-y-24`}>
             <div className={`flex flex-col gap-6 items-center`}>
-              <div className={`flex gap-24 items-center mr-auto`}>
+              <div className={`flex bp-1160:flex-row bp-1160:gap-24 items-center mr-auto flex-col gap-4`}>
                 <MetricDisplayRating label={`Location`} rating={metrics.location} size={`md`} />
                 <MetricDisplayRating label={`Condition`} rating={metrics.condition} size={`md`} />
               </div>
 
-              <div className={`flex gap-24  mr-auto`}>
+              <div className={`flex bp-1160:flex-row bp-1160:gap-24 items-center mr-auto flex-col gap-4`}>
                 <MetricDisplayRating label={`Ownership`} rating={metrics.ownership} size={`md`} />
                 <MetricDisplayRating label={`Security`} rating={metrics.security} size={`md`} />
               </div>
 
-              <div className={`flex gap-24  mr-auto`}>
+              <div className={`flex bp-1160:flex-row bp-1160:gap-24 items-center mr-auto flex-col gap-4`}>
                 <MetricDisplayRating label={`Noise Level`} rating={metrics.noiseLevel} size={`md`} />
                 <MetricDisplayRating label={`Amenities`} rating={metrics.amenities} size={`md`} />
               </div>
-            </div>
-
-            <div>
-
             </div>
           </div>
         </div>

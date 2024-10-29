@@ -50,7 +50,7 @@ export default function
   return (
     <>
       <div className={`flex flex-col gap-5`}>
-        <div className={`flex items-center gap-6`}>
+        <div className={`flex bp-620:items-center gap-6 flex-col bp-620:flex-row`}>
           <User type={userType} abbrInitials={abbrInitials} initials={initials}
                 createdAt={createdAt} />
           {(rating && roundedRating) && (

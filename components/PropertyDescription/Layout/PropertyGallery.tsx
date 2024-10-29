@@ -21,19 +21,19 @@ export default function PropertyGallery({ images }: PropertyGalleryType) {
         <>
           <ImageGalleryFullScreen images={[
             {
-              src: `/images/gallery/property-description-1-fullscreen.jpg`,
+              src: `/images/property-description/gallery/property-description-1-fullscreen.jpg`,
               alt: `Property Image 1`
             },
             {
-              src: `/images/gallery/property-description-2-fullscreen.jpg`,
+              src: `/images/property-description/gallery/property-description-2-fullscreen.jpg`,
               alt: `Property Image 2`
             },
             {
-              src: `/images/gallery/property-description-3-fullscreen.jpg`,
+              src: `/images/property-description/gallery/property-description-3-fullscreen.jpg`,
               alt: `Property Image 3`
             },
             {
-              src: `/images/gallery/property-description-4-fullscreen.jpg`,
+              src: `/images/property-description/gallery/property-description-4-fullscreen.jpg`,
               alt: `Property Image 4`
             }
           ]} dispatch={() => setOpenGalleryLayout(false)} layoutOpen={openGalleryLayout} />

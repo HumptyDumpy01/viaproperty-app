@@ -57,7 +57,7 @@ export default function
             )}
 
             {type === `sell-rent` && (
-              <div className={`flex gap-5 items-center justify-center mb-8`}>
+              <div className={`flex gap-5 items-center justify-center mb-8 bp-620:flex-row flex-col`}>
                 <Button type={`button`} mode={`md`} label={`Sell Property`} />
                 <span className={`uppercase text-xl text-white font-semibold`}>or</span>
                 <ButtonEmpty label={`Rent property!`} />

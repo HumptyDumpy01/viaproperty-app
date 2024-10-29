@@ -133,7 +133,7 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
       <div className={`mt-20`}>
         <CallToActionBlock rounded={false} fullScreen type={`sell-rent`} />
       </div>
-      <div>
+      <div className={`ml-3`}>
         <FeaturedProperties
           headingLabel={`You might also like...`} headingSpan={`based on your search!`} headingHref={`/properties`} />
       </div>

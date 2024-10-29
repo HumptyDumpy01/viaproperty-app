@@ -27,17 +27,17 @@ export default function LeaveComment({ badges, available }: LeaveCommentType) {
         <form className={`flex flex-col gap-8`}>
           {available.reviews && (
             <div className={`flex flex-col gap-6`}>
-              <div className={`flex items-center gap-16`}>
+              <div className={`flex bp-790:items-center items-start bp-790:gap-16 gap-5 flex-col bp-790:flex-row`}>
                 <StarRating name={`location`} label={`Location`} />
                 <StarRating label={`Security`} name={`security`} />
               </div>
 
-              <div className={`flex items-center gap-16`}>
+              <div className={`flex bp-790:items-center items-start bp-790:gap-16 gap-5 flex-col bp-790:flex-row`}>
                 <StarRating name={`condition`} label={`Condition`} />
                 <StarRating name={`noiseLevel`} label={`Noise Level`} />
               </div>
 
-              <div className={`flex items-center gap-16`}>
+              <div className={`flex bp-790:items-center items-start bp-790:gap-16 gap-5 flex-col bp-790:flex-row`}>
                 <StarRating name={`ownership`} label={`Ownership`} />
                 <StarRating name={`amenities`} label={`Amenities`} />
               </div>
@@ -46,7 +46,7 @@ export default function LeaveComment({ badges, available }: LeaveCommentType) {
           <div>
             <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold
                   text-[33px] w-fit mb-8`}>{available.reviews ? `Leave Your Review` : `Ask Landlord about anything!`}</h3>
-            <div className={`w-[734px]`}>
+            <div className={`max-w-[734px]`}>
                     <textarea required
                               className={`w-full text-left p-6 flex h-52 border border-zinc-200 rounded-2xl`}
                               placeholder={`Share your thoughts! Your comment should contain at least 10 characters and less than 700.`} />

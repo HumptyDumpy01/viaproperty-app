@@ -7,7 +7,6 @@ type MetricDisplayRatingType = {
   rating: number;
   label: string;
   size?: `md` | `lg`;
-  radioButtons?: boolean;
   labelLinear?: `red` | `blue`
   // children: ReactNode;
 }
@@ -16,14 +15,13 @@ export default function MetricDisplayRating({
                                               rating,
                                               label,
                                               size = `md`,
-                                              radioButtons = false,
                                               labelLinear = `red`
                                             }: MetricDisplayRatingType) {
   const roundedRating = roundNumber(rating);
 
   return (
     <>
-      <div className={`flex gap-6 items-center justify-between w-[515px]`}>
+      <div className={`flex gap-6 bp-620:items-center justify-between w-[515px] flex-col bp-620:flex-row`}>
         <div className={`flex items-center gap-9`}>
           <h3
             className={`${labelLinear === `red` ? `bg-clip-text text-transparent bg-linear-main-red`
