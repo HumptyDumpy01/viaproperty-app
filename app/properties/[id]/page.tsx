@@ -70,7 +70,7 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
 
             <div className={`w-fit flex items-center bp-1306:hidden`}>
               <button
-                className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-3xl font-bold px-28 py-9 mt-7
+                className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-2xl font-bold px-20 py-6 mt-7
                   transition-all duration-200 hover:animate-pulse`}>Buy
                 Now
               </button>
@@ -129,10 +129,8 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
           </div>
 
         </div>
-        <div className={`mt-20`}>
-        </div>
       </div>
-      <div>
+      <div className={`mt-20`}>
         <CallToActionBlock rounded={false} fullScreen type={`sell-rent`} />
       </div>
       <div>

@@ -27,10 +27,10 @@ export default function ImageGalleryFullScreen({ layoutOpen, dispatch, images }:
         </>
       )}
       <div className={`fixed top-4 left-4 z-40`}>
-        <div className={`h-screen w-screen flex flex-col gap-4 overflow-x-auto scrollbar-thin mt-7 relative`}>
+        <div className={`h-screen w-screen flex flex-col gap-4 mt-7 relative`}>
           <GalleryCard mode={`fullscreen`}
                        img={{ src: activeImage.src, alt: activeImage.alt }} />
-          <div className={`flex overflow-hidden gap-3 items-center
+          <div className={`flex gap-3 items-center
            fixed bottom-3 left-3 z-40 bg-zinc-900/20 rounded-2xl backdrop-blur-2xl overflow-x-auto scrollbar-thin p-2`}>
             {images.map(function(image) {
               return (
@@ -40,7 +40,6 @@ export default function ImageGalleryFullScreen({ layoutOpen, dispatch, images }:
                 </>
               );
             })}
-
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function AccordionLocation({ text, location }: LocationType) {
           <ViapropertyIcon icon={`location`} />
           <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold`}>{location}</h3>
         </div>
-        <div className={`flex w-[562px] h-[300px]`}>
+        <div className={`flex bp-620:w-[562px] h-[300px] rounded-2xl overflow-hidden`}>
           <Image className={`object-cover w-full h-full`} src={MapImg} alt={`Map Image`} />
         </div>
         <div>

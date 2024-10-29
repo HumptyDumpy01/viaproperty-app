@@ -11,9 +11,10 @@ import React from 'react';
 export default function AccordionVideo(/*{  }: AccordionVideoType*/) {
   return (
     <>
-      <div className={`w-[562px] h-[300px] relative rounded-3xl group cursor-pointer`}>
-        <div className={`absolute object-cover cursor-pointer z-10`}>
-          <Image src={videoPreviewImg} alt={`Video tour preview`} />
+      <div className={`bp-620:w-[562px] h-[300px] relative rounded-3xl group cursor-pointer`}>
+        <div className={`absolute cursor-pointer z-10 top-0 left-0 w-full h-full rounded-3xl`}>
+          <Image src={videoPreviewImg} alt={`Video tour preview`}
+                 className={`object-cover w-full h-full rounded-3xl`} />
         </div>
         <div className={`absolute w-full h-full bg-zinc-700/80 z-20 rounded-3xl`}></div>
         <div

@@ -13,7 +13,7 @@ export default function ContactViewingArrangements({ text }: ContactViewingArran
     <>
       <div>
         <p className={`text-sm leading-relaxed mb-6`}> {text}</p>
-        <div className={`flex gap-16`}>
+        <div className={`flex gap-16 flex-wrap`}>
           <ContactDetails
             contacts={[{ icon: `user`, label: `Nikolas Baker` }, { icon: `phone`, label: `+380394879388` }]} />
 
