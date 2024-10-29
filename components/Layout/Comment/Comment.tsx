@@ -104,7 +104,7 @@ export default function
         {leaveReplyOpen && (
           <>
             <ReplyOnComment setLeaveReplyOpen={setLeaveReplyOpen} btnLabel={`Add Reply`} textareaName={`reply`}
-                            textareaWidth={`w-[370px]`} />
+                            textareaWidth={`bp-620:w-[370px] w-screen`} />
           </>
         )}
       </div>
