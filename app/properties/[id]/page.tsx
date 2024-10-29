@@ -50,9 +50,9 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
   };
 
   return (
-    <main className={`mb-24`}>
+    <main className={`mb-24 overflow-hidden`}>
       <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
-        <div className={`grid grid-cols-property-description mt-10 gap-5`}>
+        <div className={`grid bp-1306:grid-cols-property-description grid-cols-1 mt-10 gap-5 pr-5 bp-1306:pr-0`}>
           <div>
             <PropertyGallery
               images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
@@ -67,6 +67,15 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
             <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
                                   sqftSize={1258} />
             <Accordion setActiveState={setActiveState} activeState={activeState} />
+
+            <div className={`w-fit flex items-center bp-1306:hidden`}>
+              <button
+                className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-3xl font-bold px-28 py-9 mt-7
+                  transition-all duration-200 hover:animate-pulse`}>Buy
+                Now
+              </button>
+            </div>
+
             <div className={`mt-14`}>
               <HeadingMedium customClasses={`mb-8`} heading={`About
             Landlord`} />
@@ -114,7 +123,8 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
             </div>
           </div>
 
-          <div>
+          <div className={`w-fit bp-1306:flex bp-1306:static fixed h-screen bg-white rounded-2xl -translate-x-full 
+          bp-1306:translate-x-0 transition-all duration-200 opacity-0 pointer-events-none bp-1306:opacity-100 bp-1306:pointer-events-auto`}>
             <ViapropertySidebar />
           </div>
 

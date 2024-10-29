@@ -39,8 +39,9 @@ export default function PropertyGallery({ images }: PropertyGalleryType) {
           ]} dispatch={() => setOpenGalleryLayout(false)} layoutOpen={openGalleryLayout} />
         </>
       )}
-      <div onClick={() => setOpenGalleryLayout(true)} className={`grid grid-cols-3 gap-2.5`}>
-        <div className={`col-span-2 overflow-hidden cursor-pointer`}>
+      <div onClick={() => setOpenGalleryLayout(true)} className={`grid bp-1306:grid-cols-3 grid-cols-2 gap-2.5
+      h-[400px] bp-700:h-auto`}>
+        <div className={`bp-1306:col-span-2 overflow-hidden cursor-pointer`}>
           <GalleryImage customDivClasses={`rounded-tl-3xl rounded-bl-3xl`} scale={true}
                         roundedStyle={`rounded-l-2xl`}
                         colSpan={2} imgSrc={heroImage}
