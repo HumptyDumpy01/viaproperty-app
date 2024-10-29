@@ -1,25 +1,24 @@
-// 'use client';
+'use client';
 
 import { createPortal } from 'react-dom';
-import Image from 'next/image';
-import GalleryImg1 from '@/assets/property-description/gallery/property-description-1.png';
-import GalleryImg2 from '@/assets/property-description/gallery/property-description-2.png';
-import GalleryImg3 from '@/assets/property-description/gallery/property-description-3.png';
-import GalleryImg4 from '@/assets/property-description/gallery/property-description-4.png';
 import CloseLayoutIcon from '@/components/UI/Button/CloseLayoutIcon';
+import GalleryCard from '@/components/Layout/Gallery/GalleryCard';
+import { useState } from 'react';
 
 type ImageGalleryFullScreenType = {
   layoutOpen: boolean;
   dispatch: () => void;
+  images: { src: string, alt: string }[];
   // children: ReactNode;
 }
 
-export default function ImageGalleryFullScreen({ layoutOpen, dispatch }: ImageGalleryFullScreenType) {
+export default function ImageGalleryFullScreen({ layoutOpen, dispatch, images }: ImageGalleryFullScreenType) {
+  const [activeImage, setActiveImage] = useState(images[0]);
   return createPortal(
     <>
       {layoutOpen && (
         <>
-          <CloseLayoutIcon dispatch={dispatch} layoutOpen={layoutOpen} fixedPosition={`top-7 left-5`} />
+          <CloseLayoutIcon dispatch={dispatch} layoutOpen={layoutOpen} fixedPosition={`top-7 right-5`} />
         </>
       )}
       {layoutOpen && (
@@ -28,21 +27,20 @@ export default function ImageGalleryFullScreen({ layoutOpen, dispatch }: ImageGa
         </>
       )}
       <div className={`fixed top-4 left-4 z-40`}>
-        <div className={`h-screen w-full flex gap-4 items-center overflow-x-auto scrollbar-thin`}>
-          <div className={`overflow-hidden w-[460px] h-[340px] rounded-2xl flex`}>
-            <Image className={`object-cover overflow-hidden w-fit h-fit`} src={GalleryImg1} alt={`Gallery Image 1`} />
-          </div>
+        <div className={`h-screen w-screen flex flex-col gap-4 overflow-x-auto scrollbar-thin mt-7 relative`}>
+          <GalleryCard mode={`fullscreen`}
+                       img={{ src: activeImage.src, alt: activeImage.alt }} />
+          <div className={`flex overflow-hidden gap-3 items-center
+           fixed bottom-3 left-3 z-40 bg-zinc-900/20 rounded-2xl backdrop-blur-2xl overflow-x-auto scrollbar-thin p-2`}>
+            {images.map(function(image) {
+              return (
+                <>
+                  <GalleryCard setActiveImage={setActiveImage} active={activeImage.src === image.src}
+                               img={{ src: image.src, alt: image.alt }} />
+                </>
+              );
+            })}
 
-          <div className={`overflow-hidden w-[460px] h-[340px] rounded-2xl`}>
-            <Image className={`object-cover overflow-hidden w-full h-full`} src={GalleryImg2} alt={`Gallery Image 2`} />
-          </div>
-
-          <div className={`overflow-hidden w-[460px] h-[340px] rounded-2xl`}>
-            <Image className={`object-cover overflow-hidden w-full h-full`} src={GalleryImg3} alt={`Gallery Image 3`} />
-          </div>
-
-          <div className={`overflow-hidden w-[460px] h-[340px] rounded-2xl`}>
-            <Image className={`object-cover overflow-hidden w-full h-full`} src={GalleryImg4} alt={`Gallery Image 4`} />
           </div>
         </div>
       </div>

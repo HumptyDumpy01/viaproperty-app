@@ -19,7 +19,24 @@ export default function PropertyGallery({ images }: PropertyGalleryType) {
     <>
       {openGalleryLayout && (
         <>
-          <ImageGalleryFullScreen dispatch={() => setOpenGalleryLayout(false)} layoutOpen={openGalleryLayout} />
+          <ImageGalleryFullScreen images={[
+            {
+              src: `/images/gallery/property-description-1-fullscreen.jpg`,
+              alt: `Property Image 1`
+            },
+            {
+              src: `/images/gallery/property-description-2-fullscreen.jpg`,
+              alt: `Property Image 2`
+            },
+            {
+              src: `/images/gallery/property-description-3-fullscreen.jpg`,
+              alt: `Property Image 3`
+            },
+            {
+              src: `/images/gallery/property-description-4-fullscreen.jpg`,
+              alt: `Property Image 4`
+            }
+          ]} dispatch={() => setOpenGalleryLayout(false)} layoutOpen={openGalleryLayout} />
         </>
       )}
       <div onClick={() => setOpenGalleryLayout(true)} className={`grid grid-cols-3 gap-2.5`}>
