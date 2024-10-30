@@ -24,6 +24,14 @@ export default function
               text-sm`}> {label} </button>
       )}
 
+      {(mode === 'lg' && btnVariant === `black`) && (
+        <button {...props} className={`font-bold ${linearGradient ? `bg-linear-main-red` : `bg-white`} rounded-full flex 
+               w-fit h-19 text-zinc-900 border border-zinc-900 
+              px-12 py-6 bp-620:text-xl
+              transition-all duration-200 hover:bg-zinc-900 hover:text-white active:bg-zinc-400
+              text-sm`}> {label} </button>
+      )}
+
       {(mode === 'md' && btnVariant === `red`) && (
         <button  {...props} className={`font-bold ${linearGradient ? `bg-linear-main-red` : `bg-red-500`} rounded-full flex 
                w-fit h-[62px] text-white 

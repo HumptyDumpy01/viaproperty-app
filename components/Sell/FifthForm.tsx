@@ -11,6 +11,7 @@ import PropertyImg4 from '@/assets/sell/property-img/property-img-4.png';
 import PropertyImg5 from '@/assets/sell/property-img/property-img-5.png';
 import ImageGalleryFullScreen from '@/components/Layout/Gallery/ImageGalleryFullScreen';
 import { useState } from 'react';
+import Button from '@/components/UI/Button/Button';
 
 type FifthFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -95,6 +96,55 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
                      heading={`Additional Conveniences`} />
         </div>
 
+        <div className={`flex mt-8`}>
+          <InfoBadge extraFeatures={[
+            { title: `Garage`, price: 14499, name: `garage` },
+            { title: `Garden`, price: 14499, name: `garden` },
+            { title: `Balcony`, price: 14499, name: `balcony` },
+            { title: `Swimming Pool`, price: 14499, name: `swimmingPool` }
+          ]} infoType={`extra`} maxWScreen={`max-w-[515px]`} name={`extraFeatures`} value={``}
+                     editable={true}
+                     heading={`Extra Features`} />
+        </div>
+
+        <div className={`flex mt-8`}>
+
+          <InfoBadge maxWScreen={`max-w-[515px]`} name={`discount`} value={`None`}
+                     editable={true}
+                     heading={`Discount Applied`} />
+        </div>
+
+        <div className={`flex mt-8  mb-12`}>
+          <InfoBadge
+            infoType={`vitals`}
+            vitals={
+              {
+                title: `lorem ipsum dolor sit amet`,
+                description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, harum?`,
+                contactAndViewingArrangements: [
+                  { initials: `John Doe`, phones: [`+44 123 456 7890`, `+44 123 456 7890`] },
+                  { initials: `Nancy Doe`, phones: [`+44 123 456 7890`, `+44 123 456 7890`] }
+                ]
+              }
+            } maxWScreen={`max-w-[515px]`} name={``}
+            value={``}
+            editable={true}
+            heading={``} />
+        </div>
+
+        <div className={`mb-6`}>
+          <p className={`text-zinc-900 leading-relaxed max-w-4xl`}>Lorem ipsum dolor sit amet, consectetur adipisicing
+            elit.
+            Accusamus aperiam aut consectetur consequatur
+            culpa
+            deleniti, dolore harum illo iure molestiae <HighlightText text={`optio pariatur quam quas quia`} /> quo
+            similique soluta tempore
+            voluptatibus.</p>
+        </div>
+        <div className={`flex flex-col gap-6`}>
+          <Button type={`button`} label={`Confirm`} />
+          <Button mode={`lg`} btnVariant={`black`} type={`button`} label={`Cancel`} />
+        </div>
 
       </form>
     </>

@@ -9,7 +9,7 @@ type InfoBadgeType = {
   heading: string;
   value: string;
   name: string;
-  infoType?: `default` | `propertyMetric`;
+  infoType?: `default` | `propertyMetric` | `extra` | `vitals`;
   propertyMetric?: {
     beds: number;
     showers: number;
@@ -18,8 +18,18 @@ type InfoBadgeType = {
     kitchens: number;
     parkingSlots: number;
   };
+  extraFeatures?: {
+    title: string;
+    price: number;
+    name: string;
+  }[];
   placeholder?: string;
   maxWScreen?: string;
+  vitals?: {
+    title: string;
+    description: string;
+    contactAndViewingArrangements: { initials: string; phones: string[] }[];
+  }
   // children: ReactNode;
 }
 
@@ -32,7 +42,9 @@ export default function
               infoType = `default`,
               propertyMetric,
               placeholder,
-              maxWScreen = `max-w-screen-md`
+              maxWScreen = `max-w-screen-md`,
+              extraFeatures,
+              vitals
             }: InfoBadgeType) {
   const [btnClicked, setBtnClicked] = useState<boolean>(false);
   return (
@@ -82,6 +94,86 @@ export default function
             </div>
           </div>
         )}
+
+        {(infoType === `extra` && extraFeatures) && (
+          <div className={`flex flex-col gap-2`}>
+            {extraFeatures.map(function(feature) {
+              return (
+                <>
+                  <div className={`flex items-center w-[332px] justify-between`}>
+                    <h3 className={`text-zinc-900`}>{feature.title}</h3>
+                    <div className={`flex`}>
+                      <input name={feature.name} readOnly={!btnClicked} type={`number`} defaultValue={feature.price}
+                             className={`inline-block text-end font-semibold border-b border-transparent
+                             focus:outline-none focus:border-b focus:border-b-red-500`}
+                             placeholder={`0`} />
+                      <span className={`text-zinc-900 font-semibold`}>$</span>
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+
+          </div>
+        )}
+
+        {(infoType === `vitals` && vitals) && (
+          <div className={`flex flex-col gap-6 w-[690px]`}>
+
+            <div className={`flex w-[332px] flex-col gap-2`}>
+              <h3 className={`bg-clip-text text-xl text-transparent bg-linear-main-red font-bold`}>Title</h3>
+              <div className={`flex`}>
+                <input readOnly={!btnClicked} name={`title`}
+                       className={`text-zinc-900 w-full border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                       placeholder={`title`}
+                       defaultValue={vitals.title} />
+              </div>
+            </div>
+
+            <div className={`flex flex-col gap-2`}>
+              <h3 className={`bg-clip-text text-xl text-transparent bg-linear-main-red font-bold`}>Description</h3>
+              <div className={`flex`}>
+                <textarea readOnly={!btnClicked} name={`description`}
+                          className={`text-zinc-900 w-96 border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                          placeholder={`description`}
+                          defaultValue={vitals.description} />
+              </div>
+            </div>
+
+            <h3
+              className={`bg-clip-text text-xl text-transparent bg-linear-main-red font-bold`}>Contact & Viewing
+              Arrangements</h3>
+            {vitals.contactAndViewingArrangements.map(function(contact) {
+              return (
+                <>
+                  <div className={`flex flex-col gap-2`}>
+                    <div className={`flex`}>
+                      <input readOnly={!btnClicked} name={`initials`}
+                             className={`text-red-500 font-medium border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                             placeholder={`Initials`}
+                             defaultValue={contact.initials} type={`text`} />
+                    </div>
+                    {contact.phones.map(function(phone) {
+                      return (
+                        <>
+                          <div className={`flex`}>
+                            <input readOnly={!btnClicked} name={`phone`}
+                                   className={`text-zinc-600 font-semibold border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                                   placeholder={`Phone`}
+                                   defaultValue={phone} type={`tel`} />
+                          </div>
+                        </>
+                      );
+                    })}
+
+                  </div>
+                </>
+              );
+            })}
+
+          </div>
+        )}
+
         {(editable && !btnClicked) && (
           <Tooltip title={`Unlock the ability to edit this information.`}>
             <button onClick={() => setBtnClicked(true)} type={`button`} className={`flex items-center justify-center absolute -top-3 -right-6 rounded-full w-12 h-12
