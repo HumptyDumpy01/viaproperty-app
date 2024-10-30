@@ -19,12 +19,6 @@ export default function SellPage(/*{  }: SellPageType*/) {
           quam quis reprehenderit. Adipisci amet consectetur cum delectus id ipsam minus omnis quaerat, quibusdam
           quidem?</p>
 
-        <div className={`mb-7`}>
-          <h2 className={`text-3xl bg-clip-text text-transparent bg-linear-main-red font-bold
-          mb-5`}>Fill in the most important!</h2>
-          <p className={`text-zinc-800`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus eligendi
-            labore veritatis.</p>
-        </div>
         <div className={`max-w-screen-md`}>
           <SellInputContent />
         </div>

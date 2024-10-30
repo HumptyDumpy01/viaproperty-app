@@ -8,6 +8,7 @@ import SetOfCheckboxes from '@/components/Sell/SetOfCheckboxes';
 import HighlightText from '@/components/Typography/HighlightText';
 import Features from '@/components/Sell/Features';
 import Button from '@/components/UI/Button/Button';
+import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 
 type SecondFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -100,8 +101,22 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
           <div className={`mb-10`}>
             <Features />
           </div>
-          <div>
 
+          <div className={`mb-10`}>
+            <h3 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
+            text-2xl w-fit mb-6`}>Do you want to apply discount? (Optional)</h3>
+            <p className={`text-zinc-900 leading-relaxed`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
+              ad cumque ducimus earum facilis iusto laborum
+              maxime, obcaecati officiis <HighlightText text={`recusandae repellendus, tempore voluptate.`} /></p>
+
+            <div className={`mt-4`}>
+              <LabelAndInput customClassNames={`w-96`} labelStyle={`grey-and-small`} label={`Sale (In Percentages)`}
+                             name={`discount`}
+                             placeholder={`e.g. 5`} inputType={`number`} />
+            </div>
+          </div>
+
+          <div>
             <Button type={`button`} label={`Next`}
               // @ts-ignore
                     onClick={() => setActiveState((prevState: activeStateType) => ({
