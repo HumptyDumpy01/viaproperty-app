@@ -1,1 +1,11 @@
-export type ViapropertyIconType = `settings` | `map` | `heart` | `share` | `bell` | `location` | `user` | `phone` | `dollar`;
+export type ViapropertyIconType =
+  `settings`
+  | `map`
+  | `heart`
+  | `share`
+  | `bell`
+  | `location`
+  | `user`
+  | `phone`
+  | `dollar`
+  | `questionMark`;
