@@ -12,6 +12,8 @@ import SecondForm from '@/components/Sell/SecondForm';
 import ThirdForm from '@/components/Sell/ThirdForm';
 import FourthForm from '@/components/Sell/FourthForm';
 import FifthForm from '@/components/Sell/FifthForm';
+import HighlightText from '@/components/Typography/HighlightText';
+import Link from 'next/link';
 
 export type activeStateType = {
   stepOne: `disabled` | `active` | `completed`;
@@ -34,8 +36,7 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
   const heading = activeState.stepOne === `active` ? `Fill in the most important!`
     : activeState.stepTwo === `active` ? `Add some details!`
       : activeState.stepThree === `active` ? `Good! Let's intersperse your advert with extras!`
-        : activeState.stepFour === `active` ? `We are so close! Let's finish the advert!` : `Finally! Here are 
-        finishing steps!`;
+        : activeState.stepFour === `active` ? `We are so close! Let's finish the advert!` : activeState.finishingSteps === `completed` ? `Huzzah! A New advert was successfully created!` : ``;
 
   return (
     <>
@@ -70,6 +71,30 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
       {activeState.stepThree === `active` && <ThirdForm setActiveState={setActiveState} />}
       {activeState.stepFour === `active` && <FourthForm setActiveState={setActiveState} />}
       {activeState.finishingSteps === `active` && <FifthForm setActiveState={setActiveState} />}
+      {activeState.finishingSteps === `completed` && (
+        <div className={`mt-9`}>
+          <p className={`leading-relaxed text-zinc-900 max-w-4xl mb-12`}>Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco
+            laboris nisi ut
+            aliquip ex ea commodo consequat.
+            Duis aute irure dolor in <HighlightText
+              text={`reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} /></p>
+
+          <div className={`flex flex-col gap-6`}>
+            <Link className={`font-bold bg-red-500 rounded-full flex 
+               w-fit h-19 text-white 
+              px-12 py-6 bp-620:text-xl
+              transition-all duration-200 hover:bg-red-700 active:bg-red-400
+              text-sm`} href={`#`}>See My Adverts</Link>
+
+            <Link className={`font-bold bg-white rounded-full flex 
+               w-fit h-19 text-zinc-900 border border-zinc-900 
+              px-12 py-6 bp-620:text-xl
+              transition-all duration-200 hover:bg-zinc-900 hover:text-white active:bg-zinc-400
+              text-sm`} href={`#`}>Home</Link>
+          </div>
+        </div>
+      )}
     </>
   );
 }

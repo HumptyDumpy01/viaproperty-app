@@ -142,7 +142,11 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
             voluptatibus.</p>
         </div>
         <div className={`flex flex-col gap-6`}>
-          <Button type={`button`} label={`Confirm`} />
+          <Button type={`button`} label={`Confirm`}
+            // @ts-ignore
+                  onClick={() => setActiveState((prevState: activeStateType) => ({
+                    ...prevState, finishingSteps: `completed`
+                  }))} />
           <Button mode={`lg`} btnVariant={`black`} type={`button`} label={`Cancel`} />
         </div>
 
