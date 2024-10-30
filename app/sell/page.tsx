@@ -23,6 +23,7 @@ export default function SellPage(/*{  }: SellPageType*/) {
     stepFour: `disabled`,
     finishingSteps: `disabled`
   });
+
   return (
     <main className={`overflow-hidden mt-6`}>
       <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
@@ -35,12 +36,21 @@ export default function SellPage(/*{  }: SellPageType*/) {
           quam quis reprehenderit. Adipisci amet consectetur cum delectus id ipsam minus omnis quaerat, quibusdam
           quidem?</p>
         <div className={`flex gap-2.5 items-center`}>
-          <BadgeStages state={activeState.stepOne} label={`Step 1`} object={`stepOne`} />
-          <BadgeStages state={activeState.stepTwo} label={`Step 2`} object={`stepTwo`} />
-          <BadgeStages state={activeState.stepThree} label={`Step 3`} object={`stepThree`} />
-          <BadgeStages state={activeState.stepFour} label={`Step 4`} object={`stepFour`} />
-          <BadgeStages state={activeState.finishingSteps} label={`Finishing Steps`} object={`finishingSteps`} />
-
+          <div>
+            <BadgeStages state={activeState.stepOne} label={`Step 1`} object={`stepOne`} />
+          </div>
+          <div>
+            <BadgeStages state={activeState.stepTwo} label={`Step 2`} object={`stepTwo`} />
+          </div>
+          <div>
+            <BadgeStages state={activeState.stepThree} label={`Step 3`} object={`stepThree`} />
+          </div>
+          <div>
+            <BadgeStages state={activeState.stepFour} label={`Step 4`} object={`stepFour`} />
+          </div>
+          <div>
+            <BadgeStages state={activeState.finishingSteps} label={`Finishing Steps`} object={`finishingSteps`} />
+          </div>
         </div>
       </div>
     </main>

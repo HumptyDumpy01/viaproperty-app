@@ -29,7 +29,9 @@ export default function BadgeStages({ state, label }: BadgeStagesType) {
 
   return (
     <>
-      <span className={`inline-block px-4 py-2 w-fit border rounded-full ${activeClass}`}>{label}</span>
+      <span
+        className={`inline-block px-4 py-2 w-fit border rounded-full 
+        ${state === `disabled` ? `cursor-not-allowed` : `cursor-pointer`} ${activeClass}`}>{label}</span>
     </>
   );
 }

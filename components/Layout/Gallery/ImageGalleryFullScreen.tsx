@@ -26,7 +26,7 @@ export default function ImageGalleryFullScreen({ layoutOpen, dispatch, images }:
           <div className={`fixed bg-zinc-900/90 top-0 left-0 h-full w-full z-30`}></div>
         </>
       )}
-      <div className={`fixed top-4 left-4 z-40`}>
+      <div className={`fixed top-4 left-4 z-[51]`}>
         <div className={`h-screen w-screen flex flex-col gap-4 mt-7 relative`}>
           <GalleryCard mode={`fullscreen`}
                        img={{ src: activeImage.src, alt: activeImage.alt }} />

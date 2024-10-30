@@ -1,7 +1,6 @@
-'use client';
+// 'use client';
 
-import React, { useState } from 'react';
-import { AccordionFeatureType } from '@/utils/types/AccordionFeatureType';
+import React from 'react';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
 import PropertyGallery from '@/components/PropertyDescription/Layout/PropertyGallery';
 
@@ -13,17 +12,15 @@ import PropertyTags from '@/components/PropertyDescription/Layout/PropertyTags';
 import { PropertyTagsEnum } from '@/utils/enums/PropertyTags';
 import PropertyConveniences from '@/components/PropertyDescription/Layout/PropertyConveniences';
 import AboutLandlord from '@/components/PropertyDescription/Layout/AboutLandlord';
-import PropertyComments, { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
+import PropertyComments from '@/components/PropertyDescription/Layout/PropertyComments';
 import HeadingMedium from '@/components/Typography/HeadingMedium';
 import RenterReviewsMetrics from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
-import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
-import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
-import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
 import FeaturedProperties from '@/components/Home/Layout/FeaturedProperties';
-import ViapropertySidebar from '@/components/Layout/Sidebar/ViapropertySidebar';
-import Background from '@/components/Layout/Background/Background';
-import CloseLayoutIcon from '@/components/UI/Button/CloseLayoutIcon';
+import LeaveCommentContainer from '@/components/PropertyDescription/Layout/LeaveCommentContainer';
+import SidebarContainer from '@/components/PropertyDescription/Layout/SidebarContainer';
+import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
+import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -32,26 +29,6 @@ import CloseLayoutIcon from '@/components/UI/Button/CloseLayoutIcon';
 export type LeaveCommentBadgeType = `Leave Review` | `Ask Question`;
 
 export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
-  const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
-  const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(`Leave Review`);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [reviewsAvailable, setReviewsAvailable] = useState<boolean>(true);
-
-
-  const handleSetLeaveCommentBadge = (switchTo: CommentType | ActiveFilterTypeQuestions | LeaveCommentBadgeType) => {
-
-    if (switchTo === 'Leave Review') {
-      setReviewsAvailable(true);
-    }
-    if (switchTo === 'Ask Question') {
-      setReviewsAvailable(false);
-    }
-
-    if (switchTo === 'Leave Review' || switchTo === 'Ask Question') {
-      setActiveLeaveCommentBadge(switchTo);
-    }
-  };
-
   return (
     <main className={`mb-24 overflow-hidden`}>
       <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
@@ -69,22 +46,17 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
 
             <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
                                   sqftSize={1258} />
-            <Accordion setActiveState={setActiveState} activeState={activeState} />
+            <Accordion />
 
-            <div className={`w-fit flex items-center bp-1306:hidden`}>
-              <button
-                onClick={() => setSidebarOpen(true)}
-                className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-2xl font-bold px-20 py-6 mt-7
-                  transition-all duration-200 hover:animate-pulse`}>Buy
-                Now
-              </button>
-            </div>
+            <ProviderContainer>
+              <OpenSidebarBtn />
+            </ProviderContainer>
 
             <div className={`mt-14`}>
               <HeadingMedium customClasses={`mb-8`} heading={`About
             Landlord`} />
 
-              <AboutLandlord online={true} initials={`Nikolas Baker`} abbrInitials={`N.B`} text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+              <AboutLandlord online={false} initials={`Nikolas Baker`} abbrInitials={`N.B`} text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
               do
               eiusmod tempor incididunt ut labore et
               dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -108,38 +80,13 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
                 <PropertyComments />
               </div>
 
-              <div>
-                <LeaveComment available={{ reviews: reviewsAvailable, questions: true }} badges={
-                  (
-                    <>
-                      <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
-                                    type={`lg`}
-                                    state={activeLeaveCommentBadge} />
+              <LeaveCommentContainer />
 
-                      <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
-                                    type={`lg`}
-                                    state={activeLeaveCommentBadge} />
-                    </>
-                  )
-                } />
-
-              </div>
             </div>
           </div>
-
-          <div
-            className={`w-fit z-50 bp-1306:flex bp-1306:static fixed h-screen bp-1306:h-fit bg-white rounded-3xl ${sidebarOpen ? `
-          translate-x-0 opacity-100 pointer-events-auto pb-32` : `-translate-x-full opacity-0 pointer-events-none `} 
-          bp-1306:translate-x-0 transition-all duration-200 bp-1306:opacity-100 scrollbar-thin bp-1306:pointer-events-auto overflow-y-auto
-          bp-1306:overflow-y-none`}>
-            <ViapropertySidebar />
-          </div>
-
-          <div className={`bp-1306:hidden`} onClick={() => setSidebarOpen(false)}>
-            <CloseLayoutIcon dispatch={() => setSidebarOpen(false)} layoutOpen={sidebarOpen}
-                             fixedPosition={`top-3 right-3`} />
-            <Background active={sidebarOpen} />
-          </div>
+          <ProviderContainer>
+            <SidebarContainer />
+          </ProviderContainer>
 
         </div>
       </div>

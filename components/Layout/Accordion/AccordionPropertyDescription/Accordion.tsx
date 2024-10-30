@@ -1,11 +1,14 @@
-// 'use client';
+'use client';
 
 import AccordionFeature from '@/components/Layout/Accordion/AccordionPropertyDescription/Features/AccordionFeature';
 import AccordionContent from '@/components/Layout/Accordion/AccordionPropertyDescription/AccordionContent';
-import { AccordionType } from '@/utils/types/AccordionFeatureType';
+import { AccordionFeatureType } from '@/utils/types/AccordionFeatureType';
+import { useState } from 'react';
 
 
-export default function Accordion({ setActiveState, activeState }: AccordionType) {
+export default function Accordion(/*{}: AccordionType*/) {
+
+  const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
   return (
     <>
       <div>

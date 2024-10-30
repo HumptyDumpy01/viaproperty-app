@@ -23,7 +23,8 @@ export default function AboutLandlord({ abbrInitials, online, initials, text }: 
           <div className={`flex flex-col`}>
             <div className={`flex items-center gap-1`}>
               <div className={`${online ? `bg-green-400` : `bg-gray-500`} w-1.5 h-1.5 rounded-full`}></div>
-              <span className={`text-[13px] text-green-500 font-semibold`}>{online ? `Online` : `Offline`}</span>
+              <span
+                className={`text-[13px] ${online ? `text-green-500` : `text-zinc-500`} font-semibold`}>{online ? `Online` : `Offline`}</span>
             </div>
             <h3 className={`font-medium text-zinc-800`}>{initials}</h3>
             <p className={`text-sm text-zinc-400`}>Landlord</p>

@@ -14,6 +14,7 @@ type LeaveCommentType = {
 }
 
 export default function LeaveComment({ badges, available }: LeaveCommentType) {
+
   return (
     <>
       <div className={``}>

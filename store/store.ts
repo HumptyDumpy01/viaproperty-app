@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import propertiesSlice from '@/store/features/properties';
+import propertyDescriptionSlice from '@/store/features/propertyDescription';
 
 /*  IMPORTANT
      HOW TO USE IT:
@@ -26,7 +27,8 @@ const store = configureStore({
     // .reducer, then type the name of the slice, if not, then YOUR_SLICE.reducer
 
     // cart: cartSlice ......
-    properties: propertiesSlice
+    properties: propertiesSlice,
+    propertyDescription: propertyDescriptionSlice
   }
 });
 
