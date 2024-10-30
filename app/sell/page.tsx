@@ -19,7 +19,7 @@ export default function SellPage(/*{  }: SellPageType*/) {
           quam quis reprehenderit. Adipisci amet consectetur cum delectus id ipsam minus omnis quaerat, quibusdam
           quidem?</p>
 
-        <div className={`max-w-screen-md`}>
+        <div className={`max-w-screen-xl`}>
           <SellInputContent />
         </div>
       </div>

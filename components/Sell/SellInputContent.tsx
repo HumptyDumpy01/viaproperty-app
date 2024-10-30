@@ -10,6 +10,8 @@ import FirstForm from '@/components/Sell/FirstForm';
 import { switchSteps } from '@/utils/functions/sell/switchSteps';
 import SecondForm from '@/components/Sell/SecondForm';
 import ThirdForm from '@/components/Sell/ThirdForm';
+import FourthForm from '@/components/Sell/FourthForm';
+import FifthForm from '@/components/Sell/FifthForm';
 
 export type activeStateType = {
   stepOne: `disabled` | `active` | `completed`;
@@ -32,7 +34,8 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
   const heading = activeState.stepOne === `active` ? `Fill in the most important!`
     : activeState.stepTwo === `active` ? `Add some details!`
       : activeState.stepThree === `active` ? `Good! Let's intersperse your advert with extras!`
-        : activeState.stepFour === `active` ? `We are so close! Let's finish the advert!` : `Almost done!`;
+        : activeState.stepFour === `active` ? `We are so close! Let's finish the advert!` : `Finally! Here are 
+        finishing steps!`;
 
   return (
     <>
@@ -64,7 +67,9 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
       </div>
       {activeState.stepOne === `active` && <FirstForm setActiveState={setActiveState} />}
       {activeState.stepTwo === `active` && <SecondForm setActiveState={setActiveState} />}
-      {activeState.stepThree === `active` && <ThirdForm />}
+      {activeState.stepThree === `active` && <ThirdForm setActiveState={setActiveState} />}
+      {activeState.stepFour === `active` && <FourthForm setActiveState={setActiveState} />}
+      {activeState.finishingSteps === `active` && <FifthForm setActiveState={setActiveState} />}
     </>
   );
 }

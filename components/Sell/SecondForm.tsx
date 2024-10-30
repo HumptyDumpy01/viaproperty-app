@@ -9,6 +9,7 @@ import HighlightText from '@/components/Typography/HighlightText';
 import Features from '@/components/Sell/Features';
 import Button from '@/components/UI/Button/Button';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
+import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
 
 type SecondFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -76,7 +77,7 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
               visible: true,
               content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, alias asperiores delectus est ipsam mollitia quasi rem repellat rerum soluta.`
             }} label={`Add additional conveniences`} />
-            <p className={`leading-relaxed text-zinc-900 text-sm mt-5`}>Ut enim ad minim veniam, quis nostrud
+            <p className={`leading-relaxed max-w-4xl text-zinc-900 text-sm mt-5`}>Ut enim ad minim veniam, quis nostrud
               exercitation
               ullamco laboris nisi ut aliquip ex ea commodo
               consequat. Duis aute irure dolor in <HighlightText
@@ -99,13 +100,32 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
             <TagBadge label={`Custom Feature 3`} />
           </div>
           <div className={`mb-10`}>
-            <Features />
+            <Features featureHeading={`Features`}>
+
+              <LabelAndInput labelStyle={`grey-and-small`} name={`heading`} placeholder={`e.g. Posh Fireplace`}
+                             customClassNames={`w-72 text-custom-medium`}
+                             label={`Heading`} inputType={`text`} />
+
+              <LabelAndInput type={`textarea`} labelStyle={`grey-and-small`} name={`short-description`}
+                             placeholder={`e.g. This fireplace is the perfect place to relax after a long day.`}
+                             customClassNames={`w-72 h-36 text-custom-medium`}
+                             label={`Short Description`} inputType={`text`} />
+              <div className={`overflow-x-auto scrollbar-thin max-w-[270px]`}>
+                <ChooseImage max={3} min={0} />
+              </div>
+              <div className={`mt-3`}>
+                <button type={`button`}
+                        className={`bg-clip-text text-lg text-transparent bg-linear-main-red font-bold`}>Add
+                </button>
+              </div>
+            </Features>
           </div>
 
           <div className={`mb-10`}>
             <h3 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
             text-2xl w-fit mb-6`}>Do you want to apply discount? (Optional)</h3>
-            <p className={`text-zinc-900 leading-relaxed`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A
+            <p className={`text-zinc-900 leading-relaxed max-w-4xl`}>Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. A
               ad cumque ducimus earum facilis iusto laborum
               maxime, obcaecati officiis <HighlightText text={`recusandae repellendus, tempore voluptate.`} /></p>
 
