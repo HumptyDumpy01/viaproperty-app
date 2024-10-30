@@ -1,23 +1,20 @@
 // 'use client';
 
+import LocationLabel from '@/components/UI/Label/LocationLabel';
+import Image from 'next/image';
+import MapImg from '@/assets/property-description/map/map.png';
+
 type LocationType = {
   text: string;
   location: string;
   // children: ReactNode;
 }
 
-import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
-import Image from 'next/image';
-import MapImg from '@/assets/property-description/map/map.png';
-
 export default function AccordionLocation({ text, location }: LocationType) {
   return (
     <>
       <div className={`flex flex-col gap-7`}>
-        <div className={`flex gap-6`}>
-          <ViapropertyIcon icon={`location`} />
-          <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold`}>{location}</h3>
-        </div>
+        <LocationLabel location={location} />
         <div className={`flex bp-620:w-[562px] h-[300px] rounded-2xl overflow-hidden`}>
           <Image className={`object-cover w-full h-full`} src={MapImg} alt={`Map Image`} />
         </div>

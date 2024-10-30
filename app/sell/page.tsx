@@ -1,31 +1,14 @@
-'use client';
+// 'use client';
 
 /*type SellPageType = {
   // children: ReactNode;
 }*/
 
-import BadgeStages from '@/components/UI/Badge/BadgeStages';
-import { useState } from 'react';
-
-type activeStateType = {
-  stepOne: `disabled` | `active` | `completed`;
-  stepTwo: `disabled` | `active` | `completed`;
-  stepThree: `disabled` | `active` | `completed`;
-  stepFour: `disabled` | `active` | `completed`;
-  finishingSteps: `disabled` | `active` | `completed`;
-};
+import SellInputContent from '@/components/Sell/SellInputContent';
 
 export default function SellPage(/*{  }: SellPageType*/) {
-  const [activeState, setActiveState] = useState<activeStateType>({
-    stepOne: `active`,
-    stepTwo: `disabled`,
-    stepThree: `disabled`,
-    stepFour: `disabled`,
-    finishingSteps: `disabled`
-  });
-
   return (
-    <main className={`overflow-hidden mt-6`}>
+    <main className={`overflow-hidden mt-7`}>
       <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
         <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
         text-[40px] mb-3.5 `}>Let’s Start Selling!</h1>
@@ -35,22 +18,15 @@ export default function SellPage(/*{  }: SellPageType*/) {
           provident
           quam quis reprehenderit. Adipisci amet consectetur cum delectus id ipsam minus omnis quaerat, quibusdam
           quidem?</p>
-        <div className={`flex gap-2.5 items-center`}>
-          <div>
-            <BadgeStages state={activeState.stepOne} label={`Step 1`} object={`stepOne`} />
-          </div>
-          <div>
-            <BadgeStages state={activeState.stepTwo} label={`Step 2`} object={`stepTwo`} />
-          </div>
-          <div>
-            <BadgeStages state={activeState.stepThree} label={`Step 3`} object={`stepThree`} />
-          </div>
-          <div>
-            <BadgeStages state={activeState.stepFour} label={`Step 4`} object={`stepFour`} />
-          </div>
-          <div>
-            <BadgeStages state={activeState.finishingSteps} label={`Finishing Steps`} object={`finishingSteps`} />
-          </div>
+
+        <div className={`mb-7`}>
+          <h2 className={`text-3xl bg-clip-text text-transparent bg-linear-main-red font-bold
+          mb-5`}>Fill in the most important!</h2>
+          <p className={`text-zinc-800`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus eligendi
+            labore veritatis.</p>
+        </div>
+        <div>
+          <SellInputContent />
         </div>
       </div>
     </main>
