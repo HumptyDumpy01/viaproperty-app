@@ -22,6 +22,8 @@ import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
 import FeaturedProperties from '@/components/Home/Layout/FeaturedProperties';
 import ViapropertySidebar from '@/components/Layout/Sidebar/ViapropertySidebar';
+import Background from '@/components/Layout/Background/Background';
+import CloseLayoutIcon from '@/components/UI/Button/CloseLayoutIcon';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -32,6 +34,7 @@ export type LeaveCommentBadgeType = `Leave Review` | `Ask Question`;
 export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
   const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
   const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(`Leave Review`);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [reviewsAvailable, setReviewsAvailable] = useState<boolean>(true);
 
 
@@ -61,8 +64,8 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
               tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
 
             <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={`Exquisite
-          design
-          combined with posh interior`} />
+              design
+              combined with posh interior`} />
 
             <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
                                   sqftSize={1258} />
@@ -70,6 +73,7 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
 
             <div className={`w-fit flex items-center bp-1306:hidden`}>
               <button
+                onClick={() => setSidebarOpen(true)}
                 className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-2xl font-bold px-20 py-6 mt-7
                   transition-all duration-200 hover:animate-pulse`}>Buy
                 Now
@@ -123,8 +127,14 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
             </div>
           </div>
 
-          <div className={`w-fit bp-1306:flex bp-1306:static fixed h-screen bg-white rounded-2xl -translate-x-full 
-          bp-1306:translate-x-0 transition-all duration-200 opacity-0 pointer-events-none bp-1306:opacity-100 bp-1306:pointer-events-auto`}>
+          <div onClick={() => setSidebarOpen(false)}>
+            <CloseLayoutIcon dispatch={() => setSidebarOpen(false)} layoutOpen={sidebarOpen}
+                             fixedPosition={`top-3 right-3`} />
+            <Background active={sidebarOpen} />
+          </div>
+          <div className={`w-fit z-50 bp-1306:flex bp-1306:static fixed h-screen bg-white rounded-3xl ${sidebarOpen ? `
+          translate-x-0 opacity-100 pointer-events-auto pb-32` : `-translate-x-full opacity-0 pointer-events-none `} 
+          bp-1306:translate-x-0 transition-all duration-200  bp-1306:opacity-100 bp-1306:pointer-events-auto overflow-y-auto`}>
             <ViapropertySidebar />
           </div>
 
