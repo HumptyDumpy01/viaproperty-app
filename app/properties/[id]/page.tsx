@@ -127,15 +127,18 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
             </div>
           </div>
 
-          <div onClick={() => setSidebarOpen(false)}>
+          <div
+            className={`w-fit z-50 bp-1306:flex bp-1306:static fixed h-screen bp-1306:h-fit bg-white rounded-3xl ${sidebarOpen ? `
+          translate-x-0 opacity-100 pointer-events-auto pb-32` : `-translate-x-full opacity-0 pointer-events-none `} 
+          bp-1306:translate-x-0 transition-all duration-200 bp-1306:opacity-100 scrollbar-thin bp-1306:pointer-events-auto overflow-y-auto
+          bp-1306:overflow-y-none`}>
+            <ViapropertySidebar />
+          </div>
+
+          <div className={`bp-1306:hidden`} onClick={() => setSidebarOpen(false)}>
             <CloseLayoutIcon dispatch={() => setSidebarOpen(false)} layoutOpen={sidebarOpen}
                              fixedPosition={`top-3 right-3`} />
             <Background active={sidebarOpen} />
-          </div>
-          <div className={`w-fit z-50 bp-1306:flex bp-1306:static fixed h-screen bg-white rounded-3xl ${sidebarOpen ? `
-          translate-x-0 opacity-100 pointer-events-auto pb-32` : `-translate-x-full opacity-0 pointer-events-none `} 
-          bp-1306:translate-x-0 transition-all duration-200  bp-1306:opacity-100 bp-1306:pointer-events-auto overflow-y-auto`}>
-            <ViapropertySidebar />
           </div>
 
         </div>
