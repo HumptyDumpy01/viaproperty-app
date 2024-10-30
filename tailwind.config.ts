@@ -16,6 +16,9 @@ const config: Config = {
       fontFamily: {
         'montserrat-alternates': ['"Montserrat Alternates"', 'sans-serif']
       },
+      fontSize: {
+        'custom-medium': '15px'
+      },
       backgroundImage: {
         'linear-main-red': 'linear-gradient(90deg, #FB3838 0%, #F27155 100%)',
         'linear-main-dark-blue': 'linear-gradient(73deg, #00202A 20.95%, rgba(0, 32, 42, 0.60) 134.36%)',

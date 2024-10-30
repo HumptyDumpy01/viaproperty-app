@@ -51,7 +51,7 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
         </div>
       </div>
       {activeState.stepOne === `active` && <FirstForm setActiveState={setActiveState} />}
-      {activeState.stepTwo === `active` && <SecondForm />}
+      {activeState.stepTwo === `active` && <SecondForm setActiveState={setActiveState} />}
     </>
   );
 }

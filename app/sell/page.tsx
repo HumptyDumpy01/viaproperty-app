@@ -25,7 +25,7 @@ export default function SellPage(/*{  }: SellPageType*/) {
           <p className={`text-zinc-800`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus eligendi
             labore veritatis.</p>
         </div>
-        <div>
+        <div className={`max-w-screen-md`}>
           <SellInputContent />
         </div>
       </div>
