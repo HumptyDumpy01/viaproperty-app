@@ -8,6 +8,7 @@ import Image from 'next/image';
 import MapImg from '@/assets/property-description/map/map.png';
 import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
 import Button from '@/components/UI/Button/Button';
+import HighlightText from '@/components/Typography/HighlightText';
 
 type FirstFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -23,9 +24,13 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
                          placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
         </div>
         <div>
-          <LabelAndInput type={`textarea`} label={`Description`} required name={`title`}
-                         customClassNames={`w-[537px] min-h-[155px]`}
-                         placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
+          <LabelAndInput
+            type={`textarea`}
+            label={`Description`}
+            required
+            name={`title`}
+            customClassNames={`w-[537px] min-h-[155px]`}
+            placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
         </div>
         <div className={`mb-9`}>
           <div className={`mb-2`}>
@@ -39,6 +44,13 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
             <LocationLabel location={`UK, Birmingham, 5th Street`} />
           </div>
           <div className={`w-[565px] h-[299px] rounded-3xl mb-9`}>
+            <div className={`mt-9 mb-9`}>
+              <h3 className={`text-zinc-700 font-semibold mb-3`}>Select this property on map *</h3>
+              <p className={``}><HighlightText text={`Lorem ipsum dolor sit amet, `} /> consectetur adipisicing elit.
+                Aut delectus
+                dolor, dolorum facilis modi
+                perferendis quidem quis! Maxime nulla, vitae.</p>
+            </div>
             <Image src={MapImg} alt={`Map Image`} className={`object-cover w-full h-full`} />
           </div>
           <div className={`mb-9`}>
