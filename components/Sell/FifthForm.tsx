@@ -31,11 +31,10 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
           et ipsa libero magni maxime obcaecati <HighlightText text={`possimus saepe. Impedit omnis,`} /> praesentium.
         </p>
 
-        <div className={`flex items-center gap-6 mt-9 mb-7`}>
+        <div className={`flex bp-620:items-center gap-6 mt-9 mb-7 flex-col bp-620:flex-row`}>
           <InfoBadge name={`propertyFor`} value={`Sale`} editable={false} heading={`A Property is for:`} />
           <InfoBadge name={`location`} value={`UK, Birmingham, Street N`} editable={true}
                      heading={`A property is located at:`} />
-
         </div>
 
         <div>

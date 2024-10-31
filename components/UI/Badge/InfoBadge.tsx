@@ -69,7 +69,7 @@ export default function
         )}
         {infoType === `propertyMetric` && (
           <div className={`flex flex-col`}>
-            <div className={`flex gap-4`}>
+            <div className={`flex gap-4 flex-col bp-620:flex-row`}>
               <MetricNumbersAndInput metric={`Beds:`} defaultValue={propertyMetric!.beds} editable={true}
                                      inputName={`beds`} btnClicked={btnClicked} />
 
@@ -80,7 +80,7 @@ export default function
                                      inputName={`baths`} btnClicked={btnClicked} />
             </div>
 
-            <div className={`flex gap-4`}>
+            <div className={`flex gap-4 flex-col bp-620:flex-row`}>
 
               <MetricNumbersAndInput metric={`Bedrooms:`} defaultValue={propertyMetric!.bedrooms} editable={true}
                                      inputName={`bedrooms`} btnClicked={btnClicked} />
@@ -100,7 +100,7 @@ export default function
             {extraFeatures.map(function(feature) {
               return (
                 <>
-                  <div className={`flex items-center w-[332px] justify-between`}>
+                  <div className={`flex items-center bp-620:w-[332px] justify-between`}>
                     <h3 className={`text-zinc-900`}>{feature.title}</h3>
                     <div className={`flex`}>
                       <input name={feature.name} readOnly={!btnClicked} type={`number`} defaultValue={feature.price}
@@ -118,9 +118,9 @@ export default function
         )}
 
         {(infoType === `vitals` && vitals) && (
-          <div className={`flex flex-col gap-6 w-[690px]`}>
+          <div className={`flex flex-col gap-6 bp-620:w-[690px] w-full`}>
 
-            <div className={`flex w-[332px] flex-col gap-2`}>
+            <div className={`flex bp-620:w-[332px] flex-col gap-2`}>
               <h3 className={`bg-clip-text text-xl text-transparent bg-linear-main-red font-bold`}>Title</h3>
               <div className={`flex`}>
                 <input readOnly={!btnClicked} name={`title`}
@@ -134,7 +134,7 @@ export default function
               <h3 className={`bg-clip-text text-xl text-transparent bg-linear-main-red font-bold`}>Description</h3>
               <div className={`flex`}>
                 <textarea readOnly={!btnClicked} name={`description`}
-                          className={`text-zinc-900 w-96 border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                          className={`text-zinc-900 bp-620:w-96 border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
                           placeholder={`description`}
                           defaultValue={vitals.description} />
               </div>
@@ -149,7 +149,8 @@ export default function
                   <div className={`flex flex-col gap-2`}>
                     <div className={`flex`}>
                       <input readOnly={!btnClicked} name={`initials`}
-                             className={`text-red-500 font-medium border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                             className={`text-red-500 font-medium 
+                             border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
                              placeholder={`Initials`}
                              defaultValue={contact.initials} type={`text`} />
                     </div>
@@ -158,7 +159,8 @@ export default function
                         <>
                           <div className={`flex`}>
                             <input readOnly={!btnClicked} name={`phone`}
-                                   className={`text-zinc-600 font-semibold border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
+                                   className={`text-zinc-600 font-semibold 
+                                   border-b border-transparent focus:outline-none ${editable ? `focus:border-b focus:border-b-red-500` : ``}`}
                                    placeholder={`Phone`}
                                    defaultValue={phone} type={`tel`} />
                           </div>
