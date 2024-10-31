@@ -47,15 +47,15 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
           labore veritatis.</p>
       </div>
 
-      <div className={`flex gap-2.5 items-center`}>
+      <div className={`flex gap-2.5 items-center overflow-x-auto scrollbar-thin`}>
         <div onClick={activeState.stepOne === `completed` ? () => switchSteps(`stepOne`, setActiveState) : undefined}>
           <BadgeStages state={activeState.stepOne} label={`Step 1`} object={`stepOne`} />
         </div>
         <div onClick={activeState.stepTwo === `completed` ? () => switchSteps(`stepTwo`, setActiveState) : undefined}>
           <BadgeStages state={activeState.stepTwo} label={`Step 2`} object={`stepTwo`} />
         </div>
-        <div
-          onClick={activeState.stepThree === `completed` ? () => switchSteps(`stepThree`, setActiveState) : undefined}>
+        <div className={``}
+             onClick={activeState.stepThree === `completed` ? () => switchSteps(`stepThree`, setActiveState) : undefined}>
           <BadgeStages state={activeState.stepThree} label={`Step 3`} object={`stepThree`} />
         </div>
         <div onClick={activeState.stepFour === `completed` ? () => switchSteps(`stepFour`, setActiveState) : undefined}>

@@ -20,7 +20,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
     <>
       <form className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
         <div>
-          <LabelAndInput label={`Title`} required name={`title`} customClassNames={`w-96`}
+          <LabelAndInput label={`Title`} required name={`title`} customClassNames={`bp-620:w-96`}
                          placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
         </div>
         <div>
@@ -29,7 +29,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
             label={`Description`}
             required
             name={`title`}
-            customClassNames={`w-[537px] min-h-[155px]`}
+            customClassNames={`bp-620:w-[537px] min-h-[155px]`}
             placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
         </div>
         <div className={`mb-9`}>
@@ -39,18 +39,20 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
           </div>
           <p className={`text-zinc-700 text-sm`}>Lorem ipsum dolor sit amet, consectetur.</p>
         </div>
+
+        <div>
+          <h3 className={`text-zinc-700 font-semibold mb-3`}>Select this property on map *</h3>
+          <p className={`leading-relaxed`}><HighlightText text={`Lorem ipsum dolor sit amet, `} /> consectetur
+            adipisicing elit.
+            Aut delectus
+            dolor, dolorum facilis modi
+            perferendis quidem quis! Maxime nulla, vitae.</p>
+        </div>
         <div className={`mb-9`}>
           <div className={`mb-4`}>
             <LocationLabel location={`UK, Birmingham, 5th Street`} />
           </div>
-          <div className={`w-[565px] h-[299px] rounded-3xl mb-9`}>
-            <div className={`mt-9 mb-9`}>
-              <h3 className={`text-zinc-700 font-semibold mb-3`}>Select this property on map *</h3>
-              <p className={``}><HighlightText text={`Lorem ipsum dolor sit amet, `} /> consectetur adipisicing elit.
-                Aut delectus
-                dolor, dolorum facilis modi
-                perferendis quidem quis! Maxime nulla, vitae.</p>
-            </div>
+          <div className={`bp-620:w-[565px] h-[299px] rounded-3xl mb-9`}>
             <Image src={MapImg} alt={`Map Image`} className={`object-cover w-full h-full`} />
           </div>
           <div className={`mb-9`}>
@@ -59,7 +61,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
               label={`Tell your potential customer shortly about location`}
               required
               name={`locationDescription`}
-              customClassNames={`w-[537px] min-h-[155px]`}
+              customClassNames={`bp-620:w-[537px] min-h-[155px]`}
               placeholder={`e.g. This place is located at N Street, with calm neighborhood... `}
               inputType={`text`} labelStyle={`grey-and-small`} />
           </div>
@@ -81,7 +83,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
               label={`Property Area(In Sqft)`}
               required
               name={`locationDescription`}
-              customClassNames={`w-96`}
+              customClassNames={`bp-620:w-96`}
               placeholder={`e.g. 1000`}
               inputType={`number`} labelStyle={`grey-and-small`} />
           </div>
@@ -91,7 +93,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
               label={`Price(In USD)`}
               required
               name={`locationDescription`}
-              customClassNames={`w-96`}
+              customClassNames={`bp-620:w-96`}
               placeholder={`e.g. 144999`}
               inputType={`number`} labelStyle={`grey-and-small`} />
 
