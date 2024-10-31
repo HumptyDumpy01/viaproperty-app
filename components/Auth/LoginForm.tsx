@@ -23,7 +23,7 @@ export default function LoginForm({ setActivePage }: LoginFormType) {
                          customClassNames={`w-full`} label={`Email`}
                          inputType={`email`} required />
 
-          <PasswordInput eyeIcon label={`Password`} inputName={`password`} placeholder={`Enter your password`} />
+          <PasswordInput icon={`eye`} label={`Password`} inputName={`password`} placeholder={`Enter your password`} />
         </div>
 
         <TextualTooltip text={(
