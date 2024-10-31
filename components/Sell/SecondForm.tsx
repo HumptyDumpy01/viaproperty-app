@@ -29,19 +29,22 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
       <form className={`flex flex-col mt-9`}>
         <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-2xl
           mb-10`}>My Property has..</h2>
-        <div className={`flex items-center  mb-12`}>
+        <div className={`flex items-center mb-12`}>
           <div className={`flex justify-center flex-col gap-7`}>
-            <div className={`flex items-center gap-12 justify-between`}>
+            <div
+              className={`flex flex-col bp-620:flex-row bp-620:items-center bp-620:gap-12 gap-4 bp-620:justify-between`}>
               <ChooseAmount label={`Beds`} item={beds} setItem={setBeds} />
               <ChooseAmount label={`Bedrooms`} item={bedrooms} setItem={setBedrooms} />
             </div>
 
-            <div className={`flex items-center gap-12 justify-between`}>
+            <div
+              className={`flex flex-col bp-620:flex-row bp-620:items-center bp-620:gap-12 gap-4 bp-620:justify-between`}>
               <ChooseAmount label={`Showers`} item={showers} setItem={setShowers} />
               <ChooseAmount label={`Kitchens`} item={kitchens} setItem={setKitchens} />
             </div>
 
-            <div className={`flex items-center gap-12 justify-between`}>
+            <div
+              className={`flex flex-col bp-620:flex-row bp-620:items-center bp-620:gap-12 gap-4 bp-620:justify-between`}>
               <ChooseAmount label={`Baths`} item={baths} setItem={setBaths} />
               <ChooseAmount label={`Parking Slots`} item={parkingSlots} setItem={setParkingSlots} />
             </div>
@@ -58,7 +61,7 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
           </p>
 
           <div className={`mb-10`}>
-            <div className={`flex gap-3.5 items-center`}>
+            <div className={`flex gap-3.5 items-center overflow-x-auto scrollbar-thin `}>
               <TagBadge label={`Custom Tag 1`} />
               <TagBadge label={`Custom Tag 2`} />
               <TagBadge label={`Custom Tag 3`} />
@@ -94,7 +97,7 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
             <p className={`max-w-3xl text-zinc-900 leading-relaxed mb-6 text-sm`}>Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.</p>
           </div>
-          <div className={`flex gap-3.5 items-center mb-6`}>
+          <div className={`flex gap-3.5 items-center mb-6 overflow-x-auto scrollbar-thin`}>
             <TagBadge label={`Custom Feature 1`} />
             <TagBadge label={`Custom Feature 2`} />
             <TagBadge label={`Custom Feature 3`} />
@@ -103,12 +106,12 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
             <Features featureHeading={`Features`}>
 
               <LabelAndInput labelStyle={`grey-and-small`} name={`heading`} placeholder={`e.g. Posh Fireplace`}
-                             customClassNames={`w-72 text-custom-medium`}
+                             customClassNames={`bp-620:w-72 text-custom-medium`}
                              label={`Heading`} inputType={`text`} />
 
               <LabelAndInput type={`textarea`} labelStyle={`grey-and-small`} name={`short-description`}
                              placeholder={`e.g. This fireplace is the perfect place to relax after a long day.`}
-                             customClassNames={`w-72 h-36 text-custom-medium`}
+                             customClassNames={`bp-620:w-72 h-36 text-custom-medium`}
                              label={`Short Description`} inputType={`text`} />
               <div className={`overflow-x-auto scrollbar-thin max-w-[270px]`}>
                 <ChooseImage max={3} min={0} />
@@ -130,7 +133,8 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
               maxime, obcaecati officiis <HighlightText text={`recusandae repellendus, tempore voluptate.`} /></p>
 
             <div className={`mt-4`}>
-              <LabelAndInput customClassNames={`w-96`} labelStyle={`grey-and-small`} label={`Sale (In Percentages)`}
+              <LabelAndInput customClassNames={`bp-620:w-96`} labelStyle={`grey-and-small`}
+                             label={`Sale (In Percentages)`}
                              name={`discount`}
                              placeholder={`e.g. 5`} inputType={`number`} />
             </div>
