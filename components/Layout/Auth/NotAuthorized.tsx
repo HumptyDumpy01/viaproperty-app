@@ -12,8 +12,9 @@ import BulkyLink from '@/components/UI/Link/BulkyLink';
 export default function NotAuthorized(/*{  }: NotAuthorizedType*/) {
   return (
     <>
-      <div className={`max-w-screen-bp-1009 flex gap-7 m-auto`}>
-        <div className={`flex w-96 h-56 items-center justify-center`}>
+      <div
+        className={`max-w-screen-bp-1009 flex flex-col items-center bp-896:items-start bp-896:flex-row gap-7 m-auto`}>
+        <div className={`flex w-96 h-56 items-center justify-center mt-7 bp-620:mt-0`}>
           <Lottie className={`w-96`} animationData={AnimationNotFoundJSON} />
         </div>
         <div className={`flex flex-col`}>
@@ -28,7 +29,7 @@ export default function NotAuthorized(/*{  }: NotAuthorizedType*/) {
             text={`consectetur adipiscing elit, `} />sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua.</p>
 
-          <div className={`flex gap-4 items-center`}>
+          <div className={`flex gap-4 items-center flex-col bp-620:flex-row justify-center bp-896:justify-start`}>
             <BulkyLink linkStyle={`red`} href={`/login`} label={`Log in`} />
             <span className={`text-zinc-900 font-semibold`}>OR</span>
             <BulkyLink linkStyle={`emptyBlack`} href={`/register`} label={`Register`} />
