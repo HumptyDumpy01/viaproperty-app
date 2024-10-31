@@ -7,6 +7,7 @@ import NotFound from 'next/dist/client/components/not-found-error';
 import { useEffect, useState } from 'react';
 import LoginForm from '@/components/Auth/LoginForm';
 import RegisterForm from '@/components/Auth/RegisterForm';
+import ForgotPassword from '@/components/Auth/ForgotPassword';
 
 export type AuthPageType = 'login' | 'register' | 'forgot-password';
 
@@ -32,12 +33,13 @@ export default function AuthPage() {
 
   return (
     <MainContainer>
-      <div className={`flex flex-col mt-12 max-w-[464px] m-auto`}>
+      <div className={`flex flex-col mt-12 ${activePage !== `forgot-password` ? `max-w-[464px] m-auto` : ``}`}>
         <h1
-          className={`bg-clip-text mb-6 text-transparent self-center pb-3 text-6xl bg-linear-main-dark-blue font-bold w-fit`}>
+          className={`bg-clip-text mb-6 text-transparent ${activePage !== `forgot-password` ? `self-center` : ``}
+            pb-3 text-6xl bg-linear-main-dark-blue font-bold w-fit`}>
           {headingText}
         </h1>
-        <div className={`flex items-center gap-2.5 text-left mb-9`}>
+        <div className={`flex items-center gap-2.5 text-left mb-9 overflow-x-auto scrollbar-corner-red-400`}>
           <ButtonActive onClick={() => setActivePage('login')} active={activePage === 'login'} label={`Login`} />
           <ButtonActive onClick={() => setActivePage('register')} active={activePage === 'register'}
                         label={`Register`} />
@@ -47,6 +49,7 @@ export default function AuthPage() {
 
         {activePage === 'login' && <LoginForm setActivePage={setActivePage} />}
         {activePage === 'register' && <RegisterForm setActivePage={setActivePage} />}
+        {activePage === 'forgot-password' && <ForgotPassword />}
       </div>
     </MainContainer>
   );

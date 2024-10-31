@@ -10,9 +10,9 @@ type ButtonStatesType = {
 
 export default function ButtonActive({ active, label, ...props }: ButtonStatesType) {
   const activeStyles = `font-bold text-green-600 px-4 py-2 rounded-full
-                  border border-green-600`;
+                  border border-green-600 text-nowrap`;
   const disabledStyles = `font-medium text-zinc-400 px-4 py-2 rounded-full
-                  border border-zinc-300`;
+                  border border-zinc-300 text-nowrap`;
   return (
     <>
       <button {...props} type={`button`}

@@ -5,6 +5,8 @@ type TooltipType = {
   setQuestionMarkVisibility: (arg: boolean) => void;
   content: string;
   customDimensions?: string;
+  customResponsivePosition?: string;
+  customPosition?: string;
   // children: ReactNode;
 }
 
@@ -14,13 +16,15 @@ import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 export default function
   Tooltip({
             questionMarkVisibility, setQuestionMarkVisibility, content,
-            customDimensions = `w-80 h-60`
+            customDimensions = `w-80 h-60`,
+            customResponsivePosition = `-top-6 -right-2`,
+            customPosition = `bp-620:-top-[210px] bp-620:-right-[290px]`
           }: TooltipType) {
   return (
     <>
       <div
-        className={`${customDimensions} bg-white border border-zinc-200 absolute bp-620:-top-[210px]
-         bp-620:-right-[290px] -top-6 -right-2 rounded-3xl p-5
+        className={`${customDimensions} bg-white border border-zinc-200 absolute ${customPosition}
+         ${customResponsivePosition} rounded-3xl p-5
                 transition-all duration-200 z-10
                 ${!questionMarkVisibility ? `pointer-events-none opacity-0 translate-y-2/4` : `pointer-events-auto opacity-100 
                 translate-y-0`}`}>
