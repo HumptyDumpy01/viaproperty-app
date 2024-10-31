@@ -7,7 +7,7 @@ import NotFound from 'next/dist/client/components/not-found-error';
 import { useEffect, useState } from 'react';
 import LoginForm from '@/components/Auth/LoginForm';
 import RegisterForm from '@/components/Auth/RegisterForm';
-import ForgotPassword from '@/components/Auth/ForgotPassword';
+import ForgotPassword from '@/components/Auth/ForgotPassword/ForgotPassword';
 
 export type AuthPageType = 'login' | 'register' | 'forgot-password';
 
@@ -49,7 +49,7 @@ export default function AuthPage() {
 
         {activePage === 'login' && <LoginForm setActivePage={setActivePage} />}
         {activePage === 'register' && <RegisterForm setActivePage={setActivePage} />}
-        {activePage === 'forgot-password' && <ForgotPassword />}
+        {activePage === 'forgot-password' && <ForgotPassword setActivePage={setActivePage} />}
       </div>
     </MainContainer>
   );

@@ -17,7 +17,7 @@ export type activeStateType = {
 };
 
 export default function SellInputContent(/*{  }: SellInputContentType*/) {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <>
       {isAuthenticated && (
