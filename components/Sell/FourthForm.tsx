@@ -7,6 +7,8 @@ import Features from '@/components/Sell/Features';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Button from '@/components/UI/Button/Button';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type FourthFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -14,6 +16,12 @@ type FourthFormType = {
 }
 
 export default function FourthForm({ setActiveState }: FourthFormType) {
+
+  function setActiveStateDeclaration(activeState: activeStateType) {
+    scrollIntoViewFunc(`.sell-heading`);
+    setActiveStateFunc(activeState, setActiveState);
+  }
+
   return (
     <>
       <form className={`flex flex-col mt-9`}>
@@ -66,11 +74,15 @@ export default function FourthForm({ setActiveState }: FourthFormType) {
         </div>
 
         <div>
-          <Button type={`button`} label={`Done`}
+          {/*<Button type={`button`} label={`Done`}*/}
+          {/*  // @ts-ignore*/}
+          {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
+          {/*          ...prevState, stepFour: `completed`, finishingSteps: `active`*/}
+          {/*        }))} />*/}
+
+          <Button type={`button`} label={`Next`}
             // @ts-ignore
-                  onClick={() => setActiveState((prevState: activeStateType) => ({
-                    ...prevState, stepFour: `completed`, finishingSteps: `active`
-                  }))} />
+                  onClick={() => setActiveStateDeclaration({ stepFour: `completed`, finishingSteps: `active` })} />
         </div>
       </form>
     </>

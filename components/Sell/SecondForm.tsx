@@ -10,6 +10,8 @@ import Features from '@/components/Sell/Features';
 import Button from '@/components/UI/Button/Button';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type SecondFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -23,6 +25,11 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
   const [bedrooms, setBedrooms] = useState<number>(0);
   const [kitchens, setKitchens] = useState<number>(0);
   const [parkingSlots, setParkingSlots] = useState<number>(0);
+
+  function setActiveStateDeclaration(activeState: activeStateType) {
+    scrollIntoViewFunc(`.sell-heading`);
+    setActiveStateFunc(activeState, setActiveState);
+  }
 
   return (
     <>
@@ -141,11 +148,15 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
           </div>
 
           <div>
+            {/*<Button type={`button`} label={`Next`}*/}
+            {/*  // @ts-ignore*/}
+            {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
+            {/*          ...prevState, stepTwo: `completed`, stepThree: `active`*/}
+            {/*        }))} />*/}
+
             <Button type={`button`} label={`Next`}
               // @ts-ignore
-                    onClick={() => setActiveState((prevState: activeStateType) => ({
-                      ...prevState, stepTwo: `completed`, stepThree: `active`
-                    }))} />
+                    onClick={() => setActiveStateDeclaration({ stepTwo: `completed`, stepThree: `active` })} />
           </div>
         </div>
       </form>

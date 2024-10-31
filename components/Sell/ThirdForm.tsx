@@ -1,19 +1,27 @@
 // 'use client';
 
-type ThirdFormType = {
-  setActiveState: (prevState: activeStateType) => void;
-  // children: ReactNode;
-}
-
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import HighlightText from '@/components/Typography/HighlightText';
 import TagBadge from '@/components/UI/Badge/TagBadge';
 import Features from '@/components/Sell/Features';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
-import Button from '@/components/UI/Button/Button';
 import { activeStateType } from '@/components/Sell/SellInputContent';
+import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
+import Button from '@/components/UI/Button/Button';
+
+type ThirdFormType = {
+  setActiveState: (prevState: activeStateType) => void;
+  // children: ReactNode;
+}
 
 export default function ThirdForm({ setActiveState }: ThirdFormType) {
+
+  function setActiveStateDeclaration(activeState: activeStateType) {
+    scrollIntoViewFunc(`.sell-heading`);
+    setActiveStateFunc(activeState, setActiveState);
+  }
+
   return (
     <>
       <form className={`flex flex-col mt-9`}>
@@ -100,11 +108,15 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
           </div>
           <div className={`mt-12`}>
 
+            {/*<Button type={`button`} label={`Next`}*/}
+            {/*  // @ts-ignore*/}
+            {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
+            {/*          ...prevState, stepThree: `completed`, stepFour: `active`*/}
+            {/*        }))} />*/}
+
             <Button type={`button`} label={`Next`}
               // @ts-ignore
-                    onClick={() => setActiveState((prevState: activeStateType) => ({
-                      ...prevState, stepThree: `completed`, stepFour: `active`
-                    }))} />
+                    onClick={() => setActiveStateDeclaration({ stepThree: `completed`, stepFour: `active` })} />
           </div>
         </div>
       </form>

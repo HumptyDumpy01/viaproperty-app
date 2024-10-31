@@ -12,6 +12,8 @@ import PropertyImg5 from '@/assets/sell/property-img/property-img-5.png';
 import ImageGalleryFullScreen from '@/components/Layout/Gallery/ImageGalleryFullScreen';
 import { useState } from 'react';
 import Button from '@/components/UI/Button/Button';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type FifthFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -20,6 +22,12 @@ type FifthFormType = {
 
 export default function FifthForm({ setActiveState }: FifthFormType) {
   const [imgGalleryOpen, setImgGalleryOpen] = useState<boolean>(false);
+
+  function setActiveStateDeclaration(activeState: activeStateType) {
+    scrollIntoViewFunc(`.sell-heading`);
+    setActiveStateFunc(activeState, setActiveState);
+  }
+
   return (
     <>
       <form className={`flex flex-col mt-9`}>
@@ -141,11 +149,15 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
             voluptatibus.</p>
         </div>
         <div className={`flex flex-col gap-6`}>
+          {/*<Button type={`button`} label={`Confirm`}*/}
+          {/*  // @ts-ignore*/}
+          {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
+          {/*          ...prevState, finishingSteps: `completed`*/}
+          {/*        }))} />*/}
+
           <Button type={`button`} label={`Confirm`}
             // @ts-ignore
-                  onClick={() => setActiveState((prevState: activeStateType) => ({
-                    ...prevState, finishingSteps: `completed`
-                  }))} />
+                  onClick={() => setActiveStateDeclaration({ finishingSteps: `completed` })} />
           <Button mode={`lg`} btnVariant={`black`} type={`button`} label={`Cancel`} />
         </div>
 

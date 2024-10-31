@@ -9,6 +9,8 @@ import MapImg from '@/assets/property-description/map/map.png';
 import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
 import Button from '@/components/UI/Button/Button';
 import HighlightText from '@/components/Typography/HighlightText';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type FirstFormType = {
   setActiveState: (prevState: activeStateType) => void;
@@ -16,6 +18,12 @@ type FirstFormType = {
 }
 
 export default function FirstForm({ setActiveState }: FirstFormType) {
+
+  function setActiveStateDeclaration(activeState: activeStateType) {
+    scrollIntoViewFunc(`.sell-heading`);
+    setActiveStateFunc(activeState, setActiveState);
+  }
+
   return (
     <>
       <form className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
@@ -100,11 +108,16 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
             <p className={`text-sm mt-3`}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla,
               temporibus?</p>
           </div>
+          {/*<Button type={`button`} label={`Next`}*/}
+          {/*  // @ts-ignore*/}
+          {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
+          {/*          ...prevState, stepOne: `completed`, stepTwo: `active`*/}
+          {/*        }))} />*/}
+
           <Button type={`button`} label={`Next`}
             // @ts-ignore
-                  onClick={() => setActiveState((prevState: activeStateType) => ({
-                    ...prevState, stepOne: `completed`, stepTwo: `active`
-                  }))} /></div>
+                  onClick={() => setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` })} />
+        </div>
       </form>
     </>
   );
