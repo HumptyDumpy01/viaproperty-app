@@ -20,7 +20,7 @@ export default function
     <>
       <div
         className={`${customDimensions} bg-white border border-zinc-200 absolute bp-620:-top-[210px]
-         bp-620:-right-[290px] -top-6 right-3 rounded-3xl p-5
+         bp-620:-right-[290px] -top-6 -right-2 rounded-3xl p-5
                 transition-all duration-200 z-10
                 ${!questionMarkVisibility ? `pointer-events-none opacity-0 translate-y-2/4` : `pointer-events-auto opacity-100 
                 translate-y-0`}`}>

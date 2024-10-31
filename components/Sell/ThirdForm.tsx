@@ -24,7 +24,7 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
           et ipsa libero magni maxime obcaecati <HighlightText text={`possimus saepe. Impedit omnis,`} /> praesentium.
         </p>
         <div className={`mt-6 mb-9`}>
-          <div className={`flex gap-3.5 items-center`}>
+          <div className={`flex gap-3.5 items-center overflow-x-auto scrollbar-thin`}>
             <TagBadge label={`John Doe, +380..89, +380...33`} />
             <TagBadge label={`John Doe, +380..89, +380...33`} />
             <TagBadge label={`John Doe, +380..89, +380...33`} />
@@ -34,11 +34,11 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
           <Features featureHeading={`Contact Details`}>
 
             <LabelAndInput labelStyle={`grey-and-small`} name={`initials`} placeholder={`e.g. John Doe`}
-                           customClassNames={`w-72 text-custom-medium`}
+                           customClassNames={`bp-620:w-72 text-custom-medium`}
                            label={`Initials`} inputType={`text`} />
 
             <LabelAndInput labelStyle={`grey-and-small`} name={`phone`} placeholder={`e.g. +380...33`}
-                           customClassNames={`w-72 text-custom-medium`}
+                           customClassNames={`bp-620:w-72 text-custom-medium`}
                            label={`Phone Number`} inputType={`number`} />
             <div className={`mt-3`}>
               <button type={`button`}
@@ -71,7 +71,7 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
               text={`quam quibusdam quod ratione saepe voluptatem?`} /></p>
 
           <div className={`mt-6 mb-9`}>
-            <div className={`flex gap-3.5 items-center`}>
+            <div className={`flex gap-3.5 items-center overflow-x-auto scrollbar-thin`}>
               <TagBadge label={`Floor Plan 1`} />
               <TagBadge label={`Floor Plan 2`} />
             </div>
@@ -81,12 +81,12 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
             <Features featureHeading={`Floor Plans`}>
 
               <LabelAndInput labelStyle={`grey-and-small`} name={`heading`} placeholder={`e.g. Overall Building`}
-                             customClassNames={`w-72 text-custom-medium`}
+                             customClassNames={`bp-620:w-72 text-custom-medium`}
                              label={`Heading`} inputType={`text`} />
 
               <LabelAndInput type={`textarea`} labelStyle={`grey-and-small`} name={`short-description`}
                              placeholder={`e.g. This is the overall building floor plan.`}
-                             customClassNames={`w-72 h-36 text-custom-medium`}
+                             customClassNames={`bp-620:w-72 h-36 text-custom-medium`}
                              label={`Short Description`} inputType={`text`} />
               <div className={`overflow-x-auto scrollbar-thin max-w-[270px]`}>
                 <ChooseImage max={3} min={0} />
