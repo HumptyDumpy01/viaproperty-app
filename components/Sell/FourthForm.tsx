@@ -24,7 +24,7 @@ export default function FourthForm({ setActiveState }: FourthFormType) {
           et ipsa libero magni maxime obcaecati <HighlightText text={`possimus saepe. Impedit omnis,`} /> praesentium.
         </p>
         <div className={`mt-6 mb-9`}>
-          <div className={`flex gap-3.5 items-center`}>
+          <div className={`flex gap-3.5 items-center overflow-x-auto scrollbar-thin`}>
             <TagBadge label={`Custom Pricing Feature`} />
             <TagBadge label={`Custom Pricing Feature`} />
             <TagBadge label={`Custom Pricing Feature`} />
@@ -34,11 +34,11 @@ export default function FourthForm({ setActiveState }: FourthFormType) {
           <Features featureHeading={`Extra Features`}>
 
             <LabelAndInput labelStyle={`grey-and-small`} name={`title`} placeholder={`e.g.Garage`}
-                           customClassNames={`w-72 text-custom-medium`}
+                           customClassNames={`bp-620:w-72 text-custom-medium`}
                            label={`Title`} inputType={`text`} />
 
             <LabelAndInput labelStyle={`grey-and-small`} name={`price`} placeholder={`e.g. 14499`}
-                           customClassNames={`w-72 text-custom-medium`}
+                           customClassNames={`bp-620:w-72 text-custom-medium`}
                            label={`Price(In USD)`} inputType={`number`} />
             <div className={`mt-3`}>
               <button type={`button`}
@@ -55,7 +55,7 @@ export default function FourthForm({ setActiveState }: FourthFormType) {
             illo odio quas quis. Cumque
             et ipsa libero magni maxime obcaecati <HighlightText text={`possimus saepe. Impedit omnis,`} /> praesentium.
           </p>
-          <div className={`w-96 h-56 bg-red-50 rounded-2xl flex items-center justify-center mb-11`}>
+          <div className={`bp-620:w-96 h-56 bg-red-50 rounded-2xl flex items-center justify-center mb-11`}>
             <ViapropertyIcon icon={`logo`} />
           </div>
           <div>
