@@ -6,6 +6,7 @@
 
 import SellForms from '@/components/Sell/SellForms';
 import NotAuthorized from '@/components/Layout/Auth/NotAuthorized';
+import HighlightText from '@/components/Typography/HighlightText';
 
 export type activeStateType = {
   stepOne: `disabled` | `active` | `completed`;
@@ -23,7 +24,18 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
         <SellForms />
       )}
       {!isAuthenticated && (
-        <NotAuthorized />
+        <NotAuthorized heading={`Only logged in users can start selling or renting their property!`} error={401} text={(
+          <>
+            Lorem ipsum dolor sit amet, <HighlightText
+            text={`consectetur adipiscing elit, `} />sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.
+          </>
+        )} links={[{
+          linkStyle: `red`, href: `/login`, label: `Log in`, orSeparator: true
+        }, {
+          linkStyle: `emptyBlack`, href: `/register`, label: `Register`
+        }]}
+        />
       )}
     </>
   );

@@ -4,12 +4,13 @@ type BulkyLinkType = {
   linkStyle: `red` | `emptyBlack`;
   href: string;
   label: string;
+  orSeparator?: boolean;
   // children: ReactNode;
 }
 
 import Link from 'next/link';
 
-export default function BulkyLink({ linkStyle, href, label }: BulkyLinkType) {
+export default function BulkyLink({ linkStyle, href, label, orSeparator }: BulkyLinkType) {
   const redStyles = `font-bold bg-red-500 rounded-full flex 
                w-fit h-19 text-white 
               px-12 py-6 bp-620:text-xl
@@ -23,6 +24,7 @@ export default function BulkyLink({ linkStyle, href, label }: BulkyLinkType) {
   return (
     <>
       <Link className={linkStyle === `red` ? redStyles : emptyBlackStyles} href={href}>{label}</Link>
+      {orSeparator && <span className={`text-zinc-900 font-semibold mx-2 uppercase`}>or</span>}
     </>
   );
 }
