@@ -5,7 +5,7 @@ import React from 'react';
 
 type FacebookType = {
   background?: boolean;
-  type: `facebook` | `x` | `instagram` | `linkedin` | `viaproperty`;
+  type: `facebook` | `x` | `instagram` | `linkedin` | `viaproperty` | `google`;
   cursorPointer?: boolean;
   href?: string;
   animate?: boolean;
@@ -136,6 +136,20 @@ export default function
               </defs>
             </svg>
           </>
+        )}
+        {type === `google` && (
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 16 16" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8 7V9.4H11.97C11.81 10.43 10.77 12.42 8 12.42C5.61 12.42 3.66 10.44 3.66 8C3.66 5.56 5.61 3.58 8 3.58C9.36 3.58 10.27 4.16 10.79 4.66L12.69 2.83C11.47 1.69 9.89 1 8 1C4.13 1 1 4.13 1 8C1 11.87 4.13 15 8 15C12.04 15 14.72 12.16 14.72 8.16C14.72 7.7 14.67 7.35 14.61 7H8Z"
+                  fill="url(#paint0_linear_1074_7992)" />
+            <defs>
+              <linearGradient id="paint0_linear_1074_7992" x1="1" y1="2.36111" x2="16.3511" y2="2.46713"
+                              gradientUnits="userSpaceOnUse">
+                <stop stop-color="#00202A" />
+                <stop offset="1" stop-color="#00202A" stop-opacity="0.6" />
+              </linearGradient>
+            </defs>
+          </svg>
         )}
 
       </div>

@@ -9,4 +9,5 @@ export type ViapropertyIconType =
   | `phone`
   | `dollar`
   | `questionMark`
+  | `questionMarkGrey`
   | `logo`;
