@@ -28,7 +28,7 @@ export default function
   let content: ReactNode = null;
 
   const labelStyles = labelStyle === `red-and-huge` ? `w-fit text-red-500 font-bold text-2xl` : labelStyle === `grey-and-small` ? `w-fit 
-  text-zinc-400 text-sm` : `w-fit bg-clip-text text-transparent bg-linear-main-dark-blue text-2xl font-bold`;
+  text-zinc-700 font-semibold text-sm` : `w-fit bg-clip-text text-transparent bg-linear-main-dark-blue text-2xl font-bold`;
 
   const inputNode: ReactNode = (
     <>
@@ -60,7 +60,7 @@ export default function
 
   return (
     <>
-      <div className={`flex flex-col gap-2.5`}>
+      <div className={`flex flex-col gap-2.5 w-full`}>
         <label htmlFor={`${name}`} className={labelStyles}>{label} {required ? `*` : ``}</label>
         {content}
       </div>

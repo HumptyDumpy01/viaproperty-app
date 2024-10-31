@@ -10,4 +10,5 @@ export type ViapropertyIconType =
   | `dollar`
   | `questionMark`
   | `questionMarkGrey`
-  | `logo`;
+  | `logo`
+  | `error`;

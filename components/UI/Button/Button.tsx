@@ -5,7 +5,7 @@ import React, { ComponentPropsWithoutRef } from 'react';
 type ButtonType = ComponentPropsWithoutRef<'button'> & {
   label: string;
   mode?: 'lg' | 'md' | 'sm';
-  btnVariant?: `red` | `white` | `black`;
+  btnVariant?: `red` | `white` | `black` | `dark-blue`;
   linearGradient?: boolean;
   scale?: boolean;
   // children: ReactNode;
@@ -58,6 +58,13 @@ export default function
                w-fit h-[38px] border border-black
               px-3 py-3 text-sm items-center
               transition-all duration-200 hover:bg-zinc-900 hover:animate-pulse hover:text-white hover:border-zinc-800 active:bg-zinc-700`}> {label} </button>
+      )}
+
+      {(mode === 'lg' && btnVariant === `dark-blue`) && (
+        <button  {...props} className={`font-bold bg-white text-white rounded-2xl flex 
+               w-fit h-[38px] px-12 py-8 bp-620:text-xl text-2xl items-center
+              transition-all duration-200 bg-linear-main-dark-blue
+              hover:bg-zinc-900`}> {label} </button>
       )}
     </>
   );
