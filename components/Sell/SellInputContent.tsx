@@ -31,9 +31,9 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
             dolore magna aliqua.
           </>
         )} links={[{
-          linkStyle: `red`, href: `/login`, label: `Log in`, orSeparator: true
+          linkStyle: `red`, href: `/auth/login`, label: `Log in`, orSeparator: true
         }, {
-          linkStyle: `emptyBlack`, href: `/register`, label: `Register`
+          linkStyle: `emptyBlack`, href: `/auth/register`, label: `Register`
         }]}
         />
       )}
