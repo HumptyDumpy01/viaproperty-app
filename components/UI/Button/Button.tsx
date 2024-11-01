@@ -62,7 +62,7 @@ export default function
 
       {(mode === 'lg' && btnVariant === `dark-blue`) && (
         <button  {...props} className={`font-bold bg-white text-white rounded-2xl flex 
-               w-fit h-[38px] px-12 py-8 bp-620:text-xl text-2xl items-center
+               w-fit h-[38px] px-12 py-8 bp-620:text-2xl items-center
               transition-all duration-200 bg-linear-main-dark-blue
               hover:bg-zinc-900`}> {label} </button>
       )}

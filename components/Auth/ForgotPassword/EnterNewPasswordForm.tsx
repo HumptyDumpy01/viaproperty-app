@@ -16,7 +16,7 @@ export default function EnterNewPasswordForm({ handleBadgeClick }: EnterNewPassw
       <div className={`mt-7 mb-6`}>
         <ErrorMessage errorMessage={`Passwords do not match!`} />
       </div>
-      <form className={`flex justify-center flex-col w-[412px]`}>
+      <form className={`flex justify-center flex-col bp-620:w-[412px]`}>
 
         <div className={`flex flex-col gap-4 mb-12`}>
 
@@ -27,7 +27,7 @@ export default function EnterNewPasswordForm({ handleBadgeClick }: EnterNewPassw
                          placeholder={`Confirm new password`} />
 
         </div>
-        <Button btnVariant={`dark-blue`} mode={`lg`} type={`button`} label={`Verify`}
+        <Button btnVariant={`dark-blue`} mode={`lg`} type={`button`} label={`Save`}
                 onClick={() => handleBadgeClick(`done`)} />
       </form>
     </>

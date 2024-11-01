@@ -15,7 +15,7 @@ export default function EnterVerificationCodeForm({ handleBadgeClick }: EnterVer
       <div className={`mt-7 mb-6`}>
         <ErrorMessage errorMessage={`Invalid Token Provided!`} />
       </div>
-      <form className={`flex justify-center flex-col w-[412px]`}>
+      <form className={`flex justify-center flex-col bp-620:w-[412px]`}>
         <div className={`flex w-full mb-11`}>
           <LabelAndInput labelStyle={`dark-blue`} name={`code`} placeholder={`6-digit code`}
                          customClassNames={`w-full`} label={`Enter Verfification Code`}

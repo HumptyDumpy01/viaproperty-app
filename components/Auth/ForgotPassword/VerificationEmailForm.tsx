@@ -12,11 +12,11 @@ type VerificationEmailFormType = {
 
 export default function VerificationEmailForm({ handleBadgeClick }: VerificationEmailFormType) {
   return (
-    <>
+    <div className={`flex flex-col`}>
       <div className={`mt-7 mb-6`}>
         <ErrorMessage errorMessage={`Incorrect email!`} />
       </div>
-      <form className={`flex justify-center flex-col w-[412px]`}>
+      <form className={`flex justify-center flex-col bp-620:w-[412px]`}>
 
 
         <div className={`flex w-full mb-11`}>
@@ -25,10 +25,12 @@ export default function VerificationEmailForm({ handleBadgeClick }: Verification
                          inputType={`email`} required />
         </div>
 
-        <Button btnVariant={`dark-blue`} mode={`lg`} type={`button`} label={`Send Verification Code`}
-          // @ts-ignore
-                onClick={() => handleBadgeClick(`stepTwo`)} />
+        <div className={`flex`}>
+          <Button btnVariant={`dark-blue`} mode={`lg`} type={`button`} label={`Send Verification Code`}
+            // @ts-ignore
+                  onClick={() => handleBadgeClick(`stepTwo`)} />
+        </div>
       </form>
-    </>
+    </div>
   );
 }
