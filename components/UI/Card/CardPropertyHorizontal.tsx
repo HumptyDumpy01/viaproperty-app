@@ -59,7 +59,7 @@ export default function
                 </p>
               </>
             )}
-            <span className={`text-zinc-400 text-sm`}>{createdAt} month ago</span>
+            <span className={`text-zinc-400 text-sm`}>{createdAt}</span>
           </div>
           <div className={`mt-4 flex items-center gap-14`}>
             <div>

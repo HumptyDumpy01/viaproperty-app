@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import AccountSettings from '@/components/AccountSettings/AccountSettings';
 
-export type AccountSettingsPageType = `account-settings` | `chats`;
+export type AccountSettingsPageType = `account-settings` | `chats` | `balance`;
 
 export default function AccountSettingsPage(/*{  }: AccountSettingsPageType*/) {
   const searchParams = useSearchParams();
@@ -49,6 +49,8 @@ export default function AccountSettingsPage(/*{  }: AccountSettingsPageType*/) {
             <ButtonActive onClick={() => setActivePage('chats')} active={activePage === 'chats'} label={`Chats`} />
             <ButtonActive onClick={() => setActivePage('account-settings')} active={activePage === 'account-settings'}
                           label={`Account Settings`} />
+            <ButtonActive onClick={() => setActivePage('balance')} active={activePage === 'balance'}
+                          label={`Balance`} />
           </div>
         </div>
 

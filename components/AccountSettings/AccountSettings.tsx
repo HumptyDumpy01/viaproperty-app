@@ -4,6 +4,9 @@ import ButtonActive from '@/components/UI/Button/ButtonActive';
 import { ReactNode, useState } from 'react';
 import MyProfile from '@/components/AccountSettings/MyProfile/MyProfile';
 import MyAdverts from '@/components/AccountSettings/MyAdverts/MyAdverts';
+import MyWishlist from '@/components/AccountSettings/MyWishlist/MyWishlist';
+import MyPurchases from '@/components/AccountSettings/MyPurchases/MyPurchases';
+import DeleteAccount from '@/components/AccountSettings/DeleteAccount/DeleteAccount';
 
 /*type AccountSettingsType = {
   // children: ReactNode;
@@ -29,6 +32,26 @@ export default function AccountSettings(/*{}: AccountSettingsType*/) {
         <MyAdverts />
       );
       break;
+    case `wishlist`:
+      content = (
+        <>
+          <MyWishlist />
+        </>
+      );
+      break;
+    case `my-purchases`:
+      content = (
+        <>
+          <MyPurchases />
+        </>
+      );
+      break;
+    case `delete-account`:
+      content = (
+        <>
+          <DeleteAccount />
+        </>
+      );
   }
 
   return (
