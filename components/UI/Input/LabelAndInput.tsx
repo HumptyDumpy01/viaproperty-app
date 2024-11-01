@@ -11,6 +11,9 @@ type LabelAndTextType = {
   required?: boolean;
   inputType: `text` | `email` | `password` | `number` | `tel`
   labelStyle?: `red-and-huge` | `grey-and-small` | `dark-blue`;
+  labelSize?: string;
+  defaultValue?: string;
+  disabled?: boolean;
   // children: ReactNode;
 }
 
@@ -23,26 +26,33 @@ export default function
                   label,
                   required = false,
                   type = `input`,
-                  labelStyle = `red-and-huge`
+                  labelStyle = `red-and-huge`,
+                  labelSize = `text-2xl`,
+                  defaultValue = ``,
+                  disabled = false
+
                 }: LabelAndTextType) {
   let content: ReactNode = null;
 
-  const labelStyles = labelStyle === `red-and-huge` ? `w-fit text-red-500 font-bold text-2xl` : labelStyle === `grey-and-small` ? `w-fit 
-  text-zinc-700 font-semibold text-sm` : `w-fit bg-clip-text text-transparent bg-linear-main-dark-blue text-2xl font-bold`;
+  const labelStyles = labelStyle === `red-and-huge` ? `w-fit text-red-500 font-bold ${labelSize}` : labelStyle === `grey-and-small` ? `w-fit 
+  text-zinc-700 font-semibold text-sm` : `w-fit bg-clip-text text-transparent bg-linear-main-dark-blue ${labelSize} font-bold`;
+  const disabledStyles = disabled ? `cursor-not-allowed bg-zinc-300 text-zinc-300` : ``;
+  const disabledLabelStyles = disabled ? `text-zinc-400 font-semibold text-xl` : ``;
 
   const inputNode: ReactNode = (
     <>
-      <input type={`${inputType}`} id={`${name}`} name={`${name}`}
+      <input disabled={disabled} defaultValue={defaultValue} type={`${inputType}`} id={`${name}`}
+             name={`${name}`}
              className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
           focus:outline-none border-2 border-transparent transition-all 
-          duration-300 ${labelStyle !== `dark-blue` ? `focus:border-red-500` : `focus:border-blue-900`} focus:bg-white`}
+          duration-300 ${disabledStyles} ${labelStyle !== `dark-blue` ? `focus:border-red-500` : `focus:border-blue-900`} focus:bg-white`}
              placeholder={placeholder} required={required} />
     </>
   );
 
   const textareaNode: ReactNode = (
     <>
-      <textarea id={`${name}`} name={`${name}`}
+      <textarea defaultValue={defaultValue} disabled={disabled} id={`${name}`} name={`${name}`}
                 className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
           focus:outline-none border-2 border-transparent transition-all duration-300 focus:border-red-500 focus:bg-white`}
                 placeholder={placeholder} required={required} />
@@ -61,7 +71,11 @@ export default function
   return (
     <>
       <div className={`flex flex-col gap-2.5 w-full`}>
-        <label htmlFor={`${name}`} className={labelStyles}>{label} {required ? `*` : ``}</label>
+        <div className={`flex gap-2 items-center`}>
+          <label htmlFor={`${name}`}
+                 className={disabled ? disabledLabelStyles : labelStyles}>{label} {required ? `*` : ``}</label>
+          {disabled && <span className={`text-red-500 font-semibold text-[13px] uppercase`}>Cannot be changed</span>}
+        </div>
         {content}
       </div>
     </>

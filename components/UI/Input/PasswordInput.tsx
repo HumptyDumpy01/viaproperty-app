@@ -12,6 +12,8 @@ type PasswordInputType = {
   placeholder: string;
   icon?: `eye` | `password` | undefined;
   required?: boolean;
+  customInputClassNames?: string;
+  labelSize?: string;
   // children: ReactNode;
 }
 
@@ -21,14 +23,17 @@ export default function
                   label,
                   placeholder,
                   icon = undefined,
-                  required = false
+                  required = false,
+                  customInputClassNames = `w-full`,
+                  labelSize
                 }: PasswordInputType) {
+
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   return (
     <>
       <div className={`relative`}>
-        <LabelAndInput labelStyle={`dark-blue`} name={inputName} placeholder={placeholder}
-                       customClassNames={`w-full`} label={label} required={required}
+        <LabelAndInput labelSize={labelSize} labelStyle={`dark-blue`} name={inputName} placeholder={placeholder}
+                       customClassNames={customInputClassNames} label={label} required={required}
                        inputType={passwordVisible ? `text` : `password`} />
         {icon === `eye` && (
           <Tooltip title={!passwordVisible ? `Click to see the password` : `Hide password`}>

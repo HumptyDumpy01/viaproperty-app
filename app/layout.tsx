@@ -22,7 +22,7 @@ export default function RootLayout({
     <div id={`image-gallery-full-screen`}></div>
     <Navigation />
     {children}
-    <Footer />
+    {/*<Footer />*/}
     </body>
     </html>
   );
