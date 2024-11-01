@@ -11,4 +11,5 @@ export type ViapropertyIconType =
   | `questionMark`
   | `questionMarkGrey`
   | `logo`
-  | `error`;
+  | `error`
+  | `edit`;
