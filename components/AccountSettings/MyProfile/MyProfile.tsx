@@ -9,6 +9,7 @@ import ButtonActive from '@/components/UI/Button/ButtonActive';
 import { useState } from 'react';
 import { ActiveProfilePageType } from '@/components/AccountSettings/AccountSettings';
 import Overall from '@/components/AccountSettings/MyProfile/Overall';
+import Security from '@/components/AccountSettings/MyProfile/Security';
 
 export default function MyProfile(/*{  }: MyProfileType*/) {
   const [activeProfilePage, setActiveProfilePage] = useState<ActiveProfilePageType>(`overall`);
@@ -32,6 +33,11 @@ export default function MyProfile(/*{  }: MyProfileType*/) {
           {activeProfilePage === `overall` && (
             <>
               <Overall />
+            </>
+          )}
+          {activeProfilePage === `security` && (
+            <>
+              <Security />
             </>
           )}
         </div>
