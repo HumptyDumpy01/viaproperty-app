@@ -63,7 +63,7 @@ export default function AccountDetails({ heading, searchPlaceholder, cards }: Ac
         <div className={`mb-6`}>
           <p className={`font-semibold text-zinc-500`}>Results: <span>19</span></p>
         </div>
-        <div className={`grid grid-cols-2 gap-8 pb-9`}>
+        <div className={`grid bp-896:grid-cols-2 gap-y-9 gap-8 pb-9`}>
 
           {Array.from({ length: 6 }).map((_, i) => (
             <CardPropertyHorizontal

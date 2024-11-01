@@ -64,7 +64,7 @@ export default function DeleteAccount(/*{  }: DeleteAccountType*/) {
       </div>
       {activeState.stepOne === `active` && (
         <div>
-          <form className={`flex items-center gap-5`}>
+          <form className={`flex bp-620:items-center gap-5 flex-col bp-620:flex-row`}>
             <BigInput placeholder={`Enter your old password`} name={`oldPassword`} type={`password`} />
             <div onClick={() => handleBadgeClick(`stepOne`, `stepTwo`)}>
               <Button type={`button`} label={`Verify`} mode={`lg`} linearGradient />
@@ -75,7 +75,7 @@ export default function DeleteAccount(/*{  }: DeleteAccountType*/) {
 
       {activeState.stepTwo === `active` && (
         <div className={`mt-5`}>
-          <form className={`flex items-center gap-5`}>
+          <form className={`flex bp-620:items-center gap-5 flex-col bp-620:flex-row`}>
             <BigInput placeholder={`6-digit code`} name={`code`} type={`password`} />
             <div onClick={() => handleBadgeClick(`stepTwo`, `done`)}>
               <Button type={`button`} label={`Confirm`} mode={`lg`} linearGradient />

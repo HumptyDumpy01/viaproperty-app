@@ -57,14 +57,13 @@ export default function AccountSettings(/*{}: AccountSettingsType*/) {
   return (
     <>
       <div>
-        <div className={`flex items-center gap-2`}>
+        <div className={`flex items-center gap-2 overflow-x-auto scrollbar-thin`}>
           <ButtonActive color={`red`} size={`medium`} onClick={() => setActiveSubPage('my-profile')}
                         active={activeSubPage === 'my-profile'}
                         label={`My Profile`} />
           <ButtonActive color={`red`} size={`medium`} onClick={() => setActiveSubPage('my-adverts')}
                         active={activeSubPage === 'my-adverts'}
                         label={`My Adverts`} />
-
           <ButtonActive color={`red`} size={`medium`} onClick={() => setActiveSubPage('wishlist')}
                         active={activeSubPage === 'wishlist'}
                         label={`Wishlist`} />

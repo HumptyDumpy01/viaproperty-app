@@ -16,8 +16,7 @@ export default function Security(/*{  }: SecurityType*/) {
         <>
           Lorem ipsum dolor sit amet, consectetur adipiscing
           elit, <HighlightText
-          text={`sed do eiusmod tempor incididunt ut labore et dolore`} />
-          magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          text={`sed do eiusmod tempor incididunt ut labore et dolore`} /> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
           consequat.
         </>
       )} />
