@@ -7,7 +7,7 @@ import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import Button from '@/components/UI/Button/Button';
 import HighlightText from '@/components/Typography/HighlightText';
 import { useState } from 'react';
-import ChangePassword from '@/components/AccountSettings/MyProfile/ChangePassword';
+import ChangePassword from '@/components/AccountSettings/MyProfile/ChangePassword/ChangePassword';
 
 export default function Overall(/*{  }: OverallType*/) {
   return (
