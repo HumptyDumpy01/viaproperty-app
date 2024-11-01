@@ -3,6 +3,7 @@
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import { ReactNode, useState } from 'react';
 import MyProfile from '@/components/AccountSettings/MyProfile/MyProfile';
+import MyAdverts from '@/components/AccountSettings/MyAdverts/MyAdverts';
 
 /*type AccountSettingsType = {
   // children: ReactNode;
@@ -18,7 +19,14 @@ export default function AccountSettings(/*{}: AccountSettingsType*/) {
   switch (activeSubPage) {
     case `my-profile`:
       content = (
-        <MyProfile />
+        <div className={`max-w-screen-bp-896`}>
+          <MyProfile />
+        </div>
+      );
+      break;
+    case `my-adverts`:
+      content = (
+        <MyAdverts />
       );
       break;
   }

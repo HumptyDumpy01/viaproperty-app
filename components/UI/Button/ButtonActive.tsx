@@ -37,7 +37,7 @@ export default function ButtonActive({ active, label, size = `large`, color = `g
 
   switch (size) {
     case `small`:
-      appliedSize = `text-[12px] px-3 py-[6px]`;
+      appliedSize = `text-[12px] px-4 py-[6px]`;
       break;
     case `medium`:
       appliedSize = `text-[13px] px-3 py-2`;

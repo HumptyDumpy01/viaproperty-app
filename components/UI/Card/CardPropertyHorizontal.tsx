@@ -8,8 +8,16 @@ type CardPropertyLongType = {
   imgAlt: string;
   heading: string;
   paragraph: string;
-  type: string;
+  type: `rent` | `buy`;
   createdAt: string;
+  btnLink: {
+    href: string;
+    label: string;
+  }
+  btnSecondary?: {
+    visible: boolean;
+    label: string;
+  }
   // children: ReactNode;
 }
 
@@ -20,7 +28,12 @@ export default function
                            heading,
                            createdAt,
                            type,
-                           paragraph
+                           paragraph,
+                           btnLink,
+                           btnSecondary = {
+                             visible: false,
+                             label: ``
+                           }
                          }: CardPropertyLongType) {
   return (
     <>
@@ -48,8 +61,16 @@ export default function
             )}
             <span className={`text-zinc-400 text-sm`}>{createdAt} month ago</span>
           </div>
-          <div className={`mt-4`}>
-            <ButtonLink size={`medium`} animationPulse href={`/properties/1`} buttonLabel={`See Details`} />
+          <div className={`mt-4 flex items-center gap-14`}>
+            <div>
+              <ButtonLink size={`medium`} animationPulse href={btnLink.href} buttonLabel={btnLink.label} />
+            </div>
+            {btnSecondary?.visible && (
+              <>
+                <button className={`text-[15px] font-semibold text-zinc-600
+                transition-all duration-200 hover:scale-105 hover:text-red-600`}>{btnSecondary.label}</button>
+              </>
+            )}
           </div>
         </div>
       </div>

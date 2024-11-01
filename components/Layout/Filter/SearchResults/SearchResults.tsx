@@ -26,31 +26,55 @@ export default function SearchResults(/*{  }: SearchResultsType*/) {
         </ReduxProvider>
         <SearchResultsMetrics results={547} />
         <div className={`flex flex-col gap-9`}>
-          <CardPropertyHorizontal type={`buy`} createdAt={`4`}
+          <CardPropertyHorizontal btnLink={{
+            href: `/properties/1`,
+            label: `See Details`
+          }} type={`buy`} createdAt={`4`}
                                   heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
                                   paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                         sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
                                   imgSrc={PropertyImg1} />
-          <CardPropertyHorizontal type={`rent`} createdAt={`5`}
-                                  heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-                                  paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+          <CardPropertyHorizontal
+            btnLink={{
+              href: `/properties/1`,
+              label: `See Details`
+            }}
+            type={`rent`} createdAt={`5`}
+            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
+            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                   sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-                                  imgSrc={PropertyImg2} />
-          <CardPropertyHorizontal type={`buy`} createdAt={`6`}
-                                  heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-                                  paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            imgSrc={PropertyImg2} />
+
+          <CardPropertyHorizontal
+            btnLink={{
+              href: `/properties/1`,
+              label: `See Details`
+            }}
+            type={`buy`} createdAt={`6`}
+            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
+            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                   sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-                                  imgSrc={PropertyImg3} />
-          <CardPropertyHorizontal type={`rent`} createdAt={`7`}
-                                  heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-                                  paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            imgSrc={PropertyImg3} />
+          <CardPropertyHorizontal
+            btnLink={{
+              href: `/properties/1`,
+              label: `See Details`
+            }}
+            type={`rent`} createdAt={`7`}
+            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
+            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                   sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-                                  imgSrc={PropertyImg4} />
-          <CardPropertyHorizontal type={`buy`} createdAt={`8`}
-                                  heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-                                  paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            imgSrc={PropertyImg4} />
+          <CardPropertyHorizontal
+            btnLink={{
+              href: `/properties/1`,
+              label: `See Details`
+            }}
+            type={`buy`} createdAt={`8`}
+            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
+            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                   sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-                                  imgSrc={PropertyImg5} />
+            imgSrc={PropertyImg5} />
         </div>
       </div>
     </>
