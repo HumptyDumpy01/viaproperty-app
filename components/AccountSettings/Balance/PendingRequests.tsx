@@ -30,7 +30,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderBlue`}
             trashCanVisibility={true}
@@ -44,7 +44,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderBlue`}
             trashCanVisibility={true}
@@ -57,7 +57,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderBlue`}
             trashCanVisibility={true}
@@ -71,7 +71,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderBlue`}
             trashCanVisibility={true}

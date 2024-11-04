@@ -6,8 +6,7 @@ import Footer from '@/components/Layout/Footer/Footer';
 
 export const metadata: Metadata = {
   title: 'Viaproperty Fullstack Project',
-  description: '' +
-    `Welcome home to Viaproperty! This is a fullstack project built by Nikolas Tuz, This application is built with Next.js, Nestjs, and Mongodb. 
+  description: `Welcome home to Viaproperty! This is a fullstack project built by Nikolas Tuz, This application is built with Next.js, Nestjs, and Mongodb. 
     This platform is created as a part of my portfolio. The main goal of this platform is to sell/rent/buy properties. `
 };
 

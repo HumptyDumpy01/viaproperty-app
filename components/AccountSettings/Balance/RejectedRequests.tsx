@@ -30,7 +30,7 @@ export default function RejectedRequests(/*{  }: RejectedRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderGrey`}
             trashCanVisibility={true}
@@ -45,7 +45,7 @@ export default function RejectedRequests(/*{  }: RejectedRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderGrey`}
             trashCanVisibility={true}
@@ -60,7 +60,7 @@ export default function RejectedRequests(/*{  }: RejectedRequestsType*/) {
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
-              href: `/`
+              href: `/account-settings/request-details/1`
             }}
             circleColor={`emptyBorderGrey`}
             trashCanVisibility={true}

@@ -19,6 +19,11 @@ type ActivityDetailType = {
     href: string;
     label: string;
   } | null;
+  messageFont?: string;
+  makeMessageLink?: {
+    href: string;
+  } | null;
+
   // children: ReactNode;
 }
 
@@ -29,7 +34,9 @@ export default function
                    iconType,
                    trashCanVisibility,
                    circleColor = `filledBlue`,
-                   seeDetailsButtonVisibility = null
+                   seeDetailsButtonVisibility = null,
+                   messageFont = ``,
+                   makeMessageLink = null
                  }: ActivityDetailType) {
   const filledBlue = `bg-linear-main-dark-blue`;
   const emptyBorderRed = `border border-red-500 bg-white`;
@@ -68,11 +75,23 @@ export default function
             <div className={`flex items-center gap-2.5 w-fit`}>
               <span className={`text-zinc-500 text-sm`}>{date}</span>
             </div>
-            <Paragraph text={(
+            {!makeMessageLink ? (
               <>
-                {message}
+                <Paragraph text={(
+                  <div className={messageFont}>
+                    {message}
+                  </div>
+                )} />
               </>
-            )} />
+            ) : (
+              <>
+                <Paragraph text={(
+                  <Link href={makeMessageLink.href} className={messageFont}>
+                    {message}
+                  </Link>
+                )} />
+              </>
+            )}
           </div>
         </div>
 

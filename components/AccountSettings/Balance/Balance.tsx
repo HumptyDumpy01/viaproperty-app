@@ -55,6 +55,5 @@ export default function Balance(/*{  }: BalanceType*/) {
       )}
 
     </div>
-  )
-    ;
+  );
 }

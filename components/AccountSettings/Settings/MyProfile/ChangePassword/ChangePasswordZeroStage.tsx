@@ -1,6 +1,6 @@
 // 'use client';
 
-import { ChangePasswordStagesType } from '@/components/AccountSettings/MyProfile/ChangePassword/ChangePassword';
+import { ChangePasswordStagesType } from '@/components/AccountSettings/Settings/MyProfile/ChangePassword/ChangePassword';
 import Button from '@/components/UI/Button/Button';
 import { Tooltip } from '@mui/material';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';

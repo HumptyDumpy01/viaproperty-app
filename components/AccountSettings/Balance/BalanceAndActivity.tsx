@@ -60,7 +60,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
-                href: `/`
+                href: `/account-settings/request-details/1`
               }}
               circleColor={`emptyBorderRed`}
               trashCanVisibility={true}
@@ -93,7 +93,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
-                href: `/`
+                href: `/account-settings/request-details/1`
               }}
               circleColor={`emptyBorderBlue`}
               trashCanVisibility={true}
@@ -107,7 +107,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
-                href: `/`
+                href: `/account-settings/request-details/1`
               }}
               circleColor={`emptyBorderBlue`}
               trashCanVisibility={true}
@@ -121,7 +121,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
-                href: `/`
+                href: `/account-settings/request-details/1`
               }}
               circleColor={`emptyBorderRed`}
               trashCanVisibility={true}
