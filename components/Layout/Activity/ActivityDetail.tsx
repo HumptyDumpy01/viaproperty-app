@@ -3,32 +3,95 @@
 import { type ReactNode } from 'react';
 import AccountActivityIcon, { AccountActivityIconsTypeEnum } from '@/components/UI/Icon/AccountActivityIcon';
 import Paragraph from '@/components/Typography/Paragraph';
+import { Tooltip } from '@mui/material';
+import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
+import Link from 'next/link';
+import ButtonActive from '@/components/UI/Button/ButtonActive';
 
 type ActivityDetailType = {
   date: string;
   message: ReactNode;
   iconType: AccountActivityIconsTypeEnum;
+  trashCanVisibility: boolean;
+  circleColor: `filledBlue` | `filledRed` | `emptyBorderRed` | `emptyBorderBlue` | `emptyBorderGrey`;
+  seeDetailsButtonVisibility?: {
+    visible: boolean;
+    href: string;
+    label: string;
+  } | null;
   // children: ReactNode;
 }
 
-export default function ActivityDetail({ date, message, iconType }: ActivityDetailType) {
+export default function
+  ActivityDetail({
+                   date,
+                   message,
+                   iconType,
+                   trashCanVisibility,
+                   circleColor = `filledBlue`,
+                   seeDetailsButtonVisibility = null
+                 }: ActivityDetailType) {
+  const filledBlue = `bg-linear-main-dark-blue`;
+  const emptyBorderRed = `border border-red-500 bg-white`;
+  const filledRed = `bg-linear-main-red`;
+  const emptyBorderBlue = `border border-blue-950 bg-white`;
+  const emptyBorderGrey = `border border-zinc-500 bg-white`;
+
+  let chosenCircleStyle = null;
+
+  switch (circleColor) {
+    case `filledBlue`:
+      chosenCircleStyle = filledBlue;
+      break;
+    case `emptyBorderRed`:
+      chosenCircleStyle = emptyBorderRed;
+      break;
+    case `filledRed`:
+      chosenCircleStyle = filledRed;
+      break;
+    case `emptyBorderBlue`:
+      chosenCircleStyle = emptyBorderBlue;
+      break;
+    case `emptyBorderGrey`:
+      chosenCircleStyle = emptyBorderGrey;
+  }
+
   return (
     <>
-      <div className={`flex gap-5`}>
-        <div className={`uppercase w-fit h-fit text-xl min-w-[72px] min-h-[72px] bg-linear-main-dark-blue
+      <div className={`items-center justify-between flex w-full`}>
+        <div className={`flex gap-5`}>
+          <div className={`uppercase w-fit h-fit text-xl min-w-[72px] min-h-[72px] ${chosenCircleStyle}
                 text-white flex justify-center items-center rounded-full font-medium`}>
-          <AccountActivityIcon type={iconType} />
-        </div>
-        <div className={`flex flex-col justify-center gap-2`}>
-          <div className={`flex items-center gap-2.5 w-fit`}>
-            <span className={`text-zinc-500 text-sm`}>{date}</span>
+            <AccountActivityIcon type={iconType} />
           </div>
-          <Paragraph text={(
-            <>
-              {message}
-            </>
-          )} />
+          <div className={`flex flex-col justify-center gap-2`}>
+            <div className={`flex items-center gap-2.5 w-fit`}>
+              <span className={`text-zinc-500 text-sm`}>{date}</span>
+            </div>
+            <Paragraph text={(
+              <>
+                {message}
+              </>
+            )} />
+          </div>
         </div>
+
+        {trashCanVisibility && (
+          <div className={`flex items-center gap-5`}>
+            {(seeDetailsButtonVisibility && seeDetailsButtonVisibility.visible) && (
+              <Link href={seeDetailsButtonVisibility.href}>
+                <ButtonActive color={`red`} size={`small`}
+                              active={true}
+                              label={seeDetailsButtonVisibility.label} />
+              </Link>
+            )}
+            <Tooltip title={'Remove this activity from history'}>
+              <button className={`flex w-fit`}>
+                <ViapropertyIcon icon={`trashCan`} />
+              </button>
+            </Tooltip>
+          </div>
+        )}
       </div>
     </>
   );

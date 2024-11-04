@@ -6,7 +6,7 @@ export enum AccountActivityIconsTypeEnum {
   houseRedPlus = `houseRedPlus`,
   houseBluePlus = `houseBluePlus`,
   houseRedMinus = `houseRedMinus`,
-  houseBlueMinus = `houseBlueMinus`,
+  houseGreyMinus = `houseGreyMinus`,
   time = `time`,
   ID = `ID`,
   houseRedUp = `houseRedUp`,
@@ -120,7 +120,7 @@ export default function AccountActivityIcon({ type }: AccountActivityIconsType) 
     </>
   );
 
-  const houseBlueMinus = (
+  const houseGreyMinus = (
     <>
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
         <g clip-path="url(#clip0_661_10333)">
@@ -384,10 +384,10 @@ export default function AccountActivityIcon({ type }: AccountActivityIconsType) 
         </>
       );
       break;
-    case AccountActivityIconsTypeEnum.houseBlueMinus:
+    case AccountActivityIconsTypeEnum.houseGreyMinus:
       content = (
         <>
-          {houseBlueMinus}
+          {houseGreyMinus}
         </>
       );
       break;

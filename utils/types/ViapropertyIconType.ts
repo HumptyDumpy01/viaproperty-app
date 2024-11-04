@@ -13,4 +13,5 @@ export type ViapropertyIconType =
   | `logo`
   | `error`
   | `edit`
-  | `arrow`;
+  | `arrow`
+  | `trashCan`;

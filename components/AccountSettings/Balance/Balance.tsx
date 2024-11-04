@@ -6,19 +6,14 @@
 
 import { useState } from 'react';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
-import Paragraph from '@/components/Typography/Paragraph';
-import HighlightText from '@/components/Typography/HighlightText';
-import Button from '@/components/UI/Button/Button';
-import ActivityDetail from '@/components/Layout/Activity/ActivityDetail';
-import { AccountActivityIconsTypeEnum } from '@/components/UI/Icon/AccountActivityIcon';
+import BalanceAndActivity from '@/components/AccountSettings/Balance/BalanceAndActivity';
+import PendingRequests from '@/components/AccountSettings/Balance/PendingRequests';
+import CompletedDeals from '@/components/AccountSettings/Balance/CompletedDeals';
+import RejectedRequests from '@/components/AccountSettings/Balance/RejectedRequests';
 
 type ActiveBalanceType = `Balance & Activity` | `Pending Requests` | `Rejected Requests` | `Completed Deals`;
-type AccountActivityFilterType = `Newest` | `Oldest`;
-
 export default function Balance(/*{  }: BalanceType*/) {
   const [activeBalanceSubPage, setActiveBalanceSubPage] = useState<ActiveBalanceType>(`Balance & Activity`);
-  const [accountActivityFilter, setAccountActivityFilter] = useState<AccountActivityFilterType>(`Newest`);
-
   return (
     <div className={`max-w-screen-bp-896`}>
       <div className={`flex gap-2 items-center mb-9`}>
@@ -28,62 +23,36 @@ export default function Balance(/*{  }: BalanceType*/) {
         <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Pending Requests')}
                       active={activeBalanceSubPage === 'Pending Requests'}
                       label={`Pending Requests`} />
+        <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Rejected Requests')}
+                      active={activeBalanceSubPage === 'Rejected Requests'}
+                      label={`Rejected Requests`} />
         <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Completed Deals')}
                       active={activeBalanceSubPage === 'Completed Deals'}
                       label={`Completed Deals`} />
       </div>
-      <div className={`flex flex-col justify-center gap-3.5 mb-9`}>
-        <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-[50px] w-fit`}>Current
-          Balance</h1>
-        <span
-          className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold text-7xl w-fit`}>$144,998</span>
-      </div>
-      <Paragraph text={(
+
+      {activeBalanceSubPage === `Balance & Activity` && (
         <>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, <HighlightText text={`quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.`} />
+          <BalanceAndActivity />
         </>
       )}
-      />
-      <div className={`mt-9 mb-16`}>
-        <Button linearGradient label={`Withdraw Funds`} color={`red`} />
-      </div>
+      {activeBalanceSubPage === `Pending Requests` && (
+        <>
+          <PendingRequests />
+        </>
+      )}
 
-      <div className={`mb-8`}>
-        <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-4xl w-fit mb-8`}>Account
-          Activity</h2>
-        <Paragraph text={(
-          <>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore
-            magna aliqua. Ut enim ad minim veniam, <HighlightText text={`quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.`} />
-          </>
-        )}
-        />
-      </div>
-      <div className={`flex items-center justify-between mb-9`}>
-        <div className={`flex gap-2 items-center`}>
-          <ButtonActive color={`red`} size={`small`} onClick={() => setAccountActivityFilter('Newest')}
-                        active={accountActivityFilter === 'Newest'}
-                        label={`Newest`} />
-          <ButtonActive color={`red`} size={`small`} onClick={() => setAccountActivityFilter('Oldest')}
-                        active={accountActivityFilter === 'Oldest'}
-                        label={`Oldest`} />
-        </div>
-        <div>
-          <ButtonActive color={`red`} size={`small`}
-                        active={false}
-                        label={`Clear all`} />
-        </div>
-      </div>
-      <div className={`flex flex-col justify-center gap-4`}>
+      {activeBalanceSubPage === `Rejected Requests` && (
+        <>
+          <RejectedRequests />
+        </>
+      )}
 
-        <ActivityDetail iconType={AccountActivityIconsTypeEnum.dollar} date={`August 29, 14:33`} message={(<>
-          You withdrew <HighlightText text={`$130,999`} /> from your balance to ****4998 card.
-        </>)} />
-      </div>
+      {activeBalanceSubPage === `Completed Deals` && (
+        <>
+          <CompletedDeals />
+        </>
+      )}
 
     </div>
   )
