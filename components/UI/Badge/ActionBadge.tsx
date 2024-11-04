@@ -23,7 +23,7 @@ export default function ActionBadge({ sortParams, position = `-top-28 left-0` }:
           ${!popupOpen ? `opacity-0 pointer-events-none translate-y-1/2 ` : ``} ${position} flex flex-col gap-2 items-center`}>
           {sortParams.map(function(param) {
             return (
-              <div key={param} onClick={() => setPopupOpen(false)} className={`flex text-nowrap`}>
+              <div key={param} onClick={() => setPopupOpen(false)} className={`flex text-nowrap w-full`}>
                 <SortBadge onClick={() => setActiveSortState(param)} active={activeSortState === param}
                            label={param} />
               </div>

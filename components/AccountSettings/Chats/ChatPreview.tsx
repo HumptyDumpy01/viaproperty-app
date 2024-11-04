@@ -12,6 +12,7 @@ type ChatPreviewType = {
     sortParams: string[];
     position?: string;
   }
+  userType?: `user` | `landlord` | `blocked`;
   // children: ReactNode;
 }
 
@@ -28,14 +29,15 @@ export default function
                 initials,
                 online,
                 actionButton,
-                showOnlineStatus = true
+                showOnlineStatus = true,
+                userType = `landlord`
               }: ChatPreviewType) {
   return (
     <>
       <div className={`flex justify-between items-center`}>
         <Link href={href} className={`flex items-center gap-5`}>
           <div>
-            <UserLogo type={`landlord`} abbrInitials={abbrInitials} />
+            <UserLogo type={userType} abbrInitials={abbrInitials} />
           </div>
           <div className={`flex flex-col justify-center gap-1`}>
             <div className={`flex items-center gap-3`}>

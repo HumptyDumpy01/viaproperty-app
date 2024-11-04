@@ -19,7 +19,7 @@ export default function AccountSettingsPage(/*{  }: AccountSettingsPageType*/) {
   const router = useRouter();
   const page = searchParams.get('page') as AccountSettingsPageType | null;
 
-  const availablePages = ['account-settings', 'chats'];
+  const availablePages = ['account-settings', 'chats', `balance`];
 
   if (page && !availablePages.includes(page)) {
     NotFound();
