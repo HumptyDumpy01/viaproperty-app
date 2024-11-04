@@ -10,7 +10,7 @@ import Pagination from '@/components/UI/Pagination/Pagination';
 export default function AllChats(/*{  }: AllChatsType*/) {
   return (
     <>
-      <div className={`flex flex-col justify-center gap-5`}>
+      <div className={`flex flex-col justify-center gap-5 w-full`}>
         <ChatPreview
           actionButton={{
             sortParams: [`To Favorites`, `Delete`, `Block User`]

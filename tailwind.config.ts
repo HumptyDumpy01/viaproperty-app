@@ -52,7 +52,9 @@ const config: Config = {
         'bp-1364': '1364px',
         'bp-896': '896px',
         /* IMPORTANT: PROPERTY DESCRIPTION */
-        'bp-1306': '1306px'
+        'bp-1306': '1306px',
+
+        /* IMPORTANT: CHATS */
 
       },
       gridTemplateColumns: {

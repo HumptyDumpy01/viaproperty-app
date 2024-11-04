@@ -99,14 +99,14 @@ export default function ChatHistoryPage(/*{  }: ChatHistoryPageType*/) {
                 date={`August 29, 13:45`} messageStatus={`delivering`} userLogo={`filled`} userName={`YOU`} />
             </div>
             <div className={`mt-16 max-w-[760px]`}>
-              <form className={`flex items-center gap-3`}>
+              <form className={`flex bp-620:items-center gap-3 flex-col bp-620:flex-row`}>
                 <input type={`text`} placeholder={`Your message goes here!`}
                        className={`w-full rounded-full bg-neutral-50 px-8 py-6
                        transition-all duration-300 focus:outline-none focus:bg-white 
                        border-2 border-transparent
                        focus:border-blue-800`} required />
                 <button
-                  className={`flex items-center justify-center bg-linear-dark-blue-to-orange py-5 px-8 rounded-full`}>
+                  className={`flex items-center justify-center bg-linear-dark-blue-to-orange py-5 px-8 rounded-full w-fit`}>
                   <TelegramIcon />
                 </button>
               </form>

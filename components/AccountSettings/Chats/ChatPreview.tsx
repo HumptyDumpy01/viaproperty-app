@@ -32,9 +32,10 @@ export default function
                 showOnlineStatus = true,
                 userType = `landlord`
               }: ChatPreviewType) {
+  const truncatedMessage = message.length > 90 ? message.slice(0, 90) + '..' : message;
   return (
     <>
-      <div className={`flex justify-between items-center`}>
+      <div className={`flex bp-896:justify-between flex-col bp-896:flex-row bp-896:items-center gap-4 bp-896:gap-0`}>
         <Link href={href} className={`flex items-center gap-5`}>
           <div>
             <UserLogo type={userType} abbrInitials={abbrInitials} />
@@ -47,8 +48,8 @@ export default function
               )}
               <span className={`text-zinc-400 text-sm`}>{lastMessageCreated}</span>
             </div>
-            <div>
-              <p className={`text-zinc-600 truncate max-w-screen-bp-620 text-sm`}>{message}</p>
+            <div className={`flex`}>
+              <p className={`text-zinc-600 max-w-screen-bp-620 text-sm leading-relaxed`}>{truncatedMessage}</p>
             </div>
           </div>
         </Link>
