@@ -16,7 +16,7 @@ export default function Balance(/*{  }: BalanceType*/) {
   const [activeBalanceSubPage, setActiveBalanceSubPage] = useState<ActiveBalanceType>(`Balance & Activity`);
   return (
     <div className={`max-w-screen-bp-896`}>
-      <div className={`flex gap-2 items-center mb-9`}>
+      <div className={`flex gap-2 items-center mb-9 overflow-x-auto scrollbar-thin`}>
         <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Balance & Activity')}
                       active={activeBalanceSubPage === 'Balance & Activity'}
                       label={`Balance & Activity`} />

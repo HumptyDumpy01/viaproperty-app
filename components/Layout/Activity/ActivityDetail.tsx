@@ -58,7 +58,7 @@ export default function
 
   return (
     <>
-      <div className={`items-center justify-between flex w-full`}>
+      <div className={`items-center justify-between flex-col gap-5 bp-620:gap-0 bp-620:flex-row flex w-full`}>
         <div className={`flex gap-5`}>
           <div className={`uppercase w-fit h-fit text-xl min-w-[72px] min-h-[72px] ${chosenCircleStyle}
                 text-white flex justify-center items-center rounded-full font-medium`}>
