@@ -31,8 +31,7 @@ export default function UserMessage({ userLogo, userName, message, date, message
       messageStatusStyle = `bg-green-500`;
       break;
     case `failed`:
-      messageStatusStyle = `bg-red-500`;
-      break;
+      messageStatusStyle = `bg-red-500`; break;
   }
 
   return (

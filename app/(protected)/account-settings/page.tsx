@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import AccountSettings from '@/components/AccountSettings/AccountSettings';
 import Chats from '@/components/AccountSettings/Chats/Chats';
+import Balance from '@/components/AccountSettings/Balance/Balance';
 
 export type AccountSettingsPageType = `account-settings` | `chats` | `balance`;
 
@@ -63,6 +64,12 @@ export default function AccountSettingsPage(/*{  }: AccountSettingsPageType*/) {
         {activePage === `chats` && (
           <>
             <Chats />
+          </>
+        )}
+
+        {activePage === `balance` && (
+          <>
+            <Balance />
           </>
         )}
       </div>
