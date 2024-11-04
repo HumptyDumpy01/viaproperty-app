@@ -1,14 +1,14 @@
 'use client';
 
 import ButtonActive from '@/components/UI/Button/ButtonActive';
-import SortItems from '@/components/Layout/Filter/Sorting/SortItems';
+import ActionBadge from '@/components/UI/Badge/ActionBadge';
 import InputSearch from '@/components/UI/Input/InputSearch';
 import BadgeSmall from '@/components/UI/Badge/BadgeSmall';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import PropertyImg1 from '@/assets/properties/property-1.png';
 import Pagination from '@/components/UI/Pagination/Pagination';
 import { useState } from 'react';
-import { ActiveFilterType } from '@/components/AccountSettings/MyAdverts/MyAdverts';
+import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
 
 type AccountDetailsType = {
   heading: string;
@@ -45,7 +45,7 @@ export default function AccountDetails({ heading, searchPlaceholder, cards }: Ac
                           label={`Sell`} />
           </div>
         </div>
-        <SortItems sortParams={[`Sort by Newest`, `Sort by Oldest`]} />
+        <ActionBadge sortParams={[`Sort by Newest`, `Sort by Oldest`]} />
       </div>
       <div>
         <h2
