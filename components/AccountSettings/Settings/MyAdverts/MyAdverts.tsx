@@ -4,7 +4,7 @@
   // children: ReactNode;
 }*/
 
-import AccountDetails from '@/components/AccountSettings/AccountDetails';
+import AccountDetails from '@/components/AccountSettings/Settings/AccountDetails';
 
 export type ActiveFilterType = `all` | `rent` | `sell`;
 

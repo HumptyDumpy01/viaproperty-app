@@ -8,8 +8,8 @@ import UserData from '@/components/UI/User/UserData';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import { useState } from 'react';
 import { ActiveProfilePageType } from '@/components/AccountSettings/AccountSettings';
-import Overall from '@/components/AccountSettings/MyProfile/Overall';
-import Security from '@/components/AccountSettings/MyProfile/Security';
+import Overall from '@/components/AccountSettings/Settings/MyProfile/Overall';
+import Security from '@/components/AccountSettings/Settings/MyProfile/Security';
 
 export default function MyProfile(/*{  }: MyProfileType*/) {
   const [activeProfilePage, setActiveProfilePage] = useState<ActiveProfilePageType>(`overall`);

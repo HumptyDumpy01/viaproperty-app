@@ -2,11 +2,11 @@
 
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import { ReactNode, useState } from 'react';
-import MyProfile from '@/components/AccountSettings/MyProfile/MyProfile';
-import MyAdverts from '@/components/AccountSettings/MyAdverts/MyAdverts';
-import MyWishlist from '@/components/AccountSettings/MyWishlist/MyWishlist';
-import MyPurchases from '@/components/AccountSettings/MyPurchases/MyPurchases';
-import DeleteAccount from '@/components/AccountSettings/DeleteAccount/DeleteAccount';
+import MyProfile from '@/components/AccountSettings/Settings/MyProfile/MyProfile';
+import MyAdverts from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
+import MyWishlist from '@/components/AccountSettings/Settings/MyWishlist/MyWishlist';
+import MyPurchases from '@/components/AccountSettings/Settings/MyPurchases/MyPurchases';
+import DeleteAccount from '@/components/AccountSettings/Settings/DeleteAccount/DeleteAccount';
 
 /*type AccountSettingsType = {
   // children: ReactNode;

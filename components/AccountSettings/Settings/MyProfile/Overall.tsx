@@ -6,7 +6,7 @@
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import Button from '@/components/UI/Button/Button';
 import HighlightText from '@/components/Typography/HighlightText';
-import ChangePassword from '@/components/AccountSettings/MyProfile/ChangePassword/ChangePassword';
+import ChangePassword from '@/components/AccountSettings/Settings/MyProfile/ChangePassword/ChangePassword';
 
 export default function Overall(/*{  }: OverallType*/) {
   return (

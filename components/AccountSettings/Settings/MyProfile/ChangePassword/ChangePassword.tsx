@@ -5,7 +5,7 @@
 }*/
 
 import { useState } from 'react';
-import ChangePasswordZeroStage from '@/components/AccountSettings/MyProfile/ChangePassword/ChangePasswordZeroStage';
+import ChangePasswordZeroStage from '@/components/AccountSettings/Settings/MyProfile/ChangePassword/ChangePasswordZeroStage';
 import EnterVerificationCodeForm from '@/components/Auth/ForgotPassword/EnterVerificationCodeForm';
 import EnterNewPasswordForm from '@/components/Auth/ForgotPassword/EnterNewPasswordForm';
 import HighlightText from '@/components/Typography/HighlightText';

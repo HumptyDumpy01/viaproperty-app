@@ -59,6 +59,10 @@ export default function AccountSettingsPage(/*{  }: AccountSettingsPageType*/) {
             <AccountSettings />
           </>
         )}
+        {activePage === `chats` && (
+          <>
+          </>
+        )}
       </div>
     </MainContainer>
   );
