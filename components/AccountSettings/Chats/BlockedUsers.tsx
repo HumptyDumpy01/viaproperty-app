@@ -16,7 +16,7 @@ export default function BlockedUsers(/*{  }: BlockedUsersType*/) {
           position: `-top-[60px] right-3`
         }}
         online={true}
-        href={`/chats/1`}
+        href={`#`}
         message={``}
         lastMessageCreated={`Blocked at August 19, 13:55`} showOnlineStatus={false} abbrInitials={`N.B`}
         initials={`Nick Baker`} />

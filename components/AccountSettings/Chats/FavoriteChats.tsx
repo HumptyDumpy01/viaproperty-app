@@ -16,7 +16,7 @@ export default function FavoriteChats(/*{  }: FavoriteChatsType*/) {
             position: `-top-[105px] right-3`
           }}
           online={true}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
       </div>

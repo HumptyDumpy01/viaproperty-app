@@ -16,7 +16,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={true}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -24,7 +24,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={false}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -32,7 +32,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={false}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -40,7 +40,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={false}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -48,7 +48,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={true}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -56,7 +56,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={true}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -64,7 +64,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={false}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -72,7 +72,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={false}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -80,7 +80,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={true}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
         <ChatPreview
@@ -88,7 +88,7 @@ export default function AllChats(/*{  }: AllChatsType*/) {
             sortParams: [`To Favorites`, `Delete`, `Block User`]
           }}
           online={true}
-          href={`/chats/1`}
+          href={`/account-settings/chats/1`}
           message={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea eaque explicabo ipsa iusto mollitia nam nemo sed soluta suscipit unde!`}
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
       </div>

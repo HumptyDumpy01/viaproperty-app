@@ -18,7 +18,6 @@ export default function UserLogo({ type, abbrInitials }: UserLogoType) {
           className={type === `landlord` ? `inline-block text-xl bg-clip-text text-transparent bg-linear-main-red font-bold` :
             type === `user` ? `` : `text-zinc-400 font-semibold`}>{abbrInitials}</span>
       </div>
-
     </>
   );
 }
