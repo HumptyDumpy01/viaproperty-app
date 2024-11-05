@@ -7,6 +7,7 @@ import { Tooltip } from '@mui/material';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Link from 'next/link';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
+import ActivityHeroContent from '@/components/Layout/Activity/ActivityHeroContent';
 
 type ActivityDetailType = {
   date: string;
@@ -25,6 +26,7 @@ type ActivityDetailType = {
     href: string;
   } | null;
   customContainerClasses?: string;
+  copyToClipboard?: boolean;
 
   // children: ReactNode;
 }
@@ -40,7 +42,8 @@ export default function
                    messageFont = ``,
                    makeMessageLink = null,
                    customContainerClasses = `items-center justify-between flex-col gap-5 bp-620:gap-0 bp-620:flex-row flex w-full`,
-                   dollarColor = `white`
+                   dollarColor = `white`,
+                   copyToClipboard = false
                  }: ActivityDetailType) {
   const filledBlue = `bg-linear-main-dark-blue`;
   const emptyBorderRed = `border border-red-500 bg-white`;
@@ -80,13 +83,11 @@ export default function
               <span className={`text-zinc-500 text-sm`}>{date}</span>
             </div>
             {!makeMessageLink ? (
-              <>
-                <Paragraph text={(
-                  <div className={messageFont}>
-                    {message}
-                  </div>
-                )} />
-              </>
+              <ActivityHeroContent
+                copyToClipboard={copyToClipboard}
+                messageFont={messageFont}
+                message={message}
+              />
             ) : (
               <>
                 <Paragraph text={(

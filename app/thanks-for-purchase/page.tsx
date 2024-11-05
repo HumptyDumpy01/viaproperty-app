@@ -31,7 +31,7 @@ export default function ThanksForPurchasePage(/*{  }: ThanksForPurchasePageType*
         <div className={`flex flex-col bp-790:flex-row bp-790:items-center gap-8`}>
 
           <div className={`flex flex-col justify-center gap-5 mt-8 bp-790:mt-0 order-2 bp-790:order-1`}>
-            <ActivityDetail customContainerClasses={``} messageFont={`text-[19px] font-medium`}
+            <ActivityDetail copyToClipboard customContainerClasses={``} messageFont={`text-[19px] font-medium`}
                             trashCanVisibility={false}
                             circleColor={`filledBlue`}
                             iconType={
