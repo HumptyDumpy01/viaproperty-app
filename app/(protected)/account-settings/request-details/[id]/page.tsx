@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 /*type RequestDetailsPageType = {
   // children: ReactNode;
@@ -9,21 +9,20 @@ import Link from 'next/link';
 import ViapropertyHeading from '@/components/Typography/ViapropertyHeading';
 import Paragraph from '@/components/Typography/Paragraph';
 import HighlightText from '@/components/Typography/HighlightText';
-import ActivityDetail from '@/components/Layout/Activity/ActivityDetail';
-import { AccountActivityIconsTypeEnum } from '@/components/UI/Icon/AccountActivityIcon';
-import { useState } from 'react';
-import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
-import Tooltip from '@/components/Layout/Tooltip/Tooltip';
+import RequestInfo from '@/components/RequestDetails/RequestInfo';
+import ExtraFeaturesSelected from '@/components/RequestDetails/ExtraFeaturesSelected';
+import RentPeriod from '@/components/RequestDetails/RentPeriod';
+import Customer from '@/components/RequestDetails/Customer';
+import Actions from '@/components/RequestDetails/Actions';
 
 export default function RequestDetailsPage(/*{  }: RequestDetailsPageType*/) {
-  const [questionMarkVisibility, setQuestionMarkVisibility] = useState<boolean>(true);
   return (
     <MainContainer>
 
       <div className={`mt-11`}>
         <div className={`max-w-screen-bp-896`}>
           <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
-        text-5xl w-fit mb-8 leading-tight`}>Account Activities</h1>
+          text-5xl w-fit mb-8 leading-tight`}>Account Activities</h1>
           <div>
             <Link className={`flex items-center gap-2 bg-clip-text text-transparent bg-linear-main-red font-bold
             border  border-red-500 rounded-full px-4 py-2 text-[15.5px] w-fit mb-5`}
@@ -45,60 +44,31 @@ export default function RequestDetailsPage(/*{  }: RequestDetailsPageType*/) {
               </>
             )} />
           </div>
-          <div className={`flex flex-col gap-4`}>
-            <ActivityDetail messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
-                            circleColor={`filledBlue`}
-                            iconType={
-                              AccountActivityIconsTypeEnum.ID} date={`PROPERTY ID`}
-                            message={`66cd917717fb802dfbc4e4a9`} />
+          <RequestInfo
+            propertyId={`66cd917717fb802dfbc4e4a9`}
+            propertyHref={`/properties/1`}
+            total={`$142,999`}
+            customer={`Nikolas Baker`}
+            propertyStatus={`Pending`}
+            propertyTitle={`Lorem Ipsum Dolor Sit Amet, Consectetur..`}
+            propertyType={`Sell`} />
 
-            <ActivityDetail messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
-                            circleColor={`emptyBorderRed`}
-                            iconType={
-                              AccountActivityIconsTypeEnum.houseRedPlus} date={`Property Type`}
-                            message={`Sell`} />
-            <ActivityDetail
-              makeMessageLink={{ href: `/properties/1` }}
-              messageFont={`text-[19px] underline font-medium`}
-              trashCanVisibility={false} circleColor={`emptyBorderRed`}
-              iconType={
-                AccountActivityIconsTypeEnum.houseRedUp} date={`Title`}
-              message={`Lorem ipsum dolor sit amet, consectetur adipiscing elit..`} />
+          <ExtraFeaturesSelected extraFeaturesSelected={[{
+            price: 100,
+            label: `Extra Feature 1`
+          }, {
+            price: 200,
+            label: `Extra Feature 2`
+          }, {
+            price: 300,
+            label: `Extra Feature 3`
+          }]} />
 
-            <div className={`relative w-fit`}>
-              <ActivityDetail
-                messageFont={`text-[19px] font-medium`}
-                trashCanVisibility={false} circleColor={`emptyBorderRed`}
-                iconType={
-                  AccountActivityIconsTypeEnum.loading} date={`Status`}
-                message={`Pending`} />
+          <RentPeriod from={`August 1, 2024`} to={`August 30, 2024`} />
 
-              <div>
-                <button onClick={() => setQuestionMarkVisibility(prevState => !prevState)} type={`button`}
-                        className={`absolute top-6 -right-9`}>
-                  <ViapropertyIcon icon={`questionMark`} />
-                </button>
-                <Tooltip
-                  setQuestionMarkVisibility={setQuestionMarkVisibility}
-                  questionMarkVisibility={questionMarkVisibility}
-                  content={`Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, quaerat.`} />
-              </div>
-            </div>
+          <Customer phone={`+380508832324`} initials={`Nikolas Baker`} email={`test@gmail.com`} />
 
-            <ActivityDetail
-              messageFont={`text-[19px] font-medium`}
-              trashCanVisibility={false} circleColor={`emptyBorderRed`}
-              iconType={
-                AccountActivityIconsTypeEnum.user} date={`Customer`}
-              message={`Nikolas Baker`} />
-
-            <ActivityDetail
-              messageFont={`text-[19px] font-medium`}
-              trashCanVisibility={false} circleColor={`filledRed`}
-              iconType={
-                AccountActivityIconsTypeEnum.dollar} date={`Total`}
-              message={`$165,999`} />
-          </div>
+          <Actions />
 
         </div>
       </div>

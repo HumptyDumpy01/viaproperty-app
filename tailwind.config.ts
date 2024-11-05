@@ -24,7 +24,8 @@ const config: Config = {
         'linear-main-dark-blue': 'linear-gradient(73deg, #00202A 20.95%, rgba(0, 32, 42, 0.60) 134.36%)',
         'linear-white-to-red': 'linear-gradient(267deg, #FF3535 -5.69%, #F1F1F1 92.09%)',
         'linear-white-to-blue': 'linear-gradient(103deg, #F6F6F6 52.39%, #00202A 69.9%)',
-        'linear-dark-blue-to-orange': 'linear-gradient(84deg, #00202A 8.47%, rgba(0, 32, 42, 0.60) 106.3%), linear-gradient(90deg, #FB3838 0%, #F27155 100%); '
+        'linear-dark-blue-to-orange': 'linear-gradient(84deg, #00202A 8.47%, rgba(0, 32, 42, 0.60) 106.3%), linear-gradient(90deg, #FB3838 0%, #F27155 100%); ',
+        'linear-green': 'linear-gradient(283deg, #CCFAB6 -1.02%, #2E7B09 66.86%)'
       },
       screens: {
         /* IMPORTANT: HOME PAGE */
@@ -52,7 +53,7 @@ const config: Config = {
         'bp-1364': '1364px',
         'bp-896': '896px',
         /* IMPORTANT: PROPERTY DESCRIPTION */
-        'bp-1306': '1306px',
+        'bp-1306': '1306px'
 
         /* IMPORTANT: CHATS */
 
