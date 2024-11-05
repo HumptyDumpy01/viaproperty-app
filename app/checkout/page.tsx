@@ -159,7 +159,7 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
             </div>
             <form className={`flex justify-center flex-col gap-8`}>
 
-              <div className={`flex items-center gap-11`}>
+              <div className={`flex items-center gap-11 flex-col bp-620:flex-row`}>
                 <LabelAndInput
                   labelStyle={`dark-blue`}
                   label={`First Name`}
@@ -179,7 +179,7 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
                   placeholder={`Your Last Name`} />
               </div>
 
-              <div className={`flex items-center gap-11`}>
+              <div className={`flex items-center gap-11 flex-col bp-620:flex-row`}>
                 <LabelAndInput
                   labelStyle={`dark-blue`}
                   label={`Email`}
