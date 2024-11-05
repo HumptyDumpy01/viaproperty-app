@@ -16,16 +16,48 @@ import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 type SecondFormType = {
   setActiveState?: (prevState: activeStateType) => void;
   mode: `createAdvert` | `editAdvert`;
+  defaultValues?: {
+    beds: number;
+    showers: number;
+    baths: number;
+    bedrooms: number;
+    kitchens: number;
+    parkingSlots: number;
+    propertyTags: string[];
+    discount?: number;
+    featureDescription: FeatureDescriptionType[] | [];
+  }
   // children: ReactNode;
-}
+};
 
-export default function SecondForm({ setActiveState }: SecondFormType) {
-  const [beds, setBeds] = useState<number>(0);
-  const [showers, setShowers] = useState<number>(0);
-  const [baths, setBaths] = useState<number>(0);
-  const [bedrooms, setBedrooms] = useState<number>(0);
-  const [kitchens, setKitchens] = useState<number>(0);
-  const [parkingSlots, setParkingSlots] = useState<number>(0);
+type FeatureDescriptionType = {
+  heading: string;
+  shortDescription: string;
+  images: string[];
+};
+
+export default function
+  SecondForm({
+               setActiveState,
+               defaultValues = {
+                 beds: 0,
+                 showers: 0,
+                 baths: 0,
+                 bedrooms: 0,
+                 kitchens: 0,
+                 parkingSlots: 0,
+                 propertyTags: [],
+                 featureDescription: []
+               }
+             }: SecondFormType) {
+  const [beds, setBeds] = useState<number>(defaultValues.beds);
+  const [showers, setShowers] = useState<number>(defaultValues.showers);
+  const [baths, setBaths] = useState<number>(defaultValues.baths);
+  const [bedrooms, setBedrooms] = useState<number>(defaultValues.bedrooms);
+  const [kitchens, setKitchens] = useState<number>(defaultValues.kitchens);
+  const [parkingSlots, setParkingSlots] = useState<number>(defaultValues.parkingSlots);
+  const [propertyTags, setPropertyTags] = useState<string[] | []>(defaultValues.propertyTags || []);
+  const [featureDescription, setFeatureDescription] = useState<FeatureDescriptionType[]>(defaultValues.featureDescription || []);
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
@@ -34,6 +66,16 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
     }
   }
 
+  function excludeTag(label: string) {
+    setPropertyTags((prevState: string[]) => prevState.filter((tag: string) => tag !== label));
+  }
+
+  function excludeFeatureDescription(label: string) {
+    setFeatureDescription((prevState: FeatureDescriptionType[]) => prevState.filter((tag: FeatureDescriptionType) => tag.heading !== label));
+  }
+
+
+  // @ts-ignore
   return (
     <>
       <form className={`flex flex-col mt-9`}>
@@ -72,20 +114,42 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
 
           <div className={`mb-10`}>
             <div className={`flex gap-3.5 items-center overflow-x-auto scrollbar-thin `}>
-              <TagBadge label={`Custom Tag 1`} />
-              <TagBadge label={`Custom Tag 2`} />
-              <TagBadge label={`Custom Tag 3`} />
+              {propertyTags.length === 0 && (
+                <>
+                  <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl`}>No Tags
+                    Added!</h2>
+                </>
+              )}
+              {propertyTags.length > 0 && propertyTags.map((tag: string, index: number) => (
+                /*@ts-ignore*/
+                <TagBadge setItems={excludeTag} key={index} label={tag} />
+              ))}
             </div>
           </div>
           <div className={`mb-10`}>
             <SetOfCheckboxes setOfCheckboxes={[
-              { name: `garden`, label: `Garden` }, { name: `balcony`, label: `Balcony` }, {
-                name: `swimming-pool`, label: `Swimming Pool`
-              }, { name: `fireplace`, label: `Fireplace` },
-              { name: `terrace`, label: `Terrace` }, { name: `furnished`, label: `Furnished` },
-              { name: `basement`, label: `Basement` },
-              { name: `air-conditioning`, label: `Air Conditioning` },
-              { name: `security-system`, label: `Security System` }
+              /*@ts-ignore*/
+              { name: `garden`, label: `Garden`, checked: propertyTags.includes('Garden') },
+              /*@ts-ignore*/
+              { name: `balcony`, label: `Balcony`, checked: propertyTags.includes('Balcony') },
+              /*@ts-ignore*/
+              { name: `swimming-pool`, label: `Swimming Pool`, checked: propertyTags.includes('Swimming Pool') },
+              /*@ts-ignore*/
+              { name: `fireplace`, label: `Fireplace`, checked: propertyTags.includes('Fireplace') },
+              /*@ts-ignore*/
+              { name: `terrace`, label: `Terrace`, checked: propertyTags.includes('Terrace') },
+              /*@ts-ignore*/
+              { name: `furnished`, label: `Furnished`, checked: propertyTags.includes('Furnished') },
+              /*@ts-ignore*/
+              { name: `basement`, label: `Basement`, checked: propertyTags.includes('Basement') },
+              {
+                name: `air-conditioning`,
+                label: `Air Conditioning`,
+                /*@ts-ignore*/
+                checked: propertyTags.includes('Air Conditioning')
+              },
+              /*@ts-ignore*/
+              { name: `security-system`, label: `Security System`, checked: propertyTags.includes('Security System') }
             ]} questionMark={{
               visible: true,
               content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, alias asperiores delectus est ipsam mollitia quasi rem repellat rerum soluta.`
@@ -108,9 +172,16 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.</p>
           </div>
           <div className={`flex gap-3.5 items-center mb-6 overflow-x-auto scrollbar-thin`}>
-            <TagBadge label={`Custom Feature 1`} />
-            <TagBadge label={`Custom Feature 2`} />
-            <TagBadge label={`Custom Feature 3`} />
+            {featureDescription.length === 0 && (
+              <>
+                <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl`}>No Tags
+                  Added!</h2>
+              </>
+            )}
+            {featureDescription.length > 0 && featureDescription.map((tag, index) => (
+              /*@ts-ignore*/
+              <TagBadge setItems={excludeFeatureDescription} key={index} label={tag.heading} />
+            ))}
           </div>
           <div className={`mb-10`}>
             <Features featureHeading={`Features`}>
@@ -143,7 +214,8 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
               maxime, obcaecati officiis <HighlightText text={`recusandae repellendus, tempore voluptate.`} /></p>
 
             <div className={`mt-4`}>
-              <LabelAndInput customClassNames={`bp-620:w-96`} labelStyle={`grey-and-small`}
+              <LabelAndInput defaultValue={defaultValues?.discount?.toString() || ``} customClassNames={`bp-620:w-96`}
+                             labelStyle={`grey-and-small`}
                              label={`Sale (In Percentages)`}
                              name={`discount`}
                              placeholder={`e.g. 5`} inputType={`number`} />

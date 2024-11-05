@@ -118,6 +118,7 @@ export default function SellForms({ mode }: SellFormsType) {
           {activeState.stepFour === `active` && <FourthForm mode={`createAdvert`} setActiveState={setActiveState} />}
           {activeState.finishingSteps === `active` &&
             <FifthForm mode={`createAdvert`} setActiveState={setActiveState} />}
+
           {activeState.finishingSteps === `completed` && (
             <div className={`mt-9`}>
               <p className={`leading-relaxed text-zinc-900 max-w-4xl mb-12`}>Ut enim ad minim veniam, quis nostrud
@@ -149,8 +150,44 @@ export default function SellForms({ mode }: SellFormsType) {
             price: 150000
           }} mode={`editAdvert`} />}
 
-          {activeEditStage === `Step 2` && <SecondForm mode={`editAdvert`} />}
-          {activeEditStage === `Step 3` && <ThirdForm mode={`editAdvert`} />}
+          {activeEditStage === `Step 2` && <SecondForm defaultValues={{
+            bedrooms: 2,
+            baths: 2,
+            parkingSlots: 1,
+            showers: 1,
+            kitchens: 1,
+            beds: 2,
+            propertyTags: [`Garden`, `Balcony`, `Swimming Pool`, `Fireplace`, `Terrace`, `Furnished`, `Basement`, `Air Conditioning`, `Security System`],
+            discount: 3,
+            featureDescription: [{
+              heading: `Lorem Ipsum dolor sit amet`,
+              shortDescription: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+              images: [`https://via.placeholder.com/150`, `https://via.placeholder.com/150`, `https://via.placeholder.com/150`]
+            }]
+
+          }} mode={`editAdvert`} />}
+          {activeEditStage === `Step 3` && <ThirdForm defaultValues={{
+            floorPlans: [{
+              heading: `Overall Building`,
+              shortDescription: `This is the overall building floor plan.`,
+              images: [`https://via.placeholder.com/150`, `https://via.placeholder.com/150`, `https://via.placeholder.com/150`]
+            }],
+
+            contactAndViewingArrangements: [
+              {
+                initials: `John Doe`,
+                phones: [`+1234567890`, `+1234567890`]
+              },
+              {
+                initials: `Jane Doe`,
+                phones: [`+1234567890`, `+1234567890`]
+              }
+            ],
+
+            priceAndTaskHistory: {
+              history: `The task history of the property was..`
+            }
+          }} mode={`editAdvert`} />}
           {activeEditStage === `Step 4` && <FourthForm mode={`editAdvert`} />}
           {activeEditStage === `Delete Advert` && (
             <>

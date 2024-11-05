@@ -12,8 +12,7 @@ export default function ChooseAmount({ label, item, setItem }: ChooseAmountType)
     <>
       <div className={`flex items-center justify-between min-w-80 gap-7`}>
         <div className={`mr-auto`}>
-          <label htmlFor="beds"
-                 className={`text-2xl bg-clip-text text-transparent bg-linear-main-red font-bold`}>{label}</label>
+          <label className={`text-2xl bg-clip-text text-transparent bg-linear-main-red font-bold`}>{label}</label>
         </div>
         <div className={`flex items-center gap-2`}>
           <button onClick={item !== 0 ? () => setItem(item - 1) : undefined}

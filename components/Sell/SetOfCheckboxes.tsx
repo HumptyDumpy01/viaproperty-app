@@ -10,7 +10,7 @@ type SetOfCheckboxesType = {
     visible: boolean;
     content: string;
   };
-  setOfCheckboxes: { name: string; label: string }[];
+  setOfCheckboxes: { name: string; label: string; checked: boolean; }[];
   // children: ReactNode;
 }
 
@@ -29,9 +29,9 @@ export default function
         setQuestionMarkVisibility={setQuestionMarkVisibility} questionMark={questionMark}>
         <h3 className={`text-zinc-700 font-semibold mb-5`}>{label}</h3>
         <div className={`flex flex-col justify-center gap-3`}>
-          {setOfCheckboxes.length > 7 ? setOfCheckboxes.slice(0, 7).map(({ name, label }) => (
+          {setOfCheckboxes.length > 7 ? setOfCheckboxes.slice(0, 7).map(({ name, label, checked }) => (
             <div key={name}>
-              <Checkbox name={name} label={label} />
+              <Checkbox checked={checked} name={name} label={label} />
             </div>
           )) : setOfCheckboxes.map(({ name, label }) => (
             <div key={name}>

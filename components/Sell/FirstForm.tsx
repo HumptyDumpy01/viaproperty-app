@@ -115,6 +115,7 @@ export default function
           <div>
             <LabelAndSelect
               required={false}
+              defaultValue={ownership}
               label={`Ownership`}
               options={[{ value: `default`, label: `No Reference` }, { value: `leasehold`, label: `Leasehold` },
                 { value: `freehold`, label: `Freehold` }
@@ -124,7 +125,7 @@ export default function
             <LabelAndInput
               type={`input`}
               label={`Property Area(In Sqft)`}
-              defaultValue={propertyArea.toString()}
+              defaultValue={propertyArea?.toString() ? propertyArea.toString() : ``}
               required
               name={`locationDescription`}
               customClassNames={`bp-620:w-96`}
@@ -135,7 +136,7 @@ export default function
             <LabelAndInput
               type={`input`}
               label={`Price(In USD)`}
-              defaultValue={price.toString()}
+              defaultValue={price?.toString()}
               required
               name={`locationDescription`}
               customClassNames={`bp-620:w-96`}
