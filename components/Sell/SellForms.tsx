@@ -188,7 +188,16 @@ export default function SellForms({ mode }: SellFormsType) {
               history: `The task history of the property was..`
             }
           }} mode={`editAdvert`} />}
-          {activeEditStage === `Step 4` && <FourthForm mode={`editAdvert`} />}
+          {activeEditStage === `Step 4` && <FourthForm defaultValues={{
+            extraPricingFeatures: [{
+              title: `Garage`,
+              price: 100
+            }, {
+              title: `Garden`,
+              price: 200
+            }],
+            videoTour: `https://www.youtube.com/watch?v=9bZkp7q19f0`
+          }} mode={`editAdvert`} />}
           {activeEditStage === `Delete Advert` && (
             <>
               <h2>Delete Advert</h2>
