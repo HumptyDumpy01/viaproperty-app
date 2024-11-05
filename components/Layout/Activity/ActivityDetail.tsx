@@ -23,6 +23,7 @@ type ActivityDetailType = {
   makeMessageLink?: {
     href: string;
   } | null;
+  customContainerClasses?: string;
 
   // children: ReactNode;
 }
@@ -36,7 +37,8 @@ export default function
                    circleColor = `filledBlue`,
                    seeDetailsButtonVisibility = null,
                    messageFont = ``,
-                   makeMessageLink = null
+                   makeMessageLink = null,
+                   customContainerClasses = `items-center justify-between flex-col gap-5 bp-620:gap-0 bp-620:flex-row flex w-full`
                  }: ActivityDetailType) {
   const filledBlue = `bg-linear-main-dark-blue`;
   const emptyBorderRed = `border border-red-500 bg-white`;
@@ -65,7 +67,7 @@ export default function
 
   return (
     <>
-      <div className={`items-center justify-between flex-col gap-5 bp-620:gap-0 bp-620:flex-row flex w-full`}>
+      <div className={customContainerClasses}>
         <div className={`flex gap-5`}>
           <div className={`uppercase w-fit h-fit text-xl min-w-[72px] min-h-[72px] ${chosenCircleStyle}
                 text-white flex justify-center items-center rounded-full font-medium`}>

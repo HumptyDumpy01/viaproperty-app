@@ -27,32 +27,32 @@ export default function
     <>
 
       <div className={`flex flex-col gap-4 mb-12`}>
-        <ActivityDetail messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
+        <ActivityDetail customContainerClasses={``} messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
                         circleColor={`filledBlue`}
                         iconType={
                           AccountActivityIconsTypeEnum.ID} date={`PROPERTY ID`}
                         message={propertyId} />
 
-        <ActivityDetail messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
+        <ActivityDetail customContainerClasses={``} messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
                         circleColor={`emptyBorderRed`}
                         iconType={
                           AccountActivityIconsTypeEnum.houseRedPlus} date={`Property Type`}
                         message={propertyType} />
-        <ActivityDetail
-          makeMessageLink={{ href: `/properties/1` }}
-          messageFont={`text-[19px] underline font-medium`}
-          trashCanVisibility={false} circleColor={`emptyBorderRed`}
-          iconType={
-            AccountActivityIconsTypeEnum.houseRedUp} date={`Title`}
-          message={propertyTitle} />
+        <ActivityDetail customContainerClasses={``}
+                        makeMessageLink={{ href: propertyHref }}
+                        messageFont={`text-[19px] underline font-medium`}
+                        trashCanVisibility={false} circleColor={`emptyBorderRed`}
+                        iconType={
+                          AccountActivityIconsTypeEnum.houseRedUp} date={`Title`}
+                        message={propertyTitle} />
 
         <div className={`relative w-fit`}>
-          <ActivityDetail
-            messageFont={`text-[19px] font-medium`}
-            trashCanVisibility={false} circleColor={`emptyBorderRed`}
-            iconType={
-              AccountActivityIconsTypeEnum.loading} date={`Status`}
-            message={propertyStatus} />
+          <ActivityDetail customContainerClasses={``}
+                          messageFont={`text-[19px] font-medium`}
+                          trashCanVisibility={false} circleColor={`emptyBorderRed`}
+                          iconType={
+                            AccountActivityIconsTypeEnum.loading} date={`Status`}
+                          message={propertyStatus} />
 
           <div>
             <button onClick={() => setQuestionMarkVisibility(prevState => !prevState)} type={`button`}
@@ -66,19 +66,19 @@ export default function
           </div>
         </div>
 
-        <ActivityDetail
-          messageFont={`text-[19px] font-medium`}
-          trashCanVisibility={false} circleColor={`emptyBorderRed`}
-          iconType={
-            AccountActivityIconsTypeEnum.user} date={`Customer`}
-          message={customer} />
+        <ActivityDetail customContainerClasses={``}
+                        messageFont={`text-[19px] font-medium`}
+                        trashCanVisibility={false} circleColor={`emptyBorderRed`}
+                        iconType={
+                          AccountActivityIconsTypeEnum.user} date={`Customer`}
+                        message={customer} />
 
-        <ActivityDetail
-          messageFont={`text-[19px] font-medium`}
-          trashCanVisibility={false} circleColor={`filledRed`}
-          iconType={
-            AccountActivityIconsTypeEnum.dollar} date={`Total`}
-          message={total} />
+        <ActivityDetail customContainerClasses={``}
+                        messageFont={`text-[19px] font-medium`}
+                        trashCanVisibility={false} circleColor={`filledRed`}
+                        iconType={
+                          AccountActivityIconsTypeEnum.dollar} date={`Total`}
+                        message={total} />
       </div>
     </>
   );

@@ -15,9 +15,10 @@ export default function RentPeriod({ from, to }: RentPeriodType) {
     <>
       <div className={`mb-11`}>
         <ViapropertyHeading customClasses={`mb-8`} label={`Rent Period`} headingSize={`md`} />
-        <div className={`flex gap-12`}>
+        <div className={`flex gap-12 flex-col bp-620:flex-row`}>
           <div>
             <ActivityDetail
+              customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
               iconType={
@@ -26,6 +27,7 @@ export default function RentPeriod({ from, to }: RentPeriodType) {
           </div>
           <div>
             <ActivityDetail
+              customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
               iconType={

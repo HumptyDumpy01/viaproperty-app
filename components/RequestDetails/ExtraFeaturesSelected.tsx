@@ -23,6 +23,7 @@ export default function ExtraFeaturesSelected({ extraFeaturesSelected }: ExtraFe
             return (
               <>
                 <ActivityDetail
+                  customContainerClasses={``}
                   messageFont={`text-[19px] font-medium`}
                   trashCanVisibility={false} circleColor={`emptyBorderRed`}
                   iconType={

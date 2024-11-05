@@ -19,6 +19,7 @@ export default function Customer({ initials, email, phone }: CustomerType) {
         <div className={`flex flex-col gap-5`}>
           <div>
             <ActivityDetail
+              customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
               iconType={
@@ -28,6 +29,7 @@ export default function Customer({ initials, email, phone }: CustomerType) {
 
           <div>
             <ActivityDetail
+              customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
               iconType={
@@ -37,6 +39,7 @@ export default function Customer({ initials, email, phone }: CustomerType) {
 
           <div>
             <ActivityDetail
+              customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
               iconType={
