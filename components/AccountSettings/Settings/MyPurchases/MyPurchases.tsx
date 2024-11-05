@@ -11,7 +11,7 @@ export default function MyPurchases(/*{  }: MyPurchasesType*/) {
     <>
       <AccountDetails cards={{
         btnLink: {
-          href: `/account-settings/purchases/1`,
+          href: `/account-settings/purchase-details/1`,
           label: `Purchase Details`
         },
         btnSecondary: {
