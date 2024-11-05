@@ -12,6 +12,7 @@ type ActivityDetailType = {
   date: string;
   message: ReactNode;
   iconType: AccountActivityIconsTypeEnum;
+  dollarColor?: `red` | `white`;
   trashCanVisibility: boolean;
   circleColor: `filledBlue` | `filledRed` | `emptyBorderRed` | `emptyBorderBlue` | `emptyBorderGrey`;
   seeDetailsButtonVisibility?: {
@@ -38,7 +39,8 @@ export default function
                    seeDetailsButtonVisibility = null,
                    messageFont = ``,
                    makeMessageLink = null,
-                   customContainerClasses = `items-center justify-between flex-col gap-5 bp-620:gap-0 bp-620:flex-row flex w-full`
+                   customContainerClasses = `items-center justify-between flex-col gap-5 bp-620:gap-0 bp-620:flex-row flex w-full`,
+                   dollarColor = `white`
                  }: ActivityDetailType) {
   const filledBlue = `bg-linear-main-dark-blue`;
   const emptyBorderRed = `border border-red-500 bg-white`;
@@ -71,7 +73,7 @@ export default function
         <div className={`flex gap-5`}>
           <div className={`uppercase w-fit h-fit text-xl min-w-[72px] min-h-[72px] ${chosenCircleStyle}
                 text-white flex justify-center items-center rounded-full font-medium`}>
-            <AccountActivityIcon type={iconType} />
+            <AccountActivityIcon dollarColor={dollarColor} type={iconType} />
           </div>
           <div className={`flex flex-col justify-center gap-2`}>
             <div className={`flex items-center gap-2.5 w-fit`}>

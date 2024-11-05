@@ -60,7 +60,11 @@ const config: Config = {
       },
       gridTemplateColumns: {
         'properties': '280px 603px 422px',
-        'property-description': '914px auto'
+        'property-description': '914px auto',
+        'proceed-with-purchase': 'repeat(3, 217px)'
+      },
+      gridTemplateRows: {
+        'proceed-with-purchase': 'repeat(3, 140px)'
       }
     }
   },
