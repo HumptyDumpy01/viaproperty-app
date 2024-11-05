@@ -12,7 +12,7 @@ export default function MyAdverts(/*{  }: MyAdvertsType*/) {
   return (
     <AccountDetails cards={{
       btnLink: {
-        href: `/account-settings/1/edit`,
+        href: `/account-settings/edit-property-advert/1`,
         label: `Edit`
       },
       btnSecondary: {

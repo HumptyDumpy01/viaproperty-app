@@ -21,7 +21,7 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
   return (
     <>
       {isAuthenticated && (
-        <SellForms />
+        <SellForms mode={`createAdvert`} />
       )}
       {!isAuthenticated && (
         <NotAuthorized heading={`Only logged in users can start selling or renting their property!`} error={401} text={(
