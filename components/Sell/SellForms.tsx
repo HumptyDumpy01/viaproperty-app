@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { activeStateType } from '@/components/Sell/SellInputContent';
 import BulkyLink from '@/components/UI/Link/BulkyLink';
 import Link from 'next/link';
+import DeleteAdvert from '@/components/Sell/DeleteAdvert';
 
 type SellFormsType = {
   mode: `createAdvert` | `editCurrentAdvert`;
@@ -200,7 +201,7 @@ export default function SellForms({ mode }: SellFormsType) {
           }} mode={`editAdvert`} />}
           {activeEditStage === `Delete Advert` && (
             <>
-              <h2>Delete Advert</h2>
+              <DeleteAdvert />
             </>
           )}
         </>

@@ -5,7 +5,7 @@ import React, { ComponentPropsWithoutRef } from 'react';
 type ButtonType = ComponentPropsWithoutRef<'button'> & {
   label: string;
   mode?: 'lg' | 'md' | 'sm';
-  btnVariant?: `red` | `white` | `black` | `dark-blue`;
+  btnVariant?: `red` | `white` | `black` | `dark-blue` | `grey`;
   linearGradient?: boolean;
   scale?: boolean;
   disabled?: boolean;
@@ -33,6 +33,15 @@ export default function
               px-12 py-6 bp-620:text-xl
               transition-all duration-200 hover:bg-zinc-900 hover:text-white active:bg-zinc-400
               text-sm`}> {label} </button>
+      )}
+
+      {(mode === 'lg' && btnVariant === `grey`) && (
+        <button disabled={disabled} {...props}
+                className={`font-bold rounded-full flex 
+               w-fit h-19 border border-zinc-900 
+              px-12 py-6 bp-620:text-xl
+              transition-all duration-200 hover:bg-zinc-900 hover:text-white active:bg-zinc-400
+              text-sm text-white bg-zinc-400`}> {label} </button>
       )}
 
       {(mode === 'md' && btnVariant === `red`) && (
