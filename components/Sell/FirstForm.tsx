@@ -12,27 +12,58 @@ import HighlightText from '@/components/Typography/HighlightText';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
+type FirstFormDefValuesType = {
+  title: string;
+  description: string;
+  location: string;
+  locationDescription: string;
+  images: string[];
+  ownership: string;
+  propertyArea: number;
+  price: number;
+};
+
 type FirstFormType = {
-  setActiveState: (prevState: activeStateType) => void;
+  setActiveState?: (prevState: activeStateType) => void;
+  mode: `createAdvert` | `editAdvert`;
+  defaultValues?: FirstFormDefValuesType;
   // children: ReactNode;
 }
 
-export default function FirstForm({ setActiveState }: FirstFormType) {
+export default function
+  FirstForm({
+              setActiveState,
+              defaultValues = {} as FirstFormDefValuesType,
+              mode
+            }: FirstFormType) {
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
-    setActiveStateFunc(activeState, setActiveState);
+    if (setActiveState)
+      setActiveStateFunc(activeState, setActiveState);
   }
+
+  const {
+    title,
+    description,
+    location,
+    locationDescription,
+    images,
+    ownership,
+    propertyArea,
+    price
+  }: FirstFormDefValuesType = defaultValues;
 
   return (
     <>
       <form className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
         <div>
-          <LabelAndInput label={`Title`} required name={`title`} customClassNames={`bp-620:w-96`}
+          <LabelAndInput defaultValue={title} label={`Title`} required name={`title`} customClassNames={`bp-620:w-96`}
                          placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
         </div>
         <div>
           <LabelAndInput
+            defaultValue={description}
             type={`textarea`}
             label={`Description`}
             required
@@ -40,12 +71,15 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
             customClassNames={`bp-620:w-[537px] min-h-[155px]`}
             placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
         </div>
+
         <div className={`mb-9`}>
           <div className={`mb-2`}>
-            <LabelAndSelect label={`This property is for..`}
+            <LabelAndSelect disabled={mode === `editAdvert`} label={`This property is for..`}
                             options={[{ value: `rent`, label: `Rent` }, { value: `sell`, label: `Sell` }]} />
           </div>
-          <p className={`text-zinc-700 text-sm`}>Lorem ipsum dolor sit amet, consectetur.</p>
+          <p className={`text-zinc-700 text-sm`}>{
+            mode === `editAdvert` ? `You can't change this property` : `You can't change this property after creating the advert`
+          }</p>
         </div>
 
         <div>
@@ -58,7 +92,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
         </div>
         <div className={`mb-9`}>
           <div className={`mb-4`}>
-            <LocationLabel location={`UK, Birmingham, 5th Street`} />
+            <LocationLabel location={mode === `editAdvert` ? location : `UK, Birmingham, 5th Street`} />
           </div>
           <div className={`bp-620:w-[565px] h-[299px] rounded-3xl mb-9`}>
             <Image src={MapImg} alt={`Map Image`} className={`object-cover w-full h-full`} />
@@ -68,6 +102,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
               type={`textarea`}
               label={`Tell your potential customer shortly about location`}
               required
+              defaultValue={locationDescription}
               name={`locationDescription`}
               customClassNames={`bp-620:w-[537px] min-h-[155px]`}
               placeholder={`e.g. This place is located at N Street, with calm neighborhood... `}
@@ -89,6 +124,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
             <LabelAndInput
               type={`input`}
               label={`Property Area(In Sqft)`}
+              defaultValue={propertyArea.toString()}
               required
               name={`locationDescription`}
               customClassNames={`bp-620:w-96`}
@@ -99,6 +135,7 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
             <LabelAndInput
               type={`input`}
               label={`Price(In USD)`}
+              defaultValue={price.toString()}
               required
               name={`locationDescription`}
               customClassNames={`bp-620:w-96`}
@@ -114,9 +151,19 @@ export default function FirstForm({ setActiveState }: FirstFormType) {
           {/*          ...prevState, stepOne: `completed`, stepTwo: `active`*/}
           {/*        }))} />*/}
 
-          <Button type={`button`} label={`Next`}
-            // @ts-ignore
-                  onClick={() => setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` })} />
+          {setActiveState && (
+            <>
+              <Button type={`button`} label={`Next`}
+                // @ts-ignore
+                      onClick={() => setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` })} />
+            </>
+          )}
+
+          {!setActiveState && (
+            <>
+              <Button type={`button`} label={`Save Changes`} />
+            </>
+          )}
         </div>
       </form>
     </>

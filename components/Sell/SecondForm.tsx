@@ -14,7 +14,8 @@ import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type SecondFormType = {
-  setActiveState: (prevState: activeStateType) => void;
+  setActiveState?: (prevState: activeStateType) => void;
+  mode: `createAdvert` | `editAdvert`;
   // children: ReactNode;
 }
 
@@ -28,7 +29,9 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
-    setActiveStateFunc(activeState, setActiveState);
+    if (setActiveState) {
+      setActiveStateFunc(activeState, setActiveState);
+    }
   }
 
   return (
@@ -154,9 +157,20 @@ export default function SecondForm({ setActiveState }: SecondFormType) {
             {/*          ...prevState, stepTwo: `completed`, stepThree: `active`*/}
             {/*        }))} />*/}
 
-            <Button type={`button`} label={`Next`}
-              // @ts-ignore
-                    onClick={() => setActiveStateDeclaration({ stepTwo: `completed`, stepThree: `active` })} />
+
+            {setActiveState && (
+              <>
+                <Button type={`button`} label={`Next`}
+                  // @ts-ignore
+                        onClick={() => setActiveStateDeclaration({ stepTwo: `completed`, stepThree: `active` })} />
+              </>
+            )}
+
+            {!setActiveState && (
+              <>
+                <Button type={`button`} label={`Save Changes`} />
+              </>
+            )}
           </div>
         </div>
       </form>

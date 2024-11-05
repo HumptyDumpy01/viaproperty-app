@@ -16,7 +16,8 @@ import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type FifthFormType = {
-  setActiveState: (prevState: activeStateType) => void;
+  setActiveState?: (prevState: activeStateType) => void;
+  mode: `createAdvert` | `editAdvert`;
   // children: ReactNode;
 }
 
@@ -25,7 +26,9 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
-    setActiveStateFunc(activeState, setActiveState);
+    if (setActiveState) {
+      setActiveStateFunc(activeState, setActiveState);
+    }
   }
 
   return (
@@ -154,11 +157,15 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
           {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
           {/*          ...prevState, finishingSteps: `completed`*/}
           {/*        }))} />*/}
+          {setActiveState && (
+            <>
+              <Button type={`button`} label={`Confirm`}
+                // @ts-ignore
+                      onClick={() => setActiveStateDeclaration({ finishingSteps: `completed` })} />
+              <Button mode={`lg`} btnVariant={`black`} type={`button`} label={`Cancel`} />
+            </>
+          )}
 
-          <Button type={`button`} label={`Confirm`}
-            // @ts-ignore
-                  onClick={() => setActiveStateDeclaration({ finishingSteps: `completed` })} />
-          <Button mode={`lg`} btnVariant={`black`} type={`button`} label={`Cancel`} />
         </div>
 
       </form>

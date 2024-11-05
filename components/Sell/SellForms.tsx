@@ -11,11 +11,13 @@ import HighlightText from '@/components/Typography/HighlightText';
 import { useState } from 'react';
 import { activeStateType } from '@/components/Sell/SellInputContent';
 import BulkyLink from '@/components/UI/Link/BulkyLink';
+import Link from 'next/link';
 
 type SellFormsType = {
   mode: `createAdvert` | `editCurrentAdvert`;
   // children: ReactNode;
 }
+export type ActiveEditStepType = `Step 1` | `Step 2` | `Step 3` | `Step 4` | `Delete Advert`;
 
 export default function SellForms({ mode }: SellFormsType) {
 
@@ -27,15 +29,8 @@ export default function SellForms({ mode }: SellFormsType) {
     finishingSteps: `disabled`
   } as activeStateType;
 
-  const editCurrentAdvertStack = {
-    stepOne: `completed`,
-    stepTwo: `completed`,
-    stepThree: `completed`,
-    stepFour: `completed`,
-    finishingSteps: `completed`
-  } as activeStateType;
-
-  const [activeState, setActiveState] = useState<activeStateType>(mode === `createAdvert` ? createAdvertStack : editCurrentAdvertStack);
+  const [activeState, setActiveState] = useState<activeStateType>(createAdvertStack);
+  const [activeEditStage, setActiveEditStage] = useState<ActiveEditStepType>(`Step 1`);
 
   const heading = activeState.stepOne === `active` ? `Fill in the most important!`
     : activeState.stepTwo === `active` ? `Add some details!`
@@ -45,6 +40,17 @@ export default function SellForms({ mode }: SellFormsType) {
   return (
     <>
       <div className={`mb-7`}>
+        {mode === `editCurrentAdvert` && (
+          <Link className={`flex items-center gap-2 bg-clip-text text-transparent bg-linear-main-red font-bold
+            border  border-red-500 rounded-full px-4 py-2 text-[15.5px] w-fit mb-5`}
+                href={`/account-settings?page=account-settings&subpage=my-adverts`}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="10" viewBox="0 0 11 10" fill="none">
+              <path
+                d="M4.87683 9.16541C4.72949 9.31555 4.52967 9.3999 4.32133 9.3999C4.11298 9.3999 3.91316 9.31555 3.76582 9.16541L0.230049 5.56131C0.0827471 5.41112 -1.32019e-06 5.20744 -1.33876e-06 4.99507C-1.35732e-06 4.7827 0.082747 4.57902 0.230049 4.42882L3.76582 0.824728C3.91401 0.678836 4.11248 0.598108 4.3185 0.599933C4.52451 0.601758 4.72158 0.685988 4.86726 0.834484C5.01294 0.982979 5.09558 1.18386 5.09737 1.39385C5.09916 1.60385 5.01996 1.80616 4.87683 1.95721L2.74987 4.19416L10.2143 4.19416C10.4227 4.19416 10.6225 4.27854 10.7699 4.42874C10.9172 4.57894 11 4.78265 11 4.99507C11 5.20748 10.9172 5.4112 10.7699 5.5614C10.6225 5.7116 10.4227 5.79598 10.2143 5.79598L2.74987 5.79598L4.87683 8.03292C5.02414 8.18311 5.10688 8.38679 5.10688 8.59916C5.10688 8.81154 5.02414 9.01521 4.87683 9.16541Z"
+                fill="#FB3838" />
+            </svg>
+            Go Back</Link>
+        )}
         <h2 className={`text-3xl bg-clip-text text-transparent bg-linear-main-red font-bold
           mb-5`}>{mode === `createAdvert` ? heading : `Let's Edit your advert!`}</h2>
         <p className={`text-zinc-800`}>{
@@ -52,6 +58,30 @@ export default function SellForms({ mode }: SellFormsType) {
             : `Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
         }</p>
       </div>
+
+
+      {mode === `editCurrentAdvert` && (
+        <>
+          <div className={`flex gap-2.5 items-center overflow-x-auto scrollbar-thin`}>
+            <div onClick={() => setActiveEditStage(`Step 1`)}>
+              <BadgeStages state={activeEditStage === `Step 1` ? `active` : `completed`} label={`Step 1`} />
+            </div>
+            <div onClick={() => setActiveEditStage(`Step 2`)}>
+              <BadgeStages state={activeEditStage === `Step 2` ? `active` : `completed`} label={`Step 2`} />
+            </div>
+            <div onClick={() => setActiveEditStage(`Step 3`)}>
+              <BadgeStages state={activeEditStage === `Step 3` ? `active` : `completed`} label={`Step 3`} />
+            </div>
+            <div onClick={() => setActiveEditStage(`Step 4`)}>
+              <BadgeStages state={activeEditStage === `Step 4` ? `active` : `completed`} label={`Step 4`} />
+            </div>
+
+            <div onClick={() => setActiveEditStage(`Delete Advert`)}>
+              <BadgeStages state={`active`} label={`Delete Advert`} />
+            </div>
+          </div>
+        </>
+      )}
 
       {mode === `createAdvert` && (
         <>
@@ -82,11 +112,12 @@ export default function SellForms({ mode }: SellFormsType) {
 
       {mode === `createAdvert` && (
         <>
-          {activeState.stepOne === `active` && <FirstForm setActiveState={setActiveState} />}
-          {activeState.stepTwo === `active` && <SecondForm setActiveState={setActiveState} />}
-          {activeState.stepThree === `active` && <ThirdForm setActiveState={setActiveState} />}
-          {activeState.stepFour === `active` && <FourthForm setActiveState={setActiveState} />}
-          {activeState.finishingSteps === `active` && <FifthForm setActiveState={setActiveState} />}
+          {activeState.stepOne === `active` && <FirstForm mode={`createAdvert`} setActiveState={setActiveState} />}
+          {activeState.stepTwo === `active` && <SecondForm mode={`createAdvert`} setActiveState={setActiveState} />}
+          {activeState.stepThree === `active` && <ThirdForm mode={`createAdvert`} setActiveState={setActiveState} />}
+          {activeState.stepFour === `active` && <FourthForm mode={`createAdvert`} setActiveState={setActiveState} />}
+          {activeState.finishingSteps === `active` &&
+            <FifthForm mode={`createAdvert`} setActiveState={setActiveState} />}
           {activeState.finishingSteps === `completed` && (
             <div className={`mt-9`}>
               <p className={`leading-relaxed text-zinc-900 max-w-4xl mb-12`}>Ut enim ad minim veniam, quis nostrud
@@ -104,8 +135,28 @@ export default function SellForms({ mode }: SellFormsType) {
           )}
         </>
       )}
+
       {mode === `editCurrentAdvert` && (
         <>
+          {activeEditStage === `Step 1` && <FirstForm defaultValues={{
+            title: `Arizona Cottage`,
+            description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+            location: `Arizona`,
+            locationDescription: `Lorem ipsum dolor sit amet, consectetur.`,
+            images: [],
+            ownership: `freehold`,
+            propertyArea: 200,
+            price: 150000
+          }} mode={`editAdvert`} />}
+
+          {activeEditStage === `Step 2` && <SecondForm mode={`editAdvert`} />}
+          {activeEditStage === `Step 3` && <ThirdForm mode={`editAdvert`} />}
+          {activeEditStage === `Step 4` && <FourthForm mode={`editAdvert`} />}
+          {activeEditStage === `Delete Advert` && (
+            <>
+              <h2>Delete Advert</h2>
+            </>
+          )}
         </>
       )}
     </>

@@ -11,7 +11,8 @@ import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import Button from '@/components/UI/Button/Button';
 
 type ThirdFormType = {
-  setActiveState: (prevState: activeStateType) => void;
+  setActiveState?: (prevState: activeStateType) => void;
+  mode: `createAdvert` | `editAdvert`;
   // children: ReactNode;
 }
 
@@ -19,7 +20,9 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
-    setActiveStateFunc(activeState, setActiveState);
+    if (setActiveState) {
+      setActiveStateFunc(activeState, setActiveState);
+    }
   }
 
   return (
@@ -114,9 +117,20 @@ export default function ThirdForm({ setActiveState }: ThirdFormType) {
             {/*          ...prevState, stepThree: `completed`, stepFour: `active`*/}
             {/*        }))} />*/}
 
-            <Button type={`button`} label={`Next`}
-              // @ts-ignore
-                    onClick={() => setActiveStateDeclaration({ stepThree: `completed`, stepFour: `active` })} />
+            {setActiveState && (
+              <>
+                <Button type={`button`} label={`Next`}
+                  // @ts-ignore
+                        onClick={() => setActiveStateDeclaration({ stepThree: `completed`, stepFour: `active` })} />
+              </>
+            )}
+
+            {!setActiveState && (
+              <>
+                <Button type={`button`} label={`Save Changes`} />
+              </>
+            )}
+
           </div>
         </div>
       </form>

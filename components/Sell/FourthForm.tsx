@@ -11,7 +11,8 @@ import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 
 type FourthFormType = {
-  setActiveState: (prevState: activeStateType) => void;
+  setActiveState?: (prevState: activeStateType) => void;
+  mode: `createAdvert` | `editAdvert`;
   // children: ReactNode;
 }
 
@@ -19,7 +20,9 @@ export default function FourthForm({ setActiveState }: FourthFormType) {
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
-    setActiveStateFunc(activeState, setActiveState);
+    if (setActiveState) {
+      setActiveStateFunc(activeState, setActiveState);
+    }
   }
 
   return (
@@ -80,9 +83,20 @@ export default function FourthForm({ setActiveState }: FourthFormType) {
           {/*          ...prevState, stepFour: `completed`, finishingSteps: `active`*/}
           {/*        }))} />*/}
 
-          <Button type={`button`} label={`Next`}
-            // @ts-ignore
-                  onClick={() => setActiveStateDeclaration({ stepFour: `completed`, finishingSteps: `active` })} />
+
+          {setActiveState && (
+            <>
+              <Button type={`button`} label={`Next`}
+                // @ts-ignore
+                      onClick={() => setActiveStateDeclaration({ stepFour: `completed`, finishingSteps: `active` })} />
+            </>
+          )}
+
+          {!setActiveState && (
+            <>
+              <Button type={`button`} label={`Save Changes`} />
+            </>
+          )}
         </div>
       </form>
     </>
