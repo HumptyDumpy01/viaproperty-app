@@ -12,7 +12,6 @@ import ActivityDetail from '@/components/Layout/Activity/ActivityDetail';
 import { AccountActivityIconsTypeEnum } from '@/components/UI/Icon/AccountActivityIcon';
 import OrderStatus from '@/components/ThanksForPurchase/OrderStatus';
 import OrderConfirmedAnimation from '@/components/ThanksForPurchase/OrderConfirmedAnimation';
-import Button from '@/components/UI/Button/Button';
 import BulkyLink from '@/components/UI/Link/BulkyLink';
 
 export default function ThanksForPurchasePage(/*{  }: ThanksForPurchasePageType*/) {
@@ -29,9 +28,9 @@ export default function ThanksForPurchasePage(/*{  }: ThanksForPurchasePageType*
         )} />
 
         <ViapropertyHeading headingSize={`md`} label={`Order details`} />
-        <div className={`flex items-center gap-8`}>
+        <div className={`flex flex-col bp-790:flex-row bp-790:items-center gap-8`}>
 
-          <div className={`flex flex-col justify-center gap-5`}>
+          <div className={`flex flex-col justify-center gap-5 mt-8 bp-790:mt-0 order-2 bp-790:order-1`}>
             <ActivityDetail customContainerClasses={``} messageFont={`text-[19px] font-medium`}
                             trashCanVisibility={false}
                             circleColor={`filledBlue`}
@@ -64,9 +63,11 @@ export default function ThanksForPurchasePage(/*{  }: ThanksForPurchasePageType*
                               AccountActivityIconsTypeEnum.dollar} date={`Total`}
                             message={`$165,743`} />
           </div>
-          <OrderConfirmedAnimation />
+          <div className={`max-w-2xl m-auto order-1 bp-790:order-2`}>
+            <OrderConfirmedAnimation />
+          </div>
         </div>
-        <div>
+        <div className={`mt-8`}>
           <Paragraph customClasses={`max-w-5xl`} text={(
             <>
               Thank you for your purchase! Your request to purchase/rent the property has been received. <HighlightText

@@ -55,8 +55,6 @@ const config: Config = {
         /* IMPORTANT: PROPERTY DESCRIPTION */
         'bp-1306': '1306px'
 
-        /* IMPORTANT: CHATS */
-
       },
       gridTemplateColumns: {
         'properties': '280px 603px 422px',
