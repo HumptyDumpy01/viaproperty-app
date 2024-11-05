@@ -53,6 +53,20 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
             <HighlightText text={`Lily Twin`} style={`black`} /> wants to rent your property <HighlightText
             text={`Lorem ipsum dolor sit...`} /> !
           </>)} />
+
+          <ActivityDetail
+            seeDetailsButtonVisibility={{
+              visible: true,
+              label: `See Details`,
+              href: `/account-settings/request-details/1`
+            }}
+            circleColor={`emptyBorderRed`}
+            trashCanVisibility={true}
+            iconType={AccountActivityIconsTypeEnum.houseRedUp}
+            date={`Pending from August 29, 14:33`} message={(<>
+            <HighlightText text={`You`} style={`black`} /> requested to rent property <HighlightText
+            text={`Lorem ipsum dolor sit...`} /> !
+          </>)} />
           <ActivityDetail
             seeDetailsButtonVisibility={{
               visible: true,
