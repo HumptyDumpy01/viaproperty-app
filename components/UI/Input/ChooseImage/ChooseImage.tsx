@@ -28,7 +28,7 @@ export default function ChooseImage({ max, min, required = true }: ChooseImageTy
         <div className={`flex gap-4 items-center overflow-x-auto scrollbar-thin max-w-2xl`}>
           <RectangularButton btnLabel={`pick`} />
           {Array.from({ length: max }).map((_, index) => (
-            <div>
+            <div key={index}>
               <ImagePreview key={index} imgSrc={images[index]} />
             </div>
           ))}
