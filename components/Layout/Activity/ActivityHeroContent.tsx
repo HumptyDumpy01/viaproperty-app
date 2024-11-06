@@ -32,9 +32,9 @@ export default function ActivityHeroContent({ copyToClipboard, message, messageF
         <Paragraph text={(
           <Tooltip onClick={() => changeTooltipText()} title={copyToClipboard ? copyToClipboardText : ``}
                    followCursor>
-            <div className={messageFont}>
+            <span className={messageFont}>
               {message}
-            </div>
+            </span>
           </Tooltip>
         )} />
       </>

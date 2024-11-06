@@ -101,7 +101,7 @@ export default function
         </div>
 
         {trashCanVisibility && (
-          <div className={`flex items-center gap-5`}>
+          <p className={`flex items-center gap-5`}>
             {(seeDetailsButtonVisibility && seeDetailsButtonVisibility.visible) && (
               <Link href={seeDetailsButtonVisibility.href}>
                 <ButtonActive color={`red`} size={`small`}
@@ -114,7 +114,7 @@ export default function
                 <ViapropertyIcon icon={`trashCan`} />
               </button>
             </Tooltip>
-          </div>
+          </p>
         )}
       </div>
     </>

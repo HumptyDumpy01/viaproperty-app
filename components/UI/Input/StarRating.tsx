@@ -31,9 +31,9 @@ export default function StarRating({ label, name }: StarRatingType) {
   };
 
   return (
-    <div className="flex items-center gap-4 bp-620:min-w-[340px] bp-620:flex-row flex-col ">
+    <div className="flex items-center gap-4 bp-620:min-w-[340px] justify-between bp-620:flex-row flex-col ">
       <label htmlFor={name}
-             className="mr-4 bg-clip-text text-transparent bg-linear-main-dark-blue text-[28px] font-bold">{label}</label>
+             className="bg-clip-text text-transparent bg-linear-main-dark-blue min-w-56 text-[28px] font-bold mr-auto">{label}</label>
       <div className="flex items-center gap-2">
         <div className="star-rating-container">
           {[1, 2, 3, 4, 5].map((star) => (

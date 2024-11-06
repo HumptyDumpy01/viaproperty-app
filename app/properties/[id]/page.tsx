@@ -37,8 +37,8 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
             <PropertyGallery
               images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
 
-            <PropertyTags
-              tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
+            <PropertyTags rating={4.3}
+                          tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
 
             <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={`Exquisite
               design
