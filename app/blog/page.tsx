@@ -26,7 +26,7 @@ export default function BlogPage(/*{  }: BlogPageType*/) {
     <>
       <MainContainer>
         <div className={`mt-8`}>
-          <ViapropertyHeading headingSize={`lg`} label={`Explore countless articles`} />
+          <ViapropertyHeading customClasses={`mb-6`} headingSize={`lg`} label={`Explore countless articles`} />
           <Paragraph customClasses={`max-w-4xl`} text={(
             <>
               Explore countless articles on the latest trends in the real estate industry,
@@ -56,7 +56,7 @@ export default function BlogPage(/*{  }: BlogPageType*/) {
               </form>
 
               <div className={`flex items-center mb-12`}>
-                <div className={`flex gap-2 items-center`}>
+                <div className={`flex gap-2 items-center overflow-x-auto scrollbar-thin`}>
                   <ButtonActive color={`red`} size={`small`} onClick={() => setActiveFilter('All')}
                                 active={activeFilter === 'All'}
                                 label={`Newest`} />
@@ -72,7 +72,7 @@ export default function BlogPage(/*{  }: BlogPageType*/) {
                 </div>
               </div>
 
-              <div className={`grid grid-cols-2 gap-5`}>
+              <div className={`grid bp-1087:grid-cols-2 gap-5`}>
                 <BlogCard tags={[`Top Trending`, `Newest`, `Hot`]} image={{
                   src: Propertyimg1,
                   alt: `Property 1`
@@ -107,10 +107,8 @@ export default function BlogPage(/*{  }: BlogPageType*/) {
               <div>
                 <Pagination showing={6} total={38} pages={3} />
               </div>
-
             </div>
           </div>
-
         </div>
       </MainContainer>
       <CallToActionBlock fullScreen rounded={false} />

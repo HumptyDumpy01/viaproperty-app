@@ -16,7 +16,7 @@ export default function ViapropertyHeading({ headingSize, label, customClasses =
   return (
     <>
       <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold leading-normal
-       ${chosenHeadingSize} w-fit ${customClasses} text-2xl`}>{label}</h1>
+       ${chosenHeadingSize} w-fit ${customClasses} text-3xl`}>{label}</h1>
     </>
   );
 }

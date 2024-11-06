@@ -20,8 +20,8 @@ import Link from 'next/link';
 export default function BlogCard({ image, title, timeToReadInMins, tags }: BlogCardType) {
   return (
     <>
-      <div className={`flex  gap-8`}>
-        <div className={`w-44 h-44`}>
+      <div className={`flex gap-8 flex-col bp-620:flex-row`}>
+        <div className={`w-44 h-44 self-center bp-620:self-start`}>
           <Image className={`object-cover`} src={image.src} alt={image.alt} />
         </div>
         <div>
@@ -57,8 +57,10 @@ export default function BlogCard({ image, title, timeToReadInMins, tags }: BlogC
           <Paragraph
             text={`We have a good video tour here! It is a wonderful home with a lot of space and a great view.`} />
           <div className={`mt-3.5 pb-4`}>
-            <Link className={`bg-linear-main-red text-white px-4 py-2 rounded-full font-semibold inline-block`}
-                  href={`/blog/property`}>See More</Link>
+            <Link
+              className={`bg-linear-main-red text-white px-4 bp-620:py-2 py-3 rounded-full font-semibold inline-block
+              transition-all duration-200 hover:scale-105 hover:animate-pulse`}
+              href={`/blog/1`}>See More</Link>
           </div>
         </div>
       </div>
