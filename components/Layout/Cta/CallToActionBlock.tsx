@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import Button from '@/components/UI/Button/Button';
 import React from 'react';
@@ -14,8 +14,7 @@ type CallToActionBlockType = {
   // children: ReactNode;
 }
 
-const paragraphBoilerplateText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor.`;
+const paragraphBoilerplateText = `Want to stay up to date with the latest news? Sign up for our newsletter!`;
 
 export default function
   CallToActionBlock({
