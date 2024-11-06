@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 /*type LeaveBlogCommentType = {
   // children: ReactNode;
@@ -44,7 +44,7 @@ export default function LeaveBlogComment(/*{  }: LeaveBlogCommentType*/) {
             </div>
           </div>
           <div>
-            <ViapropertyButton label={`Submit`} bgColor={`bg-linear-main-dark-blue`} />
+            <ViapropertyButton label={`Submit Review`} bgColor={`bg-linear-main-dark-blue`} />
           </div>
         </form>
       </div>

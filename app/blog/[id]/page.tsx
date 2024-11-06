@@ -25,15 +25,15 @@ import MetricDisplayRatingHero from '@/components/UI/MetricDisplay/MetricDisplay
 import MetricDisplayRating from '@/components/UI/MetricDisplay/MetricDisplayRating';
 import BlogComments from '@/components/Blog/BlogComments';
 import LatestPosts from '@/components/Home/Layout/LatestPosts';
+import LeaveBlogComment from '@/components/Blog/LeaveBlogComment';
 
 export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
   return (
     <MainContainer>
       <div className={`mt-16`}>
 
-        <div className={`flex items-center justify-between`}>
-          <div className={``}>
-
+        <section className={`flex items-center justify-between flex-col bp-620:flex-row mb-14 bp-620:mb-0`}>
+          <div>
             <Link className={`flex items-center gap-2 bg-clip-text text-transparent bg-linear-main-red font-bold
             border  border-red-500 rounded-full px-4 py-2 text-[15.5px] w-fit mb-5`}
                   href={`/blog`}>
@@ -47,7 +47,7 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
             <ViapropertyHeading customClasses={`max-w-4xl mb-4`} headingSize={`lg`}
                                 label={`A Spellbinding Video Tour through Chateux!`} />
 
-            <div className={`flex items-center gap-4 mb-9`}>
+            <div className={`flex items-center gap-4 mb-9 overflow-x-auto scrollbar-thin text-nowrap`}>
               <div className={`flex items-center gap-1`}>
                 <div className={`p-1.5 rounded-full border border-red-500`}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -86,16 +86,16 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
           <div>
             <Image className={`object-cover`} src={WorkVideoConference} alt={`Work Video Conference`} />
           </div>
-        </div>
+        </section>
 
-        <div>
-          <Image src={VideoPreviewImg} alt={`Video Preview`} />
-        </div>
-        <div className={`max-w-[918px] mb-10`}>
+        <section className={`rounded-xl`}>
+          <Image className={`min-h-96 object-cover`} src={VideoPreviewImg} alt={`Video Preview`} />
+        </section>
+        <section className={`max-w-[918px] mb-10`}>
           <PropertyTags visibility={{ shareIcon: true }} rating={4.1}
                         tags={[BlogTagsEnum.POPULAR, BlogTagsEnum.TOPTRENDING]} />
-        </div>
-        <div className={`mb-11`}>
+        </section>
+        <section className={`mb-11`}>
           <ViapropertyHeading headingSize={`md`} label={`Interested in the details?`} />
           <HeadingWithParagraph
             heading={`Details about current video tour`}
@@ -118,8 +118,8 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
             </>
           )} />
 
-        </div>
-        <div className={`flex gap-16`}>
+        </section>
+        <section className={`flex gap-16 flex-col bp-896:flex-row mb-12 bp-896:mb-0`}>
           <div>
             <div className={`flex flex-col gap-5 mb-12`}>
               <ActivityDetail
@@ -141,13 +141,13 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
             <HeadingMedium customClasses={`mb-8`} heading={`User Reviews & Ratings`} />
             <MetricDisplayRatingHero overallRating={4.4} ratingsCount={18} />
           </div>
-          <div>
+          <div className={`self-center bp-896:self-start`}>
             <Image src={MarketingDigitalAdsImg} alt={`Marketing Digital Ads`} />
           </div>
-        </div>
+        </section>
 
 
-        <div className={`mb-14`}>
+        <section className={`mb-14`}>
           <div className={`flex items-center gap-y-24`}>
             <div className={`flex flex-col gap-6 items-center`}>
               <div className={`flex bp-1160:flex-row bp-1160:gap-24 items-center mr-auto flex-col gap-4`}>
@@ -161,15 +161,19 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className={`max-w-4xl mb-20`}>
+        <section className={`max-w-4xl mb-20`}>
           <BlogComments />
-        </div>
+        </section>
 
-        <div>
+        <section className={`mt-12 mb-16`}>
+          <LeaveBlogComment />
+        </section>
+
+        <section>
           <LatestPosts />
-        </div>
+        </section>
 
       </div>
     </MainContainer>

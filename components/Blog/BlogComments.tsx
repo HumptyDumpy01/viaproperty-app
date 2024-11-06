@@ -103,9 +103,6 @@ export default function BlogComments(/*{  }: BlogCommentsType*/) {
           <Button label={`See more`} mode={`md`} linearGradient />
         </div>
       </div>
-      <div className={`mt-12`}>
-        <LeaveBlogComment />
-      </div>
     </>
   );
 }
