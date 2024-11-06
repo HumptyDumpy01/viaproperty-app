@@ -17,10 +17,12 @@ import AppSettingsLink from '@/components/Typography/AppSettingsLink';
 import React from 'react';
 
 export default function AppSettingsBadge({ icon, links }: AppSettingsBadgeType) {
+  const userAuthenticated = true;
+  const logoutIconChosen = icon === `logout`;
   return (
     <>
       <div className={`flex items-center gap-3.5`}>
-        <div>
+        <div className={(userAuthenticated && logoutIconChosen) ? `rotate-180` : ``}>
           <AppSettingsIcons icon={icon} />
         </div>
         <div className={`flex items-center gap-2`}>
