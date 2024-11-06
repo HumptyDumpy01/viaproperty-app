@@ -66,12 +66,13 @@ export default function FooterColTwo(/*{  }: FooterColTwoType*/) {
           <div>
             <Clock />
           </div>
-          <p className={`text-sm leading-relaxed`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor
-            incididunt ut labore
-            et dolore magna aliqua. </p>
+          <p className={`text-sm leading-relaxed`}>
+            Our dedicated team at Viaproperty is here to assist you every day from 8 am to 10 pm.
+            Whether you have questions about buying, selling, or renting properties.
+          </p>
         </div>
       </div>
     </>
   );
 }
+
