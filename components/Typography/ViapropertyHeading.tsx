@@ -15,7 +15,7 @@ export default function ViapropertyHeading({ headingSize, label, customClasses =
   const chosenHeadingSize = headingSize === `lg` ? headingHuge : headingSize === `md` ? headingMedium : headingSmall;
   return (
     <>
-      <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold leading-normal
+      <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold leading-tight
        ${chosenHeadingSize} w-fit ${customClasses} text-3xl`}>{label}</h1>
     </>
   );

@@ -28,7 +28,7 @@ export default function ImageGalleryFullScreen({ layoutOpen, dispatch, images }:
       )}
       <div className={`fixed top-4 left-4 z-[51]`}>
         <div className={`h-screen w-screen flex flex-col gap-4 mt-7 relative`}>
-          <GalleryCard mode={`fullscreen`}
+          <GalleryCard hover={false} mode={`fullscreen`}
                        img={{ src: activeImage.src, alt: activeImage.alt }} />
           <div className={`flex gap-3 items-center
            fixed bottom-3 left-3 z-40 bg-zinc-900/20 rounded-2xl backdrop-blur-2xl overflow-x-auto scrollbar-thin p-2`}>

@@ -5,10 +5,12 @@ type GalleryCardType = {
   mode?: `fullscreen` | `normal`;
   active?: boolean;
   setActiveImage?: (image: { src: string, alt: string }) => void;
+  hover?: boolean;
   // children: ReactNode;
 }
 
-export default function GalleryCard({ img, mode = `normal`, active, setActiveImage }: GalleryCardType) {
+export default function GalleryCard({ img, mode = `normal`, active, setActiveImage, hover = true }: GalleryCardType) {
+  const hoverEffect = `hover:scale-110 hover:brightness-105`;
   return (
     <>
       {mode === `fullscreen` && (
@@ -16,7 +18,7 @@ export default function GalleryCard({ img, mode = `normal`, active, setActiveIma
           <div className={`rounded-2xl fixed top-0 left-0 h-screen`}>
             <img src={img.src} alt={img.alt}
                  className={`object-cover h-screen w-screen brightness-95 transition-all duration-200 
-                 hover:scale-110 hover:brightness-105 cursor-pointer select-none`} draggable={false} />
+              ${hover ? hoverEffect : ``} cursor-pointer select-none`} draggable={false} />
           </div>
         </>
       )}
