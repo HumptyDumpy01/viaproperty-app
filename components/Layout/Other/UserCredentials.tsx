@@ -91,6 +91,7 @@ export default function UserCredentials({ initials, abbrInitials, location }: Us
             ]} icon={`logout`} />
 
           </div>
+
         </div>
       </div>
     </>
