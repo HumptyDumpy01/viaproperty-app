@@ -18,18 +18,14 @@ export default function About(/*{  }: AboutType*/) {
             <Heading span={`Why us?`} heading={`About`} />
             <div className={`bp-700:grid bp-700:grid-cols-2 flex flex-wrap bp-700:gap-12 gap-24`}>
               <AboutCol
-                text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                   Lorem ipsum dolor sit amet.`}
+                text={`At viaproperty, we are committed to providing exceptional real estate services. Our team of experts is dedicated to helping you find the perfect property, whether you are looking to buy, rent, or invest.`}
                 metrics={[{ number: 788, metric: `completed goals` }, { number: 5, metric: `years of experience` }]} />
 
               <AboutCol
-                text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                   Lorem ipsum dolor sit amet.`}
+                text={`Our extensive network and deep understanding of the real estate market allow us to offer unparalleled service. We take pride in our ability to match clients with properties that meet their unique needs and preferences. `}
                 metrics={[{ number: 699, metric: `satisfied customers` }, {
                   number: 295,
-                  metric: `cities around usa`
+                  metric: `cities around USA`
                 }]} />
             </div>
           </div>

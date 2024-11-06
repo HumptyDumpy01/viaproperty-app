@@ -22,7 +22,7 @@ export default function HeroSecondCol(/*{  }: HeroSecondColType*/) {
         </div>
         <div className={`relative`}>
           <Image className={`object-cover w-full h-full rounded-3xl`} src={HeroImg2} alt={`Hero Image 2`} />
-          <ButtonGoTo type={`white`} absolute />
+          <ButtonGoTo href={`/properties/1`} type={`white`} absolute />
           <div className={`hidden bp-790:flex`}>
             <Badge city={`California`} absolute price={`215,000$`} title={`Wooden House`} />
           </div>
@@ -33,10 +33,11 @@ export default function HeroSecondCol(/*{  }: HeroSecondColType*/) {
             <div className={`hidden bp-790:flex`}>
               <Badge city={`California`} absolute price={`215,000$`} title={`Wooden House`} />
             </div>
-            <ButtonGoTo type={`red`} absolute />
+            <ButtonGoTo href={`/properties/1`} type={`red`} absolute />
           </div>
           <div className={`hidden bp-1235:block`}>
-            <CallToAction span={`on sale!`} buttonLabel={`See More`} message={`Lorem ipsum dolor sit amet`} />
+            <CallToAction href={`/properties?filter=onSale`} span={`on sale!`} buttonLabel={`See More`}
+                          message={`Fantastic properties on sale!`} />
           </div>
         </div>
       </div>

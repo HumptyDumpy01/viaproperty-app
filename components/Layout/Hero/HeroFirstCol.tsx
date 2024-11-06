@@ -5,8 +5,8 @@
 }*/
 
 import React from 'react';
-import Button from '@/components/UI/Button/Button';
 import SupportTeam from '@/components/Layout/Other/SupportTeam';
+import BulkyLink from '@/components/UI/Link/BulkyLink';
 
 export default function HeroFirstCol(/*{  }: HeroFirstColType*/) {
   return (
@@ -16,15 +16,14 @@ export default function HeroFirstCol(/*{  }: HeroFirstColType*/) {
                 bg-clip-text text-transparent bg-linear-main-red mb-6`}>Exquisite design <br />
           combined with <br />
           posh interior</h1>
-        <p className={`max-w-md bp-620:text-[15px] text-[13px] mb-6`}>Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit, sed
-          do
-          eiusmod tempor incididunt ut labore et
-          dolore magna aliqua.</p>
+        <p className={`max-w-md bp-620:text-[15px] text-[13px] mb-6`}>Want to buy or rent a
+          property with us? Our team is dedicated to providing you with the best service and ensuring a smooth
+          transaction. Please review the details of your purchase or rental agreement, and more!</p>
+
         <div className={`bp-620:flex hidden`}>
           <SupportTeam />
         </div>
-        <Button label={`Shop Now!`} />
+        <BulkyLink linkStyle={`red`} href={`/properties`} label={`Explore Properties!`} />
       </div>
     </>
   );
