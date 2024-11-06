@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { SearchpropetriesViaNavSchema } from '@/utils/schemas/searchpropetriesViaNavSchema';
+import { SearchPropertiesViaNavSchema } from '@/utils/schemas/searchPropetriesViaNavSchema';
 
 export default function Input(/*{  }: InputType*/) {
   const router = useRouter();
@@ -16,9 +16,9 @@ export default function Input(/*{  }: InputType*/) {
 
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
-    const results = Object.fromEntries(formData.entries()) as { searchTerm: string; propertyFor: `rent` | `sell` };
+    const results = Object.fromEntries(formData.entries()) as { searchTerm: string; propertyFor: `rent` | `buy` };
 
-    const validation = SearchpropetriesViaNavSchema.safeParse(results);
+    const validation = SearchPropertiesViaNavSchema.safeParse(results);
 
     if (!validation.success) {
       console.error(validation.error.errors[0].message);
@@ -50,7 +50,7 @@ export default function Input(/*{  }: InputType*/) {
           </div>
           <div className={`absolute top-[15px] right-3 text-sm`}>
             <select className={`bg-transparent text-sm text-stone-500`} name="propertyFor" id="propertyType">
-              <option value="sell">Sell</option>
+              <option value="buy">Buy</option>
               <option value="rent">Rent</option>
             </select>
           </div>
