@@ -48,7 +48,7 @@ export default function
     description,
     location,
     locationDescription,
-    images,
+    // images,
     ownership,
     propertyArea,
     price

@@ -10,8 +10,6 @@ import { CommentType } from '@/components/PropertyDescription/Layout/PropertyCom
 import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
 import Comment from '@/components/Layout/Comment/Comment';
 import Button from '@/components/UI/Button/Button';
-import LeaveBlogComment from '@/components/Blog/LeaveBlogComment';
-import LatestPosts from '@/components/Home/Layout/LatestPosts';
 
 export default function BlogComments(/*{  }: BlogCommentsType*/) {
 

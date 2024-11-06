@@ -39,6 +39,7 @@ type ThirdFormType = {
 
 export default function ThirdForm({ setActiveState, defaultValues }: ThirdFormType) {
   const [contactAndViewingArrangements, setContactAndViewingArrangements] = useState<ContactAndViewingArrangementsType[]>(defaultValues?.contactAndViewingArrangements || []);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [priceAndTaskHistory, setPriceAndTaskHistory] = useState<PriceAndTaskHistoryType | null>(defaultValues?.priceAndTaskHistory || null);
   const [floorPlans, setFloorPlans] = useState<FloorPlansType[]>(defaultValues?.floorPlans || []);
 

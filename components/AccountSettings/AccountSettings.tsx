@@ -28,6 +28,7 @@ export default function AccountSettings() {
   useEffect(() => {
     // @ts-ignore
     router.push(`/account-settings?page=account-settings&subpage=${activeSubPage}`, undefined, { shallow: true });
+    // eslint-disable-line react-hooks/exhaustive-deps
   }, [activeSubPage, router]);
 
   let content: ReactNode;

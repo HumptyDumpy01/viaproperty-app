@@ -86,7 +86,7 @@ export default function FormInputAndButton({ inputType, btnLabel, inputName, inp
         <Button hover={!formSubmitted} customClasses={isPending ? `animation-pulse` : ``}
                 btnVariant={formSubmitted ? `green` : `red`}
                 type={`submit`} mode={`md`}
-                label={formSubmitted ? `Thanks!` : btnLabel} />
+                label={formSubmitted ? `Thanks!` : isPending ? `Submitting...` : btnLabel} />
       </form>
     </>
   );
