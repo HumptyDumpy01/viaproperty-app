@@ -7,6 +7,7 @@ import React from 'react';
 import { PropertyType } from '@/utils/types/PropertyType';
 import { calculateDaysPassed } from '@/utils/functions/calculateDaysPassed';
 import CardPropertySkeleton from '@/components/UI/Skeletons/CardPropertySkeleton';
+import { trimString } from '@/utils/functions/trimString';
 
 type FeaturedPropertiesType = {
   headingLabel: string;
@@ -36,8 +37,8 @@ export default function FeaturedProperties({ headingLabel, headingHref, headingS
           )}
 
           {!loading && data.properties && data.properties.map(function(item: PropertyType) {
-            const trimmedTitle = item.title.length > 40 ? item.title.slice(0, 40) + `..` : item.title;
-            const trimmedDescr = item.description.overall.length > 70 ? item.description.overall.slice(0, 70) + `..` : item.description.overall;
+            const trimmedTitle = trimString(item.title, 40);
+            const trimmedDescr = trimString(item.description.overall, 70);
             return (
               <>
                 <CardProperty

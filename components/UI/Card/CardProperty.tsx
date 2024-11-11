@@ -53,7 +53,7 @@ export default function
             {type === `rent` && (
               <>
                 <span className={`text-green-600 inline-block text-[18px] font-semibold`}>${total}<span className={`
-                text-xs`}></span></span>
+                text-xs`}>/month</span></span>
               </>
             )}
             {type === `sell` && (
