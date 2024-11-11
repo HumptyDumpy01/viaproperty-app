@@ -4,7 +4,7 @@ import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import Button from '@/components/UI/Button/Button';
 import React, { FormEvent, useRef, useState, useTransition } from 'react';
 import { newsletterSchema } from '@/utils/schemas/newsletterSchema';
-import axios from 'axios';
+import { useAddNewsletterEmail } from '@/hooks/useAddNewsletterEmail';
 
 type inputAndButtonType = {
   inputType: 'email' | 'text' | 'password' | 'number' | `search`;
@@ -20,6 +20,9 @@ export default function FormInputAndButton({ inputType, btnLabel, inputName, inp
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string>(``);
+
+  const { addEmail, loading, error: mutationError } = useAddNewsletterEmail();
+
   const timeout = useRef<NodeJS.Timeout>();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -43,26 +46,18 @@ export default function FormInputAndButton({ inputType, btnLabel, inputName, inp
 
       startTransition(async () => {
         setError(``);
-        setFormSubmitted(true);
 
+        try {
+          await addEmail(results.email);
+          setFormSubmitted(true);
 
-        const response = await axios.post(`/api/newsletter`, { email: results.email }, {
-          headers: {
-            'Content-Type': `application/json`
-          }
-        });
-
-        const data = response.data;
-
-        if (data.status !== `success`) {
-          setError(`Failed to submit the form!`);
-          setFormSubmitted(false);
-        } else {
-          timeout.current = setTimeout(function() {
-            setFormSubmitted(false);
-            return clearTimeout(timeout.current);
-          }, 4000);
+        } catch (e) {
+          setError(`Failed to submit the form! ${e}`);
         }
+
+        timeout.current = setTimeout(() => {
+          setFormSubmitted(false);
+        }, 5000);
 
       });
     } catch (error) {

@@ -14,7 +14,7 @@ type CustomerTestimonialType = {
 export default function CustomerTestimonial({ paragraph, AltImg, srcImg, initials, status }: CustomerTestimonialType) {
   return (
     <>
-      <div className={`max-w-xl`}>
+      <div className={`max-w-xl cursor-grabbing`}>
         <p className={`text-zinc-800 bp-620:text-[17px] leading-relaxed text-sm`}>{paragraph}</p>
         <div className={`flex gap-6 items-center  mt-10`}>
           <div>

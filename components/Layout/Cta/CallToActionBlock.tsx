@@ -5,6 +5,7 @@ import React from 'react';
 import FormInputAndButton from '@/components/Layout/Form/FormInputAndButton';
 import FeatureList from '@/components/UI/FeatureList/FeatureList';
 import ButtonEmpty from '@/components/UI/Button/ButtonEmpty';
+import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
 
 type CallToActionBlockType = {
   type?: `newsletter` | `sell-rent`;
@@ -49,10 +50,10 @@ export default function
             )}
             <p className={`mt-6 mb-11`}>{paragraph}</p>
             {type === `newsletter` && (
-              <>
+              <CustomApolloProvider>
                 <FormInputAndButton inputPlaceholder={`Type your email`} inputName={`email`} btnLabel={`Sign Up`}
                                     inputType={`email`} />
-              </>
+              </CustomApolloProvider>
             )}
 
             {type === `sell-rent` && (
