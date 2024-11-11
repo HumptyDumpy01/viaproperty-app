@@ -15,16 +15,16 @@ export default function Home() {
       <Hero />
       <About />
       <OurServices />
-      <FeaturedProperties
-        headingLabel={`Featured Properties`}
-        headingSpan={`viaproperty recommends!`}
-        headingHref={`/properties?tags=featured`} />
-      <BuyProperty />
+      <CustomApolloProvider>
+        <FeaturedProperties
+          headingLabel={`Featured Properties`}
+          headingSpan={`viaproperty recommends!`}
+          headingHref={`/properties?tags=featured`} />
+        <BuyProperty />
+      </CustomApolloProvider>
       <CustomerTestimonials />
       <CallToActionBlock />
-      <CustomApolloProvider>
-        <LatestPosts />
-      </CustomApolloProvider>
+      <LatestPosts />
     </main>
   );
 }
