@@ -7,6 +7,7 @@ export const GET_PROPERTIES = gql`
             images
             landlordId
             title
+            propertyFor
             description {
                 overall
                 priceAndTaskHistory {
