@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_PROPERTIES = gql`
-    query {
-        properties {
+    query GetProperties($filter: PropertyFilterInput) {
+        properties(filter: $filter) {
             id
             images
             landlordId
@@ -13,10 +13,12 @@ export const GET_PROPERTIES = gql`
                 priceAndTaskHistory {
                     price
                 }
+                location {
+                    city
+                }
             }
             propertyFor
             createdAt
-
         }
     }
 `;

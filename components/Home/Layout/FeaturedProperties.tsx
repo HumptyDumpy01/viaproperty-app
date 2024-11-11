@@ -13,12 +13,13 @@ type FeaturedPropertiesType = {
   headingLabel: string;
   headingSpan: string;
   headingHref: string;
+  filter?: {};
   // children: ReactNode;
 }
 
-export default function FeaturedProperties({ headingLabel, headingHref, headingSpan }: FeaturedPropertiesType) {
-  const { loading, error, data } = useFetchProperties();
-  console.log(`Executing data: `, data);
+export default function FeaturedProperties({ headingLabel, headingHref, headingSpan, filter }: FeaturedPropertiesType) {
+  const filterOptions = filter ? filter : { tags: [`featured`], limit: 22 };
+  const { loading, error, data } = useFetchProperties(filterOptions);
   return (
     <>
       <section className={`mb-20`}>

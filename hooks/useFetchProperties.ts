@@ -2,9 +2,11 @@ import { useQuery } from '@apollo/client';
 import { GET_PROPERTIES } from '@/graphql/properties';
 import client from '@/lib/apolloClient';
 
-export const useFetchProperties = () => {
+// @ts-ignore
+export const useFetchProperties = (filter?) => {
   const { loading, error, data } = useQuery(GET_PROPERTIES, {
-    client
+    client,
+    variables: { filter }
   });
 
   return { loading, error, data };
