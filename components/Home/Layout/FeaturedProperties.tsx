@@ -14,7 +14,7 @@ type FeaturedPropertiesType = {
   headingLabel: string;
   headingSpan: string;
   headingHref: string;
-  filter?: {};
+  filter?: object;
   // children: ReactNode;
 }
 

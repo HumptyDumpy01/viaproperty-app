@@ -4,13 +4,13 @@
   // children: ReactNode;
 }*/
 
-import { Skeleton } from '@mui/material';
+import { Skeleton, Tooltip } from '@mui/material';
 import React from 'react';
 
 export default function CardPropertyTwoSkeleton(/*{  }: CardPropertyTwoType*/) {
   return (
     <>
-      <div>
+      <Tooltip title={`The Data is loading. Please wait..`} followCursor>
         <div className={`flex flex-col max-w-80 group
                   transition-all duration-300 hover:scale-110`}>
           <div className={`relative rounded-3xl overflow-hidden w-80 h-80 -mb-20`}>
@@ -33,7 +33,7 @@ export default function CardPropertyTwoSkeleton(/*{  }: CardPropertyTwoType*/) {
             </div>
           </div>
         </div>
-      </div>
+      </Tooltip>
     </>
   );
 }
