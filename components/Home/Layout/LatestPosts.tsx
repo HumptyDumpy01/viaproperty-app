@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 /*type LatestPostsType = {
   // children: ReactNode;
@@ -11,8 +11,11 @@ import PostImg2 from '@/assets/home/latest-posts/post-2.png';
 import PostImg3 from '@/assets/home/latest-posts/post-3.png';
 import PostImg4 from '@/assets/home/latest-posts/post-4.png';
 import React from 'react';
+import { useFetchProperties } from '@/hooks/useFetchProperties';
 
 export default function LatestPosts(/*{  }: LatestPostsType*/) {
+  const { loading, error, data } = useFetchProperties();
+  console.log(`Executing data: `, data);
   return (
     <>
       <section>

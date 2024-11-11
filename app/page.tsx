@@ -7,6 +7,7 @@ import BuyProperty from '@/components/Home/Layout/BuyProperty';
 import CustomerTestimonials from '@/components/Home/Layout/CustomerTestimonialsSection';
 import CallToActionBlock from '@/components/Layout/Cta/CallToActionBlock';
 import LatestPosts from '@/components/Home/Layout/LatestPosts';
+import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
 
 export default function Home() {
   return (
@@ -21,7 +22,9 @@ export default function Home() {
       <BuyProperty />
       <CustomerTestimonials />
       <CallToActionBlock />
-      <LatestPosts />
+      <CustomApolloProvider>
+        <LatestPosts />
+      </CustomApolloProvider>
     </main>
   );
 }
