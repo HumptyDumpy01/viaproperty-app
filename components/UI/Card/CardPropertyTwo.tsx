@@ -1,8 +1,13 @@
 // 'use client';
 
+import { CldImage } from 'next-cloudinary';
+import Link from 'next/link';
+import ButtonLink from '@/components/UI/Button/ButtonLink';
+import React from 'react';
+
 type CardPropertyTwoType = {
   href: string;
-  srcImg: StaticImageData;
+  srcImg: string;
   altImg: string;
   location: string;
   paragraph: string;
@@ -11,11 +16,6 @@ type CardPropertyTwoType = {
   btnLinkLabel: string;
   // children: ReactNode;
 }
-
-import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image';
-import ButtonLink from '@/components/UI/Button/ButtonLink';
-import React from 'react';
 
 export default function
   CardPropertyTwo({
@@ -32,13 +32,13 @@ export default function
     <>
       <Link href={href} className={`flex flex-col gap-6 max-w-80 group
       transition-all duration-300 hover:scale-110`}>
-        <div className={`relative`}>
-          <Image src={srcImg} alt={altImg} width={300} height={200} />
-
+        <div className={`relative rounded-3xl overflow-hidden w-80 h-80`}>
+          <CldImage className={`rounded-3xl absolute object-cover`} src={srcImg} alt={altImg} width={300} height={200}
+                    blurDataURL={srcImg} placeholder={`blur`} />
           <div
             className={`absolute h-11 py-2 bg-sky-950 rounded-xl flex items-center justify-center top-5 left-5 font-bold
                   text-white px-5 text-sm`}>
-            <p>From <span className={`inline-block`}>{total}</span>$</p>
+            <p><span className={`inline-block`}>{total}</span>$</p>
           </div>
         </div>
         <div className={`flex flex-col`}>

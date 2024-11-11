@@ -7,7 +7,10 @@ export type PropertyType = {
   description: {
     overall: string;
     priceAndTaskHistory: {
-      price: number;
+      price: string;
+    },
+    location: {
+      city: string;
     }
   }
 }
