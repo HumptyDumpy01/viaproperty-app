@@ -1,7 +1,7 @@
 // 'use client';
 
 type SearchResultsMetricsType = {
-  results: number;
+  results: string;
   // children: ReactNode;
 }
 

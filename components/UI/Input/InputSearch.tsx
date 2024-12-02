@@ -3,14 +3,15 @@
 type InputSearchType = {
   placeholder: string;
   name?: string;
+  disabled?: boolean;
   // children: ReactNode;
 }
 
-export default function InputSearch({ placeholder, name }: InputSearchType) {
+export default function InputSearch({ placeholder, name, disabled = false }: InputSearchType) {
   return (
     <>
       <div className={`relative`}>
-        <input required minLength={2} maxLength={500} name={name} type="search" className={`bp-620:w-[360px] w-[130%] border-2 border-r-zinc-100 py-5
+        <input disabled={disabled} required minLength={2} maxLength={500} name={name} type="search" className={`bp-620:w-[360px] w-[130%] border-2 border-r-zinc-100 py-5
             pl-6 pr-3 rounded-xl focus:outline-none`}
                placeholder={placeholder} />
         <button className={`bg-red-500 h-16 w-16 rounded-xl flex items-center justify-center

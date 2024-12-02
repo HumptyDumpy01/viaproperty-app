@@ -10,7 +10,7 @@ type CardPropertyLongType = {
   heading: string;
   paragraph: string;
   price: string;
-  type: `rent` | `buy`;
+  type: `rent` | `sell`;
   createdAt: string;
   btnLink: {
     href: string;
@@ -68,7 +68,7 @@ export default function
           <h3 className={`text-slate-900 font-semibold text-[17px] mb-2`}>{trimmedHeading}</h3>
           <p className={`text-slate-600 text-[13px] mb-4`}>{trimmedParagraph}</p>
           <div className={`flex justify-between`}>
-            {type === `buy` && (
+            {type === `sell` && (
               <>
                 <p className={`text-slate-800 font-semibold text-[15px]`}>From <span>${price}</span></p>
               </>

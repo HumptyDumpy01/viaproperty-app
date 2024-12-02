@@ -1,8 +1,9 @@
 'use client';
 
-/*type FormSearchType = {
+type FormSearchType = {
+  loading: boolean;
   // children: ReactNode;
-}*/
+}
 
 import InputSearch from '@/components/UI/Input/InputSearch';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
@@ -12,13 +13,18 @@ import { FormEvent, useRef, useState } from 'react';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import { searchTermSchema } from '@/utils/schemas/searchTermSchema';
 
-export default function FormSearch(/*{  }: FormSearchType*/) {
+export default function FormSearch({ loading }: FormSearchType) {
   const dispatch = useCartDispatch();
   const [errorMessage, setErrorMessage] = useState<string>(``);
   const timer = useRef<NodeJS.Timeout>();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (loading) {
+      return;
+    }
+
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
     const results = Object.fromEntries(formData.entries());
@@ -46,7 +52,7 @@ export default function FormSearch(/*{  }: FormSearchType*/) {
       )}
       <form onSubmit={handleSubmit} className={`relative flex`}>
         <div className={`flex bp-620:items-center justify-center gap-4 bp-620:gap-11 flex-col bp-620:flex-row`}>
-          <InputSearch name={`searchTerm`} placeholder={`Country, City, Street`} />
+          <InputSearch disabled={loading} name={`searchTerm`} placeholder={`Country, City, Street`} />
           <div className={`flex gap-4`}>
             <div className={` bp-1364:hidden`} onClick={() => dispatch(propertiesActions.toggleFilter(true))}>
               <ViapropertyIcon icon={`settings`}
