@@ -7,7 +7,7 @@ import { useFetchProperties } from '@/hooks/useFetchProperties';
 import CardPropertyHorizontalSkeleton from '@/components/UI/Skeletons/CardPropertyHorizontalSkeleton';
 import { PropertyType } from '@/utils/types/PropertyType';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Pagination from '@/components/UI/Pagination/Pagination';
 import { filterPropertiesBySearchTerm } from '@/utils/functions/properties/filterPropertiesBySearchTerm';
 
@@ -21,6 +21,8 @@ export default function SearchResults() {
 
   const [properties, setProperties] = useState<PropertyType[]>([]);
   const [totalProperties, setTotalProperties] = useState(0);
+
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (data) {
@@ -54,6 +56,7 @@ export default function SearchResults() {
     setCurrentPage(1);
     setProperties(data.properties);
     setTotalProperties(data.properties.length);
+    inputRef.current!.value = ``;
   }
 
 
@@ -64,12 +67,14 @@ export default function SearchResults() {
           Search any property you&#39;d like!
         </h3>
         <ReduxProvider>
-          <FormSearch setSearchTerm={setSearchTerm} loading={loading} />
+          <FormSearch inputRef={inputRef} setSearchTerm={setSearchTerm} loading={loading} />
         </ReduxProvider>
         <SearchResultsMetrics
+          loading={loading}
           properties={properties}
           handleResetFilter={handleResetFilter}
-          results={loading ? `...` : totalProperties.toString()} />
+          results={loading ? `...` : totalProperties.toString()}
+        />
         <div className={`flex flex-col gap-9`}>
           {loading && (
             <>
@@ -77,6 +82,9 @@ export default function SearchResults() {
               <CardPropertyHorizontalSkeleton />
               <CardPropertyHorizontalSkeleton />
             </>
+          )}
+          {error && (
+            <p className={`text-lg text-zinc-500`}>An error occurred. Please try again later</p>
           )}
           {paginatedProperties && paginatedProperties.length === 0 && !loading && (
             <>

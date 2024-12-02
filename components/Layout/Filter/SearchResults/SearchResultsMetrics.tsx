@@ -6,15 +6,22 @@ type SearchResultsMetricsType = {
   results: string;
   handleResetFilter: () => void;
   properties: PropertyType[];
+  loading: boolean;
   // children: ReactNode;
 }
 
-export default function SearchResultsMetrics({ results, handleResetFilter, properties }: SearchResultsMetricsType) {
+export default function
+  SearchResultsMetrics({
+                         results,
+                         handleResetFilter,
+                         properties,
+                         loading
+                       }: SearchResultsMetricsType) {
   return (
     <>
       <div className={`mt-3.5 mb-4 flex items-center gap-4`}>
         <p className={`text-sm text-zinc-500`}>Search results: <span>{results}</span></p>
-        {properties.length < 9 && (
+        {properties.length < 9 && !loading && (
           <button
             onClick={() => {
               handleResetFilter();
