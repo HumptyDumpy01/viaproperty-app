@@ -2,6 +2,7 @@
 
 type FormSearchType = {
   loading: boolean;
+  setSearchTerm: (searchTerm: string) => void;
   // children: ReactNode;
 }
 
@@ -13,7 +14,7 @@ import { FormEvent, useRef, useState } from 'react';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import { searchTermSchema } from '@/utils/schemas/searchTermSchema';
 
-export default function FormSearch({ loading }: FormSearchType) {
+export default function FormSearch({ loading, setSearchTerm }: FormSearchType) {
   const dispatch = useCartDispatch();
   const [errorMessage, setErrorMessage] = useState<string>(``);
   const timer = useRef<NodeJS.Timeout>();
@@ -27,7 +28,7 @@ export default function FormSearch({ loading }: FormSearchType) {
 
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
-    const results = Object.fromEntries(formData.entries());
+    const results = Object.fromEntries(formData.entries()) as { searchTerm: string };
 
     const validation = searchTermSchema.safeParse({ searchTerm: results.searchTerm });
 
@@ -40,7 +41,7 @@ export default function FormSearch({ loading }: FormSearchType) {
       return;
     }
 
-    console.log(results);
+    setSearchTerm(results.searchTerm);
   }
 
   return (

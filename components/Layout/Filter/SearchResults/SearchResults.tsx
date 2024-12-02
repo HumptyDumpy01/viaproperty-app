@@ -9,12 +9,15 @@ import { PropertyType } from '@/utils/types/PropertyType';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import { useEffect, useState } from 'react';
 import Pagination from '@/components/UI/Pagination/Pagination';
+import { filterPropertiesBySearchTerm } from '@/utils/functions/properties/filterPropertiesBySearchTerm';
 
 export default function SearchResults() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
   const itemsPerPage = 5;
 
-  const { loading, error, data } = useFetchProperties();
+  const filterOptions = { limit: 999 };
+  const { loading, error, data } = useFetchProperties(filterOptions);
 
   const [properties, setProperties] = useState<PropertyType[]>([]);
   const [totalProperties, setTotalProperties] = useState(0);
@@ -26,6 +29,18 @@ export default function SearchResults() {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (searchTerm && data) {
+      const filteredProperties = data.properties.filter((property: PropertyType) => {
+        return filterPropertiesBySearchTerm(searchTerm, property);
+      });
+
+      setProperties(filteredProperties);
+      setTotalProperties(filteredProperties.length);
+      setCurrentPage(1);
+    }
+  }, [searchTerm, data]);
+
   const totalPages = Math.ceil(totalProperties / itemsPerPage);
 
   const handlePageChange = (page: number) => {
@@ -34,6 +49,14 @@ export default function SearchResults() {
 
   const paginatedProperties = properties.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
+  function handleResetFilter() {
+    setSearchTerm(undefined);
+    setCurrentPage(1);
+    setProperties(data.properties);
+    setTotalProperties(data.properties.length);
+  }
+
+
   return (
     <>
       <div className={`bp-620:mx-11 mx-6`}>
@@ -41,15 +64,27 @@ export default function SearchResults() {
           Search any property you&#39;d like!
         </h3>
         <ReduxProvider>
-          <FormSearch loading={loading} />
+          <FormSearch setSearchTerm={setSearchTerm} loading={loading} />
         </ReduxProvider>
-        <SearchResultsMetrics results={loading ? `...` : totalProperties.toString()} />
+        <SearchResultsMetrics
+          properties={properties}
+          handleResetFilter={handleResetFilter}
+          results={loading ? `...` : totalProperties.toString()} />
         <div className={`flex flex-col gap-9`}>
           {loading && (
             <>
               <CardPropertyHorizontalSkeleton />
               <CardPropertyHorizontalSkeleton />
               <CardPropertyHorizontalSkeleton />
+            </>
+          )}
+          {paginatedProperties && paginatedProperties.length === 0 && !loading && (
+            <>
+              <p className={`text-lg text-zinc-500`}>No results found</p>
+              <button
+                onClick={() => handleResetFilter()}
+                className={`text-lg text-zinc-500 underline w-fit`}>Reset search
+              </button>
             </>
           )}
           {paginatedProperties && paginatedProperties.map((property: PropertyType) => (

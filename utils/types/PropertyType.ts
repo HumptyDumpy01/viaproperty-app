@@ -11,6 +11,7 @@ export type PropertyType = {
     },
     location: {
       city: string;
+      country: string;
     }
   }
 }

@@ -38,8 +38,8 @@ export default function
                            },
                            price
                          }: CardPropertyLongType) {
-  const trimmedHeading = heading.length > 40 ? heading.slice(0, 40) : heading;
-  const trimmedParagraph = paragraph.length > 70 ? paragraph.slice(0, 70) : paragraph;
+  const trimmedHeading = heading.length > 40 ? heading.slice(0, 40) + `..` : heading;
+  const trimmedParagraph = paragraph.length > 70 ? paragraph.slice(0, 70) + `..` : paragraph;
 
   // counting the exact number of days from the createdAt date
   const date = new Date(createdAt);
