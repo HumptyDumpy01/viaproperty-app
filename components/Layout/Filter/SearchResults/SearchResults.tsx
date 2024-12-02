@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 /*type SearchResultsType = {
   // children: ReactNode;
@@ -6,15 +6,19 @@
 
 import FormSearch from '@/components/Layout/Form/FormSearch';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
-import PropertyImg1 from '@/assets/properties/property-1.png';
-import PropertyImg2 from '@/assets/properties/property-2.png';
-import PropertyImg3 from '@/assets/properties/property-3.png';
-import PropertyImg4 from '@/assets/properties/property-4.png';
-import PropertyImg5 from '@/assets/properties/property-5.png';
 import SearchResultsMetrics from '@/components/Layout/Filter/SearchResults/SearchResultsMetrics';
 import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
+import { useFetchProperties } from '@/hooks/useFetchProperties';
+import { PropertyType } from '@/utils/types/PropertyType';
 
 export default function SearchResults(/*{  }: SearchResultsType*/) {
+  const filterOptions = { limit: 999 };
+  const { loading, error, data } = useFetchProperties(filterOptions);
+
+  if (loading) return <p>Loading...</p>;
+
+  console.log(`Executing data: `, data);
+
   return (
     <>
       <div className={`bp-620:mx-11 mx-6`}>
@@ -24,57 +28,26 @@ export default function SearchResults(/*{  }: SearchResultsType*/) {
         <ReduxProvider>
           <FormSearch />
         </ReduxProvider>
-        <SearchResultsMetrics results={547} />
+        <SearchResultsMetrics results={data.properties.length} />
         <div className={`flex flex-col gap-9`}>
-          <CardPropertyHorizontal btnLink={{
-            href: `/properties/1`,
-            label: `See Details`
-          }} type={`buy`} createdAt={`4`}
-                                  heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-                                  paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                        sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-                                  imgSrc={PropertyImg1} />
-          <CardPropertyHorizontal
-            btnLink={{
-              href: `/properties/1`,
-              label: `See Details`
-            }}
-            type={`rent`} createdAt={`5`}
-            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                  sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-            imgSrc={PropertyImg2} />
-
-          <CardPropertyHorizontal
-            btnLink={{
-              href: `/properties/1`,
-              label: `See Details`
-            }}
-            type={`buy`} createdAt={`6`}
-            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                  sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-            imgSrc={PropertyImg3} />
-          <CardPropertyHorizontal
-            btnLink={{
-              href: `/properties/1`,
-              label: `See Details`
-            }}
-            type={`rent`} createdAt={`7`}
-            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                  sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-            imgSrc={PropertyImg4} />
-          <CardPropertyHorizontal
-            btnLink={{
-              href: `/properties/1`,
-              label: `See Details`
-            }}
-            type={`buy`} createdAt={`8`}
-            heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-            paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                  sed do eiusmod temporconsectetur adipiscing elit..`} imgAlt={`property`}
-            imgSrc={PropertyImg5} />
+          {data.properties.map(function(property: PropertyType) {
+            return (
+              <>
+                <CardPropertyHorizontal
+                  btnLink={{
+                    href: `/properties/${property.id}`,
+                    label: `See Details`
+                  }}
+                  type={property.propertyFor === `rent` ? `rent` : `buy`}
+                  createdAt={property.createdAt}
+                  heading={property.title}
+                  paragraph={property.description.overall} imgAlt={property.title}
+                  imgSrc={property.images[0]}
+                  price={property.description.priceAndTaskHistory.price}
+                />
+              </>
+            );
+          })}
         </div>
       </div>
     </>
