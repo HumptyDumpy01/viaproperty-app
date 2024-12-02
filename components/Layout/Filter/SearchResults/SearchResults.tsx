@@ -5,19 +5,16 @@
 }*/
 
 import FormSearch from '@/components/Layout/Form/FormSearch';
-import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import SearchResultsMetrics from '@/components/Layout/Filter/SearchResults/SearchResultsMetrics';
 import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
 import { useFetchProperties } from '@/hooks/useFetchProperties';
+import CardPropertyHorizontalSkeleton from '@/components/UI/Skeletons/CardPropertyHorizontalSkeleton';
 import { PropertyType } from '@/utils/types/PropertyType';
+import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 
 export default function SearchResults(/*{  }: SearchResultsType*/) {
   const filterOptions = { limit: 999 };
   const { loading, error, data } = useFetchProperties(filterOptions);
-
-  if (loading) return <p>Loading...</p>;
-
-  console.log(`Executing data: `, data);
 
   return (
     <>
@@ -28,9 +25,16 @@ export default function SearchResults(/*{  }: SearchResultsType*/) {
         <ReduxProvider>
           <FormSearch />
         </ReduxProvider>
-        <SearchResultsMetrics results={data.properties.length} />
+        <SearchResultsMetrics results={loading ? `...` : data.properties.length} />
         <div className={`flex flex-col gap-9`}>
-          {data.properties.map(function(property: PropertyType) {
+          {loading && (
+            <>
+              <CardPropertyHorizontalSkeleton />
+              <CardPropertyHorizontalSkeleton />
+              <CardPropertyHorizontalSkeleton />
+            </>
+          )}
+          {data && data.properties.map(function(property: PropertyType) {
             return (
               <>
                 <CardPropertyHorizontal
