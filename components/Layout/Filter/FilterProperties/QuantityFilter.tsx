@@ -1,22 +1,26 @@
-// 'use client';
-
-/*type QuantityFilterType = {
-  // children: ReactNode;
-}*/
+'use client';
 
 import SelectQuantity from '@/components/UI/Input/SelectQuantity';
+import { useState } from 'react';
 
-export default function QuantityFilter(/*{  }: QuantityFilterType*/) {
+export default function QuantityFilter() {
+  const [quantityStates, setQuantityStates] = useState({
+    bedrooms: 0,
+    bathrooms: 0
+  });
+
   return (
     <>
       <div className={`mt-7 flex items-center gap-10`}>
         <div>
           <h3 className={`text-zinc-900 font-bold text-[16px] mb-6`}>Bedrooms</h3>
-          <SelectQuantity />
+          <SelectQuantity property={`bedrooms`} setQuantityStates={setQuantityStates} quantity={quantityStates}
+                          type={`light`} />
         </div>
         <div>
           <h3 className={`text-zinc-900 font-bold text-[16px] mb-6`}>Bathrooms</h3>
-          <SelectQuantity type={`light`} />
+          <SelectQuantity property={`bathrooms`} setQuantityStates={setQuantityStates} quantity={quantityStates}
+                          type={`light`} />
         </div>
       </div>
     </>
