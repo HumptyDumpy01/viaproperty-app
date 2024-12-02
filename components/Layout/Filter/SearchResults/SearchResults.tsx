@@ -14,8 +14,7 @@ export default function SearchResults() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const filterOptions = { limit: itemsPerPage, offset: (currentPage - 1) * itemsPerPage };
-  const { loading, error, data } = useFetchProperties(filterOptions);
+  const { loading, error, data } = useFetchProperties();
 
   const [properties, setProperties] = useState<PropertyType[]>([]);
   const [totalProperties, setTotalProperties] = useState(0);
@@ -32,6 +31,8 @@ export default function SearchResults() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  const paginatedProperties = properties.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <>
@@ -51,7 +52,7 @@ export default function SearchResults() {
               <CardPropertyHorizontalSkeleton />
             </>
           )}
-          {properties && properties.map((property: PropertyType) => (
+          {paginatedProperties && paginatedProperties.map((property: PropertyType) => (
             <CardPropertyHorizontal
               key={property.id}
               btnLink={{
@@ -68,8 +69,8 @@ export default function SearchResults() {
             />
           ))}
         </div>
-        <Pagination pages={totalPages} showing={properties.length} total={totalProperties}
-                    onPageChange={handlePageChange} />
+        <Pagination pages={totalPages} showing={paginatedProperties.length} total={totalProperties}
+                    onPageChange={handlePageChange} currentPage={currentPage} />
       </div>
     </>
   );
