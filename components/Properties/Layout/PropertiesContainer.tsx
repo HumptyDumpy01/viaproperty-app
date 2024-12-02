@@ -15,9 +15,7 @@ export default function PropertiesContainer(/*{  }: PropertiesContainerType*/) {
       <div className={`grid bp-1364:grid-cols-properties grid-cols-3 mt-12`}>
         <ReduxProvider>
           <FilterPropertiesContainer />
-        </ReduxProvider>
-        <SearchResultsContainer />
-        <ReduxProvider>
+          <SearchResultsContainer />
           <MapContainer />
         </ReduxProvider>
       </div>

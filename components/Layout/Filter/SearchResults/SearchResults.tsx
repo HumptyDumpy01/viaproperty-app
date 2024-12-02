@@ -10,6 +10,8 @@ import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal'
 import { useEffect, useRef, useState } from 'react';
 import Pagination from '@/components/UI/Pagination/Pagination';
 import { filterPropertiesBySearchTerm } from '@/utils/functions/properties/filterPropertiesBySearchTerm';
+import { useCartDispatch, useCartSelector } from '@/store/hooks';
+import { propertiesActions } from '@/store/features/properties';
 
 export default function SearchResults() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,14 +21,17 @@ export default function SearchResults() {
   const filterOptions = { limit: 999 };
   const { loading, error, data } = useFetchProperties(filterOptions);
 
-  const [properties, setProperties] = useState<PropertyType[]>([]);
+  const properties = useCartSelector((state) => state.properties.properties);
+
+  const dispatch = useCartDispatch();
+
   const [totalProperties, setTotalProperties] = useState(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (data) {
-      setProperties(data.properties);
+      dispatch(propertiesActions.setProperties(data.properties));
       setTotalProperties(data.properties.length);
     }
   }, [data]);
@@ -37,7 +42,7 @@ export default function SearchResults() {
         return filterPropertiesBySearchTerm(searchTerm, property);
       });
 
-      setProperties(filteredProperties);
+      dispatch(propertiesActions.setProperties(filteredProperties));
       setTotalProperties(filteredProperties.length);
       setCurrentPage(1);
     }
@@ -54,7 +59,7 @@ export default function SearchResults() {
   function handleResetFilter() {
     setSearchTerm(undefined);
     setCurrentPage(1);
-    setProperties(data.properties);
+    dispatch(propertiesActions.setProperties(data.properties));
     setTotalProperties(data.properties.length);
     inputRef.current!.value = ``;
   }

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PropertyType } from '@/utils/types/PropertyType';
 
 const propertiesSlice = createSlice({
   name: `properties`,
@@ -6,7 +7,8 @@ const propertiesSlice = createSlice({
     // define some initial values for your app
     // e.g. counter: 0,
     openFilter: false,
-    openMap: false
+    openMap: false,
+    properties: [] as PropertyType[]
 
   },
   // here, by using createSlice method,
@@ -18,6 +20,9 @@ const propertiesSlice = createSlice({
     },
     toggleMap(state, action: PayloadAction<boolean>) {
       state.openMap = action.payload;
+    },
+    setProperties(state, action: PayloadAction<PropertyType[]>) {
+      state.properties = action.payload;
     }
   }
 });
