@@ -9,12 +9,12 @@ import { useState } from 'react';
 
 export default function AdditionalConveniences(/*{  }: AdditionalConveniencesType*/) {
   const [checkedStates, setCheckedStates] = useState({
-    parkingSlot: true,
-    elevator: true,
-    fireplace: true,
-    outdoorSpace: true,
-    smartHomeFeatures: true,
-    garden: true
+    parkingSlot: false,
+    elevator: false,
+    fireplace: false,
+    outdoorSpace: false,
+    smartHomeFeatures: false,
+    garden: false
   });
   return (
     <>

@@ -4,6 +4,7 @@ export type PropertyType = {
   images: string[];
   createdAt: string;
   propertyFor: `rent` | `sell`;
+  additionalConveniences: string[];
   propertyHas: {
     beds: number;
     bathrooms: number;

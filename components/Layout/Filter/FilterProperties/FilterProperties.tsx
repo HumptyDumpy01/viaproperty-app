@@ -77,6 +77,20 @@ export default function FilterProperties() {
       );
     }
 
+    if (results.areaRange) {
+      filteredProperties = filteredProperties.filter(property =>
+        property.propertyArea <= results.areaRange!
+      );
+    }
+
+    if (results.additionalConveniences) {
+      // find all properties that include any of the additional conveniences
+      filteredProperties = filteredProperties.filter(property =>
+        // @ts-ignore
+        results.additionalConveniences!.some(convenience => property.additionalConveniences.includes(convenience))
+      );
+    }
+
     dispatch(propertiesActions.setProperties(filteredProperties));
     dispatch(propertiesActions.setCurrentPage(1)); // Reset to the first page
     console.log(results);
