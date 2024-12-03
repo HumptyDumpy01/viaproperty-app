@@ -8,6 +8,7 @@ const propertiesSlice = createSlice({
     // e.g. counter: 0,
     openFilter: false,
     openMap: false,
+    allPropertiesOriginal: [] as PropertyType[],
     properties: [] as PropertyType[]
 
   },
@@ -23,6 +24,9 @@ const propertiesSlice = createSlice({
     },
     setProperties(state, action: PayloadAction<PropertyType[]>) {
       state.properties = action.payload;
+    },
+    setAllPropertiesOriginal(state, action: PayloadAction<PropertyType[]>) {
+      state.allPropertiesOriginal = action.payload;
     }
   }
 });

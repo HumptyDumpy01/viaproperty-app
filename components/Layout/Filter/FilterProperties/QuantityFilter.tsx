@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export default function QuantityFilter() {
   const [quantityStates, setQuantityStates] = useState({
-    bedrooms: 0,
+    beds: 0,
     bathrooms: 0
   });
 
@@ -13,8 +13,8 @@ export default function QuantityFilter() {
     <>
       <div className={`mt-7 flex items-center gap-10`}>
         <div>
-          <h3 className={`text-zinc-900 font-bold text-[16px] mb-6`}>Bedrooms</h3>
-          <SelectQuantity property={`bedrooms`} setQuantityStates={setQuantityStates} quantity={quantityStates}
+          <h3 className={`text-zinc-900 font-bold text-[16px] mb-6`}>Beds</h3>
+          <SelectQuantity property={`beds`} setQuantityStates={setQuantityStates} quantity={quantityStates}
                           type={`light`} />
         </div>
         <div>

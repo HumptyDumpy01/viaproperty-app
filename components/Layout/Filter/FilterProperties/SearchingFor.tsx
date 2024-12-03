@@ -20,7 +20,7 @@ export default function SearchingFor(/*{  }: SearchingForType*/) {
           <Checkbox onClick={() => setCheckedStates(prevState => ({
             ...prevState,
             buy: !prevState.buy
-          }))} checked={checkedStates.buy} name={`buy`} label={`Buying Property`} />
+          }))} checked={checkedStates.buy} name={`sell`} label={`Buying Property`} />
           <Checkbox
             onClick={() => setCheckedStates(prevState => ({
               ...prevState,

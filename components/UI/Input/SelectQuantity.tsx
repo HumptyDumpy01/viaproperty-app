@@ -1,8 +1,8 @@
 type SelectQuantityType = {
   type?: `dark` | `light`;
-  property: 'bedrooms' | 'bathrooms';
-  quantity: { bedrooms: number; bathrooms: number };
-  setQuantityStates: (quantityStates: { bedrooms: number; bathrooms: number }) => void;
+  property: 'beds' | 'bathrooms';
+  quantity: { beds: number; bathrooms: number };
+  setQuantityStates: (quantityStates: { beds: number; bathrooms: number }) => void;
 };
 
 export default function SelectQuantity({ type = `dark`, property, quantity, setQuantityStates }: SelectQuantityType) {

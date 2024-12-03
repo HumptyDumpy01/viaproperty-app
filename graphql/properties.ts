@@ -8,6 +8,11 @@ export const GET_PROPERTIES = gql`
             landlordId
             title
             propertyFor
+            tags
+            propertyHas {
+                beds
+                bathrooms
+            }
             description {
                 overall
                 priceAndTaskHistory {

@@ -31,6 +31,9 @@ export default function SearchResults() {
 
   useEffect(() => {
     if (data) {
+      // this one is needed for filtering manipulations in other places of the application
+      dispatch(propertiesActions.setAllPropertiesOriginal(data.properties));
+
       dispatch(propertiesActions.setProperties(data.properties));
       setTotalProperties(data.properties.length);
     }
