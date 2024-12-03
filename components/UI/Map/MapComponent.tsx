@@ -39,7 +39,7 @@ export default function MapComponent({ mapId, apiKey, locations }: MapComponentT
   return (
     <APIProvider apiKey={apiKey}>
       <section>
-        <div id="map" className={`h-screen w-96 rounded-3xl overflow-hidden`}>
+        <div id="map" className={`h-screen w-screen bp-896:w-96 rounded-3xl overflow-hidden`}>
           <Map
             defaultZoom={13}
             defaultCenter={propertiesLocations[0].location}
