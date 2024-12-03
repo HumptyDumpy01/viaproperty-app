@@ -12,7 +12,7 @@ type UserCredentialsType = {
 
 export default function UserCredentials({ initials, abbrInitials, location }: UserCredentialsType) {
   const [openAppSettingsPopup, setOpenAppSettingsPopup] = useState<boolean>(false);
-  const hiddenPopupStyles = `translate-y-1/2 opacity-0 `;
+  const hiddenPopupStyles = `translate-y-1/2 opacity-0 pointer-events-none`;
   return (
     <>
       <div className={`flex items-center gap-2`}>
