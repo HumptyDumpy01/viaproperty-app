@@ -59,6 +59,24 @@ export default function FilterProperties() {
       );
     }
 
+    if (results.pricingRange) {
+      filteredProperties = filteredProperties.filter(property =>
+        Number(property.description.priceAndTaskHistory.price.replaceAll(`,`, ``)) <= results.pricingRange!
+      );
+    }
+
+    if (results.beds) {
+      filteredProperties = filteredProperties.filter(property =>
+        property.propertyHas!.beds >= results.beds!
+      );
+    }
+
+    if (results.bathrooms) {
+      filteredProperties = filteredProperties.filter(property =>
+        property.propertyHas!.bathrooms >= results.bathrooms!
+      );
+    }
+
     dispatch(propertiesActions.setProperties(filteredProperties));
     dispatch(propertiesActions.setCurrentPage(1)); // Reset to the first page
     console.log(results);

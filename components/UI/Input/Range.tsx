@@ -1,7 +1,7 @@
 'use client';
 
 type RangeType = {
-  min: number;
+  min: string;
   max: number;
   step: number;
   name: string;

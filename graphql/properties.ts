@@ -9,6 +9,7 @@ export const GET_PROPERTIES = gql`
             title
             propertyFor
             tags
+            propertyArea
             propertyHas {
                 beds
                 bathrooms
