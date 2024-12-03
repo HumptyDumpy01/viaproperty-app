@@ -53,6 +53,12 @@ export default function FilterProperties() {
       );
     }
 
+    if (results.propertyFor) {
+      filteredProperties = filteredProperties.filter(property =>
+        results.propertyFor!.includes(property.propertyFor)
+      );
+    }
+
     dispatch(propertiesActions.setProperties(filteredProperties));
     console.log(results);
   }
