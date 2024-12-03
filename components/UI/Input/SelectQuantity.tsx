@@ -23,15 +23,18 @@ export default function SelectQuantity({ type = `dark`, property, quantity, setQ
     <>
       <div className={`flex gap-2.5`}>
         <button
+          type={`button`}
           onClick={handleDecrement}
           className={`${type === `dark` ? darkStyleButtons : lightStyleButtons} w-7 h-[29px] flex items-center justify-center text-xl rounded-[2px]`}>-
         </button>
         <span className={`text-zinc-900 font-bold text-[19px]`}>{quantity[property]}</span>
         <button
+          type={`button`}
           onClick={handleIncrement}
           className={`${type === `dark` ? darkStyleButtons : lightStyleButtons} w-7 h-[29px] flex items-center justify-center text-xl rounded-[2px]`}>+
         </button>
       </div>
+      <input type="hidden" name={property} value={quantity[property]} />
     </>
   );
 }

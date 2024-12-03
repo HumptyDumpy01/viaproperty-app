@@ -1,17 +1,18 @@
-import React, { forwardRef } from 'react';
+import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 type CheckboxType = {
   label: string;
   name: string;
   checked?: boolean;
   // children: ReactNode;
-}
+} & ComponentPropsWithoutRef<'input'>;
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxType>(({ label, name, checked = false }, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, CheckboxType>(({ label, name, checked = false, ...props }, ref) => {
   return (
     <>
       <label className={`flex items-center cursor-pointer`}>
         <input
+          {...props}
           type={`checkbox`}
           defaultChecked={checked}
           name={name}

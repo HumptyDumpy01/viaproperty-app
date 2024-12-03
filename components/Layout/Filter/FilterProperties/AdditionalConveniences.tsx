@@ -23,22 +23,46 @@ export default function AdditionalConveniences(/*{  }: AdditionalConveniencesTyp
 
         <div className={`flex flex-col gap-2`}>
           <Checkbox
+            onClick={() => setCheckedStates(prevState => ({
+              ...prevState,
+              parkingSlot: !prevState.parkingSlot
+            }))}
             checked={checkedStates.parkingSlot}
             name={`parkingSlot`}
             label={`Parking slot`} />
           <Checkbox
+            onClick={() => setCheckedStates(prevState => ({
+              ...prevState,
+              elevator: !prevState.elevator
+            }))}
             checked={checkedStates.elevator}
             name={`elevator`} label={`Elevator`} />
           <Checkbox
+            onClick={() => setCheckedStates(prevState => ({
+              ...prevState,
+              fireplace: !prevState.fireplace
+            }))}
             checked={checkedStates.fireplace}
             name={`fireplace`} label={`Fireplace`} />
           <Checkbox
+            onClick={() => setCheckedStates(prevState => ({
+              ...prevState,
+              outdoorSpace: !prevState.outdoorSpace
+            }))}
             checked={checkedStates.outdoorSpace}
             name={`outdoorSpace`} label={`Outdoor Space`} />
           <Checkbox
+            onClick={() => setCheckedStates(prevState => ({
+              ...prevState,
+              smartHomeFeatures: !prevState.smartHomeFeatures
+            }))}
             checked={checkedStates.smartHomeFeatures}
             name={`smartHomeFeatures`} label={`Smart Home Features`} />
           <Checkbox
+            onClick={() => setCheckedStates(prevState => ({
+              ...prevState,
+              garden: !prevState.garden
+            }))}
             checked={checkedStates.garden}
             name={`garden`} label={`Garden`} />
         </div>
