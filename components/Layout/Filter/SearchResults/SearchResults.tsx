@@ -22,20 +22,16 @@ export default function SearchResults() {
   const { loading, error, data } = useFetchProperties(filterOptions);
 
   const properties = useCartSelector((state) => state.properties.properties);
+  const totalProperties = useCartSelector((state) => state.properties.properties.length);
 
   const dispatch = useCartDispatch();
-
-  const [totalProperties, setTotalProperties] = useState(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (data) {
-      // this one is needed for filtering manipulations in other places of the application
       dispatch(propertiesActions.setAllPropertiesOriginal(data.properties));
-
       dispatch(propertiesActions.setProperties(data.properties));
-      setTotalProperties(data.properties.length);
     }
   }, [data]);
 
@@ -46,7 +42,6 @@ export default function SearchResults() {
       });
 
       dispatch(propertiesActions.setProperties(filteredProperties));
-      setTotalProperties(filteredProperties.length);
       setCurrentPage(1);
     }
   }, [searchTerm, data]);
@@ -63,10 +58,8 @@ export default function SearchResults() {
     setSearchTerm(undefined);
     setCurrentPage(1);
     dispatch(propertiesActions.setProperties(data.properties));
-    setTotalProperties(data.properties.length);
     inputRef.current!.value = ``;
   }
-
 
   return (
     <>

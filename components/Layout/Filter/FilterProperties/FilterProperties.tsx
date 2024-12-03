@@ -10,6 +10,7 @@ import FilterHeading from '@/components/Layout/Filter/FilterProperties/FilterHea
 import { FormEvent } from 'react';
 import { useCartDispatch, useCartSelector } from '@/store/hooks';
 import { filterSidebarResults } from '@/utils/functions/properties/filterSidebarResults';
+import { propertiesActions } from '@/store/features/properties';
 
 export type FilterPropertiesType = {
   propertyTypes?: string | string[];
@@ -42,7 +43,17 @@ export default function FilterProperties() {
 
     filterSidebarResults(results);
 
+    let filteredProperties = [...originalProperties];
 
+    if (results.propertyTypes) {
+      const propertyTypesArray = Array.isArray(results.propertyTypes) ? results.propertyTypes : [results.propertyTypes];
+      filteredProperties = filteredProperties.filter(property =>
+        // @ts-ignore
+        propertyTypesArray.some(type => property.tags.includes(type))
+      );
+    }
+
+    dispatch(propertiesActions.setProperties(filteredProperties));
     console.log(results);
   }
 

@@ -4,18 +4,16 @@ import { useEffect, useState } from 'react';
 import ButtonPropertyType from '@/components/UI/Button/ButtonPropertyType';
 
 export default function PropertyType() {
-  const [activePropertyTypes, setActivePropertyTypes] = useState<string[]>([]);
+  const [activePropertyType, setActivePropertyType] = useState<string | null>(null);
   const [propertyTypesString, setPropertyTypesString] = useState<string>('');
 
   const handleToggle = (type: string) => {
-    setActivePropertyTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
-    );
+    setActivePropertyType((prev) => (prev === type ? null : type));
   };
 
   useEffect(() => {
-    setPropertyTypesString(activePropertyTypes.join(', '));
-  }, [activePropertyTypes]);
+    setPropertyTypesString(activePropertyType ? activePropertyType : '');
+  }, [activePropertyType]);
 
   return (
     <>
@@ -25,25 +23,25 @@ export default function PropertyType() {
           <ButtonPropertyType
             icon={`home`}
             label={`Home`}
-            isActive={activePropertyTypes.includes('home')}
+            isActive={activePropertyType === 'home'}
             onToggle={() => handleToggle('home')}
           />
           <ButtonPropertyType
             icon={`apartment`}
             label={`Apartment`}
-            isActive={activePropertyTypes.includes('apartment')}
+            isActive={activePropertyType === 'apartment'}
             onToggle={() => handleToggle('apartment')}
           />
           <ButtonPropertyType
             icon={`commercial`}
             label={`Commercial`}
-            isActive={activePropertyTypes.includes('commercial')}
+            isActive={activePropertyType === 'commercial'}
             onToggle={() => handleToggle('commercial')}
           />
           <ButtonPropertyType
             icon={`cottage`}
             label={`Cottage`}
-            isActive={activePropertyTypes.includes('cottage')}
+            isActive={activePropertyType === 'cottage'}
             onToggle={() => handleToggle('cottage')}
           />
         </div>
