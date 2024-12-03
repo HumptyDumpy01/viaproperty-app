@@ -14,7 +14,8 @@ import { useCartDispatch, useCartSelector } from '@/store/hooks';
 import { propertiesActions } from '@/store/features/properties';
 
 export default function SearchResults() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useCartSelector((state) => state.properties.currentPage);
+
   const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
   const itemsPerPage = 5;
 
@@ -42,21 +43,21 @@ export default function SearchResults() {
       });
 
       dispatch(propertiesActions.setProperties(filteredProperties));
-      setCurrentPage(1);
+      dispatch(propertiesActions.setCurrentPage(1));
     }
   }, [searchTerm, data]);
 
   const totalPages = Math.ceil(totalProperties / itemsPerPage);
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+    dispatch(propertiesActions.setCurrentPage(page));
   };
 
   const paginatedProperties = properties.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   function handleResetFilter() {
     setSearchTerm(undefined);
-    setCurrentPage(1);
+    dispatch(propertiesActions.setCurrentPage(1));
     dispatch(propertiesActions.setProperties(data.properties));
     inputRef.current!.value = ``;
   }

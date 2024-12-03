@@ -9,8 +9,8 @@ const propertiesSlice = createSlice({
     openFilter: false,
     openMap: false,
     allPropertiesOriginal: [] as PropertyType[],
-    properties: [] as PropertyType[]
-
+    properties: [] as PropertyType[],
+    currentPage: 1
   },
   // here, by using createSlice method,
   // in reducers we specify the functions that would be
@@ -27,6 +27,9 @@ const propertiesSlice = createSlice({
     },
     setAllPropertiesOriginal(state, action: PayloadAction<PropertyType[]>) {
       state.allPropertiesOriginal = action.payload;
+    },
+    setCurrentPage(state, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
     }
   }
 });
