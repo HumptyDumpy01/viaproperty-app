@@ -1,23 +1,24 @@
-// 'use client';
-
-/*type MapType = {
-  // children: ReactNode;
-}*/
+import React from 'react';
 import GoogleMap from '@/components/UI/Map/GoogleMap';
 
-export default function Map(/*{  }: MapType*/) {
-  console.log(`Executing process.env.GOOGLE_MAP_API_KEY: `, process.env.GOOGLE_MAP_API_KEY);
+export default function Map() {
   return (
     <div
       className={`w-full h-fit rounded-2xl flex items-center justify-center bp-896:justify-normal bp-896:items-start`}>
-      <GoogleMap locations={[{
-        googleMap: {
-          key: `Some Title 1`, location: {
-            lat:
-              -34.397, lng: 150.644
+      <GoogleMap locations={[
+        {
+          googleMap: {
+            key: `Point near Texas`,
+            location: { lat: 31.9686, lng: -99.9018 }
+          }
+        },
+        {
+          googleMap: {
+            key: `Point near Los Angeles`,
+            location: { lat: 34.0522, lng: -118.2437 }
           }
         }
-      }, { googleMap: { key: `Some Title 2`, location: { lat: -34.397, lng: 150.644 } } }]} />
+      ]} />
     </div>
   );
 }
