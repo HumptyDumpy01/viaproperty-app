@@ -8,7 +8,7 @@ import Range from '@/components/UI/Input/Range';
 import { useCartSelector } from '@/store/hooks';
 
 export default function PropertyAreaRange(/*{  }: PropertyAreaRangeType*/) {
-  const properties = useCartSelector((state) => state.properties.properties);
+  const properties = useCartSelector((state) => state.properties.allPropertiesOriginal);
   console.log(`Executing properties: `, properties);
 
 

@@ -28,6 +28,7 @@ export default function Range({ min, max, maxFormatted, step, name, metric }: Ra
           max={max}
           step={step}
           name={name}
+          defaultValue={max}
           value={priceRange}
           onChange={handleRangeChange}
           className={`w-full accent-zinc-900`}
