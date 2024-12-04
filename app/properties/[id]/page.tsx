@@ -47,7 +47,7 @@ export default async function PropertyDescription({ params }: { params: { id: st
             <PropertyTags rating={property.rating.overall}
                           tags={property.tags} />
 
-            <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={property.title} />
+            <HeadingMedium maxWidthXL={false} customClasses={`mb-8 max-w-screen-xl`} heading={property.title} />
 
             <PropertyConveniences
               additionalConveniences={property.additionalConveniences}
