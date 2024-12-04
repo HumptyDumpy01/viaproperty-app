@@ -5,6 +5,11 @@ type Location = {
   googleMap: {
     key: string;
     location: google.maps.LatLngLiteral;
+    id: string;
+    createdAt: string;
+    locatedAt: string;
+    price: string;
+    image: string;
   };
 };
 
@@ -14,8 +19,7 @@ interface GoogleMapProps {
 
 export default function GoogleMap({ locations }: GoogleMapProps) {
   // console.log(`Executing locations: `, locations);
-
-  return (
+ return (
     <MapComponent
       apiKey={String(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY)}
       mapId={String(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID)}

@@ -21,7 +21,12 @@ export default function Map() {
       location: {
         lat: property.description.location.location.coordinates[1],
         lng: property.description.location.location.coordinates[0]
-      }
+      },
+      id: property.id,
+      createdAt: property.createdAt,
+      locatedAt: `${property.description.location.country} ${property.description.location.city}`,
+      price: `${property.description.priceAndTaskHistory.price}`,
+      image: property.images[0]
     }
   }));
 

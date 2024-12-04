@@ -3,15 +3,33 @@
 import React, { useState } from 'react';
 import { AdvancedMarker, APIProvider, InfoWindow, Map, Pin } from '@vis.gl/react-google-maps';
 import PointPopup from '@/components/UI/Map/PointPopup';
-import DummyImg from '@/assets/map/dummy-image.png';
 
 type MapComponentType = {
   mapId: string;
   apiKey: string;
-  locations: { googleMap: { key: string, location: google.maps.LatLngLiteral } }[];
+  locations: {
+    googleMap:
+      {
+        key: string;
+        location: google.maps.LatLngLiteral;
+        id: string;
+        createdAt: string;
+        locatedAt: string;
+        price: string;
+        image: string;
+      }
+  }[];
 }
 
-type Poi = { key: string, location: google.maps.LatLngLiteral }
+type Poi = {
+  key: string,
+  location: google.maps.LatLngLiteral,
+  id: string,
+  createdAt: string;
+  locatedAt: string;
+  price: string;
+  image: string;
+};
 
 const PoiMarkers = (props: { pois: Poi[], onHover: (poi: Poi | null) => void }) => {
   return (
@@ -34,7 +52,12 @@ export default function MapComponent({ mapId, apiKey, locations }: MapComponentT
   const propertiesLocations: Poi[] = locations.map((location) => {
     return {
       key: location.googleMap.key,
-      location: location.googleMap.location
+      location: location.googleMap.location,
+      id: location.googleMap.id,
+      createdAt: location.googleMap.createdAt,
+      locatedAt: location.googleMap.locatedAt,
+      price: location.googleMap.price,
+      image: location.googleMap.image
     };
   });
 
@@ -50,10 +73,11 @@ export default function MapComponent({ mapId, apiKey, locations }: MapComponentT
             {hoveredPoi && (
               <InfoWindow position={hoveredPoi.location}>
                 <PointPopup
-                  location={`USA, Los Angeles`}
-                  createdAt={`2023-10-01T12:00:00Z`}
-                  title={hoveredPoi.key.slice(0, 25)}
-                  price={`133,999`} imageUrl={DummyImg} />
+                  href={`/properties/${hoveredPoi.id}`}
+                  location={hoveredPoi.locatedAt}
+                  createdAt={hoveredPoi.createdAt}
+                  title={hoveredPoi.key.slice(0, 45)}
+                  price={hoveredPoi.price} imageUrl={hoveredPoi.image} />
               </InfoWindow>
             )}
           </Map>
