@@ -16,11 +16,6 @@ import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
 import { GET_PROPERTY } from '@/graphql/property';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-
-import PropertyGalleryImg1 from '@/assets/property-description/gallery/property-description-1.png';
-import PropertyGalleryImg2 from '@/assets/property-description/gallery/property-description-2.png';
-import PropertyGalleryImg3 from '@/assets/property-description/gallery/property-description-3.png';
-import PropertyGalleryImg4 from '@/assets/property-description/gallery/property-description-4.png';
 import NotFound from 'next/dist/client/components/not-found-error';
 
 async function fetchProperty(id: string) {
@@ -47,7 +42,8 @@ export default async function PropertyDescription({ params }: { params: { id: st
         <div className={`grid bp-1306:grid-cols-property-description grid-cols-1 mt-10 gap-5 pr-5 bp-1306:pr-0`}>
           <div>
             <PropertyGallery
-              images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
+              title={property.title}
+              images={property.images} />
             <PropertyTags rating={property.rating.overall}
                           tags={property.tags} />
 
