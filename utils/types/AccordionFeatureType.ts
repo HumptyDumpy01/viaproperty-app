@@ -14,5 +14,6 @@ export type AccordionType = {
   setActiveState: (switchTo: AccordionFeatureType) => void;
   activeState: AccordionFeatureType;
   description: AccordionTypeData;
+  propertyFor: `rent` | `sell`;
   // children: ReactNode;
 }

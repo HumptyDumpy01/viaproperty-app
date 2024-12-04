@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 export type AccordionTypeContent = {
   description: AccordionTypeData;
+  propertyFor: `rent` | `sell`;
 }
 
 export type AccordionTypeData = {
@@ -15,9 +16,10 @@ export type AccordionTypeData = {
   location: { title: string; description: string, location: { type: string, coordinates: [number, number] } };
   videoTour: string | null;
   contacts: { description: string; contacts: { initials: string; phones: string[] }[] };
+  priceAndTaskHistory: { price: string; history: string };
 }
 
-export default function Accordion({ description }: AccordionTypeContent) {
+export default function Accordion({ description, propertyFor }: AccordionTypeContent) {
 
   const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
   return (
@@ -48,8 +50,9 @@ export default function Accordion({ description }: AccordionTypeContent) {
                               label={`Floor Plans`} />
           </div>
         </div>
-        <AccordionContent description={description} activeState={activeState} setActiveState={() => {
-        }} />
+        <AccordionContent propertyFor={propertyFor} description={description} activeState={activeState}
+                          setActiveState={() => {
+                          }} />
       </div>
     </>
   );

@@ -83,7 +83,7 @@ export default function PropertyDescription({ params }: { params: { id: string }
               fullKitchen={property.propertyHas.kitchens > 0}
               sqftSize={property.propertyArea}
             />
-            <Accordion description={property.description} />
+            <Accordion propertyFor={property.propertyFor} description={property.description} />
             <ProviderContainer>
               <OpenSidebarBtn />
             </ProviderContainer>

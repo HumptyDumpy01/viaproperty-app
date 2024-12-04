@@ -3,6 +3,7 @@
 type PriceAndTaskHistoryType = {
   text?: string;
   price: string;
+  propertyFor: `rent` | `sell`;
   // children: ReactNode;
 }
 
@@ -17,14 +18,15 @@ const boilerplateText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit
           nulla pariatur.
         `;
 
-export default function PriceAndTaskHistory({ text = boilerplateText, price }: PriceAndTaskHistoryType) {
+export default function PriceAndTaskHistory({ text = boilerplateText, price, propertyFor }: PriceAndTaskHistoryType) {
   return (
     <>
       <div>
         <div className={`flex gap-5 items-center mb-7`}>
           <ViapropertyIcon icon={`dollar`} />
           <span
-            className={`inline-block bg-clip-text text-xl text-transparent bg-linear-main-red font-semibold`}>{price}</span>
+            className={`inline-block bg-clip-text text-xl text-transparent bg-linear-main-red font-semibold`}>{price}
+            {propertyFor && (<span className={`text-sm`}>/month</span>)}</span>
         </div>
         <p className={`leading-relaxed text-sm`}>{text}</p>
       </div>

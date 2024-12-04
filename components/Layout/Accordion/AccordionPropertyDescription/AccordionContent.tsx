@@ -15,9 +15,8 @@ import ContactViewingArrangements
   from '@/components/Layout/Accordion/AccordionPropertyDescription/Contacts/ContactViewingArrangements';
 import PriceAndTaskHistory
   from '@/components/Layout/Accordion/AccordionPropertyDescription/PriceAndTaskHistory/PriceAndTaskHistory';
-import { decrypt } from 'dotenv';
 
-export default function AccordionContent({ activeState, description }: AccordionType) {
+export default function AccordionContent({ activeState, description, propertyFor }: AccordionType) {
   let content: ReactNode = null;
 
   switch (activeState) {
@@ -76,7 +75,10 @@ export default function AccordionContent({ activeState, description }: Accordion
       break;
     case `price-task-history`:
       content = (
-        <PriceAndTaskHistory price={`144,998`} />
+        <PriceAndTaskHistory
+          propertyFor={propertyFor}
+          text={description.priceAndTaskHistory.history}
+          price={description.priceAndTaskHistory.price} />
       );
       break;
 
