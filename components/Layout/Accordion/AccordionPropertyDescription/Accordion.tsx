@@ -36,25 +36,31 @@ export default function Accordion({ description, propertyFor }: AccordionTypeCon
           <div className={`flex gap-5 overflow-y-auto max-h-20 pb-3 w-full scrollbar-thin mb-5`}>
             <AccordionFeature setActiveState={setActiveState} activeState={activeState}
                               type={`description`} label={`Description`} />
-            {/*{description.features.length > 0 && (
+            {description.features.length > 0 && (
               <>
                 <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`features`}
                                   label={`Features`} />
               </>
-            )}*/}
-            <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`features`}
-                              label={`Features`} />
+            )}
             <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`location`}
                               label={`Location`} />
-            <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`video-tour`}
-                              label={`Video Tour`} />
+            {description.videoTour && (
+              <>
+                <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`video-tour`}
+                                  label={`Video Tour`} />
+              </>
+            )}
             <AccordionFeature setActiveState={setActiveState} activeState={activeState}
                               type={`contact-viewing-arrangements`}
                               label={`Contact & Viewing Arrangements`} />
             <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`price-task-history`}
                               label={`Price & Task History`} />
-            <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`floor-plans`}
-                              label={`Floor Plans`} />
+            {description.floorPlans.length > 0 && (
+              <>
+                <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`floor-plans`}
+                                  label={`Floor Plans`} />
+              </>
+            )}
           </div>
         </div>
         <AccordionContent propertyFor={propertyFor} description={description} activeState={activeState}

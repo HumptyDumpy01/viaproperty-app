@@ -32,8 +32,12 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
             {onSale.isOnSale && (
               <>
                 <span
-                  className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>${onSale.newPrice}</span>
-                <span className={`text-zinc-300 inline-block line-through`}>${price}</span>
+                  className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
+                 ${onSale.newPrice}<span className={`text-sm`}>{propertyFor === `rent` ? `/month` : ``}</span>
+                </span>
+                <span className={`text-zinc-300 inline-block line-through`}>
+                  {price}
+                </span>
               </>
             )}
             {!onSale.isOnSale && (
