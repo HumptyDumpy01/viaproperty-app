@@ -1,52 +1,81 @@
-// 'use client';
-
-/*type ViapropertySidebarType = {
-  // children: ReactNode;
-}*/
+'use client';
 
 import LabelAndTextBadge from '@/components/UI/Badge/LabelAndTextBadge';
 import FoldList from '@/components/UI/FeatureList/FoldList';
 import React from 'react';
+import { slugifyText } from '@/utils/functions/slugifyText';
 
-export default function ViapropertySidebar(/*{  }: ViapropertySidebarType*/) {
+export type PropertySidebarDetails = {
+  price: number;
+  onSale: {
+    isOnSale: boolean;
+    discount: number | null;
+    newPrice: string | null;
+  }
+  propertyFor: 'rent' | 'sell';
+  location: string;
+  extraPricing: { title: string; price: number; }[] | []
+}
+
+export type ViapropertySidebarType = {
+  propertyDetails: PropertySidebarDetails
+  // children: ReactNode;
+}
+
+export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
+  const { price, onSale, propertyFor, location, extraPricing } = propertyDetails;
   return (
     <>
       <div className={`border h-fit border-red-500 rounded-3xl p-7 w-full`}>
         <div className={`flex items-center justify-between mb-6`}>
           <div className={`flex gap-5 items-center`}>
+            {onSale.isOnSale && (
+              <>
                 <span
-                  className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>$144,698</span>
-            <span className={`text-zinc-300 inline-block line-through`}>$180,872</span>
+                  className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>${onSale.newPrice}</span>
+                <span className={`text-zinc-300 inline-block line-through`}>${price}</span>
+              </>
+            )}
+            {!onSale.isOnSale && (
+              <>
+                <span
+                  className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>${price}<span
+                  className={`text-sm`}>/month</span></span>
+              </>
+            )}
           </div>
+          {onSale.isOnSale && (
+            <>
           <span
-            className={`inline-block text-[13px] font-semibold bg-linear-main-red text-white px-3 py-1 rounded-full`}>20%</span>
+            className={`inline-block text-[13px] font-semibold bg-linear-main-red text-white px-3 py-1 rounded-full`}>{onSale.discount}</span>
+            </>
+          )}
         </div>
         <div>
-          <h2 className={`bg-clip-text mb-4 text-transparent bg-linear-main-red font-bold text-3xl`}>Let&#39;s Buy
-            it!</h2>
-          <div className={`flex flex-col gap-3.5 mb-7`}>
-            <LabelAndTextBadge label={`Location`} text={`UK, Birmingham, Lauchester street 14`} />
-            <LabelAndTextBadge label={`Selling Options`} text={`Buy a Property`} />
+          <h2
+            className={`bg-clip-text mb-4 text-transparent bg-linear-main-red font-bold text-3xl`}>Let&#39;s {propertyFor === `rent` ? `Rent` : `Buy`} it!</h2>
+          <div className={`flex flex-col gap-3.5 mb-7 min-w-72`}>
+            <LabelAndTextBadge label={`Location`}
+                               text={location.length > 60 ? location.slice(0, 60) + `..` : location} />
+            <LabelAndTextBadge label={`Selling Options`} text={
+              propertyFor === `rent` ? `Rent a Property` : `Buy a Property`
+            } />
           </div>
-          <div className={`mb-6`}>
-            <FoldList type={`checkbox`} checkboxes={[
-              {
-                checkboxLabel: `Garage`,
-                checkboxName: `garage`,
-                spanLabel: `10,000`
-              },
-              {
-                checkboxLabel: `Garden`,
-                checkboxName: `garden`,
-                spanLabel: `5,000`
-              },
-              {
-                checkboxLabel: `Pool`,
-                checkboxName: `pool`,
-                spanLabel: `15,000`
-              }
-            ]} label={`Extra Features`} />
-          </div>
+          {extraPricing.length > 0 && (
+            <>
+              <div className={`mb-6`}>
+                <FoldList type={`checkbox`} checkboxes={
+                  extraPricing.map((extra) => {
+                    return {
+                      checkboxLabel: extra.title,
+                      checkboxName: slugifyText(extra.title),
+                      spanLabel: extra.price.toString()
+                    };
+                  })
+                } label={`Extra Features`} />
+              </div>
+            </>
+          )}
           <FoldList type={`default`} defaultProperties={[
             {
               label: `Property Price`,

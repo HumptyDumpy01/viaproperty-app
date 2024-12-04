@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import React from 'react';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
@@ -15,9 +15,13 @@ import LeaveCommentContainer from '@/components/PropertyDescription/Layout/Leave
 import SidebarContainer from '@/components/PropertyDescription/Layout/SidebarContainer';
 import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
+// import { useFetchProperty } from '@/hooks/useFetchProperty';
+import { calculateTheAverage } from '@/utils/functions/calculateTheAverage';
 import { GET_PROPERTY } from '@/graphql/property';
 import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
-import { useFetchProperty } from '@/hooks/useFetchProperty';
+import NotFound from 'next/dist/client/components/not-found-error';
+import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
+
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -43,13 +47,20 @@ async function fetchProperty(id: string) {
   return data.property;
 }
 
-export default function PropertyDescription({ params }: { params: { id: string } }) {
-  const { error, data, loading } = useFetchProperty(params.id);
-  // const property = await fetchProperty(params.id);
-  // if (!property) return NotFound();
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  const property = data.property;
+// export default function PropertyDescription({ params }: { params: { id: string } }) {
+export default async function PropertyDescription({ params }: { params: { id: string } }) {
+  // const { error, data, loading } = useFetchProperty(params.id);
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error.message}</div>;
+  // const property = data.property;
+
+  const property = await fetchProperty(params.id);
+  if (!property) return NotFound();
+
+  // format the abbreviated initials of the house owner
+  // e.f. if the initial is Jane Doe, the abbrInitials will be J.D
+  // if the initial is Jane, the abbrInitials will be J.
+  const abbrInitials = abbreviateInitials(property.landlord.initials);
 
   return (
     <main className={`mb-24 overflow-hidden`}>
@@ -77,22 +88,22 @@ export default function PropertyDescription({ params }: { params: { id: string }
             <div className={`mt-14`}>
               <HeadingMedium customClasses={`mb-8`} heading={`About Landlord`} />
               <AboutLandlord
-                online={false}
-                initials={`Nikolas Baker`}
-                abbrInitials={`N.B`}
-                text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur....`}
+                online={property.landlord.online}
+                initials={property.landlord.initials}
+                abbrInitials={abbrInitials}
+                text={property.landlord.bio}
               />
               <RenterReviewsMetrics
                 metrics={{
-                  location: 4.44,
-                  condition: 4.1,
-                  ownership: 4.2,
-                  noiseLevel: 2,
-                  amenities: 4.4,
-                  security: 3.8
+                  location: calculateTheAverage(property.rating.location),
+                  condition: calculateTheAverage(property.rating.condition),
+                  ownership: calculateTheAverage(property.rating.ownership),
+                  noiseLevel: calculateTheAverage(property.rating.noiseLevel),
+                  amenities: calculateTheAverage(property.rating.amenities),
+                  security: calculateTheAverage(property.rating.security)
                 }}
-                overallRating={4.3}
-                ratings={534}
+                overallRating={property.rating.overall}
+                ratings={property.rating.count}
               />
               <div className={`mb-16`}>
                 <PropertyComments />
@@ -101,7 +112,13 @@ export default function PropertyDescription({ params }: { params: { id: string }
             </div>
           </div>
           <ProviderContainer>
-            <SidebarContainer />
+            <SidebarContainer propertyDetails={{
+              price: property.description.priceAndTaskHistory.price,
+              onSale: property.onSale,
+              propertyFor: property.propertyFor,
+              location: property.description.location.title,
+              extraPricing: property.extraPricing
+            }} />
           </ProviderContainer>
         </div>
       </div>
