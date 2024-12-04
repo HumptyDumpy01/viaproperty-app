@@ -10,13 +10,20 @@ export type AccordionTypeContent = {
   propertyFor: `rent` | `sell`;
 }
 
+export type FeaturesType = {
+  title: string;
+  images?: string[];
+  description: string;
+}
+
 export type AccordionTypeData = {
   overall: string;
-  features: { title: string; images?: string[], description: string }[] | [];
+  features: FeaturesType[] | [];
   location: { title: string; description: string, location: { type: string, coordinates: [number, number] } };
   videoTour: string | null;
   contacts: { description: string; contacts: { initials: string; phones: string[] }[] };
   priceAndTaskHistory: { price: string; history: string };
+  floorPlans: FeaturesType[] | [];
 }
 
 export default function Accordion({ description, propertyFor }: AccordionTypeContent) {

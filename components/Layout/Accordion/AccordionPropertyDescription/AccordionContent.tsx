@@ -85,19 +85,18 @@ export default function AccordionContent({ activeState, description, propertyFor
     case `floor-plans`:
       content = (
         <div className={`flex flex-col gap-12`}>
-          <Feature text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`1. Lorem ipsum dolor sit amet, consectetur
-              adipiscing
-              elit`} images={[`dummy-img-1`, `dummy-img-2`]} />
-
-          <Feature text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`1. Lorem ipsum dolor sit amet, consectetur
-              adipiscing
-              elit`} images={[`dummy-img-1`, `dummy-img-2`]} />
+          {description.floorPlans.length > 0 && (
+            <>
+              {description.floorPlans.map(function(floorPlan, index) {
+                return (
+                  <>
+                    <Feature heading={`${index + 1}. ${floorPlan.title}`} text={floorPlan.description}
+                             images={floorPlan.images} />
+                  </>
+                );
+              })}
+            </>
+          )}
         </div>
       );
 
