@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 import React from 'react';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
@@ -21,6 +21,7 @@ import LeaveCommentContainer from '@/components/PropertyDescription/Layout/Leave
 import SidebarContainer from '@/components/PropertyDescription/Layout/SidebarContainer';
 import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
+import { useFetchProperty } from '@/hooks/useFetchProperty';
 
 /*type PropertyDescriptionType = {
   // children: ReactNode;
@@ -29,6 +30,12 @@ import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarB
 export type LeaveCommentBadgeType = `Leave Review` | `Ask Question`;
 
 export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
+  const { error, loading, data } = useFetchProperty(`c676687a-65e0-4b95-8a6c-f44e22f11639`);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading property data.</p>;
+  if (!data) return <p>No property data found.</p>;
+  console.log(`Executing data: `, data);
   return (
     <main className={`mb-24 overflow-hidden`}>
       <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
