@@ -3,20 +3,6 @@
 /*type AccordionContentType = {
   // children: ReactNode;
 }*/
-import FeatureImg1 from '@/assets/property-description/features/features-1.png';
-import FeatureImg2 from '@/assets/property-description/features/features-2.png';
-import FeatureImg3 from '@/assets/property-description/features/features-3.png';
-import FeatureImg4 from '@/assets/property-description/features/features-4.png';
-import FeatureImg5 from '@/assets/property-description/features/features-5.png';
-import FeatureImg6 from '@/assets/property-description/features/features-6.png';
-import FeatureImg7 from '@/assets/property-description/features/features-7.png';
-import FeatureImg8 from '@/assets/property-description/features/features-8.png';
-import FeatureImg9 from '@/assets/property-description/features/features-9.png';
-
-import FloorPlan1 from '@/assets/property-description/floor-plans/floor-plan-1.png';
-import FloorPlan2 from '@/assets/property-description/floor-plans/floor-plan-2.png';
-import FloorPlan3 from '@/assets/property-description/floor-plans/floor-plan-3.png';
-
 
 import { AccordionType } from '@/utils/types/AccordionFeatureType';
 import React, { ReactNode } from 'react';
@@ -42,26 +28,23 @@ export default function AccordionContent({ activeState, description }: Accordion
     case `features`:
       content = (
         <div className={`flex flex-col gap-12`}>
-          <Feature text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`1. Lorem ipsum dolor sit amet, consectetur
-              adipiscing
-              elit`} imgDimensions={{ width: 114, height: 114 }} images={[FeatureImg1, FeatureImg2, FeatureImg3]} />
-
-          <Feature text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`2. Lorem ipsum dolor sit amet, consectetur
-              adipiscing
-              elit`} imgDimensions={{ width: 114, height: 114 }} images={[FeatureImg4, FeatureImg5, FeatureImg6]} />
-
-          <Feature text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`3. Lorem ipsum dolor sit amet, consectetur
-              adipiscing
-              elit`} imgDimensions={{ width: 114, height: 114 }} images={[FeatureImg7, FeatureImg8, FeatureImg9]} />
+          {description.features.length === 0 && (
+            <>
+              <p className={`text-zinc-600 text-[15px]`}>No features available</p>
+            </>
+          )}
+          {description.features.length > 0 && (
+            <>
+              {description.features.map(function(feature, index) {
+                return (
+                  <>
+                    <Feature heading={`${index + 1}. ${feature.title}`} text={feature.description}
+                             images={feature.images} />
+                  </>
+                );
+              })}
+            </>
+          )}
         </div>
       );
       break;
@@ -106,14 +89,14 @@ export default function AccordionContent({ activeState, description }: Accordion
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`1. Lorem ipsum dolor sit amet, consectetur
               adipiscing
-              elit`} imgDimensions={{ width: 114, height: 114 }} images={[FloorPlan1, FloorPlan2]} />
+              elit`} images={[`dummy-img-1`, `dummy-img-2`]} />
 
           <Feature text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
               exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
               reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`} heading={`1. Lorem ipsum dolor sit amet, consectetur
               adipiscing
-              elit`} imgDimensions={{ width: 114, height: 114 }} images={[FloorPlan3]} />
+              elit`} images={[`dummy-img-1`, `dummy-img-2`]} />
         </div>
       );
 

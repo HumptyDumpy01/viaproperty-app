@@ -1,33 +1,41 @@
 // 'use client';
 
+import { CldImage } from 'next-cloudinary';
+
 type FeaturesType = {
   // children: ReactNode;
-  images: StaticImageData[];
-  imgDimensions: { width: number, height: number };
+  images: string[] | undefined;
+  imgDimensions?: string;
   heading: string;
   text: string;
 }
 
-import Image, { StaticImageData } from 'next/image';
-
-export default function Feature({ images, text, heading, imgDimensions }: FeaturesType) {
+export default function Feature({ images, text, heading, imgDimensions = `w-28 h-28` }: FeaturesType) {
   return (
     <>
       <div className={`flex flex-col`}>
         <h2 className={`text-xl font-semibold text-zinc-900 mb-6`}>{heading}</h2>
-        <div className={`flex items-center gap-4 rounded-2xl mb-10`}>
-          {images.map(function(image) {
-            return (
-              <div className={`cursor-pointer overflow-hidden rounded-2xl`} key={image.src}>
-                <Image className={`rounded-2xl transition-all duration-200 
-                hover:scale-125 hover:rotate-2`} src={image} key={image.src} alt={`Feature Image 1`}
-                       width={imgDimensions.width}
-                       height={imgDimensions.height} />
-              </div>
-            );
-          })}
-
-        </div>
+        {images && (
+          <>
+            <div className={`flex items-center gap-4 rounded-2xl mb-10`}>
+              {images.map(function(image, index) {
+                return (
+                  <div
+                    className={`cursor-pointer overflow-hidden rounded-2xl ${imgDimensions} relative ${imgDimensions}`}
+                    key={image}>
+                    <CldImage
+                      fill
+                      blurDataURL={image} placeholder={`blur`}
+                      className={`rounded-2xl transition-all duration-200 
+                hover:scale-125 hover:rotate-2`} src={image}
+                      key={image} alt={`${heading} Feature Image ${index + 1}`}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
         <p className={`text-[15px] text-zinc-600 leading-relaxed`}>{text}</p>
       </div>
     </>

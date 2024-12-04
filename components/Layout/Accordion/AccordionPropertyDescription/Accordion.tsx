@@ -6,9 +6,12 @@ import { AccordionFeatureType } from '@/utils/types/AccordionFeatureType';
 import { useState } from 'react';
 
 export type AccordionTypeContent = {
-  description: {
-    overall: string;
-  };
+  description: AccordionTypeData;
+}
+
+export type AccordionTypeData = {
+  overall: string;
+  features: { title: string; images?: string[], description: string }[] | [];
 }
 
 export default function Accordion({ description }: AccordionTypeContent) {

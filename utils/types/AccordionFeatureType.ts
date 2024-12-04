@@ -1,3 +1,5 @@
+import { AccordionTypeData } from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
+
 export type AccordionFeatureType =
   `description`
   | `features`
@@ -11,8 +13,6 @@ export type AccordionFeatureType =
 export type AccordionType = {
   setActiveState: (switchTo: AccordionFeatureType) => void;
   activeState: AccordionFeatureType;
-  description: {
-    overall: string;
-  };
+  description: AccordionTypeData;
   // children: ReactNode;
 }
