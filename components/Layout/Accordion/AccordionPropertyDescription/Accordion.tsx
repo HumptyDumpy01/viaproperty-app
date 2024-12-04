@@ -12,6 +12,7 @@ export type AccordionTypeContent = {
 export type AccordionTypeData = {
   overall: string;
   features: { title: string; images?: string[], description: string }[] | [];
+  location: { title: string; description: string, location: { type: string, coordinates: [number, number] } };
 }
 
 export default function Accordion({ description }: AccordionTypeContent) {
@@ -24,6 +25,12 @@ export default function Accordion({ description }: AccordionTypeContent) {
           <div className={`flex gap-5 overflow-y-auto max-h-20 pb-3 w-full scrollbar-thin mb-5`}>
             <AccordionFeature setActiveState={setActiveState} activeState={activeState}
                               type={`description`} label={`Description`} />
+            {/*{description.features.length > 0 && (
+              <>
+                <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`features`}
+                                  label={`Features`} />
+              </>
+            )}*/}
             <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`features`}
                               label={`Features`} />
             <AccordionFeature setActiveState={setActiveState} activeState={activeState} type={`location`}

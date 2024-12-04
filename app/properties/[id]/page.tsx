@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 import React from 'react';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
@@ -15,13 +15,14 @@ import LeaveCommentContainer from '@/components/PropertyDescription/Layout/Leave
 import SidebarContainer from '@/components/PropertyDescription/Layout/SidebarContainer';
 import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
-// import { useFetchProperty } from '@/hooks/useFetchProperty';
+import { useFetchProperty } from '@/hooks/useFetchProperty';
 import { calculateTheAverage } from '@/utils/functions/calculateTheAverage';
-import { GET_PROPERTY } from '@/graphql/property';
-import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
-import NotFound from 'next/dist/client/components/not-found-error';
+// import { GET_PROPERTY } from '@/graphql/property';
+// import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
+// import NotFound from 'next/dist/client/components/not-found-error';
 import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 
+/*
 
 const defaultOptions: DefaultOptions = {
   watchQuery: {
@@ -46,16 +47,17 @@ async function fetchProperty(id: string) {
   });
   return data.property;
 }
+*/
 
-// export default function PropertyDescription({ params }: { params: { id: string } }) {
-export default async function PropertyDescription({ params }: { params: { id: string } }) {
-  // const { error, data, loading } = useFetchProperty(params.id);
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>Error: {error.message}</div>;
-  // const property = data.property;
+export default function PropertyDescription({ params }: { params: { id: string } }) {
+// export default async function PropertyDescription({ params }: { params: { id: string } }) {
+  const { error, data, loading } = useFetchProperty(params.id);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  const property = data.property;
 
-  const property = await fetchProperty(params.id);
-  if (!property) return NotFound();
+  // const property = await fetchProperty(params.id);
+  // if (!property) return NotFound();
 
   // format the abbreviated initials of the house owner
   // e.f. if the initial is Jane Doe, the abbrInitials will be J.D

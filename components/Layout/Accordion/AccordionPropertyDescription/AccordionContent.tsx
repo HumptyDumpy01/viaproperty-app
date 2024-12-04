@@ -30,7 +30,7 @@ export default function AccordionContent({ activeState, description }: Accordion
         <div className={`flex flex-col gap-12`}>
           {description.features.length === 0 && (
             <>
-              <p className={`text-zinc-600 text-[15px]`}>No features available</p>
+              <p className={`text-zinc-600 text-[15px]`}>No features specified</p>
             </>
           )}
           {description.features.length > 0 && (
@@ -49,14 +49,17 @@ export default function AccordionContent({ activeState, description }: Accordion
       );
       break;
     case `location`:
+      const googleMap = {
+        key: description.location.title,
+        location: {
+          lat: description.location.location.coordinates[1],
+          lng: description.location.location.coordinates[0]
+        }
+      };
       content = (
-        <AccordionLocation location={`United Kingdom,
-            Birmingham, 5th Avenue N`} text={`
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur.
-          `} />
+        <AccordionLocation googleMap={googleMap} location={
+          description.location.title
+        } description={description.location.description} />
 
       );
       break;

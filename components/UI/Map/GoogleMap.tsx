@@ -11,16 +11,19 @@ type Location = {
     price: string;
     image: string;
   };
+  enableHover?: boolean;
 };
 
 interface GoogleMapProps {
   locations: Location[];
+  enableHover?: boolean;
 }
 
-export default function GoogleMap({ locations }: GoogleMapProps) {
+export default function GoogleMap({ locations, enableHover = true }: GoogleMapProps) {
   // console.log(`Executing locations: `, locations);
- return (
+  return (
     <MapComponent
+      enableHover={enableHover}
       apiKey={String(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY)}
       mapId={String(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID)}
       locations={locations}

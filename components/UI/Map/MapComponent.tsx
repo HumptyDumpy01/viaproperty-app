@@ -19,6 +19,8 @@ type MapComponentType = {
         image: string;
       }
   }[];
+  enableHover?: boolean;
+  customClasses?: string;
 }
 
 type Poi = {
@@ -46,7 +48,13 @@ const PoiMarkers = (props: { pois: Poi[], onHover: (poi: Poi | null) => void }) 
   );
 };
 
-export default function MapComponent({ mapId, apiKey, locations }: MapComponentType) {
+export default function MapComponent({
+                                       mapId,
+                                       apiKey,
+                                       locations,
+                                       enableHover = true,
+                                       customClasses
+                                     }: MapComponentType) {
   const [hoveredPoi, setHoveredPoi] = useState<Poi | null>(null);
 
   const propertiesLocations: Poi[] = locations.map((location) => {
@@ -63,13 +71,14 @@ export default function MapComponent({ mapId, apiKey, locations }: MapComponentT
 
   return (
     <APIProvider apiKey={apiKey}>
-      <section>
+      <section className={`rounded-3xl overflow-hidden`}>
         <div id="map" className={`h-screen w-screen bp-896:w-96 bp-896:h-[540px] rounded-3xl overflow-hidden`}>
           <Map
             defaultZoom={13}
             defaultCenter={propertiesLocations[0].location}
             mapId={mapId}>
-            <PoiMarkers pois={propertiesLocations} onHover={setHoveredPoi} />
+            <PoiMarkers pois={propertiesLocations} onHover={enableHover ? setHoveredPoi : () => {
+            }} />
             {hoveredPoi && (
               <InfoWindow position={hoveredPoi.location}>
                 <PointPopup
