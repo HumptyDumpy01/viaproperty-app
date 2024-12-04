@@ -15,6 +15,7 @@ import ContactViewingArrangements
   from '@/components/Layout/Accordion/AccordionPropertyDescription/Contacts/ContactViewingArrangements';
 import PriceAndTaskHistory
   from '@/components/Layout/Accordion/AccordionPropertyDescription/PriceAndTaskHistory/PriceAndTaskHistory';
+import { decrypt } from 'dotenv';
 
 export default function AccordionContent({ activeState, description }: AccordionType) {
   let content: ReactNode = null;
@@ -65,17 +66,12 @@ export default function AccordionContent({ activeState, description }: Accordion
       break;
     case `video-tour`:
       content = (
-        <AccordionVideo />
+        <AccordionVideo videoUrl={description.videoTour} />
       );
       break;
     case `contact-viewing-arrangements`:
       content = (
-        <ContactViewingArrangements text={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et
-          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-          nulla pariatur.
-          `} />
+        <ContactViewingArrangements contacts={description.contacts.contacts} text={description.contacts.description} />
       );
       break;
     case `price-task-history`:

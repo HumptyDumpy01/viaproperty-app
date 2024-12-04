@@ -13,6 +13,8 @@ export type AccordionTypeData = {
   overall: string;
   features: { title: string; images?: string[], description: string }[] | [];
   location: { title: string; description: string, location: { type: string, coordinates: [number, number] } };
+  videoTour: string | null;
+  contacts: { description: string; contacts: { initials: string; phones: string[] }[] };
 }
 
 export default function Accordion({ description }: AccordionTypeContent) {
