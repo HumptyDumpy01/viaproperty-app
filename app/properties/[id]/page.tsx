@@ -1,13 +1,7 @@
-'use client';
-
+// app/properties/[id]/page.tsx
 import React from 'react';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
 import PropertyGallery from '@/components/PropertyDescription/Layout/PropertyGallery';
-
-import PropertyGalleryImg1 from '@/assets/property-description/gallery/property-description-1.png';
-import PropertyGalleryImg2 from '@/assets/property-description/gallery/property-description-2.png';
-import PropertyGalleryImg3 from '@/assets/property-description/gallery/property-description-3.png';
-import PropertyGalleryImg4 from '@/assets/property-description/gallery/property-description-4.png';
 import PropertyTags from '@/components/PropertyDescription/Layout/PropertyTags';
 import { PropertyTagsEnum } from '@/utils/enums/PropertyTags';
 import PropertyConveniences from '@/components/PropertyDescription/Layout/PropertyConveniences';
@@ -21,21 +15,32 @@ import LeaveCommentContainer from '@/components/PropertyDescription/Layout/Leave
 import SidebarContainer from '@/components/PropertyDescription/Layout/SidebarContainer';
 import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
-import { useFetchProperty } from '@/hooks/useFetchProperty';
+import { GET_PROPERTY } from '@/graphql/property';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-/*type PropertyDescriptionType = {
-  // children: ReactNode;
-}*/
+import PropertyGalleryImg1 from '@/assets/property-description/gallery/property-description-1.png';
+import PropertyGalleryImg2 from '@/assets/property-description/gallery/property-description-2.png';
+import PropertyGalleryImg3 from '@/assets/property-description/gallery/property-description-3.png';
+import PropertyGalleryImg4 from '@/assets/property-description/gallery/property-description-4.png';
 
-export type LeaveCommentBadgeType = `Leave Review` | `Ask Question`;
+async function fetchProperty(id: string) {
+  const apolloClient = new ApolloClient({
+    uri: `${process.env.BACKEND_API_URL}/graphql`,
+    cache: new InMemoryCache()
+  });
+  const { data } = await apolloClient.query({
+    query: GET_PROPERTY,
+    variables: { id }
+  });
+  return data.property;
+}
 
-export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
-  const { error, loading, data } = useFetchProperty(`c676687a-65e0-4b95-8a6c-f44e22f11639`);
+export default async function PropertyDescription({ params }: { params: { id: string } }) {
+  const property = await fetchProperty(params.id);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading property data.</p>;
-  if (!data) return <p>No property data found.</p>;
-  console.log(`Executing data: `, data);
+  if (!property) return <p>No property data found.</p>;
+  console.log(property);
+
   return (
     <main className={`mb-24 overflow-hidden`}>
       <div className={`max-w-[1320px] mx-auto w-full px-3 bp-480:px-6`}>
@@ -43,7 +48,6 @@ export default function PropertyDescription(/*{  }: PropertyDescriptionType*/) {
           <div>
             <PropertyGallery
               images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
-
             <PropertyTags rating={4.3}
                           tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
 
