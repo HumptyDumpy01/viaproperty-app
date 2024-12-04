@@ -24,6 +24,7 @@ export const GET_PROPERTY = gql`
                 bathrooms
                 kitchens
                 parkingSpaces
+                livingRooms
             }
             description {
                 overall

@@ -1,28 +1,33 @@
 // 'use client';
 
+import { capitalizeAndSplitWords } from '@/utils/functions/capitalizeAndSplitWords';
+import BadgeTagWithIcon from '@/components/UI/Badge/BadgeTagWithIcon';
+import BadgeTag from '@/components/UI/Badge/BadgeTag';
+
 type PropertyConveniencesType = {
   wifi: boolean;
   sqftSize: number;
   beds: number;
-  showers: number;
-  baths: number;
+  livingRooms: number;
+  bathrooms: number;
   bedrooms: number;
+  parkingSpaces: number;
   fullKitchen: boolean;
+  additionalConveniences: string[];
   // children: ReactNode;
 }
-
-import BadgeTagWithIcon from '@/components/UI/Badge/BadgeTagWithIcon';
-import BadgeTag from '@/components/UI/Badge/BadgeTag';
 
 export default function
   PropertyConveniences({
                          wifi,
                          beds,
-                         baths,
-                         showers,
+                         bathrooms,
+                         livingRooms,
                          bedrooms,
                          sqftSize,
-                         fullKitchen
+                         parkingSpaces,
+                         fullKitchen,
+                         additionalConveniences
                        }: PropertyConveniencesType) {
   return (
     <>
@@ -32,14 +37,23 @@ export default function
         )}
         <BadgeTag abbreviation={`sqft`} metric={`Size`} number={sqftSize} />
         <BadgeTag metric={`Beds`} number={beds} />
-        <BadgeTag metric={`Showers`} number={showers} />
-        <BadgeTag metric={`Baths`} number={baths} />
+        <BadgeTag metric={`Bathrooms`} number={bathrooms} />
+        <BadgeTag metric={`Living Rooms`} number={livingRooms} />
         <BadgeTag metric={`Bedrooms`} number={bedrooms} />
+        <BadgeTag metric={`Parking Spaces`} number={parkingSpaces} />
         {fullKitchen && (
           <>
             <BadgeTag metric={`Full Kitchen`} />
           </>
         )}
+        {additionalConveniences.map(function(convenience) {
+          return (
+            <>
+              <BadgeTag metric={capitalizeAndSplitWords(convenience)} />
+            </>
+          );
+        })}
+
       </div>
     </>
   );

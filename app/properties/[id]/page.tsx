@@ -3,7 +3,6 @@ import React from 'react';
 import Accordion from '@/components/Layout/Accordion/AccordionPropertyDescription/Accordion';
 import PropertyGallery from '@/components/PropertyDescription/Layout/PropertyGallery';
 import PropertyTags from '@/components/PropertyDescription/Layout/PropertyTags';
-import { PropertyTagsEnum } from '@/utils/enums/PropertyTags';
 import PropertyConveniences from '@/components/PropertyDescription/Layout/PropertyConveniences';
 import AboutLandlord from '@/components/PropertyDescription/Layout/AboutLandlord';
 import PropertyComments from '@/components/PropertyDescription/Layout/PropertyComments';
@@ -49,15 +48,18 @@ export default async function PropertyDescription({ params }: { params: { id: st
           <div>
             <PropertyGallery
               images={[PropertyGalleryImg1, PropertyGalleryImg2, PropertyGalleryImg3, PropertyGalleryImg4]} />
-            <PropertyTags rating={4.3}
-                          tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
+            <PropertyTags rating={property.rating.overall}
+                          tags={property.tags} />
 
             <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={property.title} />
 
             <PropertyConveniences
+              additionalConveniences={property.additionalConveniences}
               wifi={true}
               bedrooms={property.propertyHas.bedrooms}
-              showers={2} baths={property.propertyHas.bathrooms} beds={property.propertyHas.beds}
+              parkingSpaces={property.propertyHas.parkingSpaces}
+              livingRooms={property.propertyHas.livingRooms} bathrooms={property.propertyHas.bathrooms}
+              beds={property.propertyHas.beds}
               fullKitchen={property.propertyHas.kitchens > 0}
               sqftSize={property.propertyArea} />
             <Accordion />

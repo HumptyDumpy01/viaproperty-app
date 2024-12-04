@@ -1,14 +1,12 @@
 // 'use client';
 
-import { PropertyTagsEnum } from '@/utils/enums/PropertyTags';
 import BadgeType from '@/components/UI/Badge/BadgeType';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import RatingBadge from '@/components/UI/Badge/RatingBadge';
 import StarIcon from '@/components/UI/Icon/StarIcon';
-import { BlogTagsEnum } from '@/utils/enums/BlogTags';
 
 type PropertyTagsType = {
-  tags: PropertyTagsEnum[] | BlogTagsEnum[];
+  tags: string[];
   rating?: number;
   visibility?: {
     shareIcon?: boolean;
