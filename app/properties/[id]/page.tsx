@@ -33,8 +33,11 @@ async function fetchProperty(id: string) {
 export default async function PropertyDescription({ params }: { params: { id: string } }) {
   const property = await fetchProperty(params.id);
 
+
+  // const property2 = await fetchProperty(`d989027e-bd7f-45dc-9a8a-9ea36c810989`);
+
   if (!property) return NotFound();
-  console.log(property);
+  console.log(`Executing property: `, property);
 
   return (
     <main className={`mb-24 overflow-hidden`}>

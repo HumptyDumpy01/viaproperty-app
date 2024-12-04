@@ -20,11 +20,11 @@ export const GET_PROPERTY = gql`
             title
             propertyHas {
                 bedrooms
-                beds
-                bathrooms
-                kitchens
-                parkingSpaces
                 livingRooms
+                parkingSpaces
+                bathrooms
+                beds
+                kitchens
             }
             description {
                 overall
