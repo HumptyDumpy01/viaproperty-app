@@ -22,6 +22,7 @@ import PropertyGalleryImg1 from '@/assets/property-description/gallery/property-
 import PropertyGalleryImg2 from '@/assets/property-description/gallery/property-description-2.png';
 import PropertyGalleryImg3 from '@/assets/property-description/gallery/property-description-3.png';
 import PropertyGalleryImg4 from '@/assets/property-description/gallery/property-description-4.png';
+import NotFound from 'next/dist/client/components/not-found-error';
 
 async function fetchProperty(id: string) {
   const apolloClient = new ApolloClient({
@@ -38,7 +39,7 @@ async function fetchProperty(id: string) {
 export default async function PropertyDescription({ params }: { params: { id: string } }) {
   const property = await fetchProperty(params.id);
 
-  if (!property) return <p>No property data found.</p>;
+  if (!property) return NotFound();
   console.log(property);
 
   return (
@@ -51,12 +52,14 @@ export default async function PropertyDescription({ params }: { params: { id: st
             <PropertyTags rating={4.3}
                           tags={[PropertyTagsEnum.APARTMENT, PropertyTagsEnum.FEATURED, PropertyTagsEnum.LUXURY, PropertyTagsEnum.NEW]} />
 
-            <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={`Exquisite
-              design
-              combined with posh interior`} />
+            <HeadingMedium customClasses={`mb-8`} maxWidthXL heading={property.title} />
 
-            <PropertyConveniences wifi={true} bedrooms={3} showers={2} baths={1} beds={4} fullKitchen={true}
-                                  sqftSize={1258} />
+            <PropertyConveniences
+              wifi={true}
+              bedrooms={property.propertyHas.bedrooms}
+              showers={2} baths={property.propertyHas.bathrooms} beds={property.propertyHas.beds}
+              fullKitchen={property.propertyHas.kitchens > 0}
+              sqftSize={property.propertyArea} />
             <Accordion />
 
             <ProviderContainer>

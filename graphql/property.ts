@@ -15,6 +15,7 @@ export const GET_PROPERTY = gql`
                 amenities
             }
             tags
+            propertyArea
             additionalConveniences
             title
             propertyHas {
