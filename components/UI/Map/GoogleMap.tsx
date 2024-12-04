@@ -20,7 +20,6 @@ export default function GoogleMap({ locations }: GoogleMapProps) {
       apiKey={String(process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY)}
       mapId={String(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID)}
       locations={locations}
-      // You might need to pass locations to MapComponent if it's used there
     />
   );
 }

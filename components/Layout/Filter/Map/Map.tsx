@@ -6,7 +6,6 @@ import GoogleMap from '@/components/UI/Map/GoogleMap';
 
 export default function Map() {
   const properties = useCartSelector((state) => state.properties.allPropertiesOriginal);
-  console.log(`Executing properties: `, properties);
 
   if (!properties || properties.length === 0) {
     return (
@@ -18,7 +17,7 @@ export default function Map() {
 
   const locations = properties.map((property: PropertyType) => ({
     googleMap: {
-      key: property.title.slice(0, 10) + `..`,
+      key: property.title.slice(0, 20) + `..`,
       location: {
         lat: property.description.location.location.coordinates[1],
         lng: property.description.location.location.coordinates[0]

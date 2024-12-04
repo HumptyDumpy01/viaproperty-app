@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { AdvancedMarker, APIProvider, InfoWindow, Map, Pin } from '@vis.gl/react-google-maps';
+import PointPopup from '@/components/UI/Map/PointPopup';
+import DummyImg from '@/assets/map/dummy-image.png';
 
 type MapComponentType = {
   mapId: string;
@@ -47,7 +49,11 @@ export default function MapComponent({ mapId, apiKey, locations }: MapComponentT
             <PoiMarkers pois={propertiesLocations} onHover={setHoveredPoi} />
             {hoveredPoi && (
               <InfoWindow position={hoveredPoi.location}>
-                <div>{hoveredPoi.key}</div>
+                <PointPopup
+                  location={`USA, Los Angeles`}
+                  createdAt={`2023-10-01T12:00:00Z`}
+                  title={hoveredPoi.key.slice(0, 25)}
+                  price={`133,999`} imageUrl={DummyImg} />
               </InfoWindow>
             )}
           </Map>
