@@ -21,8 +21,11 @@ export const GET_PROPERTIES = gql`
                     price
                 }
                 location {
-                    city,
+                    city
                     country
+                    location {
+                        coordinates
+                    }
                 }
             }
             propertyFor

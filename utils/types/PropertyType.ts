@@ -18,6 +18,9 @@ export type PropertyType = {
     location: {
       city: string;
       country: string;
+      location: {
+        coordinates: [number, number];
+      }
     }
   }
 }
