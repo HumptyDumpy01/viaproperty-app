@@ -30,13 +30,13 @@ import ContactViewingArrangements
 import PriceAndTaskHistory
   from '@/components/Layout/Accordion/AccordionPropertyDescription/PriceAndTaskHistory/PriceAndTaskHistory';
 
-export default function AccordionContent({ activeState }: AccordionType) {
+export default function AccordionContent({ activeState, description }: AccordionType) {
   let content: ReactNode = null;
 
   switch (activeState) {
     case `description`:
       content = (
-        <AccordionDescription />
+        <AccordionDescription text={description.overall} />
       );
       break;
     case `features`:

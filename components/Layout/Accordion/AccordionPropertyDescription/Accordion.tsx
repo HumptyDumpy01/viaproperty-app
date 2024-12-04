@@ -5,8 +5,13 @@ import AccordionContent from '@/components/Layout/Accordion/AccordionPropertyDes
 import { AccordionFeatureType } from '@/utils/types/AccordionFeatureType';
 import { useState } from 'react';
 
+export type AccordionTypeContent = {
+  description: {
+    overall: string;
+  };
+}
 
-export default function Accordion(/*{}: AccordionType*/) {
+export default function Accordion({ description }: AccordionTypeContent) {
 
   const [activeState, setActiveState] = useState<AccordionFeatureType>(`description`);
   return (
@@ -31,7 +36,7 @@ export default function Accordion(/*{}: AccordionType*/) {
                               label={`Floor Plans`} />
           </div>
         </div>
-        <AccordionContent activeState={activeState} setActiveState={() => {
+        <AccordionContent description={description} activeState={activeState} setActiveState={() => {
         }} />
       </div>
     </>

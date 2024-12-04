@@ -58,7 +58,7 @@ export default async function PropertyDescription({ params }: { params: { id: st
               beds={property.propertyHas.beds}
               fullKitchen={property.propertyHas.kitchens > 0}
               sqftSize={property.propertyArea} />
-            <Accordion />
+            <Accordion description={property.description} />
 
             <ProviderContainer>
               <OpenSidebarBtn />

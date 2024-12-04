@@ -11,5 +11,8 @@ export type AccordionFeatureType =
 export type AccordionType = {
   setActiveState: (switchTo: AccordionFeatureType) => void;
   activeState: AccordionFeatureType;
+  description: {
+    overall: string;
+  };
   // children: ReactNode;
 }
