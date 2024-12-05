@@ -35,7 +35,7 @@ export default function UserCredentials({ initials, abbrInitials, location }: Us
             </svg>
           </div>
           <div className={`bg-white py-5 px-6 absolute top-0 right-4 border border-zinc-200 rounded-2xl flex flex-col
-          gap-4 z-50 min-w-64 transition-all duration-200 ${!openAppSettingsPopup ? hiddenPopupStyles : ``}`}>
+          gap-4 z-[51] min-w-64 transition-all duration-200 ${!openAppSettingsPopup ? hiddenPopupStyles : ``}`}>
             <AppSettingsBadge links={[
               {
                 componentType: `button`,
