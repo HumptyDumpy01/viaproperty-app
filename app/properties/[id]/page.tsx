@@ -96,6 +96,7 @@ export default function PropertyDescription({ params }: { params: { id: string }
                 text={property.landlord.bio}
               />
               <RenterReviewsMetrics
+                propertyFor={property.propertyFor}
                 metrics={{
                   location: calculateTheAverage(property.rating.location),
                   condition: calculateTheAverage(property.rating.condition),

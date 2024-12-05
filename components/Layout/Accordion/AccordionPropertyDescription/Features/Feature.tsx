@@ -15,7 +15,7 @@ export default function Feature({ images, text, heading, imgDimensions = `w-28 h
     <>
       <div className={`flex flex-col`}>
         <h2 className={`text-xl font-semibold text-zinc-900 mb-6`}>{heading}</h2>
-        {images && (
+        {images && images?.length > 0 && (
           <>
             <div className={`flex items-center gap-4 rounded-2xl mb-10`}>
               {images.map(function(image, index) {

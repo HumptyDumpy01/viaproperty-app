@@ -4,6 +4,8 @@ import MetricDisplayRatingHero from '@/components/UI/MetricDisplay/MetricDisplay
 import HeadingMedium from '@/components/Typography/HeadingMedium';
 import MetricDisplayRating from '@/components/UI/MetricDisplay/MetricDisplayRating';
 
+export type PropertyForType = `rent` | `sell`;
+
 type RenterReviewsMetricsType = {
   ratings: number;
   overallRating: number;
@@ -11,15 +13,22 @@ type RenterReviewsMetricsType = {
     location: number, condition: number; ownership: number;
     security: number; noiseLevel: number; amenities: number
   }
+  propertyFor: PropertyForType;
   // children: ReactNode;
 }
 
-export default function RenterReviewsMetrics({ ratings, overallRating, metrics }: RenterReviewsMetricsType) {
+export default function RenterReviewsMetrics({
+                                               ratings,
+                                               overallRating,
+                                               metrics,
+                                               propertyFor
+                                             }: RenterReviewsMetricsType) {
   return (
     <>
       <div className={`mb-20`}>
-        <HeadingMedium customClasses={`mb-8`} heading={`Renter Reviews & Ratings`} />
-        <MetricDisplayRatingHero overallRating={overallRating} ratingsCount={ratings} />
+        <HeadingMedium customClasses={`mb-8`} heading={propertyFor === `rent` ? `Renter Reviews & Ratings` : `Landlord 
+        's Rating `} />
+        <MetricDisplayRatingHero propertyFor={propertyFor} overallRating={overallRating} ratingsCount={ratings} />
         <div>
           <div className={`flex items-center gap-y-24`}>
             <div className={`flex flex-col gap-6 items-center`}>

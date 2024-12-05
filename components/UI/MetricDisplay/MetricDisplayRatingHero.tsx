@@ -2,14 +2,21 @@
 
 import { roundNumber } from '@/utils/functions/roundNumber';
 import StarIcon from '@/components/UI/Icon/StarIcon';
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 
 type MetricDisplayRatingHeroType = {
   overallRating: number;
   ratingsCount: number;
+  propertyFor: PropertyForType;
   // children: ReactNode;
 }
 
-export default function MetricDisplayRatingHero({ overallRating, ratingsCount }: MetricDisplayRatingHeroType) {
+export default function
+  MetricDisplayRatingHero({
+                            overallRating,
+                            ratingsCount,
+                            propertyFor
+                          }: MetricDisplayRatingHeroType) {
   const roundedRating = roundNumber(overallRating);
 
   return (
@@ -28,7 +35,18 @@ export default function MetricDisplayRatingHero({ overallRating, ratingsCount }:
               // <StarIcon key={index} size={`md`} state={index < roundedRating ? `filled` : `empty`} />
             ))}
           </div>
-          <p>Based on <span className={`font-medium border-r-zinc-800`}>{ratingsCount} ratings</span></p>
+          {propertyFor === `rent` && (
+            <>
+              <p>Based on <span
+                className={`font-medium border-r-zinc-800`}>{ratingsCount} ratings</span></p>
+            </>
+          )}
+          {propertyFor === `sell` && (
+            <>
+              <p>Based on <span
+                className={`font-medium border-r-zinc-800`}>landlord's opinion</span></p>
+            </>
+          )}
         </div>
       </div>
     </>
