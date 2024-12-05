@@ -10,7 +10,7 @@ export default function MUICalendar() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <MobileDateTimeRangePicker
-        defaultValue={[dayjs('2022-04-17T15:30'), dayjs('2022-04-21T18:30')]}
+        defaultValue={[dayjs(), dayjs().add(7, 'day')]}
       />
     </LocalizationProvider>
   );

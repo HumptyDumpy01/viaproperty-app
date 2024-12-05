@@ -1,10 +1,12 @@
+// components/UI/Checkbox/CheckboxAndLabelBetween.tsx
 'use client';
 
 type CheckboxAndLabelBetweenType = {
   checkboxName: string;
   checkboxLabel: string;
   spanLabel: string;
-  // children: ReactNode;
+  onChange?: (isChecked: boolean) => void;
+  checked?: boolean;
 }
 
 import Checkbox from '@/components/UI/Checkbox/Checkbox';
@@ -14,15 +16,21 @@ export default function
   CheckboxAndLabelBetween({
                             checkboxName,
                             spanLabel,
-                            checkboxLabel
+                            checkboxLabel,
+                            onChange,
+                            checked
                           }: CheckboxAndLabelBetweenType) {
 
   const checkboxRef = useRef<HTMLInputElement>(null);
-  const [checkboxActive, setCheckboxActive] = useState<boolean>(false);
+  const [checkboxActive, setCheckboxActive] = useState<boolean>(checked || false);
 
   useEffect(() => {
     const handleCheckboxChange = () => {
-      setCheckboxActive(checkboxRef.current?.checked || false);
+      const isChecked = checkboxRef.current?.checked || false;
+      setCheckboxActive(isChecked);
+      if (onChange) {
+        onChange(isChecked);
+      }
     };
 
     const checkboxElement = checkboxRef.current;
@@ -34,7 +42,14 @@ export default function
     return () => {
       checkboxElement?.removeEventListener('change', handleCheckboxChange);
     };
-  }, []);
+  }, [onChange]);
+
+  useEffect(() => {
+    if (checkboxRef.current) {
+      checkboxRef.current.checked = checked || false;
+      setCheckboxActive(checked || false);
+    }
+  }, [checked]);
 
   return (
     <>
