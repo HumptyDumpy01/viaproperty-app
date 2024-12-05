@@ -4,6 +4,7 @@ import LabelAndTextBadge from '@/components/UI/Badge/LabelAndTextBadge';
 import FoldList from '@/components/UI/FeatureList/FoldList';
 import React from 'react';
 import { slugifyText } from '@/utils/functions/slugifyText';
+import MUICalendar from '@/components/UI/Calendar/MUICalendar';
 
 export type PropertySidebarDetails = {
   price: number;
@@ -64,6 +65,17 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
             <LabelAndTextBadge label={`Selling Options`} text={
               propertyFor === `rent` ? `Rent a Property` : `Buy a Property`
             } />
+            {propertyFor === `rent` && (
+              <>
+                <div className={`flex flex-col gap-3.5 justify-center min-w-72`}>
+                  <div className={`cursor-pointer`}>
+                    {/*<span className={`text-[12.8px] text-zinc-500`}>Checkout From</span>*/}
+                    {/*<p className={`bg-zinc-100 rounded-xl text-sm truncate px-4 py-3`}>{new Date().toUTCString()}</p>*/}
+                    <MUICalendar />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           {extraPricing.length > 0 && (
             <>
