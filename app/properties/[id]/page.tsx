@@ -128,7 +128,8 @@ export default function PropertyDescription({ params }: { params: { id: string }
         <CallToActionBlock rounded={false} fullScreen type={`sell-rent`} />
       </div>
       <div className={`ml-3`}>
-        <FeaturedProperties headingLabel={`You might also like...`} headingSpan={`based on your search!`}
+        <FeaturedProperties filter={{ tags: [...property.tags], limit: 22 }} headingLabel={`You might also like...`}
+                            headingSpan={`based on your search!`}
                             headingHref={`/properties`} />
       </div>
     </main>
