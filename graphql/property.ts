@@ -77,5 +77,17 @@ export const GET_PROPERTY = gql`
                 title
                 price
             }
+            reviews {
+                user {
+                    initials
+                }
+                id
+                comment
+                likes
+                rated {
+                    overall
+                }
+                createdAt
+            }
         }}
 `;
