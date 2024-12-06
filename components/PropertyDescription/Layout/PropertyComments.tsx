@@ -10,6 +10,7 @@ import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 import { formatDate } from '@/utils/functions/formatDate';
 import { sortArrayByNewestDate } from '@/utils/functions/sorting/sortArrayByNewestDate';
 import { sortActiveReviews } from '@/utils/functions/sorting/sortActiveReviews';
+import { sortPropertyQuestions } from '@/utils/functions/sorting/sortPropertyQuestions';
 
 export type PropertyRatedType = {
   overall: number;
@@ -86,19 +87,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
     }
 
     if (activeComments === `Questions`) {
-      switch (activeFilter) {
-        case `Date`:
-          setAllQuestions(sortArrayByNewestDate(questions));
-          break;
-        case `Most Liked`:
-          copyQuestions.sort((a, b) => b.likes.length - a.likes.length);
-          setAllQuestions([...copyQuestions]);
-          break;
-        case `Answered`:
-          copyQuestions.sort((a, b) => b.replies.length - a.replies.length);
-          setAllQuestions([...copyQuestions]);
-          break;
-      }
+      sortPropertyQuestions(activeFilter, questions, setAllQuestions, copyQuestions);
     }
 
   }, [activeFilter, activeComments]);
