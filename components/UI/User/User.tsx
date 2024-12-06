@@ -1,16 +1,17 @@
 // 'use client';
 
 import UserLogo from '@/components/UI/User/UserLogo';
+import { UserType } from '@/components/PropertyDescription/Layout/PropertyComments';
 
-type UserType = {
-  type: `user` | `landlord`;
+type UserDataType = {
+  type: UserType;
   createdAt: string;
   initials: string;
   abbrInitials: string;
   // children: ReactNode;
 }
 
-export default function User({ type, createdAt, abbrInitials, initials }: UserType) {
+export default function User({ type, createdAt, abbrInitials, initials }: UserDataType) {
   const userSpan = `inline-block text-zinc-400 text-sm`;
   const userH3 = `text-[16px] text-zinc-600 font-medium`;
 
@@ -21,8 +22,8 @@ export default function User({ type, createdAt, abbrInitials, initials }: UserTy
       <div className={`flex gap-4 items-center`}>
         <UserLogo type={type} abbrInitials={abbrInitials} />
         <div className={`flex flex-col`}>
-          <h3 className={type === `user` ? userH3 : landlordH3}>{initials}</h3>
-          <span className={type === `user` ? userSpan : landlordSpan}>{createdAt}</span>
+          <h3 className={type === `USER` ? userH3 : landlordH3}>{initials}</h3>
+          <span className={type === `USER` ? userSpan : landlordSpan}>{createdAt}</span>
         </div>
       </div>
     </>

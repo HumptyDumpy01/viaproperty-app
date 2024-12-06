@@ -7,21 +7,26 @@ import { useState } from 'react';
 import StarIcon from '@/components/UI/Icon/StarIcon';
 import { roundNumber } from '@/utils/functions/roundNumber';
 import ReplyOnComment from '@/components/Layout/Comment/ReplyOnComment';
+import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
+import { formatDate } from '@/utils/functions/formatDate';
+import { UserType } from '@/components/PropertyDescription/Layout/PropertyComments';
+
+export type CommentResponseType = {
+  replierId: string;
+  replierInitials: string;
+  userType: UserType;
+  comment: string;
+  createdAt: string;
+}
 
 type CommentType = {
-  userType: `user` | `landlord`;
+  userType: UserType;
   abbrInitials: string;
   initials: string;
   text: string;
   likes: number;
   createdAt: string;
-  responses: {
-    userType: `user` | `landlord`;
-    abbrInitials: string;
-    initials: string;
-    text: string;
-    createdAt: string;
-  }[]
+  responses: CommentResponseType[]
   rating?: number;
 
   // children: ReactNode;
@@ -75,9 +80,10 @@ export default function
             return (
               <>
                 <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                  <User type={response.userType} abbrInitials={response.abbrInitials} initials={response.initials}
-                        createdAt={response.createdAt} />
-                  <p className={`leading-relaxed text-zinc-800`}>{response.text}</p>
+                  <User type={response.userType} abbrInitials={abbreviateInitials(response.replierInitials)}
+                        initials={response.replierInitials}
+                        createdAt={formatDate(response.createdAt)} />
+                  <p className={`leading-relaxed text-zinc-800`}>{response.comment}</p>
                 </div>
               </>
             );

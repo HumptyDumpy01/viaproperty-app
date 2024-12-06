@@ -92,6 +92,7 @@ export const GET_PROPERTY = gql`
                     replierId
                     replierInitials
                     comment
+                    userType
                     createdAt
                 }
             }

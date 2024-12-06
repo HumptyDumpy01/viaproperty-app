@@ -6,14 +6,42 @@ import { useState } from 'react';
 import Button from '@/components/UI/Button/Button';
 import Comment from '@/components/Layout/Comment/Comment';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
+import { formatDate } from '@/utils/functions/formatDate';
+
+export type PropertyRatedType = {
+  overall: number;
+};
+
+export type UserType = `USER` | `LANDLORD`;
+
+export type PropertyReviewsType = {
+  user: {
+    initials: string;
+  };
+  id: string;
+  comment: string;
+  likes: string[];
+  rated: PropertyRatedType;
+  createdAt: string;
+  userType: UserType;
+  replies: {
+    replierId: string;
+    replierInitials: string;
+    userType: UserType;
+    comment: string;
+    createdAt: string;
+  }[];
+}
 
 export type PropertyCommentsType = {
   propertyFor: PropertyForType;
+  reviews: PropertyReviewsType[];
 };
 
 export type CommentType = `Reviews` | `Questions`;
 
-export default function PropertyComments({ propertyFor }: PropertyCommentsType) {
+export default function PropertyComments({ propertyFor, reviews }: PropertyCommentsType) {
   const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
   const [activeComments, setActiveComments] = useState<CommentType>(
     propertyFor === `rent` ? `Reviews` : `Questions`
@@ -73,57 +101,57 @@ export default function PropertyComments({ propertyFor }: PropertyCommentsType) 
         {activeComments === `Questions` && (
           <>
             <div className={`flex flex-col gap-12`}>
-              <Comment initials={`John Doe`} abbrInitials={`J.D`}
-                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
-                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
-                userType: `landlord`,
-                abbrInitials: `N.B`,
-                initials: `Nikolas Baker`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }, {
-                userType: `user`,
-                abbrInitials: `J.D`,
-                initials: `John Doe`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }
-              ]} userType={`user`}
-              />
+              {/*<Comment initials={`John Doe`} abbrInitials={`J.D`}*/}
+              {/*         text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}*/}
+              {/*         likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{*/}
+              {/*  userType: `landlord`,*/}
+              {/*  abbrInitials: `N.B`,*/}
+              {/*  initials: `Nikolas Baker`,*/}
+              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
+              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
+              {/*}, {*/}
+              {/*  userType: `user`,*/}
+              {/*  abbrInitials: `J.D`,*/}
+              {/*  initials: `John Doe`,*/}
+              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
+              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
+              {/*}*/}
+              {/*]} userType={`user`}*/}
+              {/*/>*/}
 
-              <Comment initials={`John Doe`} abbrInitials={`J.D`}
-                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
-                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
-                userType: `landlord`,
-                abbrInitials: `N.B`,
-                initials: `Nikolas Baker`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }, {
-                userType: `user`,
-                abbrInitials: `J.D`,
-                initials: `John Doe`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }
-              ]} userType={`user`} />
+              {/*<Comment initials={`John Doe`} abbrInitials={`J.D`}*/}
+              {/*         text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}*/}
+              {/*         likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{*/}
+              {/*  userType: `landlord`,*/}
+              {/*  abbrInitials: `N.B`,*/}
+              {/*  initials: `Nikolas Baker`,*/}
+              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
+              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
+              {/*}, {*/}
+              {/*  userType: `user`,*/}
+              {/*  abbrInitials: `J.D`,*/}
+              {/*  initials: `John Doe`,*/}
+              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
+              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
+              {/*}*/}
+              {/*]} userType={`user`} />*/}
 
-              <Comment initials={`John Doe`} abbrInitials={`J.D`}
-                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
-                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
-                userType: `landlord`,
-                abbrInitials: `N.B`,
-                initials: `Nikolas Baker`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }, {
-                userType: `user`,
-                abbrInitials: `J.D`,
-                initials: `John Doe`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }
-              ]} userType={`user`} />
+              {/*<Comment initials={`John Doe`} abbrInitials={`J.D`}*/}
+              {/*         text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}*/}
+              {/*         likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{*/}
+              {/*  userType: `landlord`,*/}
+              {/*  abbrInitials: `N.B`,*/}
+              {/*  initials: `Nikolas Baker`,*/}
+              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
+              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
+              {/*}, {*/}
+              {/*  userType: `user`,*/}
+              {/*  abbrInitials: `J.D`,*/}
+              {/*  initials: `John Doe`,*/}
+              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
+              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
+              {/*}*/}
+              {/*]} userType={`user`} />*/}
             </div>
 
             <div className={`w-fit mt-14`}>
@@ -135,57 +163,19 @@ export default function PropertyComments({ propertyFor }: PropertyCommentsType) 
         {activeComments === `Reviews` && propertyFor === `rent` && (
           <>
             <div className={`flex flex-col gap-12`}>
-              <Comment rating={4.3} initials={`John Doe`} abbrInitials={`J.D`}
-                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
-                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
-                userType: `landlord`,
-                abbrInitials: `N.B`,
-                initials: `Nikolas Baker`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }, {
-                userType: `user`,
-                abbrInitials: `J.D`,
-                initials: `John Doe`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }
-              ]} userType={`user`}
-              />
-
-              <Comment rating={4.5} initials={`John Doe`} abbrInitials={`J.D`}
-                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
-                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
-                userType: `landlord`,
-                abbrInitials: `N.B`,
-                initials: `Nikolas Baker`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }, {
-                userType: `user`,
-                abbrInitials: `J.D`,
-                initials: `John Doe`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }
-              ]} userType={`user`} />
-
-              <Comment rating={4.1} initials={`John Doe`} abbrInitials={`J.D`}
-                       text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
-                       likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{
-                userType: `landlord`,
-                abbrInitials: `N.B`,
-                initials: `Nikolas Baker`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }, {
-                userType: `user`,
-                abbrInitials: `J.D`,
-                initials: `John Doe`,
-                text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,
-                createdAt: `August 2024, May 02 at 14:55`
-              }
-              ]} userType={`user`} />
+              {reviews.map(function(review) {
+                // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
+                return (
+                  <>
+                    <Comment rating={review.rated.overall} initials={review.user.initials}
+                             abbrInitials={abbreviateInitials(review.user.initials)}
+                             text={review.comment}
+                             likes={review.likes.length} createdAt={formatDate(review.createdAt)}
+                             responses={review.replies} userType={`USER`}
+                    />
+                  </>
+                );
+              })}
             </div>
 
             <div className={`w-fit mt-14`}>
