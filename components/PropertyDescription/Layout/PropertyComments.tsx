@@ -66,6 +66,9 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
     propertyFor === `rent` ? `Reviews` : `Questions`
   );
 
+  const [allReviews, setAllReviews] = useState(reviews);
+  const [allQuestions, setAllQuestions] = useState(questions);
+
   const handleSetActiveComments = (switchTo: CommentType | ActiveFilterTypeQuestions) => {
     if (switchTo === 'Reviews' || switchTo === 'Questions') {
       setActiveComments(switchTo);
@@ -100,7 +103,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
             </div>
           </div>
         </div>
-        {activeComments === `Questions` && questions.length > 0 && (
+        {activeComments === `Questions` && allQuestions.length > 0 && (
           <>
             <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
@@ -109,7 +112,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
             </div>
           </>
         )}
-        {activeComments === `Reviews` && propertyFor === `rent` && reviews.length > 0 && (
+        {activeComments === `Reviews` && propertyFor === `rent` && allReviews.length > 0 && (
           <>
             <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
@@ -120,10 +123,10 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
           </>
         )}
 
-        {activeComments === `Questions` && questions.length > 0 && (
+        {activeComments === `Questions` && allQuestions.length > 0 && (
           <>
             <div className={`flex flex-col gap-12`}>
-              {questions.map(function(question) {
+              {allQuestions.map(function(question) {
                 return (
                   <>
                     <Comment initials={question.user.initials}
@@ -138,7 +141,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
               })}
             </div>
 
-            {questions.length > 3 && activeComments === `Questions` && (
+            {allQuestions.length > 3 && activeComments === `Questions` && (
               <div className={`w-fit mt-14`}>
                 <Button label={`See more`} mode={`md`} linearGradient />
               </div>
@@ -150,11 +153,11 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
           <>
             <div className={`flex flex-col gap-12`}>
 
-              {reviews.length === 0 && (
+              {allReviews.length === 0 && (
                 <p className={`text-zinc-800`}>No reviews yet. Be the first one to leave!</p>
               )}
 
-              {reviews.length > 0 && reviews.map(function(review) {
+              {allReviews.length > 0 && allReviews.map(function(review) {
                 // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
                 return (
                   <>
@@ -169,14 +172,13 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
               })}
             </div>
 
-            {reviews.length > 3 && activeComments === `Reviews` && (
+            {allReviews.length > 3 && activeComments === `Reviews` && (
               <>
                 <div className={`w-fit mt-14`}>
                   <Button label={`See more`} mode={`md`} linearGradient />
                 </div>
               </>
             )}
-            {/* TODO: HANDLE THE BTN FOR QUESTIONS */}
           </>
         )}
 
