@@ -96,5 +96,21 @@ export const GET_PROPERTY = gql`
                     createdAt
                 }
             }
+            questions {
+                user {
+                    initials
+                }
+                id
+                comment
+                likes
+                createdAt
+                replies {
+                    replierId
+                    replierInitials
+                    userType
+                    comment
+                    createdAt
+                }
+            }
         }}
 `;

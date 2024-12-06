@@ -34,14 +34,33 @@ export type PropertyReviewsType = {
   }[];
 }
 
+export type PropertyQuestionsType = {
+  user: {
+    initials: string;
+  };
+  id: string;
+  comment: string;
+  likes: string[];
+  createdAt: string;
+  userType: UserType;
+  replies: {
+    replierId: string;
+    replierInitials: string;
+    userType: UserType;
+    comment: string;
+    createdAt: string;
+  }[];
+}
+
 export type PropertyCommentsType = {
   propertyFor: PropertyForType;
   reviews: PropertyReviewsType[];
+  questions: PropertyQuestionsType[];
 };
 
 export type CommentType = `Reviews` | `Questions`;
 
-export default function PropertyComments({ propertyFor, reviews }: PropertyCommentsType) {
+export default function PropertyComments({ propertyFor, reviews, questions }: PropertyCommentsType) {
   const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
   const [activeComments, setActiveComments] = useState<CommentType>(
     propertyFor === `rent` ? `Reviews` : `Questions`
@@ -81,8 +100,7 @@ export default function PropertyComments({ propertyFor, reviews }: PropertyComme
             </div>
           </div>
         </div>
-
-        {activeComments === `Questions` && (
+        {activeComments === `Questions` && questions.length > 0 && (
           <>
             <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
@@ -102,65 +120,29 @@ export default function PropertyComments({ propertyFor, reviews }: PropertyComme
           </>
         )}
 
-        {activeComments === `Questions` && (
+        {activeComments === `Questions` && questions.length > 0 && (
           <>
             <div className={`flex flex-col gap-12`}>
-              {/*<Comment initials={`John Doe`} abbrInitials={`J.D`}*/}
-              {/*         text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}*/}
-              {/*         likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{*/}
-              {/*  userType: `landlord`,*/}
-              {/*  abbrInitials: `N.B`,*/}
-              {/*  initials: `Nikolas Baker`,*/}
-              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
-              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
-              {/*}, {*/}
-              {/*  userType: `user`,*/}
-              {/*  abbrInitials: `J.D`,*/}
-              {/*  initials: `John Doe`,*/}
-              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
-              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
-              {/*}*/}
-              {/*]} userType={`user`}*/}
-              {/*/>*/}
-
-              {/*<Comment initials={`John Doe`} abbrInitials={`J.D`}*/}
-              {/*         text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}*/}
-              {/*         likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{*/}
-              {/*  userType: `landlord`,*/}
-              {/*  abbrInitials: `N.B`,*/}
-              {/*  initials: `Nikolas Baker`,*/}
-              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
-              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
-              {/*}, {*/}
-              {/*  userType: `user`,*/}
-              {/*  abbrInitials: `J.D`,*/}
-              {/*  initials: `John Doe`,*/}
-              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
-              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
-              {/*}*/}
-              {/*]} userType={`user`} />*/}
-
-              {/*<Comment initials={`John Doe`} abbrInitials={`J.D`}*/}
-              {/*         text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}*/}
-              {/*         likes={13} createdAt={`August 2024, May 02 at 14:55`} responses={[{*/}
-              {/*  userType: `landlord`,*/}
-              {/*  abbrInitials: `N.B`,*/}
-              {/*  initials: `Nikolas Baker`,*/}
-              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
-              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
-              {/*}, {*/}
-              {/*  userType: `user`,*/}
-              {/*  abbrInitials: `J.D`,*/}
-              {/*  initials: `John Doe`,*/}
-              {/*  text: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`,*/}
-              {/*  createdAt: `August 2024, May 02 at 14:55`*/}
-              {/*}*/}
-              {/*]} userType={`user`} />*/}
+              {questions.map(function(question) {
+                return (
+                  <>
+                    <Comment initials={question.user.initials}
+                             abbrInitials={abbreviateInitials(question.user.initials)}
+                             text={question.comment}
+                             likes={question.likes.length}
+                             createdAt={formatDate(question.createdAt)}
+                             responses={question.replies} userType={`USER`}
+                    />
+                  </>
+                );
+              })}
             </div>
 
-            <div className={`w-fit mt-14`}>
-              <Button label={`See more`} mode={`md`} linearGradient />
-            </div>
+            {questions.length > 3 && activeComments === `Questions` && (
+              <div className={`w-fit mt-14`}>
+                <Button label={`See more`} mode={`md`} linearGradient />
+              </div>
+            )}
           </>
         )}
 
