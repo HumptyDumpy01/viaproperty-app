@@ -68,6 +68,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
 
   const itemsPerPage = 3;
   const [activePage, setActivePage] = useState(1);
+  const [activePageQuestions, setActivePageQuestions] = useState(1);
 
   const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
   const [activeComments, setActiveComments] = useState<CommentType>(
@@ -158,25 +159,45 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
                   <p className={`text-zinc-800`}>No questions yet. Be the first one to ask!</p>
                 </>
               )}
-              {sortedQuestions.map(function(question) {
-                return (
-                  <>
-                    <Comment initials={question.user.initials}
-                             abbrInitials={abbreviateInitials(question.user.initials)}
-                             text={question.comment}
-                             likes={question.likes.length}
-                             createdAt={formatDate(question.createdAt)}
-                             responses={question.replies} userType={`USER`}
-                    />
-                  </>
-                );
-              })}
+
+              {sortedQuestions.length > 0 && sortedQuestions
+                .slice(0, activePageQuestions * itemsPerPage)
+                .map(function(question) {
+                  return (
+                    <>
+                      <Comment initials={question.user.initials}
+                               abbrInitials={abbreviateInitials(question.user.initials)}
+                               text={question.comment}
+                               likes={question.likes.length}
+                               createdAt={formatDate(question.createdAt)}
+                               responses={question.replies} userType={`USER`}
+                      />
+                    </>
+                  );
+                })}
             </div>
 
-            {sortedQuestions.length > 3 && activeComments === `Questions` && (
-              <div className={`w-fit mt-14`}>
-                <Button label={`See more`} mode={`md`} linearGradient />
-              </div>
+            {sortedQuestions.length > activePageQuestions * itemsPerPage && (
+              <>
+                <div className={`w-fit mt-14`}
+                     onClick={() => setActivePageQuestions(activePageQuestions + 1)}
+                >
+                  <Button label={`See More`} mode={`md`} linearGradient />
+                </div>
+              </>
+            )}
+
+            {sortedQuestions.length <= activePageQuestions * itemsPerPage && activePageQuestions > 1 && (
+              <>
+                <div className={`w-fit mt-14`}
+                     onClick={() => {
+                       scrollIntoViewFunc(`.comment-heading`);
+                       setActivePageQuestions(1);
+                     }}
+                >
+                  <Button btnVariant={`grey`} label={`Hide Questions`} mode={`lg`} linearGradient />
+                </div>
+              </>
             )}
           </>
         )}
