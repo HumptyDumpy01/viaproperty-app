@@ -88,6 +88,12 @@ export const GET_PROPERTY = gql`
                     overall
                 }
                 createdAt
+                replies {
+                    replierId
+                    replierInitials
+                    comment
+                    createdAt
+                }
             }
         }}
 `;

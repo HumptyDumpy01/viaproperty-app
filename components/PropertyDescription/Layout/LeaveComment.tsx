@@ -3,6 +3,7 @@
 import StarRating from '@/components/UI/Input/StarRating';
 import ViapropertyButton from '@/components/UI/Button/ViapropertyButton';
 import React, { ReactNode } from 'react';
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 
 
 type LeaveCommentType = {
@@ -11,9 +12,10 @@ type LeaveCommentType = {
     questions: boolean;
   };
   badges: ReactNode;
+  propertyFor: PropertyForType;
 }
 
-export default function LeaveComment({ badges, available }: LeaveCommentType) {
+export default function LeaveComment({ badges, available, propertyFor }: LeaveCommentType) {
 
   return (
     <>
@@ -26,7 +28,7 @@ export default function LeaveComment({ badges, available }: LeaveCommentType) {
         </div>
 
         <form className={`flex flex-col gap-8`}>
-          {available.reviews && (
+          {available.reviews && propertyFor === `rent` && (
             <div className={`flex flex-col gap-6`}>
               <div className={`flex bp-790:items-center items-start bp-790:gap-16 gap-5 flex-col bp-790:flex-row`}>
                 <StarRating name={`location`} label={`Location`} />
@@ -46,7 +48,7 @@ export default function LeaveComment({ badges, available }: LeaveCommentType) {
           )}
           <div>
             <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold
-                  text-[33px] w-fit mb-8`}>{available.reviews ? `Leave Your Review` : `Ask Landlord about anything!`}</h3>
+                  text-[33px] w-fit mb-8`}>{available.reviews && propertyFor === `rent` ? `Leave Your Review` : `Ask Landlord about anything!`}</h3>
             <div className={`max-w-[734px]`}>
                     <textarea required
                               className={`w-full text-left p-6 flex h-52 border border-zinc-200 rounded-2xl`}

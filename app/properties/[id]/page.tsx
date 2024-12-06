@@ -56,6 +56,9 @@ export default function PropertyDescription({ params }: { params: { id: string }
   if (error) return <div>Error: {error.message}</div>;
   const property = data.property;
 
+  /* TEMPORARY */
+  console.log(`Executing property: `, property);
+
   // const property = await fetchProperty(params.id);
   // if (!property) return NotFound();
 
@@ -109,9 +112,9 @@ export default function PropertyDescription({ params }: { params: { id: string }
                 ratings={property.rating.count}
               />
               <div className={`mb-16`}>
-                <PropertyComments />
+                <PropertyComments propertyFor={property.propertyFor} />
               </div>
-              <LeaveCommentContainer />
+              <LeaveCommentContainer propertyFor={property.propertyFor} />
             </div>
           </div>
           <ProviderContainer>

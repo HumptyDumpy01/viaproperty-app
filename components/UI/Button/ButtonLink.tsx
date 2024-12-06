@@ -6,6 +6,7 @@ type ButtonLinkType = {
   animationPulse?: boolean;
   type?: `link` | `button`
   size?: `medium` | `large`;
+  target?: `_blank` | `_self` | `_parent` | `_top`;
   // children: ReactNode;
 }
 
@@ -18,13 +19,14 @@ export default function
                buttonLabel,
                animationPulse = false,
                type = `link`,
-               size = `large`
+               size = `large`,
+               target = `_self`
              }: ButtonLinkType) {
   return (
     <>
       {type === `link` && (
         <>
-          <Link className={`${size === `large` ? `text-2xl` : `text-xl`} bg-clip-text text-transparent bg-linear-main-red mb-6
+          <Link target={target} className={`${size === `large` ? `text-2xl` : `text-xl`} bg-clip-text text-transparent bg-linear-main-red mb-6
                 font-semibold border-b-4 border-b-red-500 pb-2
                 transition-all duration-200 hover:font-bold w-fit ${animationPulse ? `hover:animate-pulse` : ``}`}
                 href={href}>{buttonLabel}</Link>

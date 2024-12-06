@@ -9,11 +9,19 @@ import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
 import React, { useState } from 'react';
 import { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
-import { LeaveCommentBadgeType } from '@/app/properties/[id]/page';
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 
-export default function LeaveCommentContainer(/*{  }: LeaveCommentContainerType*/) {
+export type LeaveCommentBadgeType = CommentType | ActiveFilterTypeQuestions | `Leave Review` | `Ask Question`;
 
-  const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(`Leave Review`);
+export type LeaveCommentContainerType = {
+  propertyFor: PropertyForType;
+}
+
+export default function LeaveCommentContainer({ propertyFor }: LeaveCommentContainerType) {
+
+  const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(
+    propertyFor === `rent` ? `Leave Review` : `Ask Question`
+  );
   const [reviewsAvailable, setReviewsAvailable] = useState<boolean>(true);
 
   const handleSetLeaveCommentBadge = (switchTo: CommentType | ActiveFilterTypeQuestions | LeaveCommentBadgeType) => {
@@ -32,12 +40,14 @@ export default function LeaveCommentContainer(/*{  }: LeaveCommentContainerType*
   return (
     <>
       <div>
-        <LeaveComment available={{ reviews: reviewsAvailable, questions: true }} badges={
+        <LeaveComment propertyFor={propertyFor} available={{ reviews: reviewsAvailable, questions: true }} badges={
           (
             <>
-              <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
-                            type={`lg`}
-                            state={activeLeaveCommentBadge} />
+              {propertyFor === `rent` && (
+                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
+                              type={`lg`}
+                              state={activeLeaveCommentBadge} />
+              )}
 
               <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
                             type={`lg`}

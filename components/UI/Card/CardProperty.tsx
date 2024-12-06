@@ -63,7 +63,7 @@ export default function
             )}
             <p className={`text-xs mb-9`}>{createdAt} days ago</p>
           </div>
-          <ButtonLink href={href} buttonLabel={`See More`} animationPulse />
+          <ButtonLink target={`_blank`} href={href} buttonLabel={`See More`} animationPulse />
         </div>
       </div>
     </>

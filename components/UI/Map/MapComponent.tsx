@@ -74,7 +74,7 @@ export default function MapComponent({
       <section className={`rounded-3xl overflow-hidden`}>
         <div id="map" className={`h-screen w-screen bp-896:w-96 bp-896:h-[540px] rounded-3xl overflow-hidden`}>
           <Map
-            defaultZoom={13}
+            defaultZoom={6}
             defaultCenter={propertiesLocations[0].location}
             mapId={mapId}>
             <PoiMarkers pois={propertiesLocations} onHover={enableHover ? setHoveredPoi : () => {

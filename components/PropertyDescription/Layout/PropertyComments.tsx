@@ -5,12 +5,19 @@ import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestio
 import { useState } from 'react';
 import Button from '@/components/UI/Button/Button';
 import Comment from '@/components/Layout/Comment/Comment';
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+
+export type PropertyCommentsType = {
+  propertyFor: PropertyForType;
+};
 
 export type CommentType = `Reviews` | `Questions`;
 
-export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
+export default function PropertyComments({ propertyFor }: PropertyCommentsType) {
   const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
-  const [activeComments, setActiveComments] = useState<CommentType>(`Reviews`);
+  const [activeComments, setActiveComments] = useState<CommentType>(
+    propertyFor === `rent` ? `Reviews` : `Questions`
+  );
 
   const handleSetActiveComments = (switchTo: CommentType | ActiveFilterTypeQuestions) => {
     if (switchTo === 'Reviews' || switchTo === 'Questions') {
@@ -32,10 +39,14 @@ export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
           <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit
                   mb-8`}>Comments</h2>
           <div className={`flex gap-3 flex-wrap`}>
-            <div>
-              <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Reviews`} color={`blue`} type={`lg`}
-                            state={activeComments} />
-            </div>
+            {propertyFor === `rent` && (
+              <>
+                <div>
+                  <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Reviews`} color={`blue`} type={`lg`}
+                                state={activeComments} />
+                </div>
+              </>
+            )}
             <div>
               <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
                             state={activeComments} />
@@ -51,7 +62,7 @@ export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Answered`} state={activeFilter} />
             </>
           )}
-          {activeComments === `Reviews` && (
+          {activeComments === `Reviews` && propertyFor === `rent` && (
             <>
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Positive`} state={activeFilter} />
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Negative`} state={activeFilter} />
@@ -121,7 +132,7 @@ export default function PropertyComments(/*{  }: PropertyCommentsType*/) {
           </>
         )}
 
-        {activeComments === `Reviews` && (
+        {activeComments === `Reviews` && propertyFor === `rent` && (
           <>
             <div className={`flex flex-col gap-12`}>
               <Comment rating={4.3} initials={`John Doe`} abbrInitials={`J.D`}
