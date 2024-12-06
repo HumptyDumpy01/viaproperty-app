@@ -64,6 +64,10 @@ export type PropertyCommentsType = {
 export type CommentType = `Reviews` | `Questions`;
 
 export default function PropertyComments({ propertyFor, reviews, questions }: PropertyCommentsType) {
+
+  const itemsPerPage = 3;
+  const [activePage, setActivePage] = useState(1);
+
   const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
   const [activeComments, setActiveComments] = useState<CommentType>(
     propertyFor === `rent` ? `Reviews` : `Questions`
@@ -76,7 +80,6 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
   const [sortedQuestions, setAllQuestions] = useState(
     sortArrayByNewestDate(questions)
   );
-
 
   useEffect(() => {
     const copyQuestions = [...questions];
@@ -185,28 +188,42 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
                 <p className={`text-zinc-800`}>No reviews yet. Be the first one to leave!</p>
               )}
 
-              {sortedReviews.length > 0 && sortedReviews.map(function(review) {
-                // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
-                return (
-                  <>
-                    <Comment rating={review.rated.overall} initials={review.user.initials}
-                             abbrInitials={abbreviateInitials(review.user.initials)}
-                             text={review.comment}
-                             likes={review.likes.length} createdAt={formatDate(review.createdAt)}
-                             responses={review.replies} userType={`USER`}
-                    />
-                  </>
-                );
-              })}
+              {sortedReviews.length > 0 && sortedReviews
+                .slice(0, activePage * itemsPerPage)
+                .map(function(review) {
+                  // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
+                  return (
+                    <>
+                      <Comment rating={review.rated.overall} initials={review.user.initials}
+                               abbrInitials={abbreviateInitials(review.user.initials)}
+                               text={review.comment}
+                               likes={review.likes.length} createdAt={formatDate(review.createdAt)}
+                               responses={review.replies} userType={`USER`}
+                      />
+                    </>
+                  );
+                })}
             </div>
 
-            {sortedReviews.length > 3 && activeComments === `Reviews` && (
+            {sortedReviews.length > activePage * itemsPerPage && (
               <>
-                <div className={`w-fit mt-14`}>
-                  <Button label={`See more`} mode={`md`} linearGradient />
+                <div className={`w-fit mt-14`}
+                     onClick={() => setActivePage(activePage + 1)}
+                >
+                  <Button label={`See More`} mode={`md`} linearGradient />
                 </div>
               </>
             )}
+
+          {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (
+            <>
+              <div className={`w-fit mt-14`}
+                   onClick={() => setActivePage(1)}
+              >
+                <Button btnVariant={`grey`} label={`Hide Reviews`} mode={`lg`} linearGradient />
+              </div>
+            </>
+          )}
           </>
         )}
       </div>

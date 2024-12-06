@@ -49,7 +49,7 @@ export default function
       {(mode === 'lg' && btnVariant === `grey`) && (
         <button disabled={disabled} {...props}
                 className={`font-bold rounded-full flex 
-               w-fit h-19 border border-zinc-900 
+               w-fit h-19 
               px-12 py-6 bp-620:text-xl
               transition-all duration-200 ${hover ? `hover:bg-zinc-900 ` : ``} hover:text-white active:bg-zinc-400
               text-sm text-white bg-zinc-400 ${customClasses}`}> {label} </button>
