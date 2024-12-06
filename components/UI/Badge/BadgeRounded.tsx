@@ -1,7 +1,7 @@
 // BadgeRounded.tsx
 import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
 import { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
-import { LeaveCommentBadgeType } from '@/app/properties/[id]/page';
+import { LeaveCommentBadgeType } from '@/components/PropertyDescription/Layout/LeaveCommentContainer';
 
 type BadgeRoundedType = {
   state?: ActiveFilterTypeQuestions | CommentType | LeaveCommentBadgeType;
