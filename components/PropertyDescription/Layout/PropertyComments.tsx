@@ -86,6 +86,19 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
     }
 
     if (activeComments === `Questions`) {
+      switch (activeFilter) {
+        case `Date`:
+          setAllQuestions(sortArrayByNewestDate(questions));
+          break;
+        case `Most Liked`:
+          copyQuestions.sort((a, b) => b.likes.length - a.likes.length);
+          setAllQuestions([...copyQuestions]);
+          break;
+        case `Answered`:
+          copyQuestions.sort((a, b) => b.replies.length - a.replies.length);
+          setAllQuestions([...copyQuestions]);
+          break;
+      }
     }
 
   }, [activeFilter, activeComments]);

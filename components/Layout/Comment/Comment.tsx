@@ -91,13 +91,6 @@ export default function
         </div>
 
         <div className={`flex gap-3`}>
-          {responses.length > 0 && (
-            <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
-              <Button mode={`sm`} label={!showReplies ? `See answers (${responses.length})` : `Hide`}
-                      btnVariant={`white`} />
-            </div>
-          )}
-
           {!leaveReplyOpen && (
             <>
               <div onClick={() => setLeaveReplyOpen(true)}>
@@ -106,6 +99,14 @@ export default function
               </div>
             </>
           )}
+
+          {responses.length > 0 && (
+            <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
+              <Button mode={`sm`} label={!showReplies ? `See answers (${responses.length})` : `Hide`}
+                      btnVariant={`white`} />
+            </div>
+          )}
+
         </div>
         {leaveReplyOpen && (
           <>

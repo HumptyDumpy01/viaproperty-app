@@ -4,7 +4,7 @@ export function formatDate(dateVar: string): string {
   const day = date.getDate();
   const year = date.getFullYear();
   const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
   const formattedDate = `${month} ${year}, ${day} at ${hours}:${minutes}`;
   return formattedDate;
 }
