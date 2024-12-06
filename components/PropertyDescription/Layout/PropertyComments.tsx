@@ -11,6 +11,7 @@ import { formatDate } from '@/utils/functions/formatDate';
 import { sortArrayByNewestDate } from '@/utils/functions/sorting/sortArrayByNewestDate';
 import { sortActiveReviews } from '@/utils/functions/sorting/sortActiveReviews';
 import { sortPropertyQuestions } from '@/utils/functions/sorting/sortPropertyQuestions';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 
 export type PropertyRatedType = {
   overall: number;
@@ -113,7 +114,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
       <div>
         <div className={`flex bp-620:gap-14 flex-col bp-620:flex-row mb-7 bp-620:mb-0`}>
           <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit
-                  mb-8`}>Comments</h2>
+                  mb-8 comment-heading`}>Comments</h2>
           <div className={`flex gap-3 flex-wrap`}>
             {propertyFor === `rent` && (
               <>
@@ -205,20 +206,23 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
                 })}
             </div>
 
-            {sortedReviews.length > activePage * itemsPerPage && (
-              <>
-                <div className={`w-fit mt-14`}
-                     onClick={() => setActivePage(activePage + 1)}
-                >
-                  <Button label={`See More`} mode={`md`} linearGradient />
-                </div>
-              </>
-            )}
+          {sortedReviews.length > activePage * itemsPerPage && (
+            <>
+              <div className={`w-fit mt-14`}
+                   onClick={() => setActivePage(activePage + 1)}
+              >
+                <Button label={`See More`} mode={`md`} linearGradient />
+              </div>
+            </>
+          )}
 
           {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (
             <>
               <div className={`w-fit mt-14`}
-                   onClick={() => setActivePage(1)}
+                   onClick={() => {
+                     scrollIntoViewFunc(`.comment-heading`);
+                     setActivePage(1);
+                   }}
               >
                 <Button btnVariant={`grey`} label={`Hide Reviews`} mode={`lg`} linearGradient />
               </div>
