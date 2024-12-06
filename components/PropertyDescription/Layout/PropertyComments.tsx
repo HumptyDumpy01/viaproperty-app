@@ -82,21 +82,25 @@ export default function PropertyComments({ propertyFor, reviews }: PropertyComme
           </div>
         </div>
 
-        <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
-          <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
-          <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
-          {activeComments === `Questions` && (
-            <>
+        {activeComments === `Questions` && (
+          <>
+            <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
+              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
+              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Answered`} state={activeFilter} />
-            </>
-          )}
-          {activeComments === `Reviews` && propertyFor === `rent` && (
-            <>
+            </div>
+          </>
+        )}
+        {activeComments === `Reviews` && propertyFor === `rent` && reviews.length > 0 && (
+          <>
+            <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
+              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
+              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Positive`} state={activeFilter} />
               <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Negative`} state={activeFilter} />
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        )}
 
         {activeComments === `Questions` && (
           <>
@@ -163,7 +167,12 @@ export default function PropertyComments({ propertyFor, reviews }: PropertyComme
         {activeComments === `Reviews` && propertyFor === `rent` && (
           <>
             <div className={`flex flex-col gap-12`}>
-              {reviews.map(function(review) {
+
+              {reviews.length === 0 && (
+                <p className={`text-zinc-800`}>No reviews yet. Be the first one to leave!</p>
+              )}
+
+              {reviews.length > 0 && reviews.map(function(review) {
                 // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
                 return (
                   <>
@@ -178,9 +187,14 @@ export default function PropertyComments({ propertyFor, reviews }: PropertyComme
               })}
             </div>
 
-            <div className={`w-fit mt-14`}>
-              <Button label={`See more`} mode={`md`} linearGradient />
-            </div>
+            {reviews.length > 3 && activeComments === `Reviews` && (
+              <>
+                <div className={`w-fit mt-14`}>
+                  <Button label={`See more`} mode={`md`} linearGradient />
+                </div>
+              </>
+            )}
+            {/* TODO: HANDLE THE BTN FOR QUESTIONS */}
           </>
         )}
 
