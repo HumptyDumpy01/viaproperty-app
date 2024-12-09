@@ -1,2 +1,1 @@
-export const isDevMode = process.env.NODE_ENV === `development`;
-export const isProdMode = process.env.NODE_ENV === `production`;
+export const DEFAULT_ERROR_MESSAGE = `Sorry, something went wrong. Please try again later.`;

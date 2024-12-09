@@ -17,10 +17,15 @@ import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
 import { useFetchProperty } from '@/hooks/useFetchProperty';
 import { calculateTheAverage } from '@/utils/functions/calculateTheAverage';
+
+import Lottie from 'lottie-react';
+import JSONAnimationLoading from '@/animations/animation-loading.json';
+
 // import { GET_PROPERTY } from '@/graphql/property';
 // import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
 // import NotFound from 'next/dist/client/components/not-found-error';
 import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
+import { DEFAULT_ERROR_MESSAGE } from '@/utils/generics/generics';
 
 /*
 
@@ -52,12 +57,15 @@ async function fetchProperty(id: string) {
 export default function PropertyDescription({ params }: { params: { id: string } }) {
 // export default async function PropertyDescription({ params }: { params: { id: string } }) {
   const { error, data, loading } = useFetchProperty(params.id);
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  const property = data.property;
+  if (loading) return (
+    <div className={`flex h-screen justify-center items-center`}>
+      <Lottie className={`w-96 h-96 mb-36`} animationData={JSONAnimationLoading} />
+    </div>
+  );
 
-  /* TEMPORARY */
-  console.log(`Executing property: `, property);
+  if (error) throw new Error(error.message || DEFAULT_ERROR_MESSAGE);
+
+  const property = data.property;
 
   // const property = await fetchProperty(params.id);
   // if (!property) return NotFound();
@@ -122,9 +130,6 @@ export default function PropertyDescription({ params }: { params: { id: string }
             <SidebarContainer propertyDetails={{
               dataForCheckout: {
                 propertyId: property.id,
-                price: property.description.priceAndTaskHistory.price,
-                propertyFor: property.propertyFor,
-                onSale: property.onSale,
                 images: property.images
               },
               price: property.description.priceAndTaskHistory.price,
