@@ -23,6 +23,7 @@ export type ViapropertySidebarType = {
 }
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
+  const [errorMessage, setErrorMessage] = useState<string>(`Something went wrong here!`);
   const { price, onSale, propertyFor, location, extraPricing } = propertyDetails;
 
   const formattedPrice = transformStrToNum(price);
@@ -74,12 +75,24 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
     e.preventDefault();
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
-    const results = Object.fromEntries(formData.entries());
-    // @ts-ignore
+    const results = Object.fromEntries(formData.entries()) as any;
+
     results.totalPrice = totalPrice;
+
+    if (propertyFor === `rent`) {
+      results[`dateRange`] = {
+        // @ts-ignore
+        from: dateRange[0].$d.toISOString(),
+        // @ts-ignore
+        to: dateRange[1].$d.toISOString()
+      };
+
+    }
+
     // resetting the form
     currObject.reset();
     // output
+    console.log(`Executing results: `, results);
   }
 
   return (
@@ -120,7 +133,9 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           {propertyFor === `rent` && (
             <div className={`flex flex-col gap-3.5 justify-center min-w-72 mt-2`}>
               <div className={`cursor-pointer`}>
-                <MUICalendar onChange={(newValue) => setDateRange(newValue)} />
+                <MUICalendar onChange={(newValue) => {
+                  setDateRange(newValue);
+                }} />
               </div>
             </div>
           )}
