@@ -34,19 +34,27 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
   const formattedPrice = transformStrToNum(price);
   const formattedNewPrice = onSale.newPrice ? transformStrToNum(onSale.newPrice) : 0;
 
-  const [selectedExtras, setSelectedExtras] = useState<{ [key: string]: boolean }>({});
+  const initialExtrasState = extraPricing.map(extra => ({
+    checked: false,
+    label: extra.title,
+    price: extra.price
+  }));
+
+  const [selectedExtras, setSelectedExtras] = useState(initialExtrasState);
   const [totalPrice, setTotalPrice] = useState<number>(onSale.isOnSale ? formattedNewPrice : formattedPrice);
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([dayjs(), dayjs().add(7, 'day')]);
 
   const discountAmount = onSale.isOnSale ? formattedPrice - formattedNewPrice : 0;
 
   const handleExtraChange = (extraName: string, isChecked: boolean) => {
-    setSelectedExtras((prev) => ({ ...prev, [extraName]: isChecked }));
+    setSelectedExtras((prev) => prev.map(extra =>
+      extra.label === extraName ? { ...extra, checked: isChecked } : extra
+    ));
   };
 
   useEffect(() => {
-    const extrasTotal = extraPricing.reduce((acc, extra) => {
-      return acc + (selectedExtras[extra.title] ? extra.price : 0);
+    const extrasTotal = selectedExtras.reduce((acc, extra) => {
+      return acc + (extra.checked ? extra.price : 0);
     }, 0);
 
     const rentalDays = dateRange[1].diff(dateRange[0], 'day');
@@ -58,7 +66,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
       setTotalPrice(formattedNewPrice + extrasTotal);
     }
 
-  }, [selectedExtras, formattedNewPrice, formattedPrice, onSale.isOnSale, extraPricing, dateRange, propertyFor]);
+  }, [selectedExtras, formattedNewPrice, formattedPrice, onSale.isOnSale, dateRange, propertyFor]);
 
   const overallProperties = [
     {
@@ -70,10 +78,10 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
       span: `-${discountAmount}$`,
       type: `discount`
     } : null,
-    ...extraPricing.map(extra => selectedExtras[extra.title] ? {
-      label: extra.title,
+    ...selectedExtras.filter(extra => extra.checked).map(extra => ({
+      label: extra.label,
       span: `${extra.price}$`
-    } : null).filter(Boolean)
+    }))
   ].filter(Boolean);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -92,6 +100,8 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
         to: dateRange[1].$d.toISOString()
       };
     }
+
+    results.extras = selectedExtras;
 
     const validateRentSchema = rentPropertySchema.safeParse({
       dateRange: results.dateRange,
