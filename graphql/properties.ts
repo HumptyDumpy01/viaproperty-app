@@ -11,6 +11,11 @@ export const GET_PROPERTIES = gql`
             tags
             additionalConveniences
             propertyArea
+            onSale {
+                isOnSale
+                discount
+                newPrice
+            }
             propertyHas {
                 beds
                 bathrooms
