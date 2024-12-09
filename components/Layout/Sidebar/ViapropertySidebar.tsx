@@ -9,6 +9,8 @@ import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { rentPropertySchema } from '@/utils/schemas/rentPropertySchema';
 import { sellPropertySchema } from '@/utils/schemas/sellPropertySchema';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
+import { useRouter } from 'next/navigation';
 
 export type PropertyOnSaleType = {
   isOnSale: boolean;
@@ -33,8 +35,12 @@ export type ViapropertySidebarType = {
 }
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
-  const [errorMessage, setErrorMessage] = useState<string>(`Something went wrong here!`);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const router = useRouter();
+
+  const [errorMessage, setErrorMessage] = useState<string>(``);
+
+  const [openSnackbar, setOpenSnackbar] = useState<boolean>(false);
+  const [backdropOpen, setBackdropOpen] = useState<boolean>(false);
 
   const { price, onSale, propertyFor, location, extraPricing } = propertyDetails;
   const { propertyId, images } = propertyDetails.dataForCheckout;
@@ -134,6 +140,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
 
     setErrorMessage(``);
     setOpenSnackbar(false);
+    setBackdropOpen(true);
 
     results.propertyDetails = {
       propertyId,
@@ -143,13 +150,16 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
       selectedExtras
     };
 
-    // currObject.reset();
-    // output
-    console.log(`Executing results: `, results);
+    router.push(`/checkout`);
+
   }
 
   return (
     <>
+      <BackdropMUI
+        state={{ open: backdropOpen, setOpen: setBackdropOpen }}
+        alertMessage={`Please wait while we process your request for renting/buying a property..`}
+      />
       <SnackbarMUI
         state={{ open: openSnackbar, setOpen: setOpenSnackbar }}
         severity={`error`}
@@ -219,8 +229,10 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           </div>
           <div className={`w-full flex items-center`}>
             <button
-              className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-xl font-bold px-5 py-4 mt-7 transition-all duration-200 hover:animate-pulse`}>
-              Buy Now
+              disabled={backdropOpen}
+              className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-xl font-bold px-5 py-4 mt-7 transition-all duration-200 
+              ${backdropOpen ? `animate-pulse` : ``}`}>
+              {propertyFor === `rent` ? `Rent` : `Buy`} Now
             </button>
           </div>
         </form>
