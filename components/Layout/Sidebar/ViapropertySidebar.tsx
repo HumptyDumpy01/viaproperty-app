@@ -1,10 +1,10 @@
-// components/Layout/Sidebar/ViapropertySidebar.tsx
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import LabelAndTextBadge from '@/components/UI/Badge/LabelAndTextBadge';
 import MUICalendar from '@/components/UI/Calendar/MUICalendar';
 import FoldList from '@/components/UI/FeatureList/FoldList';
 import { slugifyText } from '@/utils/functions/slugifyText';
 import { transformStrToNum } from '@/utils/functions/transformStrToNum';
+import dayjs from 'dayjs';
 
 export type PropertySidebarDetails = {
   price: string;
@@ -20,7 +20,6 @@ export type PropertySidebarDetails = {
 
 export type ViapropertySidebarType = {
   propertyDetails: PropertySidebarDetails
-  // children: ReactNode;
 }
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
@@ -31,6 +30,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
 
   const [selectedExtras, setSelectedExtras] = useState<{ [key: string]: boolean }>({});
   const [totalPrice, setTotalPrice] = useState<number>(onSale.isOnSale ? formattedNewPrice : formattedPrice);
+  const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs]>([dayjs(), dayjs().add(7, 'day')]);
 
   const discountAmount = onSale.isOnSale ? formattedPrice - formattedNewPrice : 0;
 
@@ -42,12 +42,21 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
     const extrasTotal = extraPricing.reduce((acc, extra) => {
       return acc + (selectedExtras[extra.title] ? extra.price : 0);
     }, 0);
-    setTotalPrice((onSale.isOnSale ? formattedNewPrice : formattedPrice) + extrasTotal);
-  }, [selectedExtras, formattedNewPrice, formattedPrice, onSale.isOnSale, extraPricing]);
+
+    const rentalDays = dateRange[1].diff(dateRange[0], 'day');
+    const rentalPrice = propertyFor === 'rent' ? (onSale.isOnSale ? formattedNewPrice : formattedPrice) * rentalDays : 0;
+
+    if (propertyFor === 'rent') {
+      setTotalPrice(rentalPrice + extrasTotal);
+    } else {
+      setTotalPrice(formattedNewPrice + extrasTotal);
+    }
+
+  }, [selectedExtras, formattedNewPrice, formattedPrice, onSale.isOnSale, extraPricing, dateRange, propertyFor]);
 
   const overallProperties = [
     {
-      label: `Property Price ${propertyFor === `rent` ? `/month` : ``}`,
+      label: `Property Price ${propertyFor === `rent` ? `/` : ``}`,
       span: onSale.isOnSale ? String(onSale.newPrice) : String(price)
     },
     onSale.isOnSale ? {
@@ -61,6 +70,19 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
     } : null).filter(Boolean)
   ].filter(Boolean);
 
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const currObject = e.currentTarget;
+    const formData = new FormData(currObject);
+    const results = Object.fromEntries(formData.entries());
+    // @ts-ignore
+    results.totalPrice = totalPrice;
+    results.dynamicURL = `${location}/${propertyFor}`;
+    // resetting the form
+    currObject.reset();
+    // output
+  }
+
   return (
     <div className={`border h-fit border-red-500 rounded-3xl p-7 w-full`}>
       <div className={`flex items-center justify-between mb-6`}>
@@ -68,7 +90,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           {onSale.isOnSale && (
             <>
               <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
-                ${onSale.newPrice}<span className={`text-sm`}>{propertyFor === `rent` ? `/month` : ``}</span>
+                ${onSale.newPrice}<span className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
               </span>
               <span className={`text-zinc-300 inline-block line-through`}>
                 {price}
@@ -77,7 +99,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           )}
           {!onSale.isOnSale && (
             <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
-              ${price}<span className={`text-sm`}>{propertyFor === `rent` ? `/month` : ``}</span>
+              ${price}<span className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
             </span>
           )}
         </div>
@@ -88,7 +110,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           </span>
         )}
       </div>
-      <div>
+      <form onSubmit={handleSubmit}>
         <h2 className={`bg-clip-text mb-4 text-transparent bg-linear-main-red font-bold text-3xl`}>
           Let&#39;s {propertyFor === `rent` ? `Rent` : `Buy`} it!
         </h2>
@@ -99,7 +121,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           {propertyFor === `rent` && (
             <div className={`flex flex-col gap-3.5 justify-center min-w-72 mt-2`}>
               <div className={`cursor-pointer`}>
-                <MUICalendar />
+                <MUICalendar onChange={(newValue) => setDateRange(newValue)} />
               </div>
             </div>
           )}
@@ -127,7 +149,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
             Buy Now
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

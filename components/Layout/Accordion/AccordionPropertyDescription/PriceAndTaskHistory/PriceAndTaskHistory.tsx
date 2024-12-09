@@ -26,7 +26,7 @@ export default function PriceAndTaskHistory({ text = boilerplateText, price, pro
           <ViapropertyIcon icon={`dollar`} />
           <span
             className={`inline-block bg-clip-text text-xl text-transparent bg-linear-main-red font-semibold`}>{price}
-            {propertyFor === `rent` && (<span className={`text-sm`}>/month</span>)}</span>
+            {propertyFor === `rent` && (<span className={`text-sm`}>/day</span>)}</span>
         </div>
         <p className={`leading-relaxed text-sm`}>{text}</p>
       </div>

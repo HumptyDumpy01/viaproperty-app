@@ -77,7 +77,7 @@ export default function
               <>
                 <p
                   className={`text-green-600 font-semibold text-[15px]`}>From <span>${[price]}</span><span
-                  className={`text-sm`}>/month</span>
+                  className={`text-sm`}>/day</span>
                 </p>
               </>
             )}
