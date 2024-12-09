@@ -1,16 +1,17 @@
 // 'use client';
 
-type CheckoutHeadingType = {
-  propertyTitle: string;
-  propertyFor: `rent` | `sell`;
-  discount?: number;
-  propertyPrice: number;
-  propertyDiscountPrice?: number;
-  // children: ReactNode;
-}
-
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import ViapropertyHeading from '@/components/Typography/ViapropertyHeading';
 import React from 'react';
+
+type CheckoutHeadingType = {
+  propertyTitle: string;
+  propertyFor: PropertyForType;
+  discount?: string | null;
+  propertyPrice: string;
+  propertyDiscountPrice?: string | null;
+  // children: ReactNode;
+}
 
 export default function
   CheckoutHeading({ propertyTitle, discount, propertyFor, propertyPrice, propertyDiscountPrice }: CheckoutHeadingType) {
@@ -50,7 +51,7 @@ export default function
             {discount && (
               <>
                 <p className={`bg-zinc-100 rounded-full text-sm truncate px-3 py-1
-                          bg-linear-main-red text-white font-semibold`}>{discount}% off</p>
+                          bg-linear-main-red text-white font-semibold`}>{discount} off</p>
               </>
             )}
           </div>

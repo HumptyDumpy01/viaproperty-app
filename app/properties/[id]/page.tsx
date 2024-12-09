@@ -125,6 +125,7 @@ export default function PropertyDescription({ params }: { params: { id: string }
           <ProviderContainer>
             <SidebarContainer propertyDetails={{
               dataForCheckout: {
+                title: property.title,
                 propertyId: property.id,
                 images: property.images
               },

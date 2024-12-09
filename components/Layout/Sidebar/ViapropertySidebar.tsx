@@ -26,6 +26,7 @@ export type PropertySidebarDetails = {
   dataForCheckout: {
     propertyId: string;
     images: string[];
+    title: string;
   }
   extraPricing: { title: string; price: number; }[] | []
 }
@@ -43,7 +44,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
   const [backdropOpen, setBackdropOpen] = useState<boolean>(false);
 
   const { price, onSale, propertyFor, location, extraPricing } = propertyDetails;
-  const { propertyId, images } = propertyDetails.dataForCheckout;
+  const { propertyId, images, title } = propertyDetails.dataForCheckout;
 
   const formattedPrice = transformStrToNum(price);
   const formattedNewPrice = onSale.newPrice ? transformStrToNum(onSale.newPrice) : 0;
@@ -147,11 +148,16 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
       images,
       price,
       onSale,
-      selectedExtras
+      selectedExtras,
+      title,
+      propertyFor
     };
 
-    router.push(`/checkout`);
+    // push all three params of results, extras, propertyDetails and totalPrice
+    // onto local storage
+    localStorage.setItem(`checkoutData`, JSON.stringify(results));
 
+    router.push(`/checkout`);
   }
 
   return (

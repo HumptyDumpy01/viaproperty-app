@@ -17,7 +17,6 @@ type LocationType = {
 }
 
 export default function AccordionLocation({ location, googleMap, description }: LocationType) {
-  console.log(`Executing googleMap: `, googleMap);
   const locations = [
     {
       googleMap: {

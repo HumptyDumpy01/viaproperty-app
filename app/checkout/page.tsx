@@ -8,38 +8,70 @@ import MainContainer from '@/components/Layout/Container/MainContainer';
 import ViapropertyHeading from '@/components/Typography/ViapropertyHeading';
 import Paragraph from '@/components/Typography/Paragraph';
 import HighlightText from '@/components/Typography/HighlightText';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ExtraFeaturesSelected from '@/components/RequestDetails/ExtraFeaturesSelected';
 import RentPeriod from '@/components/RequestDetails/RentPeriod';
 import Customer from '@/components/RequestDetails/Customer';
 import CheckoutHeading from '@/components/Checkout/CheckoutHeading';
 import CheckoutPropertyImages from '@/components/Checkout/CheckoutPropertyImages';
 
-import PropertyImg1 from '@/assets/properties/property-1.png';
-import PropertyImg2 from '@/assets/properties/property-2.png';
-import PropertyImg4 from '@/assets/properties/property-4.png';
-import PropertyImg3 from '@/assets/properties/property-3.png';
 import CheckoutContactDetailsForm from '@/components/Checkout/CheckoutContactDetailsForm';
 import { Tooltip } from '@mui/material';
 import CheckoutInputs from '@/components/Checkout/CheckoutInputs';
+import { PropertyOnSaleType } from '@/components/Layout/Sidebar/ViapropertySidebar';
+import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+
+export type CheckoutDataType = {
+  dateRange?: { from: string; to: string };
+  extras: { checked: boolean; label: string; price: number }[];
+  propertyDetails: {
+    images: string[];
+    onSale: PropertyOnSaleType;
+    price: string;
+    propertyId: string;
+    selectedExtras: { checked: boolean; label: string; price: number }[];
+    title: string;
+    propertyFor: PropertyForType;
+  },
+  totalPrice: number,
+}
 
 export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
+  const [checkoutData, setCheckoutData] = useState<CheckoutDataType>();
+
+  useEffect(() => {
+    const storedCheckoutData = localStorage.getItem(`checkoutData`);
+    if (storedCheckoutData) {
+      setCheckoutData(JSON.parse(storedCheckoutData));
+    }
+  }, []);
+
+  if (!checkoutData) {
+    return <LoadingScreen />;
+  }
+
+  console.log(`Executing checkoutData: `, checkoutData);
+
   return (
     <MainContainer>
       <div className={`mt-6 max-w-screen-bp-1009`}>
         <ViapropertyHeading headingSize={`lg`} label={`Proceed with the Purchase!`} />
-        <Paragraph customClasses={`mt-4`}
+        <Paragraph customClasses={`mt-4 max-w-screen-bp-750`}
                    text={(
                      <>
                        Please fill in the form below to proceed with the purchase. if needed, <HighlightText text={`we may contact you shortly after
               you have submitted the form.`} /> </>
                    )} />
 
-        <CheckoutHeading discount={10} propertyDiscountPrice={699} propertyPrice={788}
-                         propertyTitle={`A beautiful house in the heart of the city`}
-                         propertyFor={`rent`} />
+        <CheckoutHeading discount={checkoutData.propertyDetails.onSale.discount}
+                         propertyDiscountPrice={checkoutData.propertyDetails.onSale.newPrice}
+                         propertyPrice={checkoutData.propertyDetails.price}
+                         propertyTitle={checkoutData.propertyDetails.title}
+                         propertyFor={checkoutData.propertyDetails.propertyFor} />
 
-        <CheckoutPropertyImages images={[PropertyImg1, PropertyImg2, PropertyImg3, PropertyImg4]} />
+        <CheckoutPropertyImages title={checkoutData.propertyDetails.title}
+                                images={checkoutData.propertyDetails.images} />
 
         <div>
           <div className={`border-b border-b-blue-100 mb-9`}>
