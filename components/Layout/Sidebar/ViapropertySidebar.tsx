@@ -8,16 +8,23 @@ import dayjs from 'dayjs';
 import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { rentPropertySchema } from '@/utils/schemas/rentPropertySchema';
 import { sellPropertySchema } from '@/utils/schemas/sellPropertySchema';
+import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+
+export type PropertyOnSaleType = {
+  isOnSale: boolean;
+  discount: string | null;
+  newPrice: string | null;
+}
 
 export type PropertySidebarDetails = {
   price: string;
-  onSale: {
-    isOnSale: boolean;
-    discount: number | null;
-    newPrice: string | null;
-  }
-  propertyFor: 'rent' | 'sell';
+  onSale: PropertyOnSaleType;
+  propertyFor: PropertyForType;
   location: string;
+  dataForCheckout: {
+    propertyId: string;
+    images: string[];
+  }
   extraPricing: { title: string; price: number; }[] | []
 }
 
@@ -30,6 +37,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const { price, onSale, propertyFor, location, extraPricing } = propertyDetails;
+  const { propertyId, images } = propertyDetails.dataForCheckout;
 
   const formattedPrice = transformStrToNum(price);
   const formattedNewPrice = onSale.newPrice ? transformStrToNum(onSale.newPrice) : 0;
@@ -127,7 +135,15 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
     setErrorMessage(``);
     setOpenSnackbar(false);
 
-    currObject.reset();
+    results.propertyDetails = {
+      propertyId,
+      images,
+      price,
+      onSale,
+      selectedExtras
+    };
+
+    // currObject.reset();
     // output
     console.log(`Executing results: `, results);
   }

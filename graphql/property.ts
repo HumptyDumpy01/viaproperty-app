@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 export const GET_PROPERTY = gql`
     query GetProperty($id: String!) {
         property(id: $id) {
+            id
             images
             rating {
                 overall

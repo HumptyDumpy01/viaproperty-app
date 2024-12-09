@@ -120,6 +120,13 @@ export default function PropertyDescription({ params }: { params: { id: string }
           </div>
           <ProviderContainer>
             <SidebarContainer propertyDetails={{
+              dataForCheckout: {
+                propertyId: property.id,
+                price: property.description.priceAndTaskHistory.price,
+                propertyFor: property.propertyFor,
+                onSale: property.onSale,
+                images: property.images
+              },
               price: property.description.priceAndTaskHistory.price,
               onSale: property.onSale,
               propertyFor: property.propertyFor,
