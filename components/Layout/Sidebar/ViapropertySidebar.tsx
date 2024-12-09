@@ -5,6 +5,9 @@ import FoldList from '@/components/UI/FeatureList/FoldList';
 import { slugifyText } from '@/utils/functions/slugifyText';
 import { transformStrToNum } from '@/utils/functions/transformStrToNum';
 import dayjs from 'dayjs';
+import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
+import { rentPropertySchema } from '@/utils/schemas/rentPropertySchema';
+import { sellPropertySchema } from '@/utils/schemas/sellPropertySchema';
 
 export type PropertySidebarDetails = {
   price: string;
@@ -24,6 +27,8 @@ export type ViapropertySidebarType = {
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
   const [errorMessage, setErrorMessage] = useState<string>(`Something went wrong here!`);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const { price, onSale, propertyFor, location, extraPricing } = propertyDetails;
 
   const formattedPrice = transformStrToNum(price);
@@ -86,84 +91,114 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
         // @ts-ignore
         to: dateRange[1].$d.toISOString()
       };
-
     }
 
-    // resetting the form
+    const validateRentSchema = rentPropertySchema.safeParse({
+      dateRange: results.dateRange,
+      totalPrice: results.totalPrice
+    });
+
+    if (propertyFor === `rent` && !validateRentSchema.success) {
+      setErrorMessage(validateRentSchema.error.errors[0].message);
+      setOpenSnackbar(true);
+      return;
+    }
+
+    const validateSellSchema = sellPropertySchema.safeParse({
+      totalPrice: results.totalPrice
+    });
+
+    if (propertyFor === `sell` && !validateSellSchema.success) {
+      setErrorMessage(validateSellSchema.error.errors[0].message);
+      setOpenSnackbar(true);
+      return;
+    }
+
+    setErrorMessage(``);
+    setOpenSnackbar(false);
+
     currObject.reset();
     // output
     console.log(`Executing results: `, results);
   }
 
   return (
-    <div className={`border h-fit border-red-500 rounded-3xl p-7 w-full`}>
-      <div className={`flex items-center justify-between mb-6`}>
-        <div className={`flex gap-5 items-center`}>
-          {onSale.isOnSale && (
-            <>
+    <>
+      <SnackbarMUI
+        state={{ open: openSnackbar, setOpen: setOpenSnackbar }}
+        severity={`error`}
+        message={errorMessage}
+      />
+      <div className={`border h-fit border-red-500 rounded-3xl p-7 w-full`}>
+        <div className={`flex items-center justify-between mb-6`}>
+          <div className={`flex gap-5 items-center`}>
+            {onSale.isOnSale && (
+              <>
               <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
                 ${onSale.newPrice}<span className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
               </span>
-              <span className={`text-zinc-300 inline-block line-through`}>
+                <span className={`text-zinc-300 inline-block line-through`}>
                 {price}
               </span>
-            </>
-          )}
-          {!onSale.isOnSale && (
-            <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
+              </>
+            )}
+            {!onSale.isOnSale && (
+              <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
               ${price}<span className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
             </span>
-          )}
-        </div>
-        {onSale.isOnSale && (
-          <span
-            className={`inline-block text-[13px] font-semibold bg-linear-main-red text-white px-3 py-1 rounded-full`}>
+            )}
+          </div>
+          {onSale.isOnSale && (
+            <span
+              className={`inline-block text-[13px] font-semibold bg-linear-main-red text-white px-3 py-1 rounded-full`}>
             {onSale.discount}
           </span>
-        )}
-      </div>
-      <form onSubmit={handleSubmit}>
-        <h2 className={`bg-clip-text mb-4 text-transparent bg-linear-main-red font-bold text-3xl`}>
-          Let&#39;s {propertyFor === `rent` ? `Rent` : `Buy`} it!
-        </h2>
-        <div className={`flex flex-col gap-3.5 mb-7 min-w-72`}>
-          <LabelAndTextBadge label={`Location`} text={location.length > 60 ? location.slice(0, 60) + `..` : location} />
-          <LabelAndTextBadge label={`Selling Options`}
-                             text={propertyFor === `rent` ? `Rent a Property` : `Buy a Property`} />
-          {propertyFor === `rent` && (
-            <div className={`flex flex-col gap-3.5 justify-center min-w-72 mt-2`}>
-              <div className={`cursor-pointer`}>
-                <MUICalendar onChange={(newValue) => {
-                  setDateRange(newValue);
-                }} />
-              </div>
-            </div>
           )}
         </div>
-        {extraPricing.length > 0 && (
-          <div className={`mb-6`}>
-            <FoldList enableFold={false} type={`checkbox`} checkboxes={extraPricing.map((extra) => ({
-              checkboxLabel: extra.title,
-              checkboxName: slugifyText(extra.title),
-              spanLabel: extra.price.toString(),
-              onChange: (isChecked: boolean) => handleExtraChange(extra.title, isChecked)
-            }))} label={`Extra Features`} />
+        <form onSubmit={handleSubmit}>
+          <h2 className={`bg-clip-text mb-4 text-transparent bg-linear-main-red font-bold text-3xl`}>
+            Let&#39;s {propertyFor === `rent` ? `Rent` : `Buy`} it!
+          </h2>
+          <div className={`flex flex-col gap-3.5 mb-7 min-w-72`}>
+            <LabelAndTextBadge label={`Location`}
+                               text={location.length > 60 ? location.slice(0, 60) + `..` : location} />
+            <LabelAndTextBadge label={`Selling Options`}
+                               text={propertyFor === `rent` ? `Rent a Property` : `Buy a Property`} />
+            {propertyFor === `rent` && (
+              <div className={`flex flex-col gap-3.5 justify-center min-w-72 mt-2`}>
+                <div className={`cursor-pointer`}>
+                  <MUICalendar onChange={(newValue) => {
+                    setDateRange(newValue);
+                  }} />
+                </div>
+              </div>
+            )}
           </div>
-        )}
-        {/*@ts-ignore*/}
-        <FoldList type={`default`} defaultProperties={overallProperties} label={`Overall`} />
-        <div className={`flex items-center justify-between mt-7 mb-3`}>
-          <span className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>Total</span>
-          <span
-            className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>{totalPrice}$</span>
-        </div>
-        <div className={`w-full flex items-center`}>
-          <button
-            className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-xl font-bold px-5 py-4 mt-7 transition-all duration-200 hover:animate-pulse`}>
-            Buy Now
-          </button>
-        </div>
-      </form>
-    </div>
+          {extraPricing.length > 0 && (
+            <div className={`mb-6`}>
+              <FoldList enableFold={false} type={`checkbox`} checkboxes={extraPricing.map((extra) => ({
+                checkboxLabel: extra.title,
+                checkboxName: slugifyText(extra.title),
+                spanLabel: extra.price.toString(),
+                onChange: (isChecked: boolean) => handleExtraChange(extra.title, isChecked)
+              }))} label={`Extra Features`} />
+            </div>
+          )}
+          {/*@ts-ignore*/}
+          <FoldList type={`default`} defaultProperties={overallProperties} label={`Overall`} />
+          <div className={`flex items-center justify-between mt-7 mb-3`}>
+            <span className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>Total</span>
+            <span
+              className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>{totalPrice}$</span>
+          </div>
+          <div className={`w-full flex items-center`}>
+            <button
+              className={`bg-linear-main-red flex text-white rounded-2xl w-full text-center justify-center text-xl font-bold px-5 py-4 mt-7 transition-all duration-200 hover:animate-pulse`}>
+              Buy Now
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

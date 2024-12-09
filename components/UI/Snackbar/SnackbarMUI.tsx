@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import { createPortal } from 'react-dom';
 
 type SnackbarMUIProps = {
   severity: 'error' | 'warning' | 'info' | 'success';
@@ -28,7 +29,7 @@ export default function SnackbarMUI({ severity, variant = `filled`, message, sta
     setOpen(false);
   };
 
-  return (
+  return createPortal(
     <Snackbar open={open} onClose={handleClose} autoHideDuration={6000}>
       <Alert
         onClose={handleClose}
@@ -37,6 +38,7 @@ export default function SnackbarMUI({ severity, variant = `filled`, message, sta
         sx={{ width: '100%' }}>
         {message}
       </Alert>
-    </Snackbar>
+    </Snackbar>,
+    document.getElementById(`snackbar`)!
   );
 }
