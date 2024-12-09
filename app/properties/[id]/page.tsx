@@ -18,14 +18,12 @@ import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarB
 import { useFetchProperty } from '@/hooks/useFetchProperty';
 import { calculateTheAverage } from '@/utils/functions/calculateTheAverage';
 
-import Lottie from 'lottie-react';
-import JSONAnimationLoading from '@/animations/animation-loading.json';
-
 // import { GET_PROPERTY } from '@/graphql/property';
 // import { ApolloClient, DefaultOptions, InMemoryCache } from '@apollo/client';
 // import NotFound from 'next/dist/client/components/not-found-error';
 import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 import { DEFAULT_ERROR_MESSAGE } from '@/utils/generics/generics';
+import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 
 /*
 
@@ -58,9 +56,7 @@ export default function PropertyDescription({ params }: { params: { id: string }
 // export default async function PropertyDescription({ params }: { params: { id: string } }) {
   const { error, data, loading } = useFetchProperty(params.id);
   if (loading) return (
-    <div className={`flex h-screen justify-center items-center`}>
-      <Lottie className={`w-96 h-96 mb-36`} animationData={JSONAnimationLoading} />
-    </div>
+    <LoadingScreen />
   );
 
   if (error) throw new Error(error.message || DEFAULT_ERROR_MESSAGE);
