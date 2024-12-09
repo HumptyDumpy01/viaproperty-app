@@ -77,7 +77,6 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
     const results = Object.fromEntries(formData.entries());
     // @ts-ignore
     results.totalPrice = totalPrice;
-    results.dynamicURL = `${location}/${propertyFor}`;
     // resetting the form
     currObject.reset();
     // output

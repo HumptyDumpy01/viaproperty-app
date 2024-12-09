@@ -93,7 +93,6 @@ export default function FilterProperties() {
 
     dispatch(propertiesActions.setProperties(filteredProperties));
     dispatch(propertiesActions.setCurrentPage(1)); // Reset to the first page
-    console.log(results);
   }
 
   return (
