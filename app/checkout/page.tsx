@@ -104,8 +104,13 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
           )}
 
           <div className={`border-b border-b-blue-100 mb-9`}>
-            <Customer headingLabel={`Landlord`} phone={[`+380508832324`, `+380998278372`]} initials={`Nikolas Baker`}
-                      email={`test@gmail.com`} />
+            {checkoutData.landlordData.contacts && checkoutData.landlordData.contacts.map((contact, index) => (
+              <div key={index}>
+                <Customer headingLabel={`Landlord`} phone={contact.phones}
+                          initials={contact.initials}
+                          email={contact.email} />
+              </div>
+            ))}
           </div>
 
           <div className={`mt-10 border-b border-b-blue-100 pb-12 mb-9`}>

@@ -125,7 +125,6 @@ export default function PropertyDescription({ params }: { params: { id: string }
           <ProviderContainer>
             <SidebarContainer propertyDetails={{
               landlordData: {
-                email: property.landlord.email,
                 contacts: property.description.contacts.contacts
               },
               dataForCheckout: {

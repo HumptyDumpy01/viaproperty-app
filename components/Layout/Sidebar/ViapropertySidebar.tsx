@@ -21,10 +21,10 @@ export type PropertyOnSaleType = {
 export type LandlordsContactsType = {
   initials: string;
   phones: string[];
+  email: string;
 }
 
 export type LandlordDataType = {
-  email: string;
   contacts: LandlordsContactsType[];
 }
 
@@ -163,6 +163,8 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
       title,
       propertyFor
     };
+
+    results.landlordData = propertyDetails.landlordData;
 
     // push all three params of results, extras, propertyDetails and totalPrice
     // onto local storage
