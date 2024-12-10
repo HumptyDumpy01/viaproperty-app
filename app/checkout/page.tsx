@@ -53,6 +53,13 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
 
   console.log(`Executing checkoutData: `, checkoutData);
 
+  const extraFeaturesSelected = checkoutData.propertyDetails.selectedExtras.length > 0 ?
+    checkoutData.propertyDetails.selectedExtras.filter(extra => extra.checked)
+      .map(extra => ({
+        price: extra.price,
+        label: extra.label
+      })) : [];
+
   return (
     <MainContainer>
       <div className={`mt-6 max-w-screen-bp-1009`}>
@@ -75,16 +82,7 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
 
         <div>
           <div className={`border-b border-b-blue-100 mb-9`}>
-            <ExtraFeaturesSelected extraFeaturesSelected={[{
-              price: 100,
-              label: `Extra Feature 1`
-            }, {
-              price: 200,
-              label: `Extra Feature 2`
-            }, {
-              price: 300,
-              label: `Extra Feature 3`
-            }]} />
+            <ExtraFeaturesSelected extraFeaturesSelected={extraFeaturesSelected} />
           </div>
 
           <div className={`border-b border-b-blue-100 mb-9`}>
