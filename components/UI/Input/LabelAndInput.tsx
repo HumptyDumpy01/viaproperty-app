@@ -41,8 +41,8 @@ export default function
 
   const inputNode: ReactNode = (
     <>
-      <input disabled={disabled} defaultValue={defaultValue} type={`${inputType}`} id={`${name}`}
-             name={`${name}`}
+      <input disabled={disabled} defaultValue={defaultValue} type={inputType} id={name}
+             name={name}
              className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
           focus:outline-none border-2 border-transparent transition-all 
           duration-300 ${disabledStyles} ${labelStyle !== `dark-blue` ? `focus:border-red-500` : `focus:border-blue-900`} focus:bg-white`}
@@ -72,7 +72,7 @@ export default function
     <>
       <div className={`flex flex-col gap-2.5 w-full`}>
         <div className={`flex gap-2 items-center`}>
-          <label htmlFor={`${name}`}
+          <label htmlFor={name}
                  className={disabled ? disabledLabelStyles : labelStyles}>{label} {required ? `*` : ``}</label>
           {disabled && <span className={`text-red-500 font-semibold text-[13px] uppercase`}>Cannot be changed</span>}
         </div>
