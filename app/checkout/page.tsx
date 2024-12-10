@@ -18,7 +18,7 @@ import CheckoutPropertyImages from '@/components/Checkout/CheckoutPropertyImages
 import CheckoutContactDetailsForm from '@/components/Checkout/CheckoutContactDetailsForm';
 import { Tooltip } from '@mui/material';
 import CheckoutInputs from '@/components/Checkout/CheckoutInputs';
-import { PropertyOnSaleType } from '@/components/Layout/Sidebar/ViapropertySidebar';
+import { LandlordDataType, PropertyOnSaleType } from '@/components/Layout/Sidebar/ViapropertySidebar';
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 
@@ -34,6 +34,7 @@ export type CheckoutDataType = {
     title: string;
     propertyFor: PropertyForType;
   },
+  landlordData: LandlordDataType,
   totalPrice: number,
 }
 
@@ -50,6 +51,12 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
   if (!checkoutData) {
     return <LoadingScreen />;
   }
+
+  // creating a function that would turn e.g. "2024-12-10T06:56:17.419Z" to "December 10, 2024"
+  const formatDate = (date: string) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString(`en-US`, { month: `long`, day: `numeric`, year: `numeric` });
+  };
 
   console.log(`Executing checkoutData: `, checkoutData);
 
@@ -85,9 +92,16 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
             <ExtraFeaturesSelected extraFeaturesSelected={extraFeaturesSelected} />
           </div>
 
-          <div className={`border-b border-b-blue-100 mb-9`}>
-            <RentPeriod from={`August 1, 2024`} to={`August 30, 2024`} />
-          </div>
+          {checkoutData.propertyDetails.propertyFor === `rent` && (
+            <>
+              <div className={`border-b border-b-blue-100 mb-9`}>
+                <RentPeriod from={formatDate(checkoutData.dateRange?.from ?
+                  checkoutData.dateRange.from : ``)} to={
+                  formatDate(checkoutData.dateRange?.to ? checkoutData.dateRange.to : ``)
+                } />
+              </div>
+            </>
+          )}
 
           <div className={`border-b border-b-blue-100 mb-9`}>
             <Customer headingLabel={`Landlord`} phone={[`+380508832324`, `+380998278372`]} initials={`Nikolas Baker`}

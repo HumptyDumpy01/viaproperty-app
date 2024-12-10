@@ -18,6 +18,16 @@ export type PropertyOnSaleType = {
   newPrice: string | null;
 }
 
+export type LandlordsContactsType = {
+  initials: string;
+  phones: string[];
+}
+
+export type LandlordDataType = {
+  email: string;
+  contacts: LandlordsContactsType[];
+}
+
 export type PropertySidebarDetails = {
   price: string;
   onSale: PropertyOnSaleType;
@@ -29,6 +39,7 @@ export type PropertySidebarDetails = {
     title: string;
   }
   extraPricing: { title: string; price: number; }[] | []
+  landlordData: LandlordDataType
 }
 
 export type ViapropertySidebarType = {

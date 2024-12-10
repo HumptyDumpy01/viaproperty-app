@@ -50,6 +50,7 @@ export const GET_PROPERTY = gql`
                     contacts {
                         initials
                         phones
+                        email
                     }
                 }
                 priceAndTaskHistory {

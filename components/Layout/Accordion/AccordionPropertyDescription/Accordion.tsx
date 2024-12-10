@@ -21,7 +21,7 @@ export type AccordionTypeData = {
   features: FeaturesType[] | [];
   location: { title: string; description: string, location: { type: string, coordinates: [number, number] } };
   videoTour: string | null;
-  contacts: { description: string; contacts: { initials: string; phones: string[] }[] };
+  contacts: { description: string; contacts: { initials: string; phones: string[], email: string }[] };
   priceAndTaskHistory: { price: string; history: string };
   floorPlans: FeaturesType[] | [];
 }
