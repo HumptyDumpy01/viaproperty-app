@@ -10,6 +10,7 @@ import React, { FormEvent, useState } from 'react';
 import { checkoutDetailsSchema } from '@/utils/schemas/checkoutDetailsSchema';
 import axios from 'axios';
 import { redirectToCheckout } from '@/utils/stripe/stripe';
+import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 
 type CheckoutContactDetailsFormType = {
   checkoutData: CheckoutDataType;
@@ -69,11 +70,14 @@ export default function CheckoutContactDetailsForm({ checkoutData }: CheckoutCon
     }
 
     // output
-    console.log(results);
+    // console.log(results);
   }
 
   return (
     <>
+      <BackdropMUI state={{ open: loading, setOpen: setLoading }} alertMessage={`
+      Please wait while we process your request  for checkout..
+      `} />
       {errorMessage && (
         <>
           <div className={` mt-10 mb-8`}>
