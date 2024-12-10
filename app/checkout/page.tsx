@@ -115,7 +115,13 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
 
           <div className={`mt-10 border-b border-b-blue-100 pb-12 mb-9`}>
             <ViapropertyHeading customClasses={`mb-8`} label={`Pricing`} headingSize={`md`} />
-            <CheckoutInputs />
+            <CheckoutInputs
+              propertyFor={checkoutData.propertyDetails.propertyFor}
+              propertyPrice={checkoutData.propertyDetails.price}
+              selectedExtras={checkoutData.propertyDetails.selectedExtras}
+              onSale={checkoutData.propertyDetails.onSale}
+              totalPrice={checkoutData.totalPrice}
+            />
           </div>
 
           <div>
