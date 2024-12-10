@@ -1,9 +1,6 @@
 'use client';
 
-/*type CheckoutContactDetailsFormType = {
-  // children: ReactNode;
-}*/
-
+import { CheckoutDataType } from '@/app/checkout/page';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import Button from '@/components/UI/Button/Button';
@@ -11,11 +8,19 @@ import Paragraph from '@/components/Typography/Paragraph';
 import HighlightText from '@/components/Typography/HighlightText';
 import React, { FormEvent, useState } from 'react';
 import { checkoutDetailsSchema } from '@/utils/schemas/checkoutDetailsSchema';
+import axios from 'axios';
+import { redirectToCheckout } from '@/utils/stripe/stripe';
 
-export default function CheckoutContactDetailsForm(/*{  }: CheckoutContactDetailsFormType*/) {
+type CheckoutContactDetailsFormType = {
+  checkoutData: CheckoutDataType;
+  // children: ReactNode;
+}
+
+export default function CheckoutContactDetailsForm({ checkoutData }: CheckoutContactDetailsFormType) {
   const [errorMessage, setErrorMessage] = useState<string>(`Please fill in all the required fields.`);
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
@@ -32,10 +37,37 @@ export default function CheckoutContactDetailsForm(/*{  }: CheckoutContactDetail
       setErrorMessage(validateSchema.error.errors[0].message);
       return;
     }
-    /* TODO: CREATE STRIPE CHECKOUT SESSION ON FULL SCREEN */
 
-    // resetting the form
-    currObject.reset();
+    setLoading(true);
+
+    try {
+      const response = await axios.post('/api/create-checkout-session', {
+        propertyId: checkoutData.propertyDetails.propertyId,
+        extraFeaturesSelected: checkoutData.propertyDetails.selectedExtras,
+        rentalPeriod: checkoutData.dateRange ? checkoutData.dateRange : null,
+        overallPricing: checkoutData.propertyDetails.selectedExtras ? [...checkoutData.propertyDetails.selectedExtras, {
+          title: `Total Price`,
+          description: `The total price for the selected extras is ${checkoutData.totalPrice} dollars.`
+        }] : [],
+        contactDetails: results,
+        totalPrice: checkoutData.totalPrice,
+        propertyFor: checkoutData.propertyDetails.propertyFor,
+        propertyTitle: checkoutData.propertyDetails.title
+      });
+
+      const session = response.data;
+
+      if (session.id) {
+        setLoading(false);
+        await redirectToCheckout(session.id);
+      } else {
+        setErrorMessage('Failed to create Stripe Checkout session.');
+      }
+    } catch (error: any) {
+      setErrorMessage(error.response?.data?.error || error.message || 'Failed to create Stripe Checkout session.');
+      console.error(error);
+    }
+
     // output
     console.log(results);
   }

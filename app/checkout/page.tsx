@@ -135,7 +135,7 @@ export default function CheckoutPage(/*{  }: CheckoutPageType*/) {
                 This information will not be shared with anyone.`} />
               </>
             )} />
-            <CheckoutContactDetailsForm />
+            <CheckoutContactDetailsForm checkoutData={checkoutData} />
             <Tooltip title={`Please fill in the form to proceed with the purchase`} followCursor>
               <div className={`w-full border-2 border-red-500 rounded-full px-9 py-4 mt-20 cursor-not-allowed`}>
                 <ViapropertyHeading headingSize={`lg`} label={`Payment Details`} />
