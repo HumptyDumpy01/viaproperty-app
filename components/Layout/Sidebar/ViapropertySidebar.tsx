@@ -58,7 +58,8 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
   const { propertyId, images, title } = propertyDetails.dataForCheckout;
 
   const formattedPrice = transformStrToNum(price);
-  const formattedNewPrice = onSale.newPrice ? transformStrToNum(onSale.newPrice) : 0;
+  console.log(`Executing formattedPrice: `, formattedPrice);
+  const formattedNewPrice = onSale.newPrice ? transformStrToNum(onSale.newPrice) : formattedPrice;
 
   const initialExtrasState = extraPricing.map(extra => ({
     checked: false,
