@@ -1,6 +1,4 @@
-// middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
 
 export async function middleware(request: NextRequest) {
   const tokenCookie = request.cookies.get('access_token');
@@ -11,7 +9,17 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    jwt.verify(token, process.env.JWT_SECRET!);
+    const response = await fetch(new URL('/api/verify-token', request.url).toString(), {
+      method: 'POST',
+      headers: {
+        Cookie: `access_token=${token}`
+      }
+    });
+
+    if (response.status !== 200) {
+      new Error('Invalid token');
+    }
+
     return NextResponse.next();
   } catch (error) {
     return NextResponse.redirect(new URL('/auth/login', request.url));

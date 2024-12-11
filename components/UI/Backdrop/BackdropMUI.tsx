@@ -15,11 +15,18 @@ type BackdropMUIProps = {
 
 export default function BackdropMUI({ state, alertMessage }: BackdropMUIProps) {
   const { open, setOpen } = state;
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleClose = () => {
     alert(alertMessage);
     setOpen(false);
   };
+
+  if (!mounted) return null;
 
   return createPortal(
     <div>

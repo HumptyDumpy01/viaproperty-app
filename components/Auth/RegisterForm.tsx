@@ -51,7 +51,7 @@ export default function RegisterForm(/*{ setActivePage }: RegisterFormType*/) {
         </div>
 
         <div className={`flex mb-4`}>
-          <ButtonSmall label={`Already registered an account?`} />
+          <ButtonSmall mode={`link`} href={`/auth/login`} label={`Already registered an account?`} />
         </div>
 
       </form>
