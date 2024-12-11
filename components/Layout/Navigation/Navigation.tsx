@@ -8,12 +8,18 @@ import NavLink from '@/components/UI/Link/NavLInk';
 import React, { useState } from 'react';
 import Input from '@/components/UI/Input/Input';
 import Logo from '@/components/UI/Logo/Logo';
-import UserCredentials from '@/components/Layout/Other/UserCredentials';
 import NavigationFullScreen from '@/components/Layout/Navigation/NavigationFullScreen';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
+import { useUserDataOnClient } from '@/hooks/useUserDataOnClient';
+import UserCredentialsSkeleton from '@/components/UI/Skeletons/UserCredentialsSkeleton';
+import UserCredentials from '@/components/Layout/Other/UserCredentials';
+import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
+import { trimString } from '@/utils/functions/trimString';
 
 export default function Navigation(/*{  }: NavigationType*/) {
   const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
+  const { userData, loading } = useUserDataOnClient();
+
   return (
     <>
       <div onClick={() => setNavigationOpen(false)} className={`inset-0 w-screen h-screen fixed bg-white/95 z-[52] bp-1178:opacity-0 pointer-events-hidden
@@ -44,7 +50,21 @@ export default function Navigation(/*{  }: NavigationType*/) {
               <ViapropertyIcon icon={`heart`} />
               <ViapropertyIcon icon={`bell`} />
             </div>
-            <UserCredentials initials={`Nikolas Tuz`} location={`California, USA`} abbrInitials={`N.B`} />
+
+            {loading && (
+              <>
+                <UserCredentialsSkeleton />
+              </>
+            )}
+            {!loading && (
+              <>
+                <UserCredentials
+                  initials={userData?.initials || `Guest`}
+                  location={userData?.email ? trimString(userData.email, 13) : `unknown`}
+                  abbrInitials={userData?.initials ? abbreviateInitials(userData.initials) : `G`}
+                />
+              </>
+            )}
           </div>
 
         </nav>
