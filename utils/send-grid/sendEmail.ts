@@ -25,7 +25,6 @@ export const sendEmail = async ({ to, subject, text, html }: EmailInput) => {
 
   try {
     await sgMail.send(msg);
-    console.log('Email sent successfully');
   } catch (error) {
     if (error instanceof Error) {
       console.error('Error sending email:', error.message);
