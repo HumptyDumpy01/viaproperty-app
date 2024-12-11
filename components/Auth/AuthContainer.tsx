@@ -9,6 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import NotFound from 'next/dist/client/components/not-found-error';
 import { Suspense, useEffect, useState } from 'react';
 import { AuthPageType } from '@/app/auth/page';
+import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 
 export default function AuthContainer() {
   const searchParams = useSearchParams();
@@ -31,7 +32,7 @@ export default function AuthContainer() {
   const headingText = activePage === 'login' ? 'Login Now!' : activePage === 'register' ? 'Sign up!' : 'Reset Password';
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingScreen />}>
       <MainContainer>
         <div className={`flex flex-col mt-12 ${activePage !== `forgot-password` ? `max-w-[464px] m-auto` : ``}`}>
           <h1
