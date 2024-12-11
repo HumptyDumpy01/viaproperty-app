@@ -14,6 +14,7 @@ type PasswordInputType = {
   required?: boolean;
   customInputClassNames?: string;
   labelSize?: string;
+  showStar?: boolean;
   // children: ReactNode;
 }
 
@@ -24,6 +25,7 @@ export default function
                   placeholder,
                   icon = undefined,
                   required = false,
+                  showStar = true,
                   customInputClassNames = `w-full`,
                   labelSize
                 }: PasswordInputType) {
@@ -32,7 +34,8 @@ export default function
   return (
     <>
       <div className={`relative`}>
-        <LabelAndInput labelSize={labelSize} labelStyle={`dark-blue`} name={inputName} placeholder={placeholder}
+        <LabelAndInput showStar={showStar} labelSize={labelSize} labelStyle={`dark-blue`} name={inputName}
+                       placeholder={placeholder}
                        customClassNames={customInputClassNames} label={label} required={required}
                        inputType={passwordVisible ? `text` : `password`} />
         {icon === `eye` && (

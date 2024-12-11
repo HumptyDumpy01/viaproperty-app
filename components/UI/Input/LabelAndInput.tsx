@@ -9,6 +9,7 @@ type LabelAndTextType = {
   customClassNames: string;
   label: string;
   required?: boolean;
+  showStar?: boolean;
   inputType: `text` | `email` | `password` | `number` | `tel`
   labelStyle?: `red-and-huge` | `grey-and-small` | `dark-blue`;
   labelSize?: string;
@@ -26,6 +27,7 @@ export default function
                   label,
                   required = false,
                   type = `input`,
+                  showStar = true,
                   labelStyle = `red-and-huge`,
                   labelSize = `text-2xl`,
                   defaultValue = ``,
@@ -73,7 +75,7 @@ export default function
       <div className={`flex flex-col gap-2.5 w-full`}>
         <div className={`flex gap-2 items-center`}>
           <label htmlFor={name}
-                 className={disabled ? disabledLabelStyles : labelStyles}>{label} {required ? `*` : ``}</label>
+                 className={disabled ? disabledLabelStyles : labelStyles}>{label} {required && showStar ? `*` : ``}</label>
           {disabled && <span className={`text-red-500 font-semibold text-[13px] uppercase`}>Cannot be changed</span>}
         </div>
         {content}

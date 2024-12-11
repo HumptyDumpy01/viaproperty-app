@@ -1,4 +1,5 @@
-// 'use client';
+'use client';
+
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import PasswordInput from '@/components/UI/Input/PasswordInput';
 import TextualTooltip from '@/components/Layout/Tooltip/TextualTooltip';
@@ -6,20 +7,62 @@ import HighlightText from '@/components/Typography/HighlightText';
 import Checkbox from '@/components/UI/Checkbox/Checkbox';
 import ButtonSmall from '@/components/UI/Button/ButtonSmall';
 import BtnFullScreen from '@/components/UI/Button/BtnFullScreen';
+import { FormEvent, useState } from 'react';
+import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
+import { LoginSchema } from '@/utils/schemas/auth/loginSchema';
 
+
+export type LoginType = {
+  email: string;
+  password: string;
+}
 
 // type LoginFormType = {}
 
 export default function LoginForm(/*{ setActivePage }: LoginFormType*/) {
+  const [errorMessage, setErrorMessage] = useState<string>(``);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const currObject = e.currentTarget;
+    const formData = new FormData(currObject);
+    const results = Object.fromEntries(formData.entries()) as LoginType;
+
+    const trimmedResults = {
+      email: results.email.trim(),
+      password: results.password.trim()
+    } as LoginType;
+
+    const validate = LoginSchema.safeParse(trimmedResults);
+
+    if (!validate.success) {
+      setErrorMessage(validate.error.errors[0].message);
+      return;
+    }
+
+    // resetting the form
+    currObject.reset();
+    // output
+    console.log(results);
+  }
+
   return (
     <>
-      <form className={`w-full`}>
+      {errorMessage && (
+        <>
+          <div className={`mb-5`}>
+            <ErrorMessage errorMessage={errorMessage} />
+          </div>
+        </>
+      )}
+      <form onSubmit={handleSubmit} className={`w-full`}>
         <div className={`flex flex-col gap-4 mb-3.5`}>
-          <LabelAndInput labelStyle={`dark-blue`} name={`email`} placeholder={`Enter your email`}
+          <LabelAndInput showStar={false} labelStyle={`dark-blue`} name={`email`} placeholder={`Enter your email`}
                          customClassNames={`w-full`} label={`Email`}
                          inputType={`email`} required />
 
-          <PasswordInput icon={`eye`} label={`Password`} inputName={`password`} placeholder={`Enter your password`} />
+          <PasswordInput showStar={false} required icon={`eye`} label={`Password`} inputName={`password`}
+                         placeholder={`Enter your password`} />
         </div>
 
         <TextualTooltip text={(
