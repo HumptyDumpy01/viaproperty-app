@@ -50,7 +50,7 @@ export default function FeaturedProperties({ headingLabel, headingHref, headingS
             return (
               <CardProperty
                 key={item.id}
-                href={`${item.id}`}
+                href={`/properties/${item.id}`}
                 heading={trimmedTitle}
                 altImg={`${item.title} Image`}
                 srcImg={item.images[0]}
