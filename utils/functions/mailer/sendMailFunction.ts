@@ -14,10 +14,10 @@ export const sendEmail = async ({ to, subject, text, html }: EmailInput) => {
     })
   });
 
-  if (response.ok) {
-    alert('Email sent successfully!');
-  } else {
-    const data = await response.json();
-    alert(`Failed to send email: ${data.error}`);
-  }
+  // if (response.ok) {
+  //   alert('Email sent successfully!');
+  // } else {
+  //   const data = await response.json();
+  //   alert(`Failed to send email: ${data.error}`);
+  // }
 };
