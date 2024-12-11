@@ -1,18 +1,14 @@
 // 'use client';
 
-import { AuthPageType } from '@/app/auth/page';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import PasswordInput from '@/components/UI/Input/PasswordInput';
 import ButtonSmall from '@/components/UI/Button/ButtonSmall';
 import BtnFullScreen from '@/components/UI/Button/BtnFullScreen';
 import SelectAndTooltip from '@/components/UI/Select/SelectAndTooltip';
 
-type RegisterFormType = {
-  setActivePage: (page: AuthPageType) => void;
-  // children: ReactNode;
-}
+// type RegisterFormType = {}
 
-export default function RegisterForm({ setActivePage }: RegisterFormType) {
+export default function RegisterForm(/*{ setActivePage }: RegisterFormType*/) {
   return (
     <>
       <form className={`w-full`}>
@@ -55,7 +51,7 @@ export default function RegisterForm({ setActivePage }: RegisterFormType) {
         </div>
 
         <div className={`flex mb-4`}>
-          <ButtonSmall label={`Already registered an account?`} onClick={() => setActivePage(`login`)} />
+          <ButtonSmall label={`Already registered an account?`} />
         </div>
 
       </form>

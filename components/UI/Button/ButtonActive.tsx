@@ -1,16 +1,27 @@
 // 'use client';
 
 import { ComponentPropsWithoutRef } from 'react';
+import Link from 'next/link';
 
 type ButtonStatesType = {
   active: boolean;
   label: string;
   size?: 'small' | 'medium' | 'large';
-  color?: `green` | `red`
-  // children: ReactNode;
-} & ComponentPropsWithoutRef<'button'>;
+  color?: `green` | `red`;
+  mode?: `link` | `button`;
+  href?: string; // Add href prop for link mode
+} & ComponentPropsWithoutRef<'button'> & ComponentPropsWithoutRef<'a'>;
 
-export default function ButtonActive({ active, label, size = `large`, color = `green`, ...props }: ButtonStatesType) {
+export default function
+  ButtonActive({
+                 active,
+                 label,
+                 size = `large`,
+                 color = `green`,
+                 mode = `button`,
+                 href,
+                 ...props
+               }: ButtonStatesType) {
   const greenStyles = `text-green-700 border border-green-700`;
   const redStyles = `text-red-500 border border-red-500`;
   const activeStyles = `font-bold rounded-full text-nowrap`;
@@ -50,11 +61,19 @@ export default function ButtonActive({ active, label, size = `large`, color = `g
       break;
   }
 
+  const className = `${appliedSize} ${active ? `${activeStyles} ${appliedColor}` : `${disabledStyles}`}`;
+
+  if (mode === `link`) {
+    return (
+      <Link {...props} href={href!} className={className}>
+        {label}
+      </Link>
+    );
+  }
+
   return (
-    <>
-      <button {...props} type={`button`}
-              className={`${appliedSize} ${active ? `${activeStyles} ${appliedColor}` : `${disabledStyles}`}`}>{label}
-      </button>
-    </>
+    <button {...props} type={`button`} className={className}>
+      {label}
+    </button>
   );
 }

@@ -1,14 +1,10 @@
 // 'use client';
 
-import { AuthPageType } from '@/app/auth/page';
 import BulkyLink from '@/components/UI/Link/BulkyLink';
 
-type TryToSigninType = {
-  setActivePage: (page: AuthPageType) => void;
-  // children: ReactNode;
-}
+// type TryToSigninType = {}
 
-export default function TryToSignin({ setActivePage }: TryToSigninType) {
+export default function TryToSignin(/*{ setActivePage }: TryToSigninType*/) {
   return (
     <>
       <div>
@@ -16,10 +12,10 @@ export default function TryToSignin({ setActivePage }: TryToSigninType) {
         <p className={`leading-relaxed text-zinc-900 mb-12`}>Lorem ipsum dolor sit amet, consectetur adipisicing
           elit. Amet eius labore laudantium recusandae suscipit.</p>
 
-        <div onClick={() => setActivePage(`login`)}>
+        <div>
           <BulkyLink
             linkStyle={`emptyBlack`}
-            href={`/auth?page=login`}
+            href={`/auth/login`}
             label={`Try to Log In`}
           />
         </div>

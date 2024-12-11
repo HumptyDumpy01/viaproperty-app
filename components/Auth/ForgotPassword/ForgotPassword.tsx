@@ -10,7 +10,6 @@ import VerificationEmailForm from '@/components/Auth/ForgotPassword/Verification
 import EnterVerificationCodeForm from '@/components/Auth/ForgotPassword/EnterVerificationCodeForm';
 import EnterNewPasswordForm from '@/components/Auth/ForgotPassword/EnterNewPasswordForm';
 import TryToSignin from '@/components/Auth/ForgotPassword/TryToSignin';
-import { AuthPageType } from '@/app/auth/page';
 
 export type ForgotPasswordStatesType = {
   stepOne: 'disabled' | 'active' | 'completed';
@@ -19,11 +18,9 @@ export type ForgotPasswordStatesType = {
   done: 'disabled' | 'active' | 'completed';
 }
 
-export type ForgotPasswordType = {
-  setActivePage: (page: AuthPageType) => void;
-}
+// export type ForgotPasswordType = {}
 
-export default function ForgotPassword({ setActivePage }: ForgotPasswordType) {
+export default function ForgotPassword(/*{ setActivePage }: ForgotPasswordType*/) {
   const [activeState, setActiveState] = useState<ForgotPasswordStatesType>({
     stepOne: 'active',
     stepTwo: 'disabled',
@@ -73,7 +70,7 @@ export default function ForgotPassword({ setActivePage }: ForgotPasswordType) {
           <EnterNewPasswordForm handleBadgeClick={() => handleBadgeClick('stepThree', 'done')} />}
 
         {activeState.done === 'active' && (
-          <TryToSignin setActivePage={setActivePage} />
+          <TryToSignin />
         )}
       </div>
     </div>

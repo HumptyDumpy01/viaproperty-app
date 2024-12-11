@@ -6,15 +6,11 @@ import HighlightText from '@/components/Typography/HighlightText';
 import Checkbox from '@/components/UI/Checkbox/Checkbox';
 import ButtonSmall from '@/components/UI/Button/ButtonSmall';
 import BtnFullScreen from '@/components/UI/Button/BtnFullScreen';
-import { AuthPageType } from '@/app/auth/page';
 
 
-type LoginFormType = {
-  setActivePage: (page: AuthPageType) => void;
-  // children: ReactNode;
-}
+// type LoginFormType = {}
 
-export default function LoginForm({ setActivePage }: LoginFormType) {
+export default function LoginForm(/*{ setActivePage }: LoginFormType*/) {
   return (
     <>
       <form className={`w-full`}>
@@ -37,7 +33,7 @@ export default function LoginForm({ setActivePage }: LoginFormType) {
           <div>
             <Checkbox label={`Remember Me`} name={`rememberMe`} />
           </div>
-          <ButtonSmall label={`Forgot Password?`} onClick={() => setActivePage(`forgot-password`)} />
+          <ButtonSmall label={`Forgot Password?`} />
         </div>
         <div className={`flex flex-col justify-center text-center gap-9`}>
           <BtnFullScreen type={`submit`} label={`Sign In`} size={`lg`} />
