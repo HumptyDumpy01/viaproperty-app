@@ -42,12 +42,14 @@ export default function LeaveComment({
       const validate = propertyQuestionSchema.safeParse(results);
 
       if (!validate.success) {
+        scrollIntoViewFunc(`.comment-secondary-heading`);
         setErrorMessage(validate.error.errors[0].message);
         return;
       }
 
       try {
         if (!userData?.initials) {
+          scrollIntoViewFunc(`.comment-secondary-heading`);
           setErrorMessage(`You need to be logged in to ask a question. Please refresh the page and try again.`);
           return;
         }
@@ -58,6 +60,7 @@ export default function LeaveComment({
         });
         scrollIntoViewFunc(`.comment-heading`);
       } catch (e: any) {
+        scrollIntoViewFunc(`.comment-secondary-heading`);
         setErrorMessage(`Error creating question: ${
           e.message || `An error occurred while creating your question.`
         }`);
@@ -105,7 +108,8 @@ export default function LeaveComment({
             </div>
           )}
           <div>
-            <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold text-[33px] w-fit mb-8`}>
+            <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold text-[33px] w-fit mb-8
+            comment-secondary-heading`}>
               {available.reviews && propertyFor === `rent` ? `Leave Your Review` : `Ask Landlord about anything!`}
             </h3>
             <div className={`max-w-[734px]`}>
