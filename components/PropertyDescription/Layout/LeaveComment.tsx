@@ -1,6 +1,6 @@
 import StarRating from '@/components/UI/Input/StarRating';
 import ViapropertyButton from '@/components/UI/Button/ViapropertyButton';
-import React, { FormEvent, ReactNode, useState } from 'react';
+import React, { FormEvent, ReactNode, useEffect, useState } from 'react';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import { LeaveCommentBadgeType } from '@/components/PropertyDescription/Layout/LeaveCommentContainer';
 import { propertyQuestionSchema } from '@/utils/schemas/propertyQuestionSchema';
@@ -9,6 +9,23 @@ import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import { Skeleton } from '@mui/material';
 import { useCreatePropertyQuestion } from '@/hooks/mutations/useCreatePropertyQuestion';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import gql from 'graphql-tag';
+import { useSubscription } from '@apollo/client';
+
+const QUESTION_ADDED_SUBSCRIPTION = gql`
+    subscription OnQuestionAdded {
+        questionAdded {
+            id
+            propertyId
+            userId
+            likes
+            createdAt
+            replies {
+                comment
+            }
+        }
+    }
+`;
 
 type LeaveCommentType = {
   available: {
@@ -31,6 +48,14 @@ export default function LeaveComment({
   const { userData, loading } = useUserDataOnClient();
   const { createQuestion, loading: creatingQuestion, error } = useCreatePropertyQuestion();
   const [errorMessage, setErrorMessage] = useState<string>(``);
+
+  const { data: subscriptionData } = useSubscription(QUESTION_ADDED_SUBSCRIPTION);
+
+  useEffect(() => {
+    if (subscriptionData) {
+      console.log(`Executing subscriptionData.questionAdded`, subscriptionData.questionAdded);
+    }
+  }, [subscriptionData]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -68,7 +93,7 @@ export default function LeaveComment({
     } else {
       // Handle review submission
     }
-    console.log(results);
+    // console.log(results);
   }
 
   return (
