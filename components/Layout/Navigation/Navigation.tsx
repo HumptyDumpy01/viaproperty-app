@@ -62,6 +62,7 @@ export default function Navigation(/*{  }: NavigationType*/) {
                   initials={userData?.initials || `Guest`}
                   location={userData?.email ? trimString(userData.email, 13) : `unknown`}
                   abbrInitials={userData?.initials ? abbreviateInitials(userData.initials) : `G`}
+                  popupAvailable={!!userData?.email}
                 />
               </>
             )}

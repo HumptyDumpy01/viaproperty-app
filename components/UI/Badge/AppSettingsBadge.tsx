@@ -1,4 +1,7 @@
 // 'use client';
+import AppSettingsIcons from '@/components/UI/Icon/AppSettingsIcons';
+import AppSettingsLink from '@/components/Typography/AppSettingsLink';
+import React from 'react';
 
 type AppSettingsBadgeType = {
   icon: `currency` | `language` | `settings` | `logout` | `login`;
@@ -9,14 +12,11 @@ type AppSettingsBadgeType = {
     href?: string;
     underline?: boolean;
   }[]
+  onClick?: () => void;
   // children: ReactNode;
-}
+};
 
-import AppSettingsIcons from '@/components/UI/Icon/AppSettingsIcons';
-import AppSettingsLink from '@/components/Typography/AppSettingsLink';
-import React from 'react';
-
-export default function AppSettingsBadge({ icon, links }: AppSettingsBadgeType) {
+export default function AppSettingsBadge({ icon, links, onClick }: AppSettingsBadgeType) {
   const userAuthenticated = true;
   const logoutIconChosen = icon === `logout`;
   return (
@@ -29,12 +29,15 @@ export default function AppSettingsBadge({ icon, links }: AppSettingsBadgeType) 
           {links.map(function(link) {
             return (
               <>
-                <AppSettingsLink href={link.href} underline={link.underline} componentType={link.componentType}
-                                 active={link.active} label={link.label} />
+                <AppSettingsLink
+                  onClick={onClick ? onClick : undefined}
+                  href={link.href}
+                  underline={link.underline}
+                  componentType={link.componentType}
+                  active={link.active} label={link.label} />
               </>
             );
           })}
-
         </div>
       </div>
     </>

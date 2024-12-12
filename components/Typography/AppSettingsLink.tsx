@@ -6,8 +6,9 @@ type AppSettingsLinkType = {
   componentType: 'link' | 'button';
   href?: string;
   underline?: boolean;
+  onClick?: () => void;
   // children: ReactNode;
-}
+};
 
 export default function
   AppSettingsLink({
@@ -15,7 +16,8 @@ export default function
                     active,
                     componentType,
                     href = `#`,
-                    underline = true
+                    underline = true,
+                    onClick
                   }: AppSettingsLinkType) {
   const underlineStyles = underline ? `border-b-2 border-b-red-500` : ``;
   const activeStyles = `bg-clip-text text-transparent bg-linear-main-red font-bold ${underlineStyles}`;
@@ -24,11 +26,12 @@ export default function
   return (
     <>
       {componentType === 'button' && (
-        <button
-          className={`${defaultStyles} ${active ? activeStyles : inactiveStyles}`}>{label}</button>
+        <button onClick={onClick ? onClick : undefined}
+                className={`${defaultStyles} ${active ? activeStyles : inactiveStyles}`}>{label}</button>
       )}
       {componentType === 'link' && (
         <a href={href}
+           onClick={onClick ? onClick : undefined}
            className={`${defaultStyles} ${active ? activeStyles : inactiveStyles}`}>{label}</a>
       )}
     </>

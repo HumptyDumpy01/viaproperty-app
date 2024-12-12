@@ -2,19 +2,43 @@
 
 import React, { useState } from 'react';
 import AppSettingsBadge from '@/components/UI/Badge/AppSettingsBadge';
+import { useRouter } from 'next/navigation';
+import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 
 type UserCredentialsType = {
   initials: string;
   location: string;
   abbrInitials: string;
+  popupAvailable?: boolean;
   // children: ReactNode;
 }
 
-export default function UserCredentials({ initials, abbrInitials, location }: UserCredentialsType) {
+export default function
+  UserCredentials({
+                    initials,
+                    abbrInitials,
+                    location,
+                    popupAvailable = true
+                  }: UserCredentialsType) {
+  const router = useRouter();
   const [openAppSettingsPopup, setOpenAppSettingsPopup] = useState<boolean>(false);
   const hiddenPopupStyles = `translate-y-1/2 opacity-0 pointer-events-none`;
+  const [backdropOpen, setBackdropOpen] = useState<boolean>(false);
+
+  function handleLogout() {
+    setOpenAppSettingsPopup(false);
+    // get rid of the token from cookies
+    if (document !== undefined) {
+      document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      router.push(`/auth/login`);
+    }
+  }
+
   return (
     <>
+      <BackdropMUI
+        state={{ open: backdropOpen, setOpen: setBackdropOpen }}
+        alertMessage={`Wait until we log you out..`} />
       <div className={`flex items-center gap-2`}>
         <div className={`hidden bp-480:flex flex-col gap-0.5`}>
           <p className={`text-[15px] font-semibold`}>{initials}</p>
@@ -24,8 +48,9 @@ export default function UserCredentials({ initials, abbrInitials, location }: Us
           <div className={`flex items-center justify-center w-14 h-14 bg-linear-main-dark-blue rounded-full`}>
             <p className={`font-semibold text-white`}>{abbrInitials}</p>
           </div>
-          <div className={`flex items-center cursor-pointer`}
-               onClick={() => setOpenAppSettingsPopup(prevState => !prevState)}>
+          <div
+            className={`flex items-center cursor-pointer`}
+            onClick={popupAvailable ? () => setOpenAppSettingsPopup(prevState => !prevState) : undefined}>
             <svg className={`${openAppSettingsPopup ? `rotate-180` : ``} transition-all duration-300`}
                  xmlns="http://www.w3.org/2000/svg" width="19"
                  height="20" viewBox="0 0 17 18" fill="none">
@@ -34,63 +59,67 @@ export default function UserCredentials({ initials, abbrInitials, location }: Us
                 fill="#00202A" />
             </svg>
           </div>
-          <div className={`bg-white py-5 px-6 absolute top-0 right-4 border border-zinc-200 rounded-2xl flex flex-col
+          {popupAvailable && (
+            <>
+              <div className={`bg-white py-5 px-6 absolute top-0 right-4 border border-zinc-200 rounded-2xl flex flex-col
           gap-4 z-[51] min-w-64 transition-all duration-200 ${!openAppSettingsPopup ? hiddenPopupStyles : ``}`}>
-            <AppSettingsBadge links={[
-              {
-                componentType: `button`,
-                active: true,
-                label: `USD`
-              },
-              {
-                componentType: `button`,
-                active: false,
-                label: `GRN`
-              },
-              {
-                componentType: `button`,
-                active: false,
-                label: `EUR`
-              }
-            ]} icon={`currency`} />
+                <AppSettingsBadge links={[
+                  {
+                    componentType: `button`,
+                    active: true,
+                    label: `USD`
+                  },
+                  {
+                    componentType: `button`,
+                    active: false,
+                    label: `GRN`
+                  },
+                  {
+                    componentType: `button`,
+                    active: false,
+                    label: `EUR`
+                  }
+                ]} icon={`currency`} />
 
-            <AppSettingsBadge links={[
-              {
-                componentType: `button`,
-                active: true,
-                label: `EN`
-              },
-              {
-                componentType: `button`,
-                active: false,
-                label: `UKR`
-              },
-              {
-                componentType: `button`,
-                active: false,
-                label: `FR`
-              }
-            ]} icon={`language`} />
-            <AppSettingsBadge links={[
-              {
-                componentType: `link`,
-                active: true,
-                label: `Account Activities`,
-                underline: false,
-                href: `/account-settings?page=account-settings&subpage=my-profile`
-              }
-            ]} icon={`settings`} />
+                <AppSettingsBadge links={[
+                  {
+                    componentType: `button`,
+                    active: true,
+                    label: `EN`
+                  },
+                  {
+                    componentType: `button`,
+                    active: false,
+                    label: `UKR`
+                  },
+                  {
+                    componentType: `button`,
+                    active: false,
+                    label: `FR`
+                  }
+                ]} icon={`language`} />
+                <AppSettingsBadge links={[
+                  {
+                    componentType: `link`,
+                    active: true,
+                    label: `Account Activities`,
+                    underline: false,
+                    href: `/account-settings?page=account-settings&subpage=my-profile`
+                  }
+                ]} icon={`settings`} />
 
-            <AppSettingsBadge links={[
-              {
-                componentType: `button`,
-                active: true,
-                underline: false,
-                label: `Logout`
-              }
-            ]} icon={`logout`} />
+                <AppSettingsBadge onClick={handleLogout} links={[
+                  {
+                    componentType: `button`,
+                    active: true,
+                    underline: false,
+                    label: `Logout`
+                  }
+                ]} icon={`logout`} />
 
-          </div>
+              </div>
+            </>
+          )}
 
         </div>
       </div>
