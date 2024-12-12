@@ -8,6 +8,7 @@ import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import { Skeleton } from '@mui/material';
 import { useCreatePropertyQuestion } from '@/hooks/mutations/useCreatePropertyQuestion';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 
 type LeaveCommentType = {
   available: {
@@ -46,11 +47,16 @@ export default function LeaveComment({
       }
 
       try {
+        if (!userData?.initials) {
+          setErrorMessage(`You need to be logged in to ask a question. Please refresh the page and try again.`);
+          return;
+        }
         await createQuestion({
           propertyId,
           userId: userData?.id,
           comment: (results.comment as string).trim()
         });
+        scrollIntoViewFunc(`.comment-heading`);
       } catch (e: any) {
         setErrorMessage(`Error creating question: ${
           e.message || `An error occurred while creating your question.`
@@ -113,7 +119,7 @@ export default function LeaveComment({
             {loading || creatingQuestion ? (
               <Skeleton variant={`rounded`} sx={{ borderRadius: `20px` }} width={200} height={65} />
             ) : (
-              <ViapropertyButton label={`Submit`} bgColor={`bg-linear-main-dark-blue`} />
+              <ViapropertyButton disabled={loading} label={`Submit`} bgColor={`bg-linear-main-dark-blue`} />
             )}
           </div>
         </form>

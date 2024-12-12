@@ -227,28 +227,28 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
                 })}
             </div>
 
-          {sortedReviews.length > activePage * itemsPerPage && (
-            <>
-              <div className={`w-fit mt-14`}
-                   onClick={() => setActivePage(activePage + 1)}
-              >
-                <Button label={`See More`} mode={`md`} linearGradient />
-              </div>
-            </>
-          )}
+            {sortedReviews.length > activePage * itemsPerPage && (
+              <>
+                <div className={`w-fit mt-14`}
+                     onClick={() => setActivePage(activePage + 1)}
+                >
+                  <Button label={`See More`} mode={`md`} linearGradient />
+                </div>
+              </>
+            )}
 
-          {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (
-            <>
-              <div className={`w-fit mt-14`}
-                   onClick={() => {
-                     scrollIntoViewFunc(`.comment-heading`);
-                     setActivePage(1);
-                   }}
-              >
-                <Button btnVariant={`grey`} label={`Hide Reviews`} mode={`lg`} linearGradient />
-              </div>
-            </>
-          )}
+            {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (
+              <>
+                <div className={`w-fit mt-14`}
+                     onClick={() => {
+                       scrollIntoViewFunc(`.comment-heading`);
+                       setActivePage(1);
+                     }}
+                >
+                  <Button btnVariant={`grey`} label={`Hide Reviews`} mode={`lg`} linearGradient />
+                </div>
+              </>
+            )}
           </>
         )}
       </div>
