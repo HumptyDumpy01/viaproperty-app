@@ -40,7 +40,8 @@ export default function LeaveCommentContainer({ propertyFor }: LeaveCommentConta
   return (
     <>
       <div>
-        <LeaveComment propertyFor={propertyFor} available={{ reviews: reviewsAvailable, questions: true }} badges={
+        <LeaveComment activeLeaveCommentBadge={activeLeaveCommentBadge} propertyFor={propertyFor}
+                      available={{ reviews: reviewsAvailable, questions: true }} badges={
           (
             <>
               {propertyFor === `rent` && (
