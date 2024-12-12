@@ -116,10 +116,12 @@ export default function PropertyDescription({ params }: { params: { id: string }
                 ratings={property.rating.count}
               />
               <div className={`mb-16`}>
-                <PropertyComments questions={property.questions} reviews={property.reviews}
-                                  propertyFor={property.propertyFor} />
+                <PropertyComments
+                  questions={property.questions}
+                  reviews={property.reviews}
+                  propertyFor={property.propertyFor} />
               </div>
-              <LeaveCommentContainer propertyFor={property.propertyFor} />
+              <LeaveCommentContainer propertyId={params.id} propertyFor={property.propertyFor} />
             </div>
           </div>
           <ProviderContainer>

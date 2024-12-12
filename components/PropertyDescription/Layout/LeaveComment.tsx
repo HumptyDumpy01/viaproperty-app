@@ -7,6 +7,8 @@ import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterR
 import { LeaveCommentBadgeType } from '@/components/PropertyDescription/Layout/LeaveCommentContainer';
 import { propertyQuestionSchema } from '@/utils/schemas/propertyQuestionSchema';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
+import { useUserDataOnClient } from '@/hooks/useUserDataOnClient';
+import { Skeleton } from '@mui/material';
 
 
 type LeaveCommentType = {
@@ -17,9 +19,18 @@ type LeaveCommentType = {
   badges: ReactNode;
   propertyFor: PropertyForType;
   activeLeaveCommentBadge: LeaveCommentBadgeType;
+  propertyId: string;
 }
 
-export default function LeaveComment({ badges, available, propertyFor, activeLeaveCommentBadge }: LeaveCommentType) {
+export default function
+  LeaveComment({
+                 badges,
+                 available,
+                 propertyFor,
+                 activeLeaveCommentBadge,
+                 propertyId
+               }: LeaveCommentType) {
+  const { userData, loading } = useUserDataOnClient();
   const [errorMessage, setErrorMessage] = useState<string>(``);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -35,6 +46,9 @@ export default function LeaveComment({ badges, available, propertyFor, activeLea
         setErrorMessage(validate.error.errors[0].message);
         return;
       }
+
+      /* TODO: USE GRAPHQL HOOK TO ADD A NEW QUESTION */
+
     } else {
 
     }
@@ -86,7 +100,16 @@ export default function LeaveComment({ badges, available, propertyFor, activeLea
             </div>
           </div>
           <div>
-            <ViapropertyButton label={`Submit`} bgColor={`bg-linear-main-dark-blue`} />
+            {loading &&
+              <>
+                <Skeleton variant={`rounded`} sx={{ borderRadius: `20px` }} width={200} height={65} />
+              </>
+            }
+            {!loading && (
+              <>
+                <ViapropertyButton label={`Submit`} bgColor={`bg-linear-main-dark-blue`} />
+              </>
+            )}
           </div>
         </form>
       </div>

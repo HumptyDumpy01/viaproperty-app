@@ -15,9 +15,10 @@ export type LeaveCommentBadgeType = CommentType | ActiveFilterTypeQuestions | `L
 
 export type LeaveCommentContainerType = {
   propertyFor: PropertyForType;
+  propertyId: string;
 }
 
-export default function LeaveCommentContainer({ propertyFor }: LeaveCommentContainerType) {
+export default function LeaveCommentContainer({ propertyFor, propertyId }: LeaveCommentContainerType) {
 
   const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(
     propertyFor === `rent` ? `Leave Review` : `Ask Question`
@@ -40,7 +41,8 @@ export default function LeaveCommentContainer({ propertyFor }: LeaveCommentConta
   return (
     <>
       <div>
-        <LeaveComment activeLeaveCommentBadge={activeLeaveCommentBadge} propertyFor={propertyFor}
+        <LeaveComment propertyId={propertyId} activeLeaveCommentBadge={activeLeaveCommentBadge}
+                      propertyFor={propertyFor}
                       available={{ reviews: reviewsAvailable, questions: true }} badges={
           (
             <>
