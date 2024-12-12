@@ -3,7 +3,7 @@
 import FormSearch from '@/components/Layout/Form/FormSearch';
 import SearchResultsMetrics from '@/components/Layout/Filter/SearchResults/SearchResultsMetrics';
 import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
-import { useFetchProperties } from '@/hooks/useFetchProperties';
+import { useFetchProperties } from '@/hooks/queries/useFetchProperties';
 import CardPropertyHorizontalSkeleton from '@/components/UI/Skeletons/CardPropertyHorizontalSkeleton';
 import { PropertyType } from '@/utils/types/PropertyType';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';

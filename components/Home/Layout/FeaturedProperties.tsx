@@ -1,6 +1,6 @@
 'use client';
 
-import { useFetchProperties } from '@/hooks/useFetchProperties';
+import { useFetchProperties } from '@/hooks/queries/useFetchProperties';
 import CardSlider from '@/components/Layout/Slider/CardSlider';
 import React from 'react';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';

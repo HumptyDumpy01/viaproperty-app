@@ -4,7 +4,7 @@ import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import Button from '@/components/UI/Button/Button';
 import React, { FormEvent, useRef, useState, useTransition } from 'react';
 import { newsletterSchema } from '@/utils/schemas/newsletterSchema';
-import { useAddNewsletterEmail } from '@/hooks/useAddNewsletterEmail';
+import { useAddNewsletterEmail } from '@/hooks/mutations/useAddNewsletterEmail';
 
 type inputAndButtonType = {
   inputType: 'email' | 'text' | 'password' | 'number' | `search`;

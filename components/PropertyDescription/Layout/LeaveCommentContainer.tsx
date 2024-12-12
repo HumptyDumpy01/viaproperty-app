@@ -10,6 +10,7 @@ import React, { useState } from 'react';
 import { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
 
 export type LeaveCommentBadgeType = CommentType | ActiveFilterTypeQuestions | `Leave Review` | `Ask Question`;
 
@@ -41,23 +42,25 @@ export default function LeaveCommentContainer({ propertyFor, propertyId }: Leave
   return (
     <>
       <div>
-        <LeaveComment propertyId={propertyId} activeLeaveCommentBadge={activeLeaveCommentBadge}
-                      propertyFor={propertyFor}
-                      available={{ reviews: reviewsAvailable, questions: true }} badges={
-          (
-            <>
-              {propertyFor === `rent` && (
-                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
+        <CustomApolloProvider>
+          <LeaveComment propertyId={propertyId} activeLeaveCommentBadge={activeLeaveCommentBadge}
+                        propertyFor={propertyFor}
+                        available={{ reviews: reviewsAvailable, questions: true }} badges={
+            (
+              <>
+                {propertyFor === `rent` && (
+                  <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
+                                type={`lg`}
+                                state={activeLeaveCommentBadge} />
+                )}
+
+                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
                               type={`lg`}
                               state={activeLeaveCommentBadge} />
-              )}
-
-              <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
-                            type={`lg`}
-                            state={activeLeaveCommentBadge} />
-            </>
-          )
-        } />
+              </>
+            )
+          } />
+        </CustomApolloProvider>
       </div>
     </>
   );

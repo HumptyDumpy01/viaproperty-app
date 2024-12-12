@@ -15,7 +15,7 @@ import LeaveCommentContainer from '@/components/PropertyDescription/Layout/Leave
 import SidebarContainer from '@/components/PropertyDescription/Layout/SidebarContainer';
 import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 import OpenSidebarBtn from '@/components/PropertyDescription/Layout/OpenSidebarBtn';
-import { useFetchProperty } from '@/hooks/useFetchProperty';
+import { useFetchProperty } from '@/hooks/queries/useFetchProperty';
 import { calculateTheAverage } from '@/utils/functions/calculateTheAverage';
 
 // import { GET_PROPERTY } from '@/graphql/property';

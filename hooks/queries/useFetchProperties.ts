@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_PROPERTIES } from '@/graphql/properties';
+import { GET_PROPERTIES } from '@/graphql/queries/properties';
 import client from '@/lib/apolloClient';
 
 // @ts-ignore

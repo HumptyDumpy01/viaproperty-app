@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { ADD_NEWSLETTER_EMAIL } from '@/graphql/newsletter';
+import { ADD_NEWSLETTER_EMAIL } from '@/graphql/mutations/newsletter';
 
 export const useAddNewsletterEmail = () => {
   const [addNewsletterEmail, { loading, error, data }] = useMutation(ADD_NEWSLETTER_EMAIL);

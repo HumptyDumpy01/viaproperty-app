@@ -10,7 +10,7 @@ import Input from '@/components/UI/Input/Input';
 import Logo from '@/components/UI/Logo/Logo';
 import NavigationFullScreen from '@/components/Layout/Navigation/NavigationFullScreen';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
-import { useUserDataOnClient } from '@/hooks/useUserDataOnClient';
+import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import UserCredentialsSkeleton from '@/components/UI/Skeletons/UserCredentialsSkeleton';
 import UserCredentials from '@/components/Layout/Other/UserCredentials';
 import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useFetchProperties } from '@/hooks/useFetchProperties';
+import { useFetchProperties } from '@/hooks/queries/useFetchProperties';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import { CldImage } from 'next-cloudinary';
 import ButtonGoTo from '@/components/UI/Button/ButtonGoTo';

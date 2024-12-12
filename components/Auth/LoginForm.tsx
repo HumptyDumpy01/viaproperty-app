@@ -12,7 +12,7 @@ import BtnFullScreen from '@/components/UI/Button/BtnFullScreen';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { LoginSchema } from '@/utils/schemas/auth/loginSchema';
-import { useLogin } from '@/hooks/useLogin';
+import { useLogin } from '@/hooks/mutations/useLogin';
 
 export type LoginType = {
   email: string;

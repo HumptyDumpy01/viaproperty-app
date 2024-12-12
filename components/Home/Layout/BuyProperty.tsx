@@ -4,7 +4,7 @@ import { PropertyType } from '@/utils/types/PropertyType';
 import HeadingAndLink from '@/components/UI/Link/HeadingAndLink';
 import CardPropertyTwo from '@/components/UI/Card/CardPropertyTwo';
 import React from 'react';
-import { useFetchProperties } from '@/hooks/useFetchProperties';
+import { useFetchProperties } from '@/hooks/queries/useFetchProperties';
 import { trimString } from '@/utils/functions/trimString';
 import CardPropertyTwoSkeleton from '@/components/UI/Skeletons/CardPropertyTwoSkeleton';
 
