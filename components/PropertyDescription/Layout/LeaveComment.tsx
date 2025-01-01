@@ -46,16 +46,17 @@ export default function LeaveComment({
                                        propertyId
                                      }: LeaveCommentType) {
   const { userData, loading } = useUserDataOnClient();
-  const { createQuestion, loading: creatingQuestion, error } = useCreatePropertyQuestion();
+  const { createQuestion, loading: creatingQuestion } = useCreatePropertyQuestion();
   const [errorMessage, setErrorMessage] = useState<string>(``);
 
-  const { data: subscriptionData } = useSubscription(QUESTION_ADDED_SUBSCRIPTION);
+  const { data: subscriptionData, error } = useSubscription(QUESTION_ADDED_SUBSCRIPTION);
 
   useEffect(() => {
     if (subscriptionData) {
       console.log(`Executing subscriptionData.questionAdded`, subscriptionData.questionAdded);
     }
-  }, [subscriptionData]);
+    console.log(`Executing error`, error);
+  }, [subscriptionData, error]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();

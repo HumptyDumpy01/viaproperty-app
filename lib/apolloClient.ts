@@ -18,12 +18,13 @@ const wsLink = new GraphQLWsLink(
     connectionParams: {
       // Add any necessary connection parameters here
     },
+    keepAlive: 10000,
     on: {
       connected: () => console.log('WebSocket connected'),
       closed: (event) => console.log('WebSocket closed', event),
       error: (error) => console.error('WebSocket error', error),
       connecting: () => console.log('WebSocket connecting'),
-      opened: () => console.log('WebSocket opened')
+      opened: (event) => console.log('WebSocket opened:', event)
     }
   })
 );
