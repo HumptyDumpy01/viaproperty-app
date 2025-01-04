@@ -54,7 +54,8 @@ export default function LoginForm() {
       await loginUser(trimmedResults.email, trimmedResults.password).then(() => {
         setLoginLoading(false);
         // the user should be redirected to https://viaproperty-dev.netlify.app/
-        router.push(`/`);
+        // router.push(`/`);
+        window!.location.href = `/`;
       }).catch(() => {
         setLoginLoading(false);
         setErrorMessage(`Failed to authenticate user.`);
