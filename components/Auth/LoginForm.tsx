@@ -51,10 +51,14 @@ export default function LoginForm() {
     setErrorMessage('');
 
     try {
-      await loginUser(trimmedResults.email, trimmedResults.password);
-      setLoginLoading(false);
-      // the user should be redirected to https://viaproperty-dev.netlify.app/
-      router.push(`/`);
+      await loginUser(trimmedResults.email, trimmedResults.password).then(() => {
+        setLoginLoading(false);
+        // the user should be redirected to https://viaproperty-dev.netlify.app/
+        router.push(`/`);
+      }).catch(() => {
+        setLoginLoading(false);
+        setErrorMessage(`Failed to authenticate user.`);
+      });
       // @ts-ignore
     } catch (e: { message: string }) {
       setErrorMessage(e.message);
