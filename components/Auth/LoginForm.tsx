@@ -52,7 +52,9 @@ export default function LoginForm() {
 
     try {
       await loginUser(trimmedResults.email, trimmedResults.password);
-      router.push(`/`);
+      // the user should be redirected to https://viaproperty-dev.netlify.app/
+      router.refresh();
+      router.push(`https://viaproperty-dev.netlify.app`);
       // @ts-ignore
     } catch (e: { message: string }) {
       setErrorMessage(e.message);
