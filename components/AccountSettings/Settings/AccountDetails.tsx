@@ -69,7 +69,7 @@ export default function AccountDetails({ heading, searchPlaceholder, cards }: Ac
               price={`$1,200`}
               key={i}
               btnSecondary={cards.btnSecondary}
-              btnLink={cards.btnLink} type={`rent`} createdAt={`4 days ago`} paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+              btnLink={cards.btnLink} type={`rent`} createdAt={`2023-10-05T14:48:00.000Z`} paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
           sed do eiusmod temporconsectetur adipiscing elit..`}
               heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
               imgAlt={`Property Image`} imgSrc={`viaproperty-images/properties/vyivmuan7mtirzslyd7j`} />

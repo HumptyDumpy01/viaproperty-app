@@ -51,7 +51,7 @@ export default function
   return (
     <>
       <div className={`flex flex-col bp-620:flex-row gap-6`}>
-        <div className={`h-44 w-44 bp-1364:w-80 mb-4 bp-620:mb-0 overflow-hidden relative rounded-2xl`}>
+        <div className={`h-44 w-44 mb-4 bp-620:mb-0 overflow-hidden relative rounded-2xl`}>
           <CldImage
             width={160}
             height={200}
@@ -70,20 +70,20 @@ export default function
           <div className={`flex justify-between`}>
             {type === `sell` && (
               <>
-                <p className={`text-slate-800 font-semibold text-[15px]`}>From <span>${price}</span></p>
+                <p className={`text-slate-800 font-semibold text-[15px]`}>From <span>{price}</span></p>
               </>
             )}
             {type === `rent` && (
               <>
                 <p
-                  className={`text-green-600 font-semibold text-[15px]`}>From <span>${[price]}</span><span
+                  className={`text-green-600 font-semibold text-[15px]`}>From <span>{[price]}</span><span
                   className={`text-sm`}>/day</span>
                 </p>
               </>
             )}
             <span className={`text-zinc-400 text-sm`}>{createdAtDays} days ago</span>
           </div>
-          <div className={`mt-4 flex items-center gap-14`}>
+          <div className={`mt-4 flex md:flex-row flex-col md:items-center items-start text-left gap-8 md:gap-14`}>
             <div>
               <ButtonLink size={`medium`} animationPulse href={btnLink.href} buttonLabel={btnLink.label} />
             </div>
