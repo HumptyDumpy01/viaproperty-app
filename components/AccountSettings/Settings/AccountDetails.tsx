@@ -5,7 +5,6 @@ import ActionBadge from '@/components/UI/Badge/ActionBadge';
 import InputSearch from '@/components/UI/Input/InputSearch';
 import BadgeSmall from '@/components/UI/Badge/BadgeSmall';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
-import PropertyImg1 from '@/assets/properties/property-1.png';
 import Pagination from '@/components/UI/Pagination/Pagination';
 import { useState } from 'react';
 import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
@@ -73,7 +72,7 @@ export default function AccountDetails({ heading, searchPlaceholder, cards }: Ac
               btnLink={cards.btnLink} type={`rent`} createdAt={`4 days ago`} paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
           sed do eiusmod temporconsectetur adipiscing elit..`}
               heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-              imgAlt={`Property Image`} imgSrc={PropertyImg1.src} />
+              imgAlt={`Property Image`} imgSrc={`viaproperty-images/properties/vyivmuan7mtirzslyd7j`} />
           ))}
         </div>
         <div>
