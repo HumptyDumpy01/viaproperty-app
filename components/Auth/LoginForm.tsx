@@ -74,11 +74,12 @@ export default function LoginForm() {
       )}
       <form onSubmit={handleSubmit} className={`w-full`}>
         <div className={`flex flex-col gap-4 mb-3.5`}>
-          <LabelAndInput showStar={false} labelStyle={`dark-blue`} name={`email`} placeholder={`Enter your email`}
+          <LabelAndInput defaultValue={`test@example.com`} showStar={false} labelStyle={`dark-blue`} name={`email`}
+                         placeholder={`Enter "test@example.com"`}
                          customClassNames={`w-full`} label={`Email`}
                          inputType={`email`} required />
           <PasswordInput required showStar={false} icon={`eye`} label={`Password`} inputName={`password`}
-                         placeholder={`Enter your password`} />
+                         placeholder={`Enter "Test12345!"`} />
         </div>
         <TextualTooltip text={(
           <>
