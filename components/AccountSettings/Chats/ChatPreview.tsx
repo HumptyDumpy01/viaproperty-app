@@ -12,7 +12,7 @@ type ChatPreviewType = {
     sortParams: string[];
     position?: string;
   }
-  userType?: `user` | `landlord` | `blocked`;
+  userType?: `USER` | `LANDLORD` | `BLOCKED`;
   // children: ReactNode;
 }
 
@@ -30,7 +30,7 @@ export default function
                 online,
                 actionButton,
                 showOnlineStatus = true,
-                userType = `landlord`
+                userType = `LANDLORD`
               }: ChatPreviewType) {
   const truncatedMessage = message.length > 90 ? message.slice(0, 90) + '..' : message;
   return (

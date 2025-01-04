@@ -23,7 +23,7 @@ export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState<string>(`Please sign in first.`);
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const router = useRouter();
-  const { loginUser, error, data } = useLogin();
+  const { loginUser } = useLogin();
 
   useEffect(() => {
     // This ensures the code runs only on the client side
@@ -53,7 +53,8 @@ export default function LoginForm() {
     try {
       await loginUser(trimmedResults.email, trimmedResults.password);
       router.push(`/`);
-    } catch (e: any) {
+      // @ts-ignore
+    } catch (e: { message: string }) {
       setErrorMessage(e.message);
       setLoginLoading(false);
       console.error('Error logging in:', e);

@@ -44,7 +44,7 @@ export default function
           {propertyFor === `sell` && (
             <>
               <p>Based on <span
-                className={`font-medium border-r-zinc-800`}>landlord's opinion</span></p>
+                className={`font-medium border-r-zinc-800`}>landlord&#39;s opinion</span></p>
             </>
           )}
         </div>

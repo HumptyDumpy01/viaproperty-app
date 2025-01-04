@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "3.5.10",
+    "@apollo/client": "3.7.10",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@lottiefiles/dotlottie-react": "^0.9.2",

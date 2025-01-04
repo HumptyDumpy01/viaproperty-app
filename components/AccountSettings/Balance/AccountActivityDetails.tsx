@@ -61,7 +61,8 @@ export default function
         <div>
           {pagination.visible && (
             <>
-              <Pagination showing={pagination.showing} total={pagination.total} pages={pagination.pages} />
+              <Pagination currentPage={1} onPageChange={() => {
+              }} showing={pagination.showing} total={pagination.total} pages={pagination.pages} />
             </>
           )}
         </div>

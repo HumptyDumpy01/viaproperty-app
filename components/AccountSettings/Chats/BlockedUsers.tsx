@@ -10,7 +10,7 @@ export default function BlockedUsers(/*{  }: BlockedUsersType*/) {
   return (
     <div className={`flex flex-col justify-center gap-5`}>
       <ChatPreview
-        userType={`blocked`}
+        userType={`BLOCKED`}
         actionButton={{
           sortParams: [`Unblock`],
           position: `-top-[60px] right-3`

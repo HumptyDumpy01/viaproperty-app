@@ -93,7 +93,8 @@ export default function AllChats(/*{  }: AllChatsType*/) {
           lastMessageCreated={`August 19, 13:55`} abbrInitials={`N.B`} initials={`Nick Baker`} />
       </div>
       <div>
-        <Pagination showing={10} total={38} pages={4} />
+        <Pagination currentPage={1} onPageChange={() => {
+        }} showing={10} total={38} pages={4} />
       </div>
     </>
   );

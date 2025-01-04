@@ -9,6 +9,7 @@ type InputSearchType = {
   // children: ReactNode;
 }
 
+// eslint-disable-next-line react/display-name
 const InputSearch = forwardRef<HTMLInputElement, InputSearchType>(({ placeholder, name, disabled = false }, ref) => {
   return (
     <>

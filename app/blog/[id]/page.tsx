@@ -139,7 +139,7 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
                 message={`August 13, 2024 at 13:34`} />
             </div>
             <HeadingMedium customClasses={`mb-8`} heading={`User Reviews & Ratings`} />
-            <MetricDisplayRatingHero overallRating={4.4} ratingsCount={18} />
+            <MetricDisplayRatingHero propertyFor={`rent`} overallRating={4.4} ratingsCount={18} />
           </div>
           <div className={`self-center bp-896:self-start`}>
             <Image src={MarketingDigitalAdsImg} alt={`Marketing Digital Ads`} />

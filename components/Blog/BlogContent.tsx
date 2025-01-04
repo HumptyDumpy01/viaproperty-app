@@ -89,7 +89,8 @@ export default function BlogContent(/*{  }: BlogContentType*/) {
                       timeToReadInMins={5} />
           </div>
           <div>
-            <Pagination showing={6} total={38} pages={3} />
+            <Pagination currentPage={1} onPageChange={() => {
+            }} showing={6} total={38} pages={3} />
           </div>
         </div>
       </div>

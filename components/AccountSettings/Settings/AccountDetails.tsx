@@ -67,16 +67,18 @@ export default function AccountDetails({ heading, searchPlaceholder, cards }: Ac
 
           {Array.from({ length: 6 }).map((_, i) => (
             <CardPropertyHorizontal
+              price={`$1,200`}
               key={i}
               btnSecondary={cards.btnSecondary}
               btnLink={cards.btnLink} type={`rent`} createdAt={`4 days ago`} paragraph={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
           sed do eiusmod temporconsectetur adipiscing elit..`}
               heading={`Lorem ipsum dolor sit amet, consectetur adipiscing elit...`}
-              imgAlt={`Property Image`} imgSrc={PropertyImg1} />
+              imgAlt={`Property Image`} imgSrc={PropertyImg1.src} />
           ))}
         </div>
         <div>
-          <Pagination showing={6} total={19} pages={3} />
+          <Pagination currentPage={1} onPageChange={() => {
+          }} showing={6} total={19} pages={3} />
         </div>
       </div>
     </div>
