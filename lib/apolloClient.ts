@@ -35,7 +35,6 @@ const wsLink = new GraphQLWsLink(
         }
       };
     },
-    keepAlive: 10000,
     on: {
       connected: () => console.log('WebSocket connected'),
       closed: (event) => console.log('WebSocket closed', event),

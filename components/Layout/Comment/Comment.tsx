@@ -72,8 +72,9 @@ export default function
 
       setNewReplies((prevState) => [...prevState, updatedNewReply]);
     }
+    console.log('Error:', error);
 
-  }, [newReply, newReplyLoading]);
+  }, [newReply, newReplyLoading, error]);
 
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
