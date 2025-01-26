@@ -89,9 +89,6 @@ export default function
           // @ts-ignore
         }).then((res) => res.data.createPropertyQuestion as AddedQuestionType);
 
-        console.log(`Executing addedQuestion: `, addedQuestion);
-        console.log(userData.initials);
-
         dispatch(propertyDescriptionSliceActions.pushOptimisticPropertyQuestion({
           createdAt: addedQuestion.createdAt,
           user: {

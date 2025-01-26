@@ -2,26 +2,30 @@
 
 import CloseIcon from '@/components/UI/Icon/CloseIcon';
 import Textarea from '@/components/UI/Textarea/Textarea';
+import { FormEvent } from 'react';
 
 type ReplyOnCommentType = {
   textareaWidth: string;
   textareaName: string;
   setLeaveReplyOpen: (arg: boolean) => void;
   btnLabel: string;
+  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   // children: ReactNode;
 }
 
-export default function ReplyOnComment({
-                                         textareaWidth,
-                                         textareaName,
-                                         setLeaveReplyOpen,
-                                         btnLabel
-                                       }: ReplyOnCommentType) {
+export default function
+  ReplyOnComment({
+                   textareaWidth,
+                   textareaName,
+                   setLeaveReplyOpen,
+                   btnLabel,
+                   onSubmit
+                 }: ReplyOnCommentType) {
   return (
     <>
       <div className={`flex`}>
-        <form className={`flex flex-col gap-3`}>
-          <Textarea name={textareaName} widthClass={textareaWidth} />
+        <form onSubmit={onSubmit} className={`flex flex-col gap-3`}>
+          <Textarea minLength={2} maxLength={1000} name={textareaName} widthClass={textareaWidth} />
           <div className={`flex items-center gap-3`}>
             <button
               className={`text-left transition-all duration-200 text-sm 

@@ -60,13 +60,22 @@ export type PropertyQuestionsType = {
 
 export type PropertyCommentsType = {
   propertyFor: PropertyForType;
+  landlordId: string;
+  propertyId: string;
   reviews: PropertyReviewsType[];
   questions: PropertyQuestionsType[];
 };
 
 export type CommentType = `Reviews` | `Questions`;
 
-export default function PropertyComments({ propertyFor, reviews, questions }: PropertyCommentsType) {
+export default function
+  PropertyComments({
+                     propertyFor,
+                     landlordId,
+                     propertyId,
+                     reviews,
+                     questions
+                   }: PropertyCommentsType) {
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
   const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
@@ -174,12 +183,17 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
 
             {optimisticQuestions.length > 0 && optimisticQuestions.map((question) => (
               <>
-                <Comment commentMode={'PropertyQuestion'} id={question.id} initials={question.user.initials}
-                         abbrInitials={abbreviateInitials(question.user.initials)}
-                         text={question.comment}
-                         likes={question.likes}
-                         createdAt={formatDate(question.createdAt)}
-                         responses={question.replies} userType={`USER`}
+                <Comment
+                  propertyId={propertyId}
+                  landlordId={landlordId}
+                  commentMode={'PropertyQuestion'}
+                  id={question.id}
+                  initials={question.user.initials}
+                  abbrInitials={abbreviateInitials(question.user.initials)}
+                  text={question.comment}
+                  likes={question.likes}
+                  createdAt={formatDate(question.createdAt)}
+                  responses={question.replies} userType={`USER`}
                 />
               </>
             ))}
@@ -188,12 +202,17 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
               .map(function(question) {
                 return (
                   <>
-                    <Comment commentMode={'PropertyQuestion'} id={question.id} initials={question.user.initials}
-                             abbrInitials={abbreviateInitials(question.user.initials)}
-                             text={question.comment}
-                             likes={question.likes}
-                             createdAt={formatDate(question.createdAt)}
-                             responses={question.replies} userType={`USER`}
+                    <Comment
+                      propertyId={propertyId}
+                      landlordId={landlordId}
+                      commentMode={'PropertyQuestion'}
+                      id={question.id}
+                      initials={question.user.initials}
+                      abbrInitials={abbreviateInitials(question.user.initials)}
+                      text={question.comment}
+                      likes={question.likes}
+                      createdAt={formatDate(question.createdAt)}
+                      responses={question.replies} userType={`USER`}
                     />
                   </>
                 );
@@ -239,12 +258,17 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
                 // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
                 return (
                   <>
-                    <Comment commentMode={'PropertyReview'} id={review.id} rating={review.rated.overall}
-                             initials={review.user.initials}
-                             abbrInitials={abbreviateInitials(review.user.initials)}
-                             text={review.comment}
-                             likes={review.likes} createdAt={formatDate(review.createdAt)}
-                             responses={review.replies} userType={`USER`}
+                    <Comment
+                      propertyId={propertyId}
+                      landlordId={landlordId}
+                      commentMode={'PropertyReview'}
+                      id={review.id}
+                      rating={review.rated.overall}
+                      initials={review.user.initials}
+                      abbrInitials={abbreviateInitials(review.user.initials)}
+                      text={review.comment}
+                      likes={review.likes} createdAt={formatDate(review.createdAt)}
+                      responses={review.replies} userType={`USER`}
                     />
                   </>
                 );

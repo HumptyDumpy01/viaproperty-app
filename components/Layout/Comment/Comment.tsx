@@ -3,7 +3,7 @@
 import User from '@/components/UI/User/User';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Button from '@/components/UI/Button/Button';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import StarIcon from '@/components/UI/Icon/StarIcon';
 import { roundNumber } from '@/utils/functions/roundNumber';
 import ReplyOnComment from '@/components/Layout/Comment/ReplyOnComment';
@@ -13,6 +13,18 @@ import { UserType } from '@/components/PropertyDescription/Layout/PropertyCommen
 import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import { useLikePropertyQuestion } from '@/hooks/mutations/useLikePropertyQuestion';
 import { useUnlikePropertyQuestion } from '@/hooks/mutations/useUnlikePropertyQuestion';
+import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
+import { useAddPropertyQuestionReply } from '@/hooks/mutations/useAddPropertyQuestionReply';
+
+export type NewlyAddedReplyType = {
+  comment: string;
+  createdAt: string;
+  replier: {
+    initials: string;
+    id: string;
+  };
+  userType: UserType;
+}
 
 export type CommentResponseType = {
   replierId: string;
@@ -35,12 +47,16 @@ type CommentType = {
   responses: CommentResponseType[]
   rating?: number;
   commentMode: CommentModeType;
+  landlordId: string;
+  propertyId: string;
   // children: ReactNode;
 }
 
 export default function
   Comment({
             id,
+            landlordId,
+            propertyId,
             commentMode,
             userType,
             createdAt,
@@ -52,19 +68,32 @@ export default function
             rating
           }: CommentType) {
 
+  const [loadingReplies, setLoadingReplies] = useState(true);
   const [showReplies, setShowReplies] = useState<boolean>(false);
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
+  const [repliesArray, setRepliesArray] = useState<CommentResponseType[]>([]);
+  const [leaveReplyOpen, setLeaveReplyOpen] = useState<boolean>(false);
+
+  const [newReplies, setNewReplies] = useState<NewlyAddedReplyType[]>([]);
 
   const { likePropertyQuestion } = useLikePropertyQuestion();
   const { unlikePropertyQuestion } = useUnlikePropertyQuestion();
 
+  const [validationReplyError, setValidationReplyError] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const { createQuestionReply } = useAddPropertyQuestionReply();
 
   useEffect(() => {
     if (likes) {
       setLikesArray(likes);
     }
-  }, [likes]);
+    if (responses) {
+      setLoadingReplies(() => false);
+      setRepliesArray(responses);
+    }
+  }, [likes, repliesArray, responses]);
 
   let roundedRating = null;
 
@@ -95,10 +124,42 @@ export default function
     }
   }
 
-  const [leaveReplyOpen, setLeaveReplyOpen] = useState<boolean>(false);
+  async function handleSubmitReply(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const currObject = e.currentTarget;
+    const formData = new FormData(currObject);
+    const results = Object.fromEntries(formData.entries()) as { reply: string };
+
+    const reply = results.reply.trim() || ``;
+
+    if (reply?.length < 2 || reply?.length >= 1000) {
+      setValidationReplyError(() => 'The reply should be at least 2 to 1000 characters.');
+      setSnackbarOpen(() => true);
+      return;
+    }
+
+    switch (commentMode) {
+      case 'PropertyQuestion':
+        const newlyAddedComment = await createQuestionReply({ propertyId, commentId: id, comment: reply }).then((res) =>
+          res!.data.createReplyOnQuestion) as NewlyAddedReplyType;
+        const userType = landlordId === userData!.id ? `LANDLORD` : `USER`;
+
+        const updatedNewReply = {
+          ...newlyAddedComment,
+          userType
+        };
+
+        // @ts-ignore
+        setNewReplies((prevState) => [...prevState, updatedNewReply]);
+        break;
+    }
+  }
+
 
   return (
     <>
+      <SnackbarMUI severity={'error'} message={validationReplyError}
+                   state={{ open: snackbarOpen, setOpen: setSnackbarOpen }} />
       <div className={`flex flex-col gap-5`}>
         <div className={`flex bp-620:items-center gap-6 flex-col bp-620:flex-row`}>
           <User type={userType} abbrInitials={abbrInitials} initials={initials}
@@ -127,7 +188,7 @@ export default function
           <span className={`bg-clip-text text-transparent bg-linear-main-red font-bold`}>{likesArray?.length}</span>
         </div>
         <div className={`flex-col gap-7 ${showReplies ? `flex` : `hidden`}`}>
-          {responses.map(function(response) {
+          {!loadingReplies && repliesArray && repliesArray.length > 0 && repliesArray.map(function(response) {
             return (
               <>
                 <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
@@ -139,6 +200,16 @@ export default function
               </>
             );
           })}
+          {newReplies && newReplies?.length > 0 && newReplies!.map((reply) => (
+            <>
+              <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
+                <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replier.initials)}
+                      initials={reply.replier.initials}
+                      createdAt={formatDate(reply.createdAt)} />
+                <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
+              </div>
+            </>
+          ))}
         </div>
 
         <div className={`flex gap-3`}>
@@ -151,9 +222,9 @@ export default function
             </>
           )}
 
-          {responses.length > 0 && (
+          {repliesArray.length > 0 && (
             <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
-              <Button mode={`sm`} label={!showReplies ? `See answers (${responses.length})` : `Hide`}
+              <Button mode={`sm`} label={!showReplies ? `See answers (${repliesArray.length})` : `Hide`}
                       btnVariant={`white`} />
             </div>
           )}
@@ -161,8 +232,12 @@ export default function
         </div>
         {leaveReplyOpen && (
           <>
-            <ReplyOnComment setLeaveReplyOpen={setLeaveReplyOpen} btnLabel={`Add Reply`} textareaName={`reply`}
-                            textareaWidth={`bp-620:w-[370px] w-screen`} />
+            <ReplyOnComment
+              onSubmit={handleSubmitReply}
+              setLeaveReplyOpen={setLeaveReplyOpen}
+              btnLabel={`Add Reply`}
+              textareaName={`reply`}
+              textareaWidth={`bp-620:w-[370px] w-screen`} />
           </>
         )}
       </div>
