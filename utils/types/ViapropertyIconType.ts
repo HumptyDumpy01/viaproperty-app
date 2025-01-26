@@ -15,4 +15,5 @@ export type ViapropertyIconType =
   | `edit`
   | `arrow`
   | `trashCan`
-  | `email`;
+  | `email`
+  | `heart-filled`;

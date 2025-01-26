@@ -3,13 +3,14 @@
 import User from '@/components/UI/User/User';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Button from '@/components/UI/Button/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StarIcon from '@/components/UI/Icon/StarIcon';
 import { roundNumber } from '@/utils/functions/roundNumber';
 import ReplyOnComment from '@/components/Layout/Comment/ReplyOnComment';
 import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 import { formatDate } from '@/utils/functions/formatDate';
 import { UserType } from '@/components/PropertyDescription/Layout/PropertyComments';
+import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 
 export type CommentResponseType = {
   replierId: string;
@@ -20,20 +21,21 @@ export type CommentResponseType = {
 }
 
 type CommentType = {
+  id: string;
   userType: UserType;
   abbrInitials: string;
   initials: string;
   text: string;
-  likes: number;
+  likes: string[];
   createdAt: string;
   responses: CommentResponseType[]
   rating?: number;
-
   // children: ReactNode;
 }
 
 export default function
   Comment({
+            id,
             userType,
             createdAt,
             likes,
@@ -45,9 +47,30 @@ export default function
           }: CommentType) {
 
   const [showReplies, setShowReplies] = useState<boolean>(false);
+  const { userData, loading } = useUserDataOnClient();
+  const [likesArray, setLikesArray] = useState<string[]>();
+
+  useEffect(() => {
+    if (likes) {
+      setLikesArray(likes);
+    }
+  }, [likes]);
+
   let roundedRating = null;
+
   if (rating) {
     roundedRating = rating ? roundNumber(rating) : null;
+  }
+
+  function handleCommentAction() {
+    console.log('Id of a comment', id);
+    if (likesArray!.includes(userData!.email)) {
+      // optimistic update
+      setLikesArray((prevState) => prevState!.filter((like) => like !== userData!.email));
+    } else {
+      // optimistic update
+      setLikesArray((prevState) => [...prevState!, userData!.email]);
+    }
   }
 
   const [leaveReplyOpen, setLeaveReplyOpen] = useState<boolean>(false);
@@ -72,8 +95,14 @@ export default function
           <p className={`leading-relaxed text-zinc-800`}>{text}</p>
         </div>
         <div className={`flex items-center gap-1`}>
-          <ViapropertyIcon icon={`heart`} />
-          <span className={`bg-clip-text text-transparent bg-linear-main-red font-bold`}>{likes}</span>
+          <div onClick={handleCommentAction}>
+            {!loading && likesArray && (
+              <>
+                <ViapropertyIcon icon={likesArray.includes(userData!.email) ? `heart-filled` : `heart`} />
+              </>
+            )}
+          </div>
+          <span className={`bg-clip-text text-transparent bg-linear-main-red font-bold`}>{likesArray?.length}</span>
         </div>
         <div className={`flex-col gap-7 ${showReplies ? `flex` : `hidden`}`}>
           {responses.map(function(response) {

@@ -174,10 +174,10 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
 
             {optimisticQuestions.length > 0 && optimisticQuestions.map((question) => (
               <>
-                <Comment initials={question.user.initials}
+                <Comment id={question.id} initials={question.user.initials}
                          abbrInitials={abbreviateInitials(question.user.initials)}
                          text={question.comment}
-                         likes={question.likes.length}
+                         likes={question.likes}
                          createdAt={formatDate(question.createdAt)}
                          responses={question.replies} userType={`USER`}
                 />
@@ -188,10 +188,10 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
               .map(function(question) {
                 return (
                   <>
-                    <Comment initials={question.user.initials}
+                    <Comment id={question.id} initials={question.user.initials}
                              abbrInitials={abbreviateInitials(question.user.initials)}
                              text={question.comment}
-                             likes={question.likes.length}
+                             likes={question.likes}
                              createdAt={formatDate(question.createdAt)}
                              responses={question.replies} userType={`USER`}
                     />
@@ -239,10 +239,10 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
                 // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
                 return (
                   <>
-                    <Comment rating={review.rated.overall} initials={review.user.initials}
+                    <Comment id={review.id} rating={review.rated.overall} initials={review.user.initials}
                              abbrInitials={abbreviateInitials(review.user.initials)}
                              text={review.comment}
-                             likes={review.likes.length} createdAt={formatDate(review.createdAt)}
+                             likes={review.likes} createdAt={formatDate(review.createdAt)}
                              responses={review.replies} userType={`USER`}
                     />
                   </>

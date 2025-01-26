@@ -25,6 +25,7 @@ import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 import { DEFAULT_ERROR_MESSAGE } from '@/utils/generics/generics';
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
+import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
 
 /*
 
@@ -116,15 +117,17 @@ export default function PropertyDescription({ params }: { params: { id: string }
                 overallRating={property.rating.overall}
                 ratings={property.rating.count}
               />
-              <ReduxProvider>
-                <div className={`mb-16`}>
-                  <PropertyComments
-                    questions={property.questions}
-                    reviews={property.reviews}
-                    propertyFor={property.propertyFor} />
-                </div>
-                <LeaveCommentContainer propertyId={params.id} propertyFor={property.propertyFor} />
-              </ReduxProvider>
+              <CustomApolloProvider>
+                <ReduxProvider>
+                  <div className={`mb-16`}>
+                    <PropertyComments
+                      questions={property.questions}
+                      reviews={property.reviews}
+                      propertyFor={property.propertyFor} />
+                  </div>
+                  <LeaveCommentContainer propertyId={params.id} propertyFor={property.propertyFor} />
+                </ReduxProvider>
+              </CustomApolloProvider>
             </div>
           </div>
           <ProviderContainer>
