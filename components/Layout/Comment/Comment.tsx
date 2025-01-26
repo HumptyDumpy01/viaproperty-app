@@ -15,16 +15,7 @@ import { useLikePropertyQuestion } from '@/hooks/mutations/useLikePropertyQuesti
 import { useUnlikePropertyQuestion } from '@/hooks/mutations/useUnlikePropertyQuestion';
 import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { useAddPropertyQuestionReply } from '@/hooks/mutations/useAddPropertyQuestionReply';
-
-export type NewlyAddedReplyType = {
-  comment: string;
-  createdAt: string;
-  replier: {
-    initials: string;
-    id: string;
-  };
-  userType: UserType;
-}
+import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
 
 export type CommentResponseType = {
   replierId: string;
@@ -70,12 +61,26 @@ export default function
 
   const [loadingReplies, setLoadingReplies] = useState(true);
   const [showReplies, setShowReplies] = useState<boolean>(false);
+  const { newReply, loading: newReplyLoading, error } = useNewReplySubscription();
+
+  useEffect(() => {
+    if (newReply) {
+      console.log('Executing newReply:', newReply);
+      const updatedNewReply = {
+        ...newReply
+      };
+
+      setNewReplies((prevState) => [...prevState, updatedNewReply]);
+    }
+
+  }, [newReply, newReplyLoading]);
+
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
   const [repliesArray, setRepliesArray] = useState<CommentResponseType[]>([]);
   const [leaveReplyOpen, setLeaveReplyOpen] = useState<boolean>(false);
 
-  const [newReplies, setNewReplies] = useState<NewlyAddedReplyType[]>([]);
+  const [newReplies, setNewReplies] = useState<CommentResponseType[]>([]);
 
   const { likePropertyQuestion } = useLikePropertyQuestion();
   const { unlikePropertyQuestion } = useUnlikePropertyQuestion();
@@ -140,17 +145,7 @@ export default function
 
     switch (commentMode) {
       case 'PropertyQuestion':
-        const newlyAddedComment = await createQuestionReply({ propertyId, commentId: id, comment: reply }).then((res) =>
-          res!.data.createReplyOnQuestion) as NewlyAddedReplyType;
-        const userType = landlordId === userData!.id ? `LANDLORD` : `USER`;
-
-        const updatedNewReply = {
-          ...newlyAddedComment,
-          userType
-        };
-
-        // @ts-ignore
-        setNewReplies((prevState) => [...prevState, updatedNewReply]);
+        await createQuestionReply({ propertyId, commentId: id, comment: reply });
         currObject.reset();
         setLeaveReplyOpen(() => false);
         break;
@@ -205,8 +200,8 @@ export default function
           {newReplies && newReplies?.length > 0 && newReplies!.map((reply) => (
             <>
               <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replier.initials)}
-                      initials={reply.replier.initials}
+                <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
+                      initials={reply.replierInitials}
                       createdAt={formatDate(reply.createdAt)} />
                 <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
               </div>
@@ -226,7 +221,8 @@ export default function
 
           {repliesArray.length > 0 && (
             <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
-              <Button mode={`sm`} label={!showReplies ? `See answers (${repliesArray.length})` : `Hide`}
+              <Button mode={`sm`}
+                      label={!showReplies ? `See answers (${[...repliesArray, ...newReplies].length})` : `Hide`}
                       btnVariant={`white`} />
             </div>
           )}

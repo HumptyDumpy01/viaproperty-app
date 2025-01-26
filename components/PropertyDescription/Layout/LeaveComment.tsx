@@ -9,24 +9,8 @@ import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import { Skeleton } from '@mui/material';
 import { useCreatePropertyQuestion } from '@/hooks/mutations/useCreatePropertyQuestion';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
-import gql from 'graphql-tag';
 import { useCartDispatch } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
-
-const QUESTION_ADDED_SUBSCRIPTION = gql`
-    subscription OnQuestionAdded {
-        questionAdded {
-            id
-            propertyId
-            userId
-            likes
-            createdAt
-            replies {
-                comment
-            }
-        }
-    }
-`;
 
 type LeaveCommentType = {
   available: {
