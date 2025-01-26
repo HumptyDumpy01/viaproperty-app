@@ -26,7 +26,7 @@ const authLink = setContext((_, { headers }) => {
 
 const wsLink = new GraphQLWsLink(
   createClient({
-    url: `${process.env.NEXT_PUBLIC_API_URL_BACK!.replace(/^http/, 'wss')}/graphql`,
+    url: `${process.env.NEXT_PUBLIC_API_URL_BACK!.replace(/^http/, 'ws')}/graphql`,
     connectionParams: () => {
       const token = cookie.get('access_token');
       return {
