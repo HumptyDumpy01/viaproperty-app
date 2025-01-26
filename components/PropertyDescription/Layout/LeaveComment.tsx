@@ -1,6 +1,6 @@
 import StarRating from '@/components/UI/Input/StarRating';
 import ViapropertyButton from '@/components/UI/Button/ViapropertyButton';
-import React, { FormEvent, ReactNode, useEffect, useState } from 'react';
+import React, { FormEvent, ReactNode, useState } from 'react';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import { LeaveCommentBadgeType } from '@/components/PropertyDescription/Layout/LeaveCommentContainer';
 import { propertyQuestionSchema } from '@/utils/schemas/propertyQuestionSchema';
@@ -10,7 +10,6 @@ import { Skeleton } from '@mui/material';
 import { useCreatePropertyQuestion } from '@/hooks/mutations/useCreatePropertyQuestion';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import gql from 'graphql-tag';
-import { useSubscription } from '@apollo/client';
 import { useCartDispatch } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
 
@@ -40,6 +39,15 @@ type LeaveCommentType = {
   propertyId: string;
 }
 
+export type AddedQuestionType = {
+  id: string;
+  propertyId: string;
+  userId: string;
+  likes: string[],
+  createdAt: string;
+  replies: [];
+}
+
 export default function LeaveComment({
                                        badges,
                                        available,
@@ -51,15 +59,6 @@ export default function LeaveComment({
   const { userData, loading } = useUserDataOnClient();
   const { createQuestion, loading: creatingQuestion } = useCreatePropertyQuestion();
   const [errorMessage, setErrorMessage] = useState<string>(``);
-
-  const { data: subscriptionData, error } = useSubscription(QUESTION_ADDED_SUBSCRIPTION);
-
-  useEffect(() => {
-    if (subscriptionData) {
-      console.log(`Executing subscriptionData.questionAdded`, subscriptionData.questionAdded);
-    }
-    console.log(`Executing error`, error);
-  }, [subscriptionData, error]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -82,14 +81,31 @@ export default function LeaveComment({
           setErrorMessage(`You need to be logged in to ask a question. Please refresh the page and try again.`);
           return;
         }
-        await createQuestion({
+        const addedQuestion = await createQuestion({
           propertyId,
           userId: userData?.id,
           comment: (results.comment as string).trim()
-        });
+          // @ts-ignore
+        }).then((res) => res.data.createPropertyQuestion as AddedQuestionType);
+
+        console.log(`Executing addedQuestion: `, addedQuestion);
+        console.log(userData.initials);
+
+        dispatch(propertyDescriptionSliceActions.pushOptimisticPropertyQuestion({
+          createdAt: addedQuestion.createdAt,
+          user: {
+            initials: userData.initials
+          },
+          id: addedQuestion.id,
+          comment: results.comment.toString(),
+          likes: addedQuestion.likes,
+          userType: `USER`,
+          replies: []
+        }));
 
         dispatch(propertyDescriptionSliceActions.changeActiveComments('Questions'));
         scrollIntoViewFunc(`.comment-heading`);
+
       } catch (e: any) {
         scrollIntoViewFunc(`.comment-secondary-heading`);
         setErrorMessage(`Error creating question: ${

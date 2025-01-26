@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
+import {
+  CommentType,
+  PropertyQuestionsType,
+  PropertyReviewsType
+} from '@/components/PropertyDescription/Layout/PropertyComments';
 
 const propertyDescriptionSlice = createSlice({
   name: `property-description`,
   initialState: {
     responsiveSidebarOpen: false,
     activeComments: `Reviews`,
-    optimisticPropertyQuestions: []
+    optimisticPropertyQuestions: [] as PropertyQuestionsType[],
+    optimisticPropertyReviews: [] as PropertyReviewsType[]
   },
   reducers: {
     toggleSidebar(state, action: PayloadAction<boolean>) {
@@ -14,6 +19,9 @@ const propertyDescriptionSlice = createSlice({
     },
     changeActiveComments(state, action: PayloadAction<CommentType>) {
       state.activeComments = action.payload;
+    },
+    pushOptimisticPropertyQuestion(state, action: PayloadAction<PropertyQuestionsType>) {
+      state.optimisticPropertyQuestions = [...state.optimisticPropertyQuestions, action.payload];
     }
   }
 });

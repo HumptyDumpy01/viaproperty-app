@@ -37,7 +37,7 @@ export type PropertyReviewsType = {
     userType: UserType;
     comment: string;
     createdAt: string;
-  }[];
+  }[] | [];
 }
 
 export type PropertyQuestionsType = {
@@ -55,7 +55,7 @@ export type PropertyQuestionsType = {
     userType: UserType;
     comment: string;
     createdAt: string;
-  }[];
+  }[] | [];
 }
 
 export type PropertyCommentsType = {
@@ -69,6 +69,7 @@ export type CommentType = `Reviews` | `Questions`;
 export default function PropertyComments({ propertyFor, reviews, questions }: PropertyCommentsType) {
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
+  const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
 
   const chosenActiveComments = propertyFor === `sell` ? `Questions` : activeCommentsGlobal;
 
@@ -103,6 +104,14 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
   const handleSetActiveComments = (switchTo: CommentType | ActiveFilterTypeQuestions) => {
     if (switchTo === 'Reviews' || switchTo === 'Questions') {
       dispatch(propertyDescriptionSliceActions.changeActiveComments(switchTo));
+    }
+    switch (switchTo) {
+      case `Reviews`:
+        setActiveFilter(() => `Date`);
+        break;
+      case `Questions`:
+        setActiveFilter(() => `Answered`);
+        break;
     }
   };
 
@@ -163,6 +172,17 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
               </>
             )}
 
+            {optimisticQuestions.length > 0 && optimisticQuestions.map((question) => (
+              <>
+                <Comment initials={question.user.initials}
+                         abbrInitials={abbreviateInitials(question.user.initials)}
+                         text={question.comment}
+                         likes={question.likes.length}
+                         createdAt={formatDate(question.createdAt)}
+                         responses={question.replies} userType={`USER`}
+                />
+              </>
+            ))}
             {sortedQuestions.length > 0 && sortedQuestions
               .slice(0, activePageQuestions * itemsPerPage)
               .map(function(question) {

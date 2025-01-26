@@ -6,7 +6,8 @@ export const useCreatePropertyQuestion = () => {
 
   const createQuestion = async (propertyQuestionInput: any) => {
     try {
-      await createPropertyQuestion({ variables: { propertyQuestionInput } });
+      const result = await createPropertyQuestion({ variables: { propertyQuestionInput } });
+      return result;
     } catch (err) {
       console.error('Error creating property question:', err);
     }
