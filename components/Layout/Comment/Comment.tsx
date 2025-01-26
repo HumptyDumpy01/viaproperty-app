@@ -12,6 +12,7 @@ import { formatDate } from '@/utils/functions/formatDate';
 import { UserType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import { useLikePropertyQuestion } from '@/hooks/mutations/useLikePropertyQuestion';
+import { useUnlikePropertyQuestion } from '@/hooks/mutations/useUnlikePropertyQuestion';
 
 export type CommentResponseType = {
   replierId: string;
@@ -55,7 +56,8 @@ export default function
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
 
-  const { likePropertyQuestion, loading: loadingLikeQuestion, error } = useLikePropertyQuestion();
+  const { likePropertyQuestion } = useLikePropertyQuestion();
+  const { unlikePropertyQuestion } = useUnlikePropertyQuestion();
 
 
   useEffect(() => {
@@ -77,6 +79,7 @@ export default function
 
       switch (commentMode) {
         case 'PropertyQuestion':
+          await unlikePropertyQuestion(id);
           break;
       }
 
