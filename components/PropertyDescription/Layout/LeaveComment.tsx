@@ -11,6 +11,8 @@ import { useCreatePropertyQuestion } from '@/hooks/mutations/useCreatePropertyQu
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import gql from 'graphql-tag';
 import { useSubscription } from '@apollo/client';
+import { useCartDispatch } from '@/store/hooks';
+import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
 
 const QUESTION_ADDED_SUBSCRIPTION = gql`
     subscription OnQuestionAdded {
@@ -45,6 +47,7 @@ export default function LeaveComment({
                                        activeLeaveCommentBadge,
                                        propertyId
                                      }: LeaveCommentType) {
+  const dispatch = useCartDispatch();
   const { userData, loading } = useUserDataOnClient();
   const { createQuestion, loading: creatingQuestion } = useCreatePropertyQuestion();
   const [errorMessage, setErrorMessage] = useState<string>(``);
@@ -84,6 +87,8 @@ export default function LeaveComment({
           userId: userData?.id,
           comment: (results.comment as string).trim()
         });
+
+        dispatch(propertyDescriptionSliceActions.changeActiveComments('Questions'));
         scrollIntoViewFunc(`.comment-heading`);
       } catch (e: any) {
         scrollIntoViewFunc(`.comment-secondary-heading`);
@@ -138,7 +143,7 @@ export default function LeaveComment({
             {available.reviews && propertyFor === `rent` ? `Leave Your Review` : `Ask Landlord about anything!`}
           </h3>
           <div className={`max-w-[734px]`}>
-              <textarea required
+              <textarea maxLength={1000} minLength={5} required
                         name={`comment`}
                         className={`w-full text-left p-6 flex h-52 border border-zinc-200 rounded-2xl`}
                         placeholder={`Share your thoughts! Your comment should contain at least 10 characters and less than 700.`} />

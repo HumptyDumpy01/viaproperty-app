@@ -12,6 +12,8 @@ import { sortArrayByNewestDate } from '@/utils/functions/sorting/sortArrayByNewe
 import { sortActiveReviews } from '@/utils/functions/sorting/sortActiveReviews';
 import { sortPropertyQuestions } from '@/utils/functions/sorting/sortPropertyQuestions';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import { useCartDispatch, useCartSelector } from '@/store/hooks';
+import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
 
 export type PropertyRatedType = {
   overall: number;
@@ -65,15 +67,16 @@ export type PropertyCommentsType = {
 export type CommentType = `Reviews` | `Questions`;
 
 export default function PropertyComments({ propertyFor, reviews, questions }: PropertyCommentsType) {
+  const dispatch = useCartDispatch();
+  const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
+
+  const chosenActiveComments = propertyFor === `sell` ? `Questions` : activeCommentsGlobal;
 
   const itemsPerPage = 3;
   const [activePage, setActivePage] = useState(1);
   const [activePageQuestions, setActivePageQuestions] = useState(1);
 
   const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
-  const [activeComments, setActiveComments] = useState<CommentType>(
-    propertyFor === `rent` ? `Reviews` : `Questions`
-  );
 
   const [sortedReviews, setSortedReviews] = useState(
     sortArrayByNewestDate(reviews)
@@ -87,19 +90,19 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
     const copyQuestions = [...questions];
     const copyReviews = [...reviews];
 
-    if (activeComments === `Reviews`) {
+    if (chosenActiveComments === `Reviews`) {
       sortActiveReviews(activeFilter, reviews, setSortedReviews, copyReviews);
     }
 
-    if (activeComments === `Questions`) {
+    if (chosenActiveComments === `Questions`) {
       sortPropertyQuestions(activeFilter, questions, setAllQuestions, copyQuestions);
     }
 
-  }, [activeFilter, activeComments]);
+  }, [activeFilter, chosenActiveComments]);
 
   const handleSetActiveComments = (switchTo: CommentType | ActiveFilterTypeQuestions) => {
     if (switchTo === 'Reviews' || switchTo === 'Questions') {
-      setActiveComments(switchTo);
+      dispatch(propertyDescriptionSliceActions.changeActiveComments(switchTo));
     }
   };
 
@@ -112,146 +115,145 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
 
   return (
     <>
-      <div>
-        <div className={`flex bp-620:gap-14 flex-col bp-620:flex-row mb-7 bp-620:mb-0`}>
-          <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit
+      <div className={`flex bp-620:gap-14 flex-col bp-620:flex-row mb-7 bp-620:mb-0`}>
+        <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit
                   mb-8 comment-heading`}>Comments</h2>
-          <div className={`flex gap-3 flex-wrap`}>
-            {propertyFor === `rent` && (
-              <>
-                <div>
-                  <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Reviews`} color={`blue`} type={`lg`}
-                                state={activeComments} />
-                </div>
-              </>
-            )}
-            <div>
-              <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
-                            state={activeComments} />
-            </div>
+        <div className={`flex gap-3 flex-wrap`}>
+          {propertyFor === `rent` && (
+            <>
+              <div>
+                <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Reviews`} color={`blue`} type={`lg`}
+                              state={chosenActiveComments} />
+              </div>
+            </>
+          )}
+          <div>
+            <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
+                          state={chosenActiveComments} />
           </div>
+
         </div>
-        {activeComments === `Questions` && sortedQuestions.length > 0 && (
-          <>
-            <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Answered`} state={activeFilter} />
-            </div>
-          </>
-        )}
-        {activeComments === `Reviews` && propertyFor === `rent` && sortedReviews.length > 0 && (
-          <>
-            <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`From Higher Rating`} state={activeFilter} />
-              <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`From Lower Rating`} state={activeFilter} />
-            </div>
-          </>
-        )}
-
-        {activeComments === `Questions` && (
-          <>
-            <div className={`flex flex-col gap-12`}>
-              {sortedQuestions.length === 0 && (
-                <>
-                  <p className={`text-zinc-800`}>No questions yet. Be the first one to ask!</p>
-                </>
-              )}
-
-              {sortedQuestions.length > 0 && sortedQuestions
-                .slice(0, activePageQuestions * itemsPerPage)
-                .map(function(question) {
-                  return (
-                    <>
-                      <Comment initials={question.user.initials}
-                               abbrInitials={abbreviateInitials(question.user.initials)}
-                               text={question.comment}
-                               likes={question.likes.length}
-                               createdAt={formatDate(question.createdAt)}
-                               responses={question.replies} userType={`USER`}
-                      />
-                    </>
-                  );
-                })}
-            </div>
-
-            {sortedQuestions.length > activePageQuestions * itemsPerPage && (
-              <>
-                <div className={`w-fit mt-14`}
-                     onClick={() => setActivePageQuestions(activePageQuestions + 1)}
-                >
-                  <Button label={`See More`} mode={`md`} linearGradient />
-                </div>
-              </>
-            )}
-
-            {sortedQuestions.length <= activePageQuestions * itemsPerPage && activePageQuestions > 1 && (
-              <>
-                <div className={`w-fit mt-14`}
-                     onClick={() => {
-                       scrollIntoViewFunc(`.comment-heading`);
-                       setActivePageQuestions(1);
-                     }}
-                >
-                  <Button btnVariant={`grey`} label={`Hide Questions`} mode={`lg`} linearGradient />
-                </div>
-              </>
-            )}
-          </>
-        )}
-
-        {activeComments === `Reviews` && propertyFor === `rent` && (
-          <>
-            <div className={`flex flex-col gap-12`}>
-
-              {sortedReviews.length === 0 && (
-                <p className={`text-zinc-800`}>No reviews yet. Be the first one to leave!</p>
-              )}
-
-              {sortedReviews.length > 0 && sortedReviews
-                .slice(0, activePage * itemsPerPage)
-                .map(function(review) {
-                  // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
-                  return (
-                    <>
-                      <Comment rating={review.rated.overall} initials={review.user.initials}
-                               abbrInitials={abbreviateInitials(review.user.initials)}
-                               text={review.comment}
-                               likes={review.likes.length} createdAt={formatDate(review.createdAt)}
-                               responses={review.replies} userType={`USER`}
-                      />
-                    </>
-                  );
-                })}
-            </div>
-
-            {sortedReviews.length > activePage * itemsPerPage && (
-              <>
-                <div className={`w-fit mt-14`}
-                     onClick={() => setActivePage(activePage + 1)}
-                >
-                  <Button label={`See More`} mode={`md`} linearGradient />
-                </div>
-              </>
-            )}
-
-            {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (
-              <>
-                <div className={`w-fit mt-14`}
-                     onClick={() => {
-                       scrollIntoViewFunc(`.comment-heading`);
-                       setActivePage(1);
-                     }}
-                >
-                  <Button btnVariant={`grey`} label={`Hide Reviews`} mode={`lg`} linearGradient />
-                </div>
-              </>
-            )}
-          </>
-        )}
       </div>
+      {chosenActiveComments === `Questions` && sortedQuestions.length > 0 && (
+        <>
+          <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Answered`} state={activeFilter} />
+          </div>
+        </>
+      )}
+      {chosenActiveComments === `Reviews` && propertyFor === `rent` && sortedReviews.length > 0 && (
+        <>
+          <div className={`flex items-center gap-2.5 mb-12 overflow-x-auto scrollbar-thin`}>
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Date`} state={activeFilter} />
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`Most Liked`} state={activeFilter} />
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`From Higher Rating`} state={activeFilter} />
+            <BadgeRounded setActiveFilter={handleSetActiveFilter} label={`From Lower Rating`} state={activeFilter} />
+          </div>
+        </>
+      )}
+
+      {chosenActiveComments === `Questions` && (
+        <>
+          <div className={`flex flex-col gap-12`}>
+            {sortedQuestions.length === 0 && (
+              <>
+                <p className={`text-zinc-800`}>No questions yet. Be the first one to ask!</p>
+              </>
+            )}
+
+            {sortedQuestions.length > 0 && sortedQuestions
+              .slice(0, activePageQuestions * itemsPerPage)
+              .map(function(question) {
+                return (
+                  <>
+                    <Comment initials={question.user.initials}
+                             abbrInitials={abbreviateInitials(question.user.initials)}
+                             text={question.comment}
+                             likes={question.likes.length}
+                             createdAt={formatDate(question.createdAt)}
+                             responses={question.replies} userType={`USER`}
+                    />
+                  </>
+                );
+              })}
+          </div>
+
+          {sortedQuestions.length > activePageQuestions * itemsPerPage && (
+            <>
+              <div className={`w-fit mt-14`}
+                   onClick={() => setActivePageQuestions(activePageQuestions + 1)}
+              >
+                <Button label={`See More`} mode={`md`} linearGradient />
+              </div>
+            </>
+          )}
+
+          {sortedQuestions.length <= activePageQuestions * itemsPerPage && activePageQuestions > 1 && (
+            <>
+              <div className={`w-fit mt-14`}
+                   onClick={() => {
+                     scrollIntoViewFunc(`.comment-heading`);
+                     setActivePageQuestions(1);
+                   }}
+              >
+                <Button btnVariant={`grey`} label={`Hide Questions`} mode={`lg`} linearGradient />
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      {chosenActiveComments === `Reviews` && propertyFor === `rent` && (
+        <>
+          <div className={`flex flex-col gap-12`}>
+
+            {sortedReviews.length === 0 && (
+              <p className={`text-zinc-800`}>No reviews yet. Be the first one to leave!</p>
+            )}
+
+            {sortedReviews.length > 0 && sortedReviews
+              .slice(0, activePage * itemsPerPage)
+              .map(function(review) {
+                // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
+                return (
+                  <>
+                    <Comment rating={review.rated.overall} initials={review.user.initials}
+                             abbrInitials={abbreviateInitials(review.user.initials)}
+                             text={review.comment}
+                             likes={review.likes.length} createdAt={formatDate(review.createdAt)}
+                             responses={review.replies} userType={`USER`}
+                    />
+                  </>
+                );
+              })}
+          </div>
+
+          {sortedReviews.length > activePage * itemsPerPage && (
+            <>
+              <div className={`w-fit mt-14`}
+                   onClick={() => setActivePage(activePage + 1)}
+              >
+                <Button label={`See More`} mode={`md`} linearGradient />
+              </div>
+            </>
+          )}
+
+          {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (
+            <>
+              <div className={`w-fit mt-14`}
+                   onClick={() => {
+                     scrollIntoViewFunc(`.comment-heading`);
+                     setActivePage(1);
+                   }}
+              >
+                <Button btnVariant={`grey`} label={`Hide Reviews`} mode={`lg`} linearGradient />
+              </div>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 }
