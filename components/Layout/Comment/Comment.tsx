@@ -11,6 +11,7 @@ import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 import { formatDate } from '@/utils/functions/formatDate';
 import { UserType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
+import { useLikePropertyQuestion } from '@/hooks/mutations/useLikePropertyQuestion';
 
 export type CommentResponseType = {
   replierId: string;
@@ -54,6 +55,9 @@ export default function
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
 
+  const { likePropertyQuestion, loading: loadingLikeQuestion, error } = useLikePropertyQuestion();
+
+
   useEffect(() => {
     if (likes) {
       setLikesArray(likes);
@@ -66,7 +70,7 @@ export default function
     roundedRating = rating ? roundNumber(rating) : null;
   }
 
-  function handleCommentAction() {
+  async function handleCommentAction() {
     if (likesArray!.includes(userData!.email)) {
       // optimistic update
       setLikesArray((prevState) => prevState!.filter((like) => like !== userData!.email));
@@ -79,6 +83,12 @@ export default function
     } else {
       // optimistic update
       setLikesArray((prevState) => [...prevState!, userData!.email]);
+
+      switch (commentMode) {
+        case 'PropertyQuestion':
+          await likePropertyQuestion(id);
+          break;
+      }
     }
   }
 

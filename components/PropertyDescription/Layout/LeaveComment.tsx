@@ -48,13 +48,14 @@ export type AddedQuestionType = {
   replies: [];
 }
 
-export default function LeaveComment({
-                                       badges,
-                                       available,
-                                       propertyFor,
-                                       activeLeaveCommentBadge,
-                                       propertyId
-                                     }: LeaveCommentType) {
+export default function
+  LeaveComment({
+                 badges,
+                 available,
+                 propertyFor,
+                 activeLeaveCommentBadge,
+                 propertyId
+               }: LeaveCommentType) {
   const dispatch = useCartDispatch();
   const { userData, loading } = useUserDataOnClient();
   const { createQuestion, loading: creatingQuestion } = useCreatePropertyQuestion();
