@@ -20,6 +20,8 @@ export type CommentResponseType = {
   createdAt: string;
 }
 
+type CommentModeType = `PropertyReview` | `PropertyQuestion` | `BlogReview`
+
 type CommentType = {
   id: string;
   userType: UserType;
@@ -30,12 +32,14 @@ type CommentType = {
   createdAt: string;
   responses: CommentResponseType[]
   rating?: number;
+  commentMode: CommentModeType;
   // children: ReactNode;
 }
 
 export default function
   Comment({
             id,
+            commentMode,
             userType,
             createdAt,
             likes,
@@ -63,10 +67,15 @@ export default function
   }
 
   function handleCommentAction() {
-    console.log('Id of a comment', id);
     if (likesArray!.includes(userData!.email)) {
       // optimistic update
       setLikesArray((prevState) => prevState!.filter((like) => like !== userData!.email));
+
+      switch (commentMode) {
+        case 'PropertyQuestion':
+          break;
+      }
+
     } else {
       // optimistic update
       setLikesArray((prevState) => [...prevState!, userData!.email]);
