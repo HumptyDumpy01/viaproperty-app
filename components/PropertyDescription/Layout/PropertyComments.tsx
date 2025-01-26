@@ -166,7 +166,7 @@ export default function PropertyComments({ propertyFor, reviews, questions }: Pr
       {chosenActiveComments === `Questions` && (
         <>
           <div className={`flex flex-col gap-12`}>
-            {sortedQuestions.length === 0 && (
+            {sortedQuestions.length === 0 && optimisticQuestions.length === 0 && (
               <>
                 <p className={`text-zinc-800`}>No questions yet. Be the first one to ask!</p>
               </>
