@@ -74,7 +74,7 @@ export default function
     }
     console.log('Error:', error);
 
-  }, [newReply, newReplyLoading, error]);
+  }, [newReply, newReplyLoading, error, newReplyLoading]);
 
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
