@@ -60,7 +60,6 @@ export type PropertyQuestionsType = {
 
 export type PropertyCommentsType = {
   propertyFor: PropertyForType;
-  landlordId: string;
   propertyId: string;
   reviews: PropertyReviewsType[];
   questions: PropertyQuestionsType[];
@@ -71,7 +70,6 @@ export type CommentType = `Reviews` | `Questions`;
 export default function
   PropertyComments({
                      propertyFor,
-                     landlordId,
                      propertyId,
                      reviews,
                      questions
@@ -185,7 +183,6 @@ export default function
               <>
                 <Comment
                   propertyId={propertyId}
-                  landlordId={landlordId}
                   commentMode={'PropertyQuestion'}
                   id={question.id}
                   initials={question.user.initials}
@@ -204,7 +201,6 @@ export default function
                   <>
                     <Comment
                       propertyId={propertyId}
-                      landlordId={landlordId}
                       commentMode={'PropertyQuestion'}
                       id={question.id}
                       initials={question.user.initials}
@@ -260,7 +256,6 @@ export default function
                   <>
                     <Comment
                       propertyId={propertyId}
-                      landlordId={landlordId}
                       commentMode={'PropertyReview'}
                       id={review.id}
                       rating={review.rated.overall}

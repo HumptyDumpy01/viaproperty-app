@@ -38,7 +38,6 @@ type CommentType = {
   responses: CommentResponseType[]
   rating?: number;
   commentMode: CommentModeType;
-  landlordId: string;
   propertyId: string;
   // children: ReactNode;
 }
@@ -46,7 +45,6 @@ type CommentType = {
 export default function
   Comment({
             id,
-            landlordId,
             propertyId,
             commentMode,
             userType,
@@ -62,6 +60,7 @@ export default function
   const [loadingReplies, setLoadingReplies] = useState(true);
   const [showReplies, setShowReplies] = useState<boolean>(false);
   const { newReply, loading: newReplyLoading, error } = useNewReplySubscription();
+  const [newReplies, setNewReplies] = useState<CommentResponseType[]>([]);
 
   useEffect(() => {
     if (newReply) {
@@ -69,6 +68,7 @@ export default function
       const updatedNewReply = {
         ...newReply
       };
+      // @ts-ignore
 
       setNewReplies((prevState) => [...prevState, updatedNewReply]);
     }
@@ -80,8 +80,6 @@ export default function
   const [likesArray, setLikesArray] = useState<string[]>();
   const [repliesArray, setRepliesArray] = useState<CommentResponseType[]>([]);
   const [leaveReplyOpen, setLeaveReplyOpen] = useState<boolean>(false);
-
-  const [newReplies, setNewReplies] = useState<CommentResponseType[]>([]);
 
   const { likePropertyQuestion } = useLikePropertyQuestion();
   const { unlikePropertyQuestion } = useUnlikePropertyQuestion();

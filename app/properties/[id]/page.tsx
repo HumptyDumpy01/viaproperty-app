@@ -122,7 +122,6 @@ export default function PropertyDescription({ params }: { params: { id: string }
                   <div className={`mb-16`}>
                     <PropertyComments
                       propertyId={property.id}
-                      landlordId={property.landlord.id}
                       questions={property.questions}
                       reviews={property.reviews}
                       propertyFor={property.propertyFor} />

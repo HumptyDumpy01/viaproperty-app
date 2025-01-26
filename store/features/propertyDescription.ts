@@ -9,7 +9,7 @@ const propertyDescriptionSlice = createSlice({
   name: `property-description`,
   initialState: {
     responsiveSidebarOpen: false,
-    activeComments: `Reviews`,
+    activeComments: `Questions`,
     optimisticPropertyQuestions: [] as PropertyQuestionsType[],
     optimisticPropertyReviews: [] as PropertyReviewsType[]
   },
