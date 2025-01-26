@@ -41,27 +41,25 @@ export default function LeaveCommentContainer({ propertyFor, propertyId }: Leave
   };
   return (
     <>
-      <div>
-        <CustomApolloProvider>
-          <LeaveComment propertyId={propertyId} activeLeaveCommentBadge={activeLeaveCommentBadge}
-                        propertyFor={propertyFor}
-                        available={{ reviews: reviewsAvailable, questions: true }} badges={
-            (
-              <>
-                {propertyFor === `rent` && (
-                  <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
-                                type={`lg`}
-                                state={activeLeaveCommentBadge} />
-                )}
-
-                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
+      <CustomApolloProvider>
+        <LeaveComment propertyId={propertyId} activeLeaveCommentBadge={activeLeaveCommentBadge}
+                      propertyFor={propertyFor}
+                      available={{ reviews: reviewsAvailable, questions: true }} badges={
+          (
+            <>
+              {propertyFor === `rent` && (
+                <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Leave Review`} color={`blue`}
                               type={`lg`}
                               state={activeLeaveCommentBadge} />
-              </>
-            )
-          } />
-        </CustomApolloProvider>
-      </div>
+              )}
+
+              <BadgeRounded setActiveFilter={handleSetLeaveCommentBadge} label={`Ask Question`} color={`blue`}
+                            type={`lg`}
+                            state={activeLeaveCommentBadge} />
+            </>
+          )
+        } />
+      </CustomApolloProvider>
     </>
   );
 }
