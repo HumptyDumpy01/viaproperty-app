@@ -151,6 +151,8 @@ export default function
 
         // @ts-ignore
         setNewReplies((prevState) => [...prevState, updatedNewReply]);
+        currObject.reset();
+        setLeaveReplyOpen(() => false);
         break;
     }
   }
