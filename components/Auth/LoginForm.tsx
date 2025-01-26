@@ -86,7 +86,7 @@ export default function LoginForm() {
                          customClassNames={`w-full`} label={`Email`}
                          inputType={`email`} required />
           <PasswordInput required showStar={false} icon={`eye`} label={`Password`} inputName={`password`}
-                         placeholder={`Enter "Test12345!"`} />
+                         placeholder={`Ask me for password :D`} />
         </div>
         <TextualTooltip text={(
           <>
