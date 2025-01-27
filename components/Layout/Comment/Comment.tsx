@@ -16,6 +16,8 @@ import { useUnlikePropertyQuestion } from '@/hooks/mutations/useUnlikePropertyQu
 import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { useAddPropertyQuestionReply } from '@/hooks/mutations/useAddPropertyQuestionReply';
 import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
+import { useLikePropertyReview } from '@/hooks/mutations/useLikePropertyReview';
+import { useUnlikePropertyReview } from '@/hooks/mutations/useUnlikePropertyReview';
 
 export type CommentResponseType = {
   replierId: string;
@@ -82,6 +84,9 @@ export default function
   const { likePropertyQuestion } = useLikePropertyQuestion();
   const { unlikePropertyQuestion } = useUnlikePropertyQuestion();
 
+  const { likeReview } = useLikePropertyReview();
+  const { unlikeReview } = useUnlikePropertyReview();
+
   const [validationReplyError, setValidationReplyError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -113,7 +118,7 @@ export default function
           await unlikePropertyQuestion(id);
           break;
         case 'PropertyReview':
-          console.log('Property review was unliked.', id);
+          await unlikeReview(id);
           break;
       }
 
@@ -126,7 +131,7 @@ export default function
           await likePropertyQuestion(id);
           break;
         case 'PropertyReview':
-          console.log('Property review was liked.', id);
+          await likeReview(id);
           break;
       }
     }

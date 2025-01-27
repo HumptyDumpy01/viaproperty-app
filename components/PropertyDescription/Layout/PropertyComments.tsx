@@ -76,7 +76,6 @@ export default function
   const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
   const optimisticReviews = useCartSelector((state) => state.propertyDescription.optimisticPropertyReviews);
 
-
   const chosenActiveComments = propertyFor === `sell` ? `Questions` : activeCommentsGlobal;
 
   const itemsPerPage = 3;

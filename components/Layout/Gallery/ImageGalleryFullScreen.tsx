@@ -34,10 +34,8 @@ export default function ImageGalleryFullScreen({ layoutOpen, dispatch, images }:
            fixed bottom-3 left-3 z-40 bg-zinc-900/20 rounded-2xl backdrop-blur-2xl overflow-x-auto scrollbar-thin p-2`}>
             {images.map(function(image) {
               return (
-                <>
-                  <GalleryCard setActiveImage={setActiveImage} active={activeImage.src === image.src}
-                               img={{ src: image.src, alt: image.alt }} />
-                </>
+                <GalleryCard key={image.src} setActiveImage={setActiveImage} active={activeImage.src === image.src}
+                             img={{ src: image.src, alt: image.alt }} />
               );
             })}
           </div>
