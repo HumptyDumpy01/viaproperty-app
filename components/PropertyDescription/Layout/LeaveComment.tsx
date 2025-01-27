@@ -11,6 +11,7 @@ import { useCreatePropertyQuestion } from '@/hooks/mutations/useCreatePropertyQu
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { useCartDispatch } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
+import { leavePropertyReviewSchema } from '@/utils/schemas/reviews/leave-property-review-schema';
 
 type LeaveCommentType = {
   available: {
@@ -21,6 +22,16 @@ type LeaveCommentType = {
   propertyFor: PropertyForType;
   activeLeaveCommentBadge: LeaveCommentBadgeType;
   propertyId: string;
+}
+
+export type LeaveReviewType = {
+  location: number;
+  security: number;
+  condition: number;
+  noiseLevel: number;
+  ownership: number;
+  amenities: number;
+  comment: string;
 }
 
 export type AddedQuestionType = {
@@ -47,6 +58,7 @@ export default function
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setErrorMessage(() => '');
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
     const results = Object.fromEntries(formData.entries());
@@ -96,6 +108,29 @@ export default function
       }
     } else {
       // Handle review submission
+      console.log('New Property Review:');
+
+      const formattedResults: LeaveReviewType = {
+        location: Number(results.location),
+        security: Number(results.security),
+        condition: Number(results.condition),
+        noiseLevel: Number(results.noiseLevel),
+        ownership: Number(results.ownership),
+        amenities: Number(results.amenities),
+        comment: (results.comment as string).trim()
+      };
+      console.log('formattedResults:', formattedResults);
+      const validate = leavePropertyReviewSchema.safeParse({
+        ...formattedResults
+      });
+
+      if (!validate.success) {
+        setErrorMessage(validate.error.errors[0].message);
+        scrollIntoViewFunc(`.comment-secondary-heading`);
+        return;
+      }
+      console.log(formattedResults);
+
     }
     // console.log(results);
   }
@@ -103,7 +138,7 @@ export default function
   return (
     <>
       <h2
-        className={`text-4xl leading-tight bg-clip-text text-transparent bg-linear-main-dark-blue font-bold flex w-fit mb-8`}>
+        className={`comment-secondary-heading text-4xl leading-tight bg-clip-text text-transparent bg-linear-main-dark-blue font-bold flex w-fit mb-8`}>
         Share your Experience or Ask <br /> a Question
       </h2>
 
@@ -137,14 +172,14 @@ export default function
         )}
         <div>
           <h3 className={`bg-clip-text text-transparent bg-linear-main-dark-blue font-bold text-[33px] w-fit mb-8
-            comment-secondary-heading`}>
+            `}>
             {available.reviews && propertyFor === `rent` ? `Leave Your Review` : `Ask Landlord about anything!`}
           </h3>
           <div className={`max-w-[734px]`}>
               <textarea maxLength={1000} minLength={5} required
                         name={`comment`}
                         className={`w-full text-left p-6 flex h-52 border border-zinc-200 rounded-2xl`}
-                        placeholder={`Share your thoughts! Your comment should contain at least 10 characters and less than 700.`} />
+                        placeholder={`Share your thoughts! Your comment should contain at least 5 characters and less than 1000.`} />
           </div>
         </div>
         <div>

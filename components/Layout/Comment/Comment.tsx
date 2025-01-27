@@ -112,6 +112,9 @@ export default function
         case 'PropertyQuestion':
           await unlikePropertyQuestion(id);
           break;
+        case 'PropertyReview':
+          console.log('Property review was unliked.', id);
+          break;
       }
 
     } else {
@@ -121,6 +124,9 @@ export default function
       switch (commentMode) {
         case 'PropertyQuestion':
           await likePropertyQuestion(id);
+          break;
+        case 'PropertyReview':
+          console.log('Property review was liked.', id);
           break;
       }
     }
