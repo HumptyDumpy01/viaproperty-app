@@ -74,6 +74,8 @@ export default function
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
   const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
+  const optimisticReviews = useCartSelector((state) => state.propertyDescription.optimisticPropertyReviews);
+
 
   const chosenActiveComments = propertyFor === `sell` ? `Questions` : activeCommentsGlobal;
 
@@ -241,9 +243,26 @@ export default function
         <>
           <div className={`flex flex-col gap-12`}>
 
-            {sortedReviews.length === 0 && (
+            {sortedReviews.length === 0 && optimisticReviews.length === 0 && (
               <p className={`text-zinc-800`}>No reviews yet. Be the first one to leave!</p>
             )}
+
+            {optimisticReviews.length > 0 && optimisticReviews.map((review) => (
+              <>
+                <Comment
+                  rating={review.rated.overall}
+                  propertyId={propertyId}
+                  commentMode={'PropertyReview'}
+                  id={review.id}
+                  initials={review.user.initials}
+                  abbrInitials={abbreviateInitials(review.user.initials)}
+                  text={review.comment}
+                  likes={review.likes}
+                  createdAt={formatDate(review.createdAt)}
+                  responses={review.replies} userType={`USER`}
+                />
+              </>
+            ))}
 
             {sortedReviews.length > 0 && sortedReviews
               .slice(0, activePage * itemsPerPage)

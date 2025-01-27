@@ -22,6 +22,9 @@ const propertyDescriptionSlice = createSlice({
     },
     pushOptimisticPropertyQuestion(state, action: PayloadAction<PropertyQuestionsType>) {
       state.optimisticPropertyQuestions = [...state.optimisticPropertyQuestions, action.payload];
+    },
+    pushOptimisticPropertyReview(state, action: PayloadAction<PropertyReviewsType>) {
+      state.optimisticPropertyReviews = [...state.optimisticPropertyReviews, action.payload];
     }
   }
 });

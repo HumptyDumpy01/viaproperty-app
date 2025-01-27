@@ -12,6 +12,7 @@ import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { useCartDispatch } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
 import { leavePropertyReviewSchema } from '@/utils/schemas/reviews/leave-property-review-schema';
+import { RatedReviewType, useCreatePropertyReview } from '@/hooks/mutations/useCreatePropertyReview';
 
 type LeaveCommentType = {
   available: {
@@ -43,6 +44,18 @@ export type AddedQuestionType = {
   replies: [];
 }
 
+export type NewlyAddedReviewType = {
+  id: string;
+  propertyId: string;
+  userId: string;
+  comment: string;
+  likes: string[],
+  createdAt: string;
+  replies: [];
+  rated: RatedReviewType;
+
+}
+
 export default function
   LeaveComment({
                  badges,
@@ -55,6 +68,7 @@ export default function
   const { userData, loading } = useUserDataOnClient();
   const { createQuestion, loading: creatingQuestion } = useCreatePropertyQuestion();
   const [errorMessage, setErrorMessage] = useState<string>(``);
+  const { createPropertyReview, loading: loadingNewPropertyReview, error } = useCreatePropertyReview();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -99,6 +113,7 @@ export default function
 
         dispatch(propertyDescriptionSliceActions.changeActiveComments('Questions'));
         scrollIntoViewFunc(`.comment-heading`);
+        currObject.reset();
 
       } catch (e: any) {
         scrollIntoViewFunc(`.comment-secondary-heading`);
@@ -119,18 +134,47 @@ export default function
         amenities: Number(results.amenities),
         comment: (results.comment as string).trim()
       };
-      console.log('formattedResults:', formattedResults);
-      const validate = leavePropertyReviewSchema.safeParse({
-        ...formattedResults
-      });
+      const validate = leavePropertyReviewSchema.safeParse(formattedResults);
 
       if (!validate.success) {
         setErrorMessage(validate.error.errors[0].message);
         scrollIntoViewFunc(`.comment-secondary-heading`);
         return;
       }
-      console.log(formattedResults);
+      /*  USE GRAPHQL API ENDPOINT TO ADD A NEW REVIEW. */
 
+      const newlyAddedReview = await createPropertyReview({
+        comment: formattedResults.comment, propertyId, rated: {
+          location: formattedResults.location,
+          condition: formattedResults.condition,
+          security: formattedResults.security,
+          noiseLevel: formattedResults.noiseLevel,
+          amenities: formattedResults.amenities,
+          ownership: formattedResults.ownership,
+          overall: 1
+        }
+      }).then((res) => res!.data.createComment) as NewlyAddedReviewType;
+
+
+      /* PUSH OPTIMISTIC REVIEW ONTO REVIEWS */
+      dispatch(propertyDescriptionSliceActions.pushOptimisticPropertyReview({
+        user: {
+          initials: userData!.initials
+        },
+        id: newlyAddedReview.id,
+        comment: newlyAddedReview.comment,
+        likes: newlyAddedReview.likes,
+        replies: newlyAddedReview.replies,
+        createdAt: newlyAddedReview.createdAt,
+        rated: {
+          overall: newlyAddedReview.rated.overall
+        },
+        userType: `USER`
+      }));
+
+      dispatch(propertyDescriptionSliceActions.changeActiveComments('Reviews'));
+      currObject.reset();
+      scrollIntoViewFunc(`.comment-heading`);
     }
     // console.log(results);
   }
