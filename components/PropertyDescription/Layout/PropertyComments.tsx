@@ -84,7 +84,7 @@ export default function
   const [activePage, setActivePage] = useState(1);
   const [activePageQuestions, setActivePageQuestions] = useState(1);
 
-  const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Date`);
+  const [activeFilter, setActiveFilter] = useState<ActiveFilterTypeQuestions>(`Answered`);
 
   const [sortedReviews, setSortedReviews] = useState(
     sortArrayByNewestDate(reviews)
@@ -135,6 +135,10 @@ export default function
         <h2 className={`text-4xl bg-clip-text text-transparent bg-linear-main-red font-bold flex w-fit
                   mb-8 comment-heading`}>Comments</h2>
         <div className={`flex gap-3 flex-wrap`}>
+          <div>
+            <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
+                          state={chosenActiveComments} />
+          </div>
           {propertyFor === `rent` && (
             <>
               <div>
@@ -143,10 +147,6 @@ export default function
               </div>
             </>
           )}
-          <div>
-            <BadgeRounded setActiveFilter={handleSetActiveComments} label={`Questions`} color={`blue`} type={`lg`}
-                          state={chosenActiveComments} />
-          </div>
 
         </div>
       </div>

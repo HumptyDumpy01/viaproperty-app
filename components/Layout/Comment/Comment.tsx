@@ -64,14 +64,12 @@ export default function
 
   useEffect(() => {
     if (newReply && newReply.commentId === id) {
-      console.log('Executing newReply:', newReply);
       const updatedNewReply = {
         ...newReply
       };
 
       setNewReplies((prevState) => [...prevState, updatedNewReply]);
     }
-    console.log('Error:', error);
 
   }, [newReply, newReplyLoading, error, newReplyLoading]);
 
