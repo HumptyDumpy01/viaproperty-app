@@ -19,6 +19,7 @@ import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscr
 
 export type CommentResponseType = {
   replierId: string;
+  commentId: string;
   replierInitials: string;
   userType: UserType;
   comment: string;
@@ -193,16 +194,17 @@ export default function
               </>
             );
           })}
-          {newReplies && newReplies?.length > 0 && newReplies!.map((reply) => (
-            <>
-              <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
-                      initials={reply.replierInitials}
-                      createdAt={formatDate(reply.createdAt)} />
-                <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
-              </div>
-            </>
-          ))}
+          {newReplies && newReplies?.length > 0 && newReplies.filter((reply) => reply.commentId === id)!
+            .map((reply) => (
+              <>
+                <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
+                  <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
+                        initials={reply.replierInitials}
+                        createdAt={formatDate(reply.createdAt)} />
+                  <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
+                </div>
+              </>
+            ))}
         </div>
 
         <div className={`flex gap-3`}>
