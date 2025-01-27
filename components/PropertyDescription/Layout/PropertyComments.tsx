@@ -21,6 +21,15 @@ export type PropertyRatedType = {
 
 export type UserType = `USER` | `LANDLORD`;
 
+export type ReplyType = {
+  replierId: string;
+  replierInitials: string;
+  userType: UserType;
+  commentId: string;
+  comment: string;
+  createdAt: string;
+}
+
 export type PropertyReviewsType = {
   user: {
     initials: string;
@@ -31,13 +40,7 @@ export type PropertyReviewsType = {
   rated: PropertyRatedType;
   createdAt: string;
   userType: UserType;
-  replies: {
-    replierId: string;
-    replierInitials: string;
-    userType: UserType;
-    comment: string;
-    createdAt: string;
-  }[] | [];
+  replies: ReplyType[] | [];
 }
 
 export type PropertyQuestionsType = {
@@ -49,13 +52,7 @@ export type PropertyQuestionsType = {
   likes: string[];
   createdAt: string;
   userType: UserType;
-  replies: {
-    replierId: string;
-    replierInitials: string;
-    userType: UserType;
-    comment: string;
-    createdAt: string;
-  }[] | [];
+  replies: ReplyType[] | [];
 }
 
 export type PropertyCommentsType = {
