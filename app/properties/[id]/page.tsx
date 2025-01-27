@@ -26,6 +26,7 @@ import { DEFAULT_ERROR_MESSAGE } from '@/utils/generics/generics';
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
 import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
+import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 
 /*
 
@@ -57,7 +58,9 @@ async function fetchProperty(id: string) {
 export default function PropertyDescription({ params }: { params: { id: string } }) {
 // export default async function PropertyDescription({ params }: { params: { id: string } }) {
   const { error, data, loading } = useFetchProperty(params.id);
-  if (loading) return (
+  const { userData, loading: loadingUser } = useUserDataOnClient();
+
+  if (loading || loadingUser) return (
     <LoadingScreen />
   );
 
@@ -126,7 +129,9 @@ export default function PropertyDescription({ params }: { params: { id: string }
                       reviews={property.reviews}
                       propertyFor={property.propertyFor} />
                   </div>
-                  <LeaveCommentContainer propertyId={params.id} propertyFor={property.propertyFor} />
+                  {property.landlord.id !== userData!.id && (
+                    <LeaveCommentContainer propertyId={params.id} propertyFor={property.propertyFor} />
+                  )}
                 </ReduxProvider>
               </CustomApolloProvider>
             </div>

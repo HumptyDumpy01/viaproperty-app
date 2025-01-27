@@ -218,7 +218,7 @@ export default function
             </>
           )}
 
-          {repliesArray.length > 0 && (
+          {[...repliesArray, ...newReplies].length > 0 && (
             <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
               <Button mode={`sm`}
                       label={!showReplies ? `See answers (${[...repliesArray, ...newReplies].length})` : `Hide`}
