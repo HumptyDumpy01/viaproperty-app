@@ -63,12 +63,11 @@ export default function
   const [newReplies, setNewReplies] = useState<CommentResponseType[]>([]);
 
   useEffect(() => {
-    if (newReply) {
+    if (newReply && newReply.commentId === id) {
       console.log('Executing newReply:', newReply);
       const updatedNewReply = {
         ...newReply
       };
-      // @ts-ignore
 
       setNewReplies((prevState) => [...prevState, updatedNewReply]);
     }
