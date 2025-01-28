@@ -1,7 +1,7 @@
 import { useSubscription } from '@apollo/client';
-import { NEW_REPLY_SUBSCRIPTION } from '@/graphql/subscriptions/new-reply';
+import { NEW_REPLY_SUBSCRIPTION } from '@/graphql/subscriptions/new-question-reply';
 
-export const useNewReplySubscription = () => {
+export const useNewQuestionReplySubscription = () => {
   const { data, loading, error } = useSubscription(NEW_REPLY_SUBSCRIPTION);
 
   return {

@@ -14,7 +14,7 @@ import { sortPropertyQuestions } from '@/utils/functions/sorting/sortPropertyQue
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { useCartDispatch, useCartSelector } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
-import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
+import { useNewQuestionReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
 
 export type PropertyRatedType = {
   overall: number;
@@ -61,8 +61,6 @@ export type PropertyCommentsType = {
   propertyId: string;
   reviews: PropertyReviewsType[];
   questions: PropertyQuestionsType[];
-  landlordId: string;
-  activeUserId: string;
 };
 
 export type CommentType = `Reviews` | `Questions`;
@@ -72,9 +70,7 @@ export default function
                      propertyFor,
                      propertyId,
                      reviews,
-                     questions,
-                     landlordId,
-                     activeUserId
+                     questions
                    }: PropertyCommentsType) {
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
@@ -96,14 +92,15 @@ export default function
     sortArrayByNewestDate(questions)
   );
 
-  const { newReply, loading: newReplyLoading, error } = useNewReplySubscription();
-  const [newReplies, setNewReplies] = useState<ReplyType[]>([]);
+  const { newReply: newQuestionReply, loading: newQuestionReplyLoading, error } = useNewQuestionReplySubscription();
+  const [newQuestionReplies, setNewQuestionReplies] = useState<ReplyType[]>([]);
+  const [newReviewReplies, setNewReviewReplies] = useState<ReplyType[]>([]);
 
   useEffect(() => {
-    if (newReply) {
-      setNewReplies((prevState) => [...prevState, newReply]);
+    if (newQuestionReply) {
+      setNewQuestionReplies((prevState) => [...prevState, newQuestionReply]);
     }
-  }, [newReply, newReplyLoading, error]);
+  }, [newQuestionReply, newQuestionReplyLoading, error]);
 
   useEffect(() => {
     const copyQuestions = [...questions];
@@ -206,7 +203,7 @@ export default function
                   createdAt={formatDate(question.createdAt)}
                   responses={question.replies}
                   userType={`USER`}
-                  newQuestionReplies={newReplies.filter(reply => reply.commentId === question.id)}
+                  newReplies={newQuestionReplies.filter(reply => reply.commentId === question.id)}
                 />
               </>
             ))}
@@ -226,7 +223,7 @@ export default function
                       createdAt={formatDate(question.createdAt)}
                       responses={question.replies}
                       userType={`USER`}
-                      newQuestionReplies={newReplies.filter(reply => reply.commentId === question.id)}
+                      newReplies={newQuestionReplies.filter(reply => reply.commentId === question.id)}
                     />
                   </>
                 );
@@ -269,7 +266,6 @@ export default function
             {optimisticReviews.length > 0 && optimisticReviews.map((review) => (
               <>
                 <Comment
-                  leaveReplyEnabled={false}
                   rating={review.rated.overall}
                   propertyId={propertyId}
                   commentMode={'PropertyReview'}
@@ -281,7 +277,7 @@ export default function
                   createdAt={formatDate(review.createdAt)}
                   responses={review.replies}
                   userType={`USER`}
-                  newQuestionReplies={newReplies.filter(reply => reply.commentId === review.id)}
+                  newReplies={newReviewReplies.filter(reply => reply.commentId === review.id)}
                 />
               </>
             ))}
@@ -292,7 +288,6 @@ export default function
                 return (
                   <>
                     <Comment
-                      leaveReplyEnabled={landlordId === activeUserId}
                       propertyId={propertyId}
                       commentMode={'PropertyReview'}
                       id={review.id}
@@ -304,7 +299,7 @@ export default function
                       createdAt={formatDate(review.createdAt)}
                       responses={review.replies}
                       userType={`USER`}
-                      newQuestionReplies={newReplies.filter(reply => reply.commentId === review.id)}
+                      newReplies={newReviewReplies.filter(reply => reply.commentId === review.id)}
                     />
                   </>
                 );

@@ -124,8 +124,6 @@ export default function PropertyDescription({ params }: { params: { id: string }
                 <ReduxProvider>
                   <div className={`mb-16`}>
                     <PropertyComments
-                      activeUserId={userData!.id}
-                      landlordId={property.landlord.id}
                       propertyId={property.id}
                       questions={property.questions}
                       reviews={property.reviews}

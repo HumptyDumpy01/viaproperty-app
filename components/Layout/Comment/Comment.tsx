@@ -43,7 +43,7 @@ type CommentType = {
   commentMode: CommentModeType;
   propertyId: string;
   leaveReplyEnabled?: boolean;
-  newQuestionReplies: CommentResponseType[];
+  newReplies: CommentResponseType[];
 }
 
 export default function
@@ -60,12 +60,11 @@ export default function
             initials,
             rating,
             leaveReplyEnabled = true,
-            newQuestionReplies
+            newReplies
           }: CommentType) {
 
   const [loadingReplies, setLoadingReplies] = useState(true);
   const [showReplies, setShowReplies] = useState<boolean>(false);
-  const [optimisticReviewReplies, setOptimisticReviewReplies] = useState<CommentResponseType[]>([]);
 
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
@@ -148,22 +147,12 @@ export default function
         await createQuestionReply({ propertyId, commentId: id, comment: reply });
         break;
       case 'PropertyReview':
-        const newReviewReply = await createPropertyReviewReply({
+        await createPropertyReviewReply({
           propertyId,
           commentId: id,
           comment: reply
-        }).then((res) => res!.data.createReply);
+        });
 
-        const formattedReviewReply: CommentResponseType = {
-          replierId: newReviewReply.replier.id,
-          replierInitials: newReviewReply.replier.initials,
-          userType: 'LANDLORD',
-          createdAt: newReviewReply.createdAt,
-          comment: newReviewReply.comment,
-          commentId: id
-        };
-
-        setOptimisticReviewReplies((prevState) => [...prevState, formattedReviewReply]);
     }
     currObject.reset();
     setLeaveReplyOpen(() => false);
@@ -213,19 +202,7 @@ export default function
               </>
             );
           })}
-          {newQuestionReplies && newQuestionReplies?.length > 0 && newQuestionReplies.filter((reply) => reply.commentId === id)!
-            .map((reply) => (
-              <>
-                <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                  <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
-                        initials={reply.replierInitials}
-                        createdAt={formatDate(reply.createdAt)} />
-                  <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
-                </div>
-              </>
-            ))}
-
-          {(commentMode === `PropertyReview` && optimisticReviewReplies.length > 0) && optimisticReviewReplies.filter((reply) => reply.commentId === id)!
+          {newReplies && newReplies?.length > 0 && newReplies.filter((reply) => reply.commentId === id)!
             .map((reply) => (
               <>
                 <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
@@ -248,16 +225,14 @@ export default function
             </>
           )}
 
-          {([...repliesArray, ...newQuestionReplies].length > 0 || optimisticReviewReplies.length > 0) && (
+          {([...repliesArray, ...newReplies].length > 0 && (
             <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
               <Button mode={`sm`}
                       label={!showReplies ?
-                        `See answers (${commentMode === `PropertyQuestion` ?
-                          [...repliesArray, ...newQuestionReplies].length :
-                          [...repliesArray, ...optimisticReviewReplies].length})` : `Hide`}
+                        `See answers (${[...repliesArray, ...newReplies].length})` : `Hide`}
                       btnVariant={`white`} />
             </div>
-          )}
+          ))}
 
         </div>
         {(leaveReplyOpen && leaveReplyEnabled) && (
