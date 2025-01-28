@@ -18,6 +18,7 @@ import { useAddPropertyQuestionReply } from '@/hooks/mutations/useAddPropertyQue
 import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
 import { useLikePropertyReview } from '@/hooks/mutations/useLikePropertyReview';
 import { useUnlikePropertyReview } from '@/hooks/mutations/useUnlikePropertyReview';
+import { useCreatePropertyReviewReply } from '@/hooks/mutations/useCreatePropertyReviewReply';
 
 export type CommentResponseType = {
   replierId: string;
@@ -67,6 +68,8 @@ export default function
   const { newReply, loading: newReplyLoading, error } = useNewReplySubscription();
   const [newReplies, setNewReplies] = useState<CommentResponseType[]>([]);
 
+  const [optimisticReviewReplies, setOptimisticReviewReplies] = useState<CommentResponseType[]>([]);
+
   useEffect(() => {
     if (newReply && newReply.commentId === id) {
       const updatedNewReply = {
@@ -93,6 +96,7 @@ export default function
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const { createQuestionReply } = useAddPropertyQuestionReply();
+  const { createPropertyReviewReply } = useCreatePropertyReviewReply();
 
   useEffect(() => {
     if (likes) {
@@ -147,7 +151,7 @@ export default function
 
     const reply = results.reply.trim() || ``;
 
-    if (reply?.length < 2 || reply?.length >= 1000) {
+    if (reply.length < 2 || reply.length >= 1000) {
       setValidationReplyError(() => 'The reply should be at least 2 to 1000 characters.');
       setSnackbarOpen(() => true);
       return;
@@ -156,10 +160,27 @@ export default function
     switch (commentMode) {
       case 'PropertyQuestion':
         await createQuestionReply({ propertyId, commentId: id, comment: reply });
-        currObject.reset();
-        setLeaveReplyOpen(() => false);
         break;
+      case 'PropertyReview':
+        const newReviewReply = await createPropertyReviewReply({
+          propertyId,
+          commentId: id,
+          comment: reply
+        }).then((res) => res!.data.createReply);
+
+        const formattedReviewReply: CommentResponseType = {
+          replierId: newReviewReply.replier.id,
+          replierInitials: newReviewReply.replier.initials,
+          userType: 'LANDLORD',
+          createdAt: newReviewReply.createdAt,
+          comment: newReviewReply.comment,
+          commentId: id
+        };
+
+        setOptimisticReviewReplies((prevState) => [...prevState, formattedReviewReply]);
     }
+    currObject.reset();
+    setLeaveReplyOpen(() => false);
   }
 
   return (
@@ -217,6 +238,18 @@ export default function
                 </div>
               </>
             ))}
+
+          {(commentMode === `PropertyReview` && optimisticReviewReplies.length > 0) && optimisticReviewReplies.filter((reply) => reply.commentId === id)!
+            .map((reply) => (
+              <>
+                <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
+                  <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
+                        initials={reply.replierInitials}
+                        createdAt={formatDate(reply.createdAt)} />
+                  <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
+                </div>
+              </>
+            ))}
         </div>
 
         <div className={`flex gap-3`}>
@@ -229,10 +262,13 @@ export default function
             </>
           )}
 
-          {[...repliesArray, ...newReplies].length > 0 && (
+          {([...repliesArray, ...newReplies].length > 0 || optimisticReviewReplies.length > 0) && (
             <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
               <Button mode={`sm`}
-                      label={!showReplies ? `See answers (${[...repliesArray, ...newReplies].length})` : `Hide`}
+                      label={!showReplies ?
+                        `See answers (${commentMode === `PropertyQuestion` ?
+                          [...repliesArray, ...newReplies].length :
+                          [...repliesArray, ...optimisticReviewReplies].length})` : `Hide`}
                       btnVariant={`white`} />
             </div>
           )}
