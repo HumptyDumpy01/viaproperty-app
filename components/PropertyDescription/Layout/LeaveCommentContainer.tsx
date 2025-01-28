@@ -6,20 +6,34 @@
 
 import LeaveComment from '@/components/PropertyDescription/Layout/LeaveComment';
 import BadgeRounded from '@/components/UI/Badge/BadgeRounded';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CommentType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import { ActiveFilterTypeQuestions } from '@/utils/types/activeFilterTypeQuestions';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
+import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 
 export type LeaveCommentBadgeType = CommentType | ActiveFilterTypeQuestions | `Leave Review` | `Ask Question`;
 
 export type LeaveCommentContainerType = {
   propertyFor: PropertyForType;
   propertyId: string;
+  landlordId: string;
 }
 
-export default function LeaveCommentContainer({ propertyFor, propertyId }: LeaveCommentContainerType) {
+export default function LeaveCommentContainer({ propertyFor, propertyId, landlordId }: LeaveCommentContainerType) {
+  const { userData, loading: loadingUser } = useUserDataOnClient();
+  const [showComponent, setShowComponent] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (userData) {
+      if (userData.id !== landlordId) {
+        setShowComponent(() => true);
+      } else {
+        setShowComponent(() => false);
+      }
+    }
+  }, [userData, loadingUser, landlordId]);
 
   const [activeLeaveCommentBadge, setActiveLeaveCommentBadge] = useState<LeaveCommentBadgeType>(
     propertyFor === `rent` ? `Leave Review` : `Ask Question`
@@ -39,6 +53,11 @@ export default function LeaveCommentContainer({ propertyFor, propertyId }: Leave
       setActiveLeaveCommentBadge(switchTo);
     }
   };
+
+  if (!showComponent) {
+    return;
+  }
+
   return (
     <>
       <CustomApolloProvider>

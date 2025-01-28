@@ -37,8 +37,8 @@ export const useUserDataOnClient = () => {
 
   useEffect(() => {
     updateUserData();
-    const interval = setInterval(updateUserData, 1000); // Check for updates every second
-    return () => clearInterval(interval);
+    /* const interval = setInterval(updateUserData, 30_000); // Check for updates every 30 seconds.
+     return () => clearInterval(interval);*/
   }, []);
 
   return { userData, loading };

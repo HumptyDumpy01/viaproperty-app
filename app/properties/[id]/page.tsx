@@ -26,7 +26,7 @@ import { DEFAULT_ERROR_MESSAGE } from '@/utils/generics/generics';
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 import ReduxProvider from '@/components/Layout/Provider/ReduxProvider';
 import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
-import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
+import NotFound from 'next/dist/client/components/not-found-error';
 
 /*
 
@@ -58,18 +58,18 @@ async function fetchProperty(id: string) {
 export default function PropertyDescription({ params }: { params: { id: string } }) {
 // export default async function PropertyDescription({ params }: { params: { id: string } }) {
   const { error, data, loading } = useFetchProperty(params.id);
-  const { userData, loading: loadingUser } = useUserDataOnClient();
 
-  if (loading || loadingUser) return (
+  if (loading) return (
     <LoadingScreen />
   );
+  const property = data?.property;
+  if (!property) return NotFound();
 
   if (error) throw new Error(error.message || DEFAULT_ERROR_MESSAGE);
 
-  const property = data.property;
+  console.log(1);
 
   // const property = await fetchProperty(params.id);
-  // if (!property) return NotFound();
 
   // format the abbreviated initials of the house owner
   // e.f. if the initial is Jane Doe, the abbrInitials will be J.D
@@ -129,9 +129,8 @@ export default function PropertyDescription({ params }: { params: { id: string }
                       reviews={property.reviews}
                       propertyFor={property.propertyFor} />
                   </div>
-                  {property.landlord.id !== userData!.id && (
-                    <LeaveCommentContainer propertyId={params.id} propertyFor={property.propertyFor} />
-                  )}
+                  <LeaveCommentContainer landlordId={property.landlord.id} propertyId={params.id}
+                                         propertyFor={property.propertyFor} />
                 </ReduxProvider>
               </CustomApolloProvider>
             </div>

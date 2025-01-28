@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import AppSettingsBadge from '@/components/UI/Badge/AppSettingsBadge';
-import { useRouter } from 'next/navigation';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 
 type UserCredentialsType = {
@@ -20,7 +19,6 @@ export default function
                     location,
                     popupAvailable = true
                   }: UserCredentialsType) {
-  const router = useRouter();
   const [openAppSettingsPopup, setOpenAppSettingsPopup] = useState<boolean>(false);
   const hiddenPopupStyles = `translate-y-1/2 opacity-0 pointer-events-none`;
   const [backdropOpen, setBackdropOpen] = useState<boolean>(false);
@@ -30,7 +28,7 @@ export default function
     // get rid of the token from cookies
     if (document !== undefined) {
       document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-      router.push(`/auth/login`);
+      window.location.href = `/auth/login`;
     }
   }
 

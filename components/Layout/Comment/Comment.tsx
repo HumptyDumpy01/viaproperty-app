@@ -192,26 +192,22 @@ export default function
         <div className={`flex-col gap-7 ${showReplies ? `flex` : `hidden`}`}>
           {!loadingReplies && repliesArray && repliesArray.length > 0 && repliesArray.map(function(response) {
             return (
-              <>
-                <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                  <User type={response.userType} abbrInitials={abbreviateInitials(response.replierInitials)}
-                        initials={response.replierInitials}
-                        createdAt={formatDate(response.createdAt)} />
-                  <p className={`leading-relaxed text-zinc-800`}>{response.comment}</p>
-                </div>
-              </>
+              <div key={response.commentId} className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
+                <User type={response.userType} abbrInitials={abbreviateInitials(response.replierInitials)}
+                      initials={response.replierInitials}
+                      createdAt={formatDate(response.createdAt)} />
+                <p className={`leading-relaxed text-zinc-800`}>{response.comment}</p>
+              </div>
             );
           })}
           {newReplies && newReplies?.length > 0 && newReplies.filter((reply) => reply.commentId === id)!
             .map((reply) => (
-              <>
-                <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                  <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
-                        initials={reply.replierInitials}
-                        createdAt={formatDate(reply.createdAt)} />
-                  <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
-                </div>
-              </>
+              <div key={reply.commentId} className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
+                <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
+                      initials={reply.replierInitials}
+                      createdAt={formatDate(reply.createdAt)} />
+                <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
+              </div>
             ))}
         </div>
 

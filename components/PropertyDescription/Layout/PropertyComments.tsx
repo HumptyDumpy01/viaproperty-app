@@ -15,6 +15,7 @@ import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { useCartDispatch, useCartSelector } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
 import { useNewQuestionReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
+import { useNewReviewReplySubscription } from '@/hooks/subscriptions/useNewReviewReplySubscription';
 
 export type PropertyRatedType = {
   overall: number;
@@ -93,6 +94,12 @@ export default function
   );
 
   const { newReply: newQuestionReply, loading: newQuestionReplyLoading, error } = useNewQuestionReplySubscription();
+  const {
+    newReply: newReviewReply,
+    loading: newReviewReplyLoading,
+    error: reviewReplyError
+  } = useNewReviewReplySubscription();
+
   const [newQuestionReplies, setNewQuestionReplies] = useState<ReplyType[]>([]);
   const [newReviewReplies, setNewReviewReplies] = useState<ReplyType[]>([]);
 
@@ -101,6 +108,12 @@ export default function
       setNewQuestionReplies((prevState) => [...prevState, newQuestionReply]);
     }
   }, [newQuestionReply, newQuestionReplyLoading, error]);
+
+  useEffect(() => {
+    if (newReviewReply) {
+      setNewReviewReplies((prevState) => [...prevState, newReviewReply]);
+    }
+  }, [newReviewReply, newReviewReplyLoading, reviewReplyError]);
 
   useEffect(() => {
     const copyQuestions = [...questions];
@@ -193,6 +206,7 @@ export default function
             {optimisticQuestions.length > 0 && optimisticQuestions.map((question) => (
               <>
                 <Comment
+                  key={question.id}
                   propertyId={propertyId}
                   commentMode={'PropertyQuestion'}
                   id={question.id}
@@ -213,6 +227,7 @@ export default function
                 return (
                   <>
                     <Comment
+                      key={question.id}
                       propertyId={propertyId}
                       commentMode={'PropertyQuestion'}
                       id={question.id}
@@ -266,6 +281,7 @@ export default function
             {optimisticReviews.length > 0 && optimisticReviews.map((review) => (
               <>
                 <Comment
+                  key={review.id}
                   rating={review.rated.overall}
                   propertyId={propertyId}
                   commentMode={'PropertyReview'}
@@ -288,6 +304,7 @@ export default function
                 return (
                   <>
                     <Comment
+                      key={review.id}
                       propertyId={propertyId}
                       commentMode={'PropertyReview'}
                       id={review.id}
