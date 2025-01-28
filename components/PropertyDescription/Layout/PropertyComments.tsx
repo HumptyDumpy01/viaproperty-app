@@ -60,6 +60,8 @@ export type PropertyCommentsType = {
   propertyId: string;
   reviews: PropertyReviewsType[];
   questions: PropertyQuestionsType[];
+  landlordId: string;
+  activeUserId: string;
 };
 
 export type CommentType = `Reviews` | `Questions`;
@@ -69,13 +71,14 @@ export default function
                      propertyFor,
                      propertyId,
                      reviews,
-                     questions
+                     questions,
+                     landlordId,
+                     activeUserId
                    }: PropertyCommentsType) {
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
   const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
   const optimisticReviews = useCartSelector((state) => state.propertyDescription.optimisticPropertyReviews);
-
   const chosenActiveComments = propertyFor === `sell` ? `Questions` : activeCommentsGlobal;
 
   const itemsPerPage = 3;
@@ -249,6 +252,7 @@ export default function
             {optimisticReviews.length > 0 && optimisticReviews.map((review) => (
               <>
                 <Comment
+                  leaveReplyEnabled={false}
                   rating={review.rated.overall}
                   propertyId={propertyId}
                   commentMode={'PropertyReview'}
@@ -270,6 +274,7 @@ export default function
                 return (
                   <>
                     <Comment
+                      leaveReplyEnabled={landlordId === activeUserId}
                       propertyId={propertyId}
                       commentMode={'PropertyReview'}
                       id={review.id}

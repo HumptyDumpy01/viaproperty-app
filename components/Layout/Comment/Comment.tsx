@@ -42,6 +42,7 @@ type CommentType = {
   rating?: number;
   commentMode: CommentModeType;
   propertyId: string;
+  leaveReplyEnabled?: boolean;
   // children: ReactNode;
 }
 
@@ -57,7 +58,8 @@ export default function
             text,
             abbrInitials,
             initials,
-            rating
+            rating,
+            leaveReplyEnabled = true
           }: CommentType) {
 
   const [loadingReplies, setLoadingReplies] = useState(true);
@@ -160,7 +162,6 @@ export default function
     }
   }
 
-
   return (
     <>
       <SnackbarMUI severity={'error'} message={validationReplyError}
@@ -219,7 +220,7 @@ export default function
         </div>
 
         <div className={`flex gap-3`}>
-          {!leaveReplyOpen && (
+          {(!leaveReplyOpen && leaveReplyEnabled) && (
             <>
               <div onClick={() => setLeaveReplyOpen(true)}>
                 <Button mode={`sm`} label={`Reply`}
@@ -237,7 +238,7 @@ export default function
           )}
 
         </div>
-        {leaveReplyOpen && (
+        {(leaveReplyOpen && leaveReplyEnabled) && (
           <>
             <ReplyOnComment
               onSubmit={handleSubmitReply}
