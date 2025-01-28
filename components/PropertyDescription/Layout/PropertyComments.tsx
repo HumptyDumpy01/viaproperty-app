@@ -14,6 +14,7 @@ import { sortPropertyQuestions } from '@/utils/functions/sorting/sortPropertyQue
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { useCartDispatch, useCartSelector } from '@/store/hooks';
 import { propertyDescriptionSliceActions } from '@/store/features/propertyDescription';
+import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
 
 export type PropertyRatedType = {
   overall: number;
@@ -66,15 +67,14 @@ export type PropertyCommentsType = {
 
 export type CommentType = `Reviews` | `Questions`;
 
-export default function
-  PropertyComments({
-                     propertyFor,
-                     propertyId,
-                     reviews,
-                     questions,
-                     landlordId,
-                     activeUserId
-                   }: PropertyCommentsType) {
+export default function PropertyComments({
+                                           propertyFor,
+                                           propertyId,
+                                           reviews,
+                                           questions,
+                                           landlordId,
+                                           activeUserId
+                                         }: PropertyCommentsType) {
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
   const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
@@ -94,6 +94,15 @@ export default function
   const [sortedQuestions, setAllQuestions] = useState(
     sortArrayByNewestDate(questions)
   );
+
+  const { newReply, loading: newReplyLoading, error } = useNewReplySubscription();
+  const [newReplies, setNewReplies] = useState<ReplyType[]>([]);
+
+  useEffect(() => {
+    if (newReply) {
+      setNewReplies((prevState) => [...prevState, newReply]);
+    }
+  }, [newReply, newReplyLoading, error]);
 
   useEffect(() => {
     const copyQuestions = [...questions];
@@ -191,7 +200,9 @@ export default function
                   text={question.comment}
                   likes={question.likes}
                   createdAt={formatDate(question.createdAt)}
-                  responses={question.replies} userType={`USER`}
+                  responses={question.replies}
+                  userType={`USER`}
+                  newReplies={newReplies.filter(reply => reply.commentId === question.id)}
                 />
               </>
             ))}
@@ -209,7 +220,9 @@ export default function
                       text={question.comment}
                       likes={question.likes}
                       createdAt={formatDate(question.createdAt)}
-                      responses={question.replies} userType={`USER`}
+                      responses={question.replies}
+                      userType={`USER`}
+                      newReplies={newReplies.filter(reply => reply.commentId === question.id)}
                     />
                   </>
                 );
@@ -262,7 +275,9 @@ export default function
                   text={review.comment}
                   likes={review.likes}
                   createdAt={formatDate(review.createdAt)}
-                  responses={review.replies} userType={`USER`}
+                  responses={review.replies}
+                  userType={`USER`}
+                  newReplies={newReplies.filter(reply => reply.commentId === review.id)}
                 />
               </>
             ))}
@@ -270,7 +285,6 @@ export default function
             {sortedReviews.length > 0 && sortedReviews
               .slice(0, activePage * itemsPerPage)
               .map(function(review) {
-                // format 2024-12-06T10:47:48.578Z on August 2024, May 02 at 14:55
                 return (
                   <>
                     <Comment
@@ -282,8 +296,11 @@ export default function
                       initials={review.user.initials}
                       abbrInitials={abbreviateInitials(review.user.initials)}
                       text={review.comment}
-                      likes={review.likes} createdAt={formatDate(review.createdAt)}
-                      responses={review.replies} userType={`USER`}
+                      likes={review.likes}
+                      createdAt={formatDate(review.createdAt)}
+                      responses={review.replies}
+                      userType={`USER`}
+                      newReplies={newReplies.filter(reply => reply.commentId === review.id)}
                     />
                   </>
                 );
@@ -298,7 +315,6 @@ export default function
                 <Button label={`See More`} mode={`md`} linearGradient />
               </div>
             </>
-
           )}
 
           {sortedReviews.length <= activePage * itemsPerPage && activePage > 1 && (

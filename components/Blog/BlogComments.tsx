@@ -45,7 +45,7 @@ export default function BlogComments(/*{  }: BlogCommentsType*/) {
         </div>
 
         <div className={`flex flex-col gap-12`}>
-          <Comment propertyId={'1'} commentMode={'BlogReview'} id={'1'} rating={4.3}
+          <Comment newReplies={[]} propertyId={'1'} commentMode={'BlogReview'} id={'1'} rating={4.3}
                    initials={`John Doe`} abbrInitials={`J.D`}
                    text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
                    likes={['']} createdAt={`August 2024, May 02 at 14:55`} responses={[{
@@ -67,7 +67,7 @@ export default function BlogComments(/*{  }: BlogCommentsType*/) {
           ]} userType={`user`}
           />
 
-          <Comment propertyId={'1'} commentMode={'BlogReview'} id={'2'} rating={4.5}
+          <Comment newReplies={[]} propertyId={'1'} commentMode={'BlogReview'} id={'2'} rating={4.5}
                    initials={`John Doe`} abbrInitials={`J.D`}
                    text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
                    likes={['']} createdAt={`August 2024, May 02 at 14:55`} responses={[{
@@ -88,7 +88,7 @@ export default function BlogComments(/*{  }: BlogCommentsType*/) {
             // @ts-ignore
           ]} userType={`user`} />
 
-          <Comment propertyId={'1'} commentMode={'BlogReview'} id={'3'} rating={4.1}
+          <Comment newReplies={[]} propertyId={'1'} commentMode={'BlogReview'} id={'3'} rating={4.1}
                    initials={`John Doe`} abbrInitials={`J.D`}
                    text={` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus debitis harum hic id nemo officia quae quas voluptatibus? Accusamus aperiam architecto aut consectetur explicabo impedit in nemo nihil quas ut.`}
                    likes={['1', '2']} createdAt={`August 2024, May 02 at 14:55`} responses={[{

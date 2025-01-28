@@ -15,7 +15,6 @@ import { useLikePropertyQuestion } from '@/hooks/mutations/useLikePropertyQuesti
 import { useUnlikePropertyQuestion } from '@/hooks/mutations/useUnlikePropertyQuestion';
 import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { useAddPropertyQuestionReply } from '@/hooks/mutations/useAddPropertyQuestionReply';
-import { useNewReplySubscription } from '@/hooks/subscriptions/useNewReplySubscription';
 import { useLikePropertyReview } from '@/hooks/mutations/useLikePropertyReview';
 import { useUnlikePropertyReview } from '@/hooks/mutations/useUnlikePropertyReview';
 import { useCreatePropertyReviewReply } from '@/hooks/mutations/useCreatePropertyReviewReply';
@@ -44,7 +43,7 @@ type CommentType = {
   commentMode: CommentModeType;
   propertyId: string;
   leaveReplyEnabled?: boolean;
-  // children: ReactNode;
+  newReplies: CommentResponseType[];
 }
 
 export default function
@@ -60,26 +59,13 @@ export default function
             abbrInitials,
             initials,
             rating,
-            leaveReplyEnabled = true
+            leaveReplyEnabled = true,
+            newReplies
           }: CommentType) {
 
   const [loadingReplies, setLoadingReplies] = useState(true);
   const [showReplies, setShowReplies] = useState<boolean>(false);
-  const { newReply, loading: newReplyLoading, error } = useNewReplySubscription();
-  const [newReplies, setNewReplies] = useState<CommentResponseType[]>([]);
-
   const [optimisticReviewReplies, setOptimisticReviewReplies] = useState<CommentResponseType[]>([]);
-
-  useEffect(() => {
-    if (newReply && newReply.commentId === id) {
-      const updatedNewReply = {
-        ...newReply
-      };
-
-      setNewReplies((prevState) => [...prevState, updatedNewReply]);
-    }
-
-  }, [newReply, newReplyLoading, error, newReplyLoading]);
 
   const { userData, loading } = useUserDataOnClient();
   const [likesArray, setLikesArray] = useState<string[]>();
