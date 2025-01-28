@@ -67,14 +67,15 @@ export type PropertyCommentsType = {
 
 export type CommentType = `Reviews` | `Questions`;
 
-export default function PropertyComments({
-                                           propertyFor,
-                                           propertyId,
-                                           reviews,
-                                           questions,
-                                           landlordId,
-                                           activeUserId
-                                         }: PropertyCommentsType) {
+export default function
+  PropertyComments({
+                     propertyFor,
+                     propertyId,
+                     reviews,
+                     questions,
+                     landlordId,
+                     activeUserId
+                   }: PropertyCommentsType) {
   const dispatch = useCartDispatch();
   const activeCommentsGlobal = useCartSelector((state) => state.propertyDescription.activeComments) as CommentType;
   const optimisticQuestions = useCartSelector((state) => state.propertyDescription.optimisticPropertyQuestions);
@@ -115,6 +116,7 @@ export default function PropertyComments({
     if (chosenActiveComments === `Questions`) {
       sortPropertyQuestions(activeFilter, questions, setAllQuestions, copyQuestions);
     }
+    setActivePage(() => 1);
 
   }, [activeFilter, chosenActiveComments]);
 
@@ -130,11 +132,13 @@ export default function PropertyComments({
         setActiveFilter(() => `Answered`);
         break;
     }
+    setActivePage(() => 1);
   };
 
   const handleSetActiveFilter = (switchTo: CommentType | ActiveFilterTypeQuestions) => {
     if (switchTo === 'Date' || switchTo === 'Most Liked' || switchTo === 'Answered'
       || switchTo === 'From Higher Rating' || switchTo === 'From Lower Rating') {
+      setActivePage(() => 1);
       setActiveFilter(switchTo);
     }
   };
@@ -202,7 +206,7 @@ export default function PropertyComments({
                   createdAt={formatDate(question.createdAt)}
                   responses={question.replies}
                   userType={`USER`}
-                  newReplies={newReplies.filter(reply => reply.commentId === question.id)}
+                  newQuestionReplies={newReplies.filter(reply => reply.commentId === question.id)}
                 />
               </>
             ))}
@@ -222,7 +226,7 @@ export default function PropertyComments({
                       createdAt={formatDate(question.createdAt)}
                       responses={question.replies}
                       userType={`USER`}
-                      newReplies={newReplies.filter(reply => reply.commentId === question.id)}
+                      newQuestionReplies={newReplies.filter(reply => reply.commentId === question.id)}
                     />
                   </>
                 );
@@ -277,7 +281,7 @@ export default function PropertyComments({
                   createdAt={formatDate(review.createdAt)}
                   responses={review.replies}
                   userType={`USER`}
-                  newReplies={newReplies.filter(reply => reply.commentId === review.id)}
+                  newQuestionReplies={newReplies.filter(reply => reply.commentId === review.id)}
                 />
               </>
             ))}
@@ -300,7 +304,7 @@ export default function PropertyComments({
                       createdAt={formatDate(review.createdAt)}
                       responses={review.replies}
                       userType={`USER`}
-                      newReplies={newReplies.filter(reply => reply.commentId === review.id)}
+                      newQuestionReplies={newReplies.filter(reply => reply.commentId === review.id)}
                     />
                   </>
                 );

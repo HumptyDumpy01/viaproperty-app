@@ -43,7 +43,7 @@ type CommentType = {
   commentMode: CommentModeType;
   propertyId: string;
   leaveReplyEnabled?: boolean;
-  newReplies: CommentResponseType[];
+  newQuestionReplies: CommentResponseType[];
 }
 
 export default function
@@ -60,7 +60,7 @@ export default function
             initials,
             rating,
             leaveReplyEnabled = true,
-            newReplies
+            newQuestionReplies
           }: CommentType) {
 
   const [loadingReplies, setLoadingReplies] = useState(true);
@@ -213,7 +213,7 @@ export default function
               </>
             );
           })}
-          {newReplies && newReplies?.length > 0 && newReplies.filter((reply) => reply.commentId === id)!
+          {newQuestionReplies && newQuestionReplies?.length > 0 && newQuestionReplies.filter((reply) => reply.commentId === id)!
             .map((reply) => (
               <>
                 <div className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
@@ -248,12 +248,12 @@ export default function
             </>
           )}
 
-          {([...repliesArray, ...newReplies].length > 0 || optimisticReviewReplies.length > 0) && (
+          {([...repliesArray, ...newQuestionReplies].length > 0 || optimisticReviewReplies.length > 0) && (
             <div onClick={!showReplies ? () => setShowReplies(true) : () => setShowReplies(false)}>
               <Button mode={`sm`}
                       label={!showReplies ?
                         `See answers (${commentMode === `PropertyQuestion` ?
-                          [...repliesArray, ...newReplies].length :
+                          [...repliesArray, ...newQuestionReplies].length :
                           [...repliesArray, ...optimisticReviewReplies].length})` : `Hide`}
                       btnVariant={`white`} />
             </div>
