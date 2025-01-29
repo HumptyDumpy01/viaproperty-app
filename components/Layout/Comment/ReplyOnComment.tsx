@@ -10,11 +10,13 @@ type ReplyOnCommentType = {
   setLeaveReplyOpen: (arg: boolean) => void;
   btnLabel: string;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  loading: boolean;
   // children: ReactNode;
 }
 
 export default function
   ReplyOnComment({
+                   loading,
                    textareaWidth,
                    textareaName,
                    setLeaveReplyOpen,
@@ -25,12 +27,14 @@ export default function
     <>
       <div className={`flex`}>
         <form onSubmit={onSubmit} className={`flex flex-col gap-3`}>
-          <Textarea minLength={2} maxLength={1000} name={textareaName} widthClass={textareaWidth} />
+          <Textarea disabled={loading} minLength={2} maxLength={1000} name={textareaName} widthClass={textareaWidth} />
           <div className={`flex items-center gap-3`}>
             <button
+              disabled={loading}
               className={`text-left transition-all duration-200 text-sm 
                   py-3 px-5 text-white bg-zinc-900 w-fit 
-                 hover:bg-zinc-800 active:bg-zinc-400 rounded-full font-semibold`}>{btnLabel}</button>
+                 hover:bg-zinc-800 active:bg-zinc-400 rounded-full font-semibold
+                 disabled:animate-pulse disabled:bg-zinc-400`}>{btnLabel}</button>
             <div className={`flex transition-all duration-200 hover:scale-150 cursor-pointer`}
                  onClick={() => setLeaveReplyOpen(false)}>
               <CloseIcon />

@@ -7,8 +7,6 @@ import { FormEvent, useEffect, useState } from 'react';
 import StarIcon from '@/components/UI/Icon/StarIcon';
 import { roundNumber } from '@/utils/functions/roundNumber';
 import ReplyOnComment from '@/components/Layout/Comment/ReplyOnComment';
-import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
-import { formatDate } from '@/utils/functions/formatDate';
 import { UserType } from '@/components/PropertyDescription/Layout/PropertyComments';
 import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 import { useLikePropertyQuestion } from '@/hooks/mutations/useLikePropertyQuestion';
@@ -18,6 +16,8 @@ import { useAddPropertyQuestionReply } from '@/hooks/mutations/useAddPropertyQue
 import { useLikePropertyReview } from '@/hooks/mutations/useLikePropertyReview';
 import { useUnlikePropertyReview } from '@/hooks/mutations/useUnlikePropertyReview';
 import { useCreatePropertyReviewReply } from '@/hooks/mutations/useCreatePropertyReviewReply';
+import UserReply from '@/components/UI/User/UserReply';
+import UserReplySkeleton from '@/components/UI/Skeletons/UserReplySkeleton';
 
 export type CommentResponseType = {
   replierId: string;
@@ -80,8 +80,8 @@ export default function
   const [validationReplyError, setValidationReplyError] = useState('');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  const { createQuestionReply } = useAddPropertyQuestionReply();
-  const { createPropertyReviewReply } = useCreatePropertyReviewReply();
+  const { createQuestionReply, loading: createQuestionReplyLoading } = useAddPropertyQuestionReply();
+  const { createPropertyReviewReply, loading: createPropertyReviewReplyLoading } = useCreatePropertyReviewReply();
 
   useEffect(() => {
     if (likes) {
@@ -142,6 +142,10 @@ export default function
       return;
     }
 
+    if (!showReplies) {
+      setShowReplies(() => true);
+    }
+
     switch (commentMode) {
       case 'PropertyQuestion':
         await createQuestionReply({ propertyId, commentId: id, comment: reply });
@@ -156,10 +160,6 @@ export default function
     }
     currObject.reset();
     setLeaveReplyOpen(() => false);
-
-    if (!showReplies) {
-      setShowReplies(() => true);
-    }
   }
 
   return (
@@ -196,23 +196,24 @@ export default function
         <div className={`flex-col gap-7 ${showReplies ? `flex` : `hidden`}`}>
           {!loadingReplies && repliesArray && repliesArray.length > 0 && repliesArray.map(function(response) {
             return (
-              <div key={response.commentId} className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                <User type={response.userType} abbrInitials={abbreviateInitials(response.replierInitials)}
-                      initials={response.replierInitials}
-                      createdAt={formatDate(response.createdAt)} />
-                <p className={`leading-relaxed text-zinc-800`}>{response.comment}</p>
-              </div>
+              <UserReply
+                createdAt={response.createdAt}
+                key={response.createdAt}
+                comment={response.comment}
+                userType={response.userType}
+                initials={response.replierInitials} />
             );
           })}
           {newReplies && newReplies?.length > 0 && newReplies.filter((reply) => reply.commentId === id)!
             .map((reply) => (
-              <div key={reply.createdAt} className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
-                <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
-                      initials={reply.replierInitials}
-                      createdAt={formatDate(reply.createdAt)} />
-                <p className={`leading-relaxed text-zinc-800`}>{reply.comment}</p>
-              </div>
+              <UserReply
+                createdAt={reply.createdAt}
+                key={reply.createdAt}
+                comment={reply.comment}
+                userType={reply.userType}
+                initials={reply.replierInitials} />
             ))}
+          {(createQuestionReplyLoading || createPropertyReviewReplyLoading) && <UserReplySkeleton />}
         </div>
 
         <div className={`flex gap-3`}>
@@ -238,6 +239,7 @@ export default function
         {(leaveReplyOpen && leaveReplyEnabled) && (
           <>
             <ReplyOnComment
+              loading={createQuestionReplyLoading || createPropertyReviewReplyLoading}
               onSubmit={handleSubmitReply}
               setLeaveReplyOpen={setLeaveReplyOpen}
               btnLabel={`Add Reply`}
