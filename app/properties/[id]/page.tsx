@@ -93,7 +93,7 @@ export default function PropertyDescription({ params }: { params: { id: string }
               fullKitchen={property.propertyHas.kitchens > 0}
               sqftSize={property.propertyArea}
             />
-            <Accordion propertyId={property.id} landlordId={property.landlord.id} propertyFor={property.propertyFor}
+            <Accordion propertyFor={property.propertyFor}
                        description={property.description} />
             <ProviderContainer>
               <OpenSidebarBtn />
@@ -101,6 +101,8 @@ export default function PropertyDescription({ params }: { params: { id: string }
             <div className={`mt-14`}>
               <HeadingMedium customClasses={`mb-8`} heading={`About Landlord`} />
               <AboutLandlord
+                propertyId={property.id}
+                landlordId={property.landlord.id}
                 online={property.landlord.online}
                 initials={property.landlord.initials}
                 abbrInitials={abbrInitials}
