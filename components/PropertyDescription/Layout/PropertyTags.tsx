@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 import BadgeType from '@/components/UI/Badge/BadgeType';
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
