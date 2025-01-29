@@ -80,7 +80,10 @@ export default function PropertyDescription({ params }: { params: { id: string }
         <div className={`grid bp-1306:grid-cols-property-description grid-cols-1 mt-10 gap-5 pr-5 bp-1306:pr-0`}>
           <div>
             <PropertyGallery title={property.title} images={property.images} />
-            <PropertyTags rating={property.rating.overall} tags={property.tags} />
+            <CustomApolloProvider>
+              <PropertyTags propertyId={property.id} landlordId={property.landlord.id} rating={property.rating.overall}
+                            tags={property.tags} />
+            </CustomApolloProvider>
             <HeadingMedium maxWidthXL={false} customClasses={`mb-8 max-w-screen-xl`} heading={property.title} />
             <PropertyConveniences
               additionalConveniences={property.additionalConveniences}

@@ -5,17 +5,27 @@ import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { createPortal } from 'react-dom';
 
+export type SnackBarSeverityType = 'error' | 'warning' | 'info' | 'success';
+
 type SnackbarMUIProps = {
-  severity: 'error' | 'warning' | 'info' | 'success';
+  severity: SnackBarSeverityType;
   message: string;
   variant?: 'filled' | 'outlined' | 'standard';
+  backgroundColor?: string;
   state: {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };
 
-export default function SnackbarMUI({ severity, variant = `filled`, message, state }: SnackbarMUIProps) {
+export default function
+  SnackbarMUI({
+                severity,
+                variant = `filled`,
+                message,
+                state,
+                backgroundColor
+              }: SnackbarMUIProps) {
   const { open, setOpen } = state;
 
   const handleClose = (
@@ -35,7 +45,9 @@ export default function SnackbarMUI({ severity, variant = `filled`, message, sta
         onClose={handleClose}
         severity={severity}
         variant={variant}
-        sx={{ width: '100%' }}>
+        sx={{
+          width: '100%', backgroundColor, boxShadow: 2
+        }}>
         {message}
       </Alert>
     </Snackbar>,
