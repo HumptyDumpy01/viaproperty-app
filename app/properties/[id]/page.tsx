@@ -67,8 +67,6 @@ export default function PropertyDescription({ params }: { params: { id: string }
 
   if (error) throw new Error(error.message || DEFAULT_ERROR_MESSAGE);
 
-  console.log(1);
-
   // const property = await fetchProperty(params.id);
 
   // format the abbreviated initials of the house owner
@@ -95,7 +93,8 @@ export default function PropertyDescription({ params }: { params: { id: string }
               fullKitchen={property.propertyHas.kitchens > 0}
               sqftSize={property.propertyArea}
             />
-            <Accordion propertyFor={property.propertyFor} description={property.description} />
+            <Accordion propertyId={property.id} landlordId={property.landlord.id} propertyFor={property.propertyFor}
+                       description={property.description} />
             <ProviderContainer>
               <OpenSidebarBtn />
             </ProviderContainer>
