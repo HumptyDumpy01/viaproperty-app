@@ -92,7 +92,7 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
           <Image className={`min-h-96 object-cover`} src={VideoPreviewImg} alt={`Video Preview`} />
         </section>
         <section className={`max-w-[918px] mb-10`}>
-          <PropertyTags visibility={{ shareIcon: true }} rating={4.1}
+          <PropertyTags propertyId={'1'} landlordId={'1'} visibility={{ shareIcon: true }} rating={4.1}
                         tags={[BlogTagsEnum.POPULAR, BlogTagsEnum.TOPTRENDING]} />
         </section>
         <section className={`mb-11`}>
