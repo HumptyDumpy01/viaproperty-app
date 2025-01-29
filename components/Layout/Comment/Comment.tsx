@@ -156,6 +156,10 @@ export default function
     }
     currObject.reset();
     setLeaveReplyOpen(() => false);
+
+    if (!showReplies) {
+      setShowReplies(() => true);
+    }
   }
 
   return (
@@ -202,7 +206,7 @@ export default function
           })}
           {newReplies && newReplies?.length > 0 && newReplies.filter((reply) => reply.commentId === id)!
             .map((reply) => (
-              <div key={reply.commentId} className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
+              <div key={reply.createdAt} className={`pl-12 flex flex-col gap-4 border-l-2 border-r-zinc-200 `}>
                 <User type={reply.userType} abbrInitials={abbreviateInitials(reply.replierInitials)}
                       initials={reply.replierInitials}
                       createdAt={formatDate(reply.createdAt)} />
