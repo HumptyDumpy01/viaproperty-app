@@ -17,8 +17,13 @@ export default function AccountSettingsContainer({ children }: AccountSettingsCo
 
   useEffect(() => {
     if (window) {
-      const newPath = window.location.href.split(
+      let newPath = window.location.href.split(
         `/account-settings/`)[1] || `` as ActiveAccSettingsRoute;
+
+      if (newPath !== `` && newPath !== `chats` && newPath !== `balance`) {
+        newPath = ``;
+      }
+
 
       // @ts-ignore
       setActivePage(() => newPath);
@@ -33,6 +38,10 @@ export default function AccountSettingsContainer({ children }: AccountSettingsCo
 
 
   function handleChangeRoute(route: ActiveAccSettingsRoute) {
+    if (activePage === route) {
+      return;
+    }
+
     if (window) {
       window.location.href = `/account-settings/${route}`;
     }
