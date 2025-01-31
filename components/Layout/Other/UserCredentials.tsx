@@ -102,7 +102,7 @@ export default function
                     active: true,
                     label: `Account Activities`,
                     underline: false,
-                    href: `/account-settings?page=account-settings&subpage=my-profile`
+                    href: `/account-settings/settings/profile`
                   }
                 ]} icon={`settings`} />
 

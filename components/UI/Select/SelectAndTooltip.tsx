@@ -45,11 +45,9 @@ export default function SelectAndTooltip({ label, tooltip, select }: SelectAndTo
                 name={select.name} id={select.id} className={`bg-zinc-50 px-4 py-5 pr-10 flex rounded-xl
               transition-all duration-300 h-[60px] text-zinc-700 font-medium focus:outline-none focus:bg-white border-2 border-transparent
               focus:border-blue-900 appearance-none relative pb-4 pt-4`}>
-          {select.options.map(function(option) {
+          {select.options.map(function(option, index) {
             return (
-              <>
-                <option value={option.value}>{option.label}</option>
-              </>
+              <option key={index} value={option.value}>{option.label}</option>
             );
           })}
         </select>
