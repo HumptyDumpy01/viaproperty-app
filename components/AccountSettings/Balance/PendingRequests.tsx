@@ -27,6 +27,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
         <>
 
           <ActivityDetail
+            requestType={`pending`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -41,6 +42,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
           </>)} />
 
           <ActivityDetail
+            requestType={`pending`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -55,6 +57,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
           </>)} />
 
           <ActivityDetail
+            requestType={`pending`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -68,6 +71,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
             text={`Lorem ipsum dolor sit...`} /> !
           </>)} />
           <ActivityDetail
+            requestType={`pending`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -82,6 +86,7 @@ export default function PendingRequests(/*{  }: PendingRequestsType*/) {
           </>)} />
 
           <ActivityDetail
+            requestType={`pending`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,

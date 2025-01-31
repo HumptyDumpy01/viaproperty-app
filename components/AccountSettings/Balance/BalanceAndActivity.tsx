@@ -49,6 +49,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
         )} activity={(
           <>
             <ActivityDetail
+              requestType={`formal`}
               circleColor={`filledBlue`}
               trashCanVisibility={true}
               iconType={AccountActivityIconsTypeEnum.dollar}
@@ -57,6 +58,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
             </>)} />
 
             <ActivityDetail
+              requestType={`completed`}
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
@@ -72,6 +74,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
             </>)} />
 
             <ActivityDetail
+              requestType={`formal`}
               circleColor={`filledRed`}
               trashCanVisibility={true}
               iconType={AccountActivityIconsTypeEnum.dollar}
@@ -81,6 +84,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
             </>)} />
 
             <ActivityDetail
+              requestType={`formal`}
               circleColor={`emptyBorderRed`}
               trashCanVisibility={true}
               iconType={AccountActivityIconsTypeEnum.houseRedPlus}
@@ -90,6 +94,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
             </>)} />
 
             <ActivityDetail
+              requestType={`pending`}
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
@@ -104,6 +109,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
             </>)} />
 
             <ActivityDetail
+              requestType={`pending`}
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,
@@ -118,6 +124,7 @@ export default function BalanceAndActivity(/*{  }: BalanceAndActivityType*/) {
             </>)} />
 
             <ActivityDetail
+              requestType={`formal`}
               seeDetailsButtonVisibility={{
                 visible: true,
                 label: `See Details`,

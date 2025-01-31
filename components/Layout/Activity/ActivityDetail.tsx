@@ -27,7 +27,7 @@ type ActivityDetailType = {
   } | null;
   customContainerClasses?: string;
   copyToClipboard?: boolean;
-
+  requestType: `rejected` | `completed` | `pending` | `formal`;
   // children: ReactNode;
 }
 

@@ -16,7 +16,6 @@ export default function AccountSettings({ children }: AccountSettingsType) {
   const [activeSubPage, setActiveSubPage] = useState<AccountSettsSubPages>();
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const possibleRoutes = [`profile`, `my-adverts`, `my-purchases`, `wishlist`, `delete-account`];
 

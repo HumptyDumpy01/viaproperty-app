@@ -28,6 +28,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
         <>
 
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -41,6 +42,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
             now complete.
           </>)} />
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -54,6 +56,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
             now complete.
           </>)} />
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -67,6 +70,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
             now complete.
           </>)} />
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -80,6 +84,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
             now complete.
           </>)} />
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -93,6 +98,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
             now complete.
           </>)} />
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -106,6 +112,7 @@ export default function CompletedDeals(/*{  }: CompletedDealsType*/) {
             now complete.
           </>)} />
           <ActivityDetail
+            requestType={`completed`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,

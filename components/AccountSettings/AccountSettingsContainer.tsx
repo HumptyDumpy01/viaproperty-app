@@ -9,7 +9,7 @@ type AccountSettingsContainerType = {
   children: ReactNode;
 }
 
-type ActiveAccSettingsRoute = `settings/profile` | `chats` | `balance`;
+type ActiveAccSettingsRoute = `settings/profile` | `chats` | `balance/activity`;
 
 export default function AccountSettingsContainer({ children }: AccountSettingsContainerType) {
   const [activePage, setActivePage] = useState<ActiveAccSettingsRoute>();
@@ -20,7 +20,7 @@ export default function AccountSettingsContainer({ children }: AccountSettingsCo
       let newPath = window.location.href.split(
         `/account-settings/`)[1] || `` as ActiveAccSettingsRoute;
 
-      if (newPath !== `settings/profile` && newPath !== `chats` && newPath !== `balance`) {
+      if (newPath !== `settings/profile` && newPath !== `chats` && newPath !== `balance/activity`) {
         newPath = `settings/profile`;
       }
 
@@ -67,7 +67,8 @@ export default function AccountSettingsContainer({ children }: AccountSettingsCo
                 <ButtonActive onClick={() => handleChangeRoute(`settings/profile`)}
                               active={activePage === `settings/profile`}
                               label={`Account Settings`} />
-                <ButtonActive onClick={() => handleChangeRoute(`balance`)} active={activePage === `balance`}
+                <ButtonActive onClick={() => handleChangeRoute(`balance/activity`)}
+                              active={activePage === `balance/activity`}
                               label={`Balance`} />
               </div>
             </div>

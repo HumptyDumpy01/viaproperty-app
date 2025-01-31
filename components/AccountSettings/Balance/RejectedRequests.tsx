@@ -27,6 +27,7 @@ export default function RejectedRequests(/*{  }: RejectedRequestsType*/) {
         <>
 
           <ActivityDetail
+            requestType={`rejected`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -42,6 +43,7 @@ export default function RejectedRequests(/*{  }: RejectedRequestsType*/) {
           </>)} />
 
           <ActivityDetail
+            requestType={`rejected`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,
@@ -57,6 +59,7 @@ export default function RejectedRequests(/*{  }: RejectedRequestsType*/) {
           </>)} />
 
           <ActivityDetail
+            requestType={`rejected`}
             seeDetailsButtonVisibility={{
               visible: true,
               label: `See Details`,

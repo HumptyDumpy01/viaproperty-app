@@ -1,59 +1,69 @@
 'use client';
 
-/*type BalanceType = {
-  // children: ReactNode;
-}*/
-
-import { useState } from 'react';
+import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
+import { ReactNode, useEffect, useState } from 'react';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
-import BalanceAndActivity from '@/components/AccountSettings/Balance/BalanceAndActivity';
-import PendingRequests from '@/components/AccountSettings/Balance/PendingRequests';
-import CompletedDeals from '@/components/AccountSettings/Balance/CompletedDeals';
-import RejectedRequests from '@/components/AccountSettings/Balance/RejectedRequests';
 
-type ActiveBalanceType = `Balance & Activity` | `Pending Requests` | `Rejected Requests` | `Completed Deals`;
-export default function Balance(/*{  }: BalanceType*/) {
-  const [activeBalanceSubPage, setActiveBalanceSubPage] = useState<ActiveBalanceType>(`Balance & Activity`);
+type BalanceType = {
+  children: ReactNode;
+}
+
+type ActiveBalanceType = `activity` | `pending-requests` | `rejected-requests` | `completed-deals`;
+
+export default function Balance({ children }: BalanceType) {
+  const [activeBalanceSubPage, setActiveBalanceSubPage] = useState<ActiveBalanceType>();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const possibleBalanceSubPages = ['activity', `pending-requests`, `rejected-requests`, `completed-deals`];
+    if (window) {
+      let newPath = window.location.href.split(
+        `/account-settings/balance/`)[1] || `activity` as ActiveBalanceType;
+
+      if (!possibleBalanceSubPages.includes(newPath)) {
+        newPath = `balance/activity`;
+      }
+
+
+      // @ts-ignore
+      setActiveBalanceSubPage(() => newPath);
+      setLoading(() => false);
+    }
+
+  }, []);
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  function handleRedirection(route: ActiveBalanceType) {
+    if (activeBalanceSubPage === route) {
+      return;
+    }
+
+    if (window) {
+      window.location.href = `/account-settings/balance/${route}`;
+    }
+  }
+
   return (
     <div className={`max-w-screen-bp-896`}>
       <div className={`flex gap-2 items-center mb-9 overflow-x-auto scrollbar-thin`}>
-        <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Balance & Activity')}
-                      active={activeBalanceSubPage === 'Balance & Activity'}
+        <ButtonActive color={`red`} size={`small`} onClick={() => handleRedirection('activity')}
+                      active={activeBalanceSubPage === 'activity'}
                       label={`Balance & Activity`} />
-        <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Pending Requests')}
-                      active={activeBalanceSubPage === 'Pending Requests'}
+        <ButtonActive color={`red`} size={`small`} onClick={() => handleRedirection('pending-requests')}
+                      active={activeBalanceSubPage === 'pending-requests'}
                       label={`Pending Requests`} />
-        <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Rejected Requests')}
-                      active={activeBalanceSubPage === 'Rejected Requests'}
+        <ButtonActive color={`red`} size={`small`} onClick={() => handleRedirection('rejected-requests')}
+                      active={activeBalanceSubPage === 'rejected-requests'}
                       label={`Rejected Requests`} />
-        <ButtonActive color={`red`} size={`small`} onClick={() => setActiveBalanceSubPage('Completed Deals')}
-                      active={activeBalanceSubPage === 'Completed Deals'}
+        <ButtonActive color={`red`} size={`small`} onClick={() => handleRedirection('completed-deals')}
+                      active={activeBalanceSubPage === 'completed-deals'}
                       label={`Completed Deals`} />
       </div>
-
-      {activeBalanceSubPage === `Balance & Activity` && (
-        <>
-          <BalanceAndActivity />
-        </>
-      )}
-      {activeBalanceSubPage === `Pending Requests` && (
-        <>
-          <PendingRequests />
-        </>
-      )}
-
-      {activeBalanceSubPage === `Rejected Requests` && (
-        <>
-          <RejectedRequests />
-        </>
-      )}
-
-      {activeBalanceSubPage === `Completed Deals` && (
-        <>
-          <CompletedDeals />
-        </>
-      )}
-
+      {children}
     </div>
   );
 }
