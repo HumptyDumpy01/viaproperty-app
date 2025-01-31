@@ -21,10 +21,15 @@ export default function Navigation(/*{  }: NavigationType*/) {
   const { userData, loading } = useUserDataOnClient();
 
   function handleClickOnHeartIcon() {
-    if (!userData || loading) {
-      return;
+    const wishlistURL = `/account-settings/settings/wishlist`;
+
+    if (window) {
+      if (!userData || loading) {
+        return;
+      }
+      window.location.href = wishlistURL;
     }
-    // window.location.href = '';
+
   }
 
   function handleClickOnNotificationIcon() {
