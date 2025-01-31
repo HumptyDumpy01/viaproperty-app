@@ -20,6 +20,20 @@ export default function Navigation(/*{  }: NavigationType*/) {
   const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
   const { userData, loading } = useUserDataOnClient();
 
+  function handleClickOnHeartIcon() {
+    if (!userData || loading) {
+      return;
+    }
+    // window.location.href = '';
+  }
+
+  function handleClickOnNotificationIcon() {
+    if (!userData || loading) {
+      return;
+    }
+    // window.location.href = '';
+  }
+
   return (
     <>
       <div onClick={() => setNavigationOpen(false)} className={`inset-0 w-screen h-screen fixed bg-white/95 z-[52] bp-1178:opacity-0 pointer-events-hidden
@@ -47,8 +61,12 @@ export default function Navigation(/*{  }: NavigationType*/) {
           </div>
           <div className={`ml-auto flex gap-7 items-center`}>
             <div className={`hidden bp-480:flex gap-7 items-center`}>
-              <ViapropertyIcon icon={`heart`} />
-              <ViapropertyIcon icon={`bell`} />
+              <div onClick={() => handleClickOnHeartIcon()}>
+                <ViapropertyIcon icon={`heart`} />
+              </div>
+              <div onClick={() => handleClickOnNotificationIcon()}>
+                <ViapropertyIcon icon={`bell`} />
+              </div>
             </div>
 
             {loading && (
