@@ -204,43 +204,39 @@ export default function
             )}
 
             {optimisticQuestions.length > 0 && optimisticQuestions.map((question) => (
-              <>
-                <Comment
-                  key={question.id}
-                  propertyId={propertyId}
-                  commentMode={'PropertyQuestion'}
-                  id={question.id}
-                  initials={question.user.initials}
-                  abbrInitials={abbreviateInitials(question.user.initials)}
-                  text={question.comment}
-                  likes={question.likes}
-                  createdAt={formatDate(question.createdAt)}
-                  responses={question.replies}
-                  userType={`USER`}
-                  newReplies={newQuestionReplies.filter(reply => reply.commentId === question.id)}
-                />
-              </>
+              <Comment
+                key={question.id}
+                propertyId={propertyId}
+                commentMode={'PropertyQuestion'}
+                id={question.id}
+                initials={question.user.initials}
+                abbrInitials={abbreviateInitials(question.user.initials)}
+                text={question.comment}
+                likes={question.likes}
+                createdAt={formatDate(question.createdAt)}
+                responses={question.replies}
+                userType={`USER`}
+                newReplies={newQuestionReplies.filter(reply => reply.commentId === question.id)}
+              />
             ))}
             {sortedQuestions.length > 0 && sortedQuestions
               .slice(0, activePageQuestions * itemsPerPage)
               .map(function(question) {
                 return (
-                  <>
-                    <Comment
-                      key={question.id}
-                      propertyId={propertyId}
-                      commentMode={'PropertyQuestion'}
-                      id={question.id}
-                      initials={question.user.initials}
-                      abbrInitials={abbreviateInitials(question.user.initials)}
-                      text={question.comment}
-                      likes={question.likes}
-                      createdAt={formatDate(question.createdAt)}
-                      responses={question.replies}
-                      userType={`USER`}
-                      newReplies={newQuestionReplies.filter(reply => reply.commentId === question.id)}
-                    />
-                  </>
+                  <Comment
+                    key={question.id}
+                    propertyId={propertyId}
+                    commentMode={'PropertyQuestion'}
+                    id={question.id}
+                    initials={question.user.initials}
+                    abbrInitials={abbreviateInitials(question.user.initials)}
+                    text={question.comment}
+                    likes={question.likes}
+                    createdAt={formatDate(question.createdAt)}
+                    responses={question.replies}
+                    userType={`USER`}
+                    newReplies={newQuestionReplies.filter(reply => reply.commentId === question.id)}
+                  />
                 );
               })}
           </div>
@@ -279,46 +275,42 @@ export default function
             )}
 
             {optimisticReviews.length > 0 && optimisticReviews.map((review) => (
-              <>
-                <Comment
-                  key={review.id}
-                  rating={review.rated.overall}
-                  propertyId={propertyId}
-                  commentMode={'PropertyReview'}
-                  id={review.id}
-                  initials={review.user.initials}
-                  abbrInitials={abbreviateInitials(review.user.initials)}
-                  text={review.comment}
-                  likes={review.likes}
-                  createdAt={formatDate(review.createdAt)}
-                  responses={review.replies}
-                  userType={`USER`}
-                  newReplies={newReviewReplies.filter(reply => reply.commentId === review.id)}
-                />
-              </>
+              <Comment
+                key={review.id}
+                rating={review.rated.overall}
+                propertyId={propertyId}
+                commentMode={'PropertyReview'}
+                id={review.id}
+                initials={review.user.initials}
+                abbrInitials={abbreviateInitials(review.user.initials)}
+                text={review.comment}
+                likes={review.likes}
+                createdAt={formatDate(review.createdAt)}
+                responses={review.replies}
+                userType={`USER`}
+                newReplies={newReviewReplies.filter(reply => reply.commentId === review.id)}
+              />
             ))}
 
             {sortedReviews.length > 0 && sortedReviews
               .slice(0, activePage * itemsPerPage)
               .map(function(review) {
                 return (
-                  <>
-                    <Comment
-                      key={review.id}
-                      propertyId={propertyId}
-                      commentMode={'PropertyReview'}
-                      id={review.id}
-                      rating={review.rated.overall}
-                      initials={review.user.initials}
-                      abbrInitials={abbreviateInitials(review.user.initials)}
-                      text={review.comment}
-                      likes={review.likes}
-                      createdAt={formatDate(review.createdAt)}
-                      responses={review.replies}
-                      userType={`USER`}
-                      newReplies={newReviewReplies.filter(reply => reply.commentId === review.id)}
-                    />
-                  </>
+                  <Comment
+                    key={review.id}
+                    propertyId={propertyId}
+                    commentMode={'PropertyReview'}
+                    id={review.id}
+                    rating={review.rated.overall}
+                    initials={review.user.initials}
+                    abbrInitials={abbreviateInitials(review.user.initials)}
+                    text={review.comment}
+                    likes={review.likes}
+                    createdAt={formatDate(review.createdAt)}
+                    responses={review.replies}
+                    userType={`USER`}
+                    newReplies={newReviewReplies.filter(reply => reply.commentId === review.id)}
+                  />
                 );
               })}
           </div>

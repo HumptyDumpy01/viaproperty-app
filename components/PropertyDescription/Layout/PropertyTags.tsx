@@ -131,13 +131,11 @@ export default function
               <RatingBadge rating={rating} />
             </div>
           )}
-          {tags.map(function(tag) {
+          {tags.map(function(tag, index) {
             // capitalize the first letter of the tag
             const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
             return (
-              <>
-                <BadgeType text={capitalizedTag} />
-              </>
+              <BadgeType key={index} text={capitalizedTag} />
             );
           })}
           <div className={`flex items-center gap-0.5`}>

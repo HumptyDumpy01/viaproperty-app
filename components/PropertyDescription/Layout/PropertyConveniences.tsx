@@ -46,11 +46,9 @@ export default function
             <BadgeTag metric={`Full Kitchen`} />
           </>
         )}
-        {additionalConveniences.map(function(convenience) {
+        {additionalConveniences.map(function(convenience, index) {
           return (
-            <>
-              <BadgeTag metric={capitalizeAndSplitWords(convenience)} />
-            </>
+            <BadgeTag key={index} metric={capitalizeAndSplitWords(convenience)} />
           );
         })}
 

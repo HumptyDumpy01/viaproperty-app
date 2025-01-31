@@ -12,9 +12,9 @@ export default function UlList({ list }: UlListType) {
   return (
     <>
       <ul className={`font-semibold text-xl bp-732:space-y-2 space-y-4`}>
-        {list.map(function(list) {
+        {list.map(function(list, index) {
           return (
-            <li key={list.href}>
+            <li key={index}>
               <Link href={list.href}>{list.linkLabel}</Link>
             </li>
           );

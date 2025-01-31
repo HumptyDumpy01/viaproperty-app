@@ -26,16 +26,15 @@ export default function AppSettingsBadge({ icon, links, onClick }: AppSettingsBa
           <AppSettingsIcons icon={icon} />
         </div>
         <div className={`flex items-center gap-2`}>
-          {links.map(function(link) {
+          {links.map(function(link, index) {
             return (
-              <>
-                <AppSettingsLink
-                  onClick={onClick ? onClick : undefined}
-                  href={link.href}
-                  underline={link.underline}
-                  componentType={link.componentType}
-                  active={link.active} label={link.label} />
-              </>
+              <AppSettingsLink
+                key={index}
+                onClick={onClick ? onClick : undefined}
+                href={link.href}
+                underline={link.underline}
+                componentType={link.componentType}
+                active={link.active} label={link.label} />
             );
           })}
         </div>
