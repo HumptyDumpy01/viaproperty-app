@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 /*type ForgotPasswordPageType = {
   // children: ReactNode;
@@ -7,8 +7,10 @@
 import MainContainer from '@/components/Layout/Container/MainContainer';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import ForgotPassword from '@/components/Auth/ForgotPassword/ForgotPassword';
+import { useAuthRedirect } from '@/hooks/custom-hooks/useAuthRedirect';
 
 export default function ForgotPasswordPage(/*{  }: ForgotPasswordPageType*/) {
+  useAuthRedirect();
   return (
     <MainContainer>
       <div className={`flex flex-col mt-12`}>

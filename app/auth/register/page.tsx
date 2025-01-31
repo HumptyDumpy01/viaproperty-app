@@ -3,8 +3,10 @@
 import MainContainer from '@/components/Layout/Container/MainContainer';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import RegisterForm from '@/components/Auth/RegisterForm';
+import { useAuthRedirect } from '@/hooks/custom-hooks/useAuthRedirect';
 
 export default function Register() {
+  useAuthRedirect();
   return (
     <MainContainer>
       <div className={`flex flex-col mt-12 max-w-[464px] m-auto`}>

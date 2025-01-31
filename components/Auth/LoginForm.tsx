@@ -1,7 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import PasswordInput from '@/components/UI/Input/PasswordInput';
 import TextualTooltip from '@/components/Layout/Tooltip/TextualTooltip';
@@ -20,14 +19,9 @@ export type LoginType = {
 }
 
 export default function LoginForm() {
-  const [errorMessage, setErrorMessage] = useState<string>(`Please sign in first.`);
+  const [errorMessage, setErrorMessage] = useState<string>(`Please sign in first to proceed.`);
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
-  const router = useRouter();
   const { loginUser } = useLogin();
-
-  useEffect(() => {
-    // This ensures the code runs only on the client side
-  }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -54,7 +48,6 @@ export default function LoginForm() {
       await loginUser(trimmedResults.email, trimmedResults.password).then(() => {
         setLoginLoading(false);
         // the user should be redirected to https://viaproperty-dev.netlify.app/
-        // router.push(`/`);
         window!.location.href = `/`;
       }).catch(() => {
         setLoginLoading(false);

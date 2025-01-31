@@ -4,8 +4,10 @@ import MainContainer from '@/components/Layout/Container/MainContainer';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import LoginForm from '@/components/Auth/LoginForm';
 import CustomApolloProvider from '@/components/Layout/Provider/ApolloProvider';
+import { useAuthRedirect } from '@/hooks/custom-hooks/useAuthRedirect';
 
 export default function Login() {
+  useAuthRedirect();
   return (
     <CustomApolloProvider>
       <MainContainer>
