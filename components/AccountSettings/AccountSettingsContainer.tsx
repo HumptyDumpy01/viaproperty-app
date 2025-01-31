@@ -55,12 +55,11 @@ export default function AccountSettingsContainer({ children }: AccountSettingsCo
             <div className={`max-w-screen-bp-896`}>
               <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
                 text-5xl w-fit mb-8 leading-tight`}>Account Activities</h1>
-              <p className={`leading-relaxed text-zinc-900 text-[15.5px] mb-9`}>Lorem ipsum dolor sit amet, consectetur
-                adipiscing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo
-                consequat. </p>
+              <p className={`leading-relaxed text-zinc-900 text-[15.5px] mb-9`}>Manage all your property-related
+                activities in one place. View and edit your property advertisements, track engagement, and manage
+                inquiries seamlessly. Stay connected with landlords and potential buyers through the chat system, making
+                communication easier. Keep an eye on your wishlist, save properties you&#39;re interested in, and
+                revisit them anytime. </p>
 
               <div className={`flex items-center gap-2.5 text-left mb-9 overflow-x-auto scrollbar-corner-red-400`}>
                 <ButtonActive onClick={() => handleChangeRoute(`chats`)} active={activePage === `chats`}

@@ -4,7 +4,6 @@
   // children: ReactNode;
 }*/
 
-import HighlightText from '@/components/Typography/HighlightText';
 import Paragraph from '@/components/Typography/Paragraph';
 import SelectAndTooltip from '@/components/UI/Select/SelectAndTooltip';
 import Button from '@/components/UI/Button/Button';
@@ -12,19 +11,18 @@ import Button from '@/components/UI/Button/Button';
 export default function Security(/*{  }: SecurityType*/) {
   return (
     <>
-      <Paragraph customClasses={`mb-14`} text={(
+      <Paragraph customClasses={`mb-14 max-w-screen-md`} text={(
         <>
-          Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit, <HighlightText
-          text={`sed do eiusmod tempor incididunt ut labore et dolore`} /> magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
+          Choose how you want to secure your account. You can log in using a password, a 6-digit verification code, or
+          enable two-factor authentication (2FA) for an extra layer of security. Stay in control of your account&#39;s
+          protection.
         </>
       )} />
 
       <form className={`flex flex-col justify-center max-w-[422px] gap-12`}>
         <SelectAndTooltip tooltip={{
           customPosition: `-top-52 right-5`,
-          content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias amet cum dolorem harum suscipit! Culpa, eligendi.`
+          content: `By default, sign in with your password. Opt for a 6-digit code to skip the password—just confirm via email. Enable 2FA for extra security, requiring both your password and a 6-digit code at login.`
         }} label={`Authentication Method`} select={{
           required: true,
           name: `authMethod`,

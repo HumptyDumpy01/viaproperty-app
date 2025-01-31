@@ -5,7 +5,6 @@
 }*/
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import Button from '@/components/UI/Button/Button';
-import HighlightText from '@/components/Typography/HighlightText';
 import ChangePassword from '@/components/AccountSettings/Settings/MyProfile/ChangePassword/ChangePassword';
 
 export default function Overall(/*{  }: OverallType*/) {
@@ -33,11 +32,11 @@ export default function Overall(/*{  }: OverallType*/) {
         <ChangePassword />
 
         <div className={`mb-10`}>
-          <p className={`leading-relaxed text-sm text-zinc-900
-                  `}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, <HighlightText text={`sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua`} />. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-            ut
-            aliquip ex ea commodo consequat. </p>
+          <p className={`leading-relaxed text-sm text-zinc-900 max-w-screen-md
+                  `}>
+            Secure your account by updating your password. Click the button to set a new password and enhance your
+            account&#39;s protection.
+          </p>
         </div>
         <div className={`flex justify-center flex-col gap-5`}>
           <Button btnVariant={`red`} mode={`lg`} label={`Save Changes`} />
