@@ -37,10 +37,8 @@ export default function AccordionContent({ activeState, description, propertyFor
             <>
               {description.features.map(function(feature, index) {
                 return (
-                  <>
-                    <Feature heading={`${index + 1}. ${feature.title}`} text={feature.description}
-                             images={feature.images} />
-                  </>
+                  <Feature key={feature.title} heading={`${index + 1}. ${feature.title}`} text={feature.description}
+                           images={feature.images} />
                 );
               })}
             </>
@@ -95,10 +93,8 @@ export default function AccordionContent({ activeState, description, propertyFor
               <>
                 {description.floorPlans.map(function(floorPlan, index) {
                   return (
-                    <>
-                      <Feature heading={`${index + 1}. ${floorPlan.title}`} text={floorPlan.description}
-                               images={floorPlan.images} />
-                    </>
+                    <Feature key={index} heading={`${index + 1}. ${floorPlan.title}`} text={floorPlan.description}
+                             images={floorPlan.images} />
                   );
                 })}
               </>
