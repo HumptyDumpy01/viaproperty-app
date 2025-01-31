@@ -30,7 +30,7 @@ export default function NavigationFullScreen({ setNavigationOpen }: NavigationFu
           </li>
           <li onClick={() => setNavigationOpen(false)}>
             <NavLink customFontSizeActive={`text-[30px]`} customFontSizeDefault={`text-[25px]`}
-                     label={`Account Settings`} path={`/account-settings?page=account-settings`}
+                     label={`Account Settings`} path={`/account-settings`}
                      isActive={pathname === '/account-settings'} />
           </li>
         </ul>

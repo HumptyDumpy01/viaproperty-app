@@ -1,18 +1,7 @@
-// 'use client';
+import AccountSettings from '@/components/AccountSettings/AccountSettings';
 
-/*type AccountSettingsPageType = {
-  // children: ReactNode;
-}*/
-
-import AccountSettingsContainer from '@/components/AccountSettings/AccountSettingsContainer';
-import { Suspense } from 'react';
-
-export type AccountSettingsPageType = `account-settings` | `chats` | `balance`;
-
-export default function AccountSettingsPage(/*{  }: AccountSettingsPageType*/) {
+export default function AccountSettingsPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AccountSettingsContainer />
-    </Suspense>
+    <AccountSettings />
   );
 }

@@ -16,11 +16,8 @@ import HighlightText from '@/components/Typography/HighlightText';
 export default function ChatHistoryPage(/*{  }: ChatHistoryPageType*/) {
   return (
     <MainContainer>
-
       <div className={`mt-11`}>
         <div className={`max-w-screen-bp-896`}>
-          <h1 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
-        text-5xl w-fit mb-8 leading-tight`}>Account Activities</h1>
           <div>
             <Link className={`flex items-center gap-2 bg-clip-text text-transparent bg-linear-main-red font-bold
             border  border-red-500 rounded-full px-4 py-2 text-[15.5px] w-fit mb-5`}
