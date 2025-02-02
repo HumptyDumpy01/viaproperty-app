@@ -123,6 +123,7 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
           <div>
             <div className={`flex flex-col gap-5 mb-12`}>
               <ActivityDetail
+                requestType={`formal`}
                 customContainerClasses={``}
                 messageFont={`text-[19px] font-medium`}
                 trashCanVisibility={false} circleColor={`emptyBorderRed`}
@@ -131,6 +132,7 @@ export default function BlogDescription(/*{  }: BlogDescriptionType*/) {
                 message={`Nikolas Baker`} />
 
               <ActivityDetail
+                requestType={`formal`}
                 customContainerClasses={``}
                 messageFont={`text-[19px] font-medium`}
                 trashCanVisibility={false} circleColor={`emptyBorderRed`}
