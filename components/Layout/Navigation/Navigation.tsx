@@ -5,7 +5,7 @@
 }*/
 
 import NavLink from '@/components/UI/Link/NavLInk';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Input from '@/components/UI/Input/Input';
 import Logo from '@/components/UI/Logo/Logo';
 import NavigationFullScreen from '@/components/Layout/Navigation/NavigationFullScreen';
@@ -15,10 +15,22 @@ import UserCredentialsSkeleton from '@/components/UI/Skeletons/UserCredentialsSk
 import UserCredentials from '@/components/Layout/Other/UserCredentials';
 import { abbreviateInitials } from '@/utils/functions/abbreviateInitials';
 import { trimString } from '@/utils/functions/trimString';
+import { useCartDispatch, useCartSelector } from '@/store/hooks';
+import { navigationSliceActions } from '@/store/features/navigation';
 
 export default function Navigation(/*{  }: NavigationType*/) {
   const [navigationOpen, setNavigationOpen] = useState<boolean>(false);
+  const userInitials = useCartSelector((state) => state.navigation.userInitials);
+  const dispatch = useCartDispatch();
+
   const { userData, loading } = useUserDataOnClient();
+
+  useLayoutEffect(() => {
+    if (!loading && userData) {
+      dispatch(navigationSliceActions.changeUserInitials(userData.initials));
+      dispatch(navigationSliceActions.changeUserEmail(userData.email));
+    }
+  }, [userData, loading, dispatch]);
 
   function handleClickOnHeartIcon() {
     const wishlistURL = `/account-settings/settings/wishlist`;
@@ -82,9 +94,9 @@ export default function Navigation(/*{  }: NavigationType*/) {
             {!loading && (
               <>
                 <UserCredentials
-                  initials={userData?.initials || `Guest`}
+                  initials={userInitials || `Guest`}
                   location={userData?.email ? trimString(userData.email, 13) : `unknown`}
-                  abbrInitials={userData?.initials ? abbreviateInitials(userData.initials) : `G`}
+                  abbrInitials={userInitials ? abbreviateInitials(userInitials) : `G`}
                   popupAvailable={!!userData?.email}
                 />
               </>

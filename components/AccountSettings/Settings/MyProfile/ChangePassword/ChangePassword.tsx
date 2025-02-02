@@ -5,10 +5,10 @@
 }*/
 
 import { useState } from 'react';
-import ChangePasswordZeroStage from '@/components/AccountSettings/Settings/MyProfile/ChangePassword/ChangePasswordZeroStage';
+import ChangePasswordZeroStage
+  from '@/components/AccountSettings/Settings/MyProfile/ChangePassword/ChangePasswordZeroStage';
 import EnterVerificationCodeForm from '@/components/Auth/ForgotPassword/EnterVerificationCodeForm';
 import EnterNewPasswordForm from '@/components/Auth/ForgotPassword/EnterNewPasswordForm';
-import HighlightText from '@/components/Typography/HighlightText';
 
 export type ChangePasswordStagesType = 0 | 1 | 2 | 3;
 
@@ -40,9 +40,7 @@ export default function ChangePassword(/*{  }: ChangePasswordType*/) {
         )}
         {changePasswordStages === 3 && (
           <>
-            <h2 className={`text-blue-950 text-2xl font-semibold`}>The new password was successfully set! <HighlightText
-              text={`Now save the changes!`} />
-            </h2>
+            <h2 className={`text-blue-950 text-2xl font-semibold`}>The new password was successfully set!</h2>
           </>
         )}
       </div>

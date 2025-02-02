@@ -3,6 +3,7 @@ import './globals.css';
 import React from 'react';
 import Navigation from '@/components/Layout/Navigation/Navigation';
 import Footer from '@/components/Layout/Footer/Footer';
+import ProviderContainer from '@/components/Layout/Provider/ProviderContainer';
 
 export const metadata: Metadata = {
   title: 'Viaproperty Fullstack Project',
@@ -21,7 +22,9 @@ export default function RootLayout({
     <div id={`backdrop`}></div>
     <div id={`snackbar`}></div>
     <div id={`image-gallery-full-screen`}></div>
-    <Navigation />
+    <ProviderContainer>
+      <Navigation />
+    </ProviderContainer>
     {children}
     <Footer />
     </body>

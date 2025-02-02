@@ -1,6 +1,6 @@
-// 'use client';
+'use client';
 
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 type LabelAndTextType = {
   name: string;
@@ -15,6 +15,10 @@ type LabelAndTextType = {
   labelSize?: string;
   defaultValue?: string;
   disabled?: boolean;
+  onChangeState?: {
+    valueEntered: string;
+    setValueEntered: React.Dispatch<React.SetStateAction<string>>;
+  }
   // children: ReactNode;
 }
 
@@ -31,9 +35,10 @@ export default function
                   labelStyle = `red-and-huge`,
                   labelSize = `text-2xl`,
                   defaultValue = ``,
-                  disabled = false
-
+                  disabled = false,
+                  onChangeState
                 }: LabelAndTextType) {
+
   let content: ReactNode = null;
 
   const labelStyles = labelStyle === `red-and-huge` ? `w-fit text-red-500 font-bold ${labelSize}` : labelStyle === `grey-and-small` ? `w-fit 
@@ -43,12 +48,15 @@ export default function
 
   const inputNode: ReactNode = (
     <>
-      <input disabled={disabled} defaultValue={defaultValue} type={inputType} id={name}
-             name={name}
-             className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
+      <input
+        onChange={onChangeState?.setValueEntered ? (e) => onChangeState!.setValueEntered(e.currentTarget.value) : undefined}
+        disabled={disabled} defaultValue={defaultValue}
+        type={inputType} id={name}
+        name={name}
+        className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
           focus:outline-none border-2 border-transparent transition-all 
           duration-300 ${disabledStyles} ${labelStyle !== `dark-blue` ? `focus:border-red-500` : `focus:border-blue-900`} focus:bg-white`}
-             placeholder={placeholder} required={required} />
+        placeholder={placeholder} required={required} />
     </>
   );
 

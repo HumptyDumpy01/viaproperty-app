@@ -8,7 +8,9 @@ const navigationSlice = createSlice({
     appSettings: {
       currency: `USD`,
       language: `EN`
-    }
+    },
+    userInitials: ``,
+    userEmail: ``
   },
   // here, by using createSlice method,
   // in reducers we specify the functions that would be
@@ -22,17 +24,13 @@ const navigationSlice = createSlice({
     },
     toggleLanguage(state, action: PayloadAction<`EN` | `RU` | `UA`>) {
       state.appSettings.language = action.payload;
+    },
+    changeUserInitials(state, action: PayloadAction<string>) {
+      state.userInitials = action.payload;
+    },
+    changeUserEmail(state, action: PayloadAction<string>) {
+      state.userEmail = action.payload;
     }
-
-    // increment(state) {
-    //     state.counter++;
-    // },
-
-    // each Reducer function receives two arguments: old state and dispatched action
-    // incrementHandler(state, action) {
-    //     state.counter = state.counter + action.payload;
-    // }
-
   }
 });
 
