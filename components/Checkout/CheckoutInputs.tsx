@@ -31,6 +31,7 @@ export default function
       <div className={`flex flex-col gap-5`}>
         <div>
           <ActivityDetail
+            requestType={`formal`}
             dollarColor={`red`}
             customContainerClasses={``}
             messageFont={`text-[19px] font-medium`}
@@ -43,6 +44,7 @@ export default function
           <>
             <div>
               <ActivityDetail
+                requestType={`formal`}
                 dollarColor={`red`}
                 customContainerClasses={``}
                 messageFont={`text-[19px] font-medium`}
@@ -59,6 +61,7 @@ export default function
               <>
                 <div>
                   <ActivityDetail
+                    requestType={`formal`}
                     dollarColor={`red`}
                     customContainerClasses={``}
                     messageFont={`text-[19px] font-medium`}
@@ -71,6 +74,7 @@ export default function
           })}
         <div>
           <ActivityDetail
+            requestType={`formal`}
             customContainerClasses={``}
             messageFont={`text-[19px] font-medium`}
             trashCanVisibility={false} circleColor={`filledRed`}
