@@ -20,7 +20,7 @@ export default function MyProfile(/*{  }: MyProfileType*/) {
 
   return (
     <>
-      <div>
+      <div className={`profile-container`}>
         <div className={`mb-8`}>
           <UserData paragraph={userEmail} initials={userInitials} abbrInitials={abbreviateInitials(userInitials)}
                     online={true} />

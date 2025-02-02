@@ -1,8 +1,9 @@
 'use client';
 
-/*type ChangePasswordType = {
+type ChangePasswordType = {
+  userEmail: string;
   // children: ReactNode;
-}*/
+}
 
 import { useState } from 'react';
 import ChangePasswordZeroStage
@@ -12,7 +13,7 @@ import EnterNewPasswordForm from '@/components/Auth/ForgotPassword/EnterNewPassw
 
 export type ChangePasswordStagesType = 0 | 1 | 2 | 3;
 
-export default function ChangePassword(/*{  }: ChangePasswordType*/) {
+export default function ChangePassword({ userEmail }: ChangePasswordType) {
 
   const [changePasswordStages, setChangePasswordStages] = useState<ChangePasswordStagesType>(0);
 
@@ -30,7 +31,7 @@ export default function ChangePassword(/*{  }: ChangePasswordType*/) {
         )}
         {changePasswordStages === 1 && (
           <>
-            <EnterVerificationCodeForm handleBadgeClick={() => setChangePasswordStages(2)} />
+            <EnterVerificationCodeForm userEmail={userEmail} handleBadgeClick={() => setChangePasswordStages(2)} />
           </>
         )}
         {changePasswordStages === 2 && (

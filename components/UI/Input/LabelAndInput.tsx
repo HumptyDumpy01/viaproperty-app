@@ -15,6 +15,7 @@ type LabelAndTextType = {
   labelStyle?: `red-and-huge` | `grey-and-small` | `dark-blue`;
   labelSize?: string;
   defaultValue?: string;
+  value?: any;
   disabled?: boolean;
   onChangeState?: {
     valueEntered: string;
@@ -51,7 +52,9 @@ export default function
   const inputNode: ReactNode = (
     <>
       <input
-        onChange={onChangeState?.setValueEntered ? (e) => onChangeState!.setValueEntered(e.currentTarget.value) : undefined}
+        value={onChangeState?.valueEntered}
+        onChange={onChangeState?.setValueEntered ? (e) => onChangeState!.setValueEntered(e.currentTarget.value)
+          : undefined}
         disabled={disabled} defaultValue={defaultValue}
         type={inputType} id={name}
         name={name}

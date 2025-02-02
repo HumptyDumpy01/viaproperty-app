@@ -12,6 +12,7 @@ import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/Snac
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
 import { changeUserInitialsSchema } from '@/utils/schemas/auth/changeUserInitialsSchema';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
+import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 
 type OverallType = {
   userInitials: string;
@@ -91,6 +92,13 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
     }
   }
 
+  function handleOnCancel() {
+    setEnableButtons(() => false);
+    setCurrentUserInitials(() => userInitials);
+    setEnteredUserInitials(() => userInitials);
+    scrollIntoViewFunc(`.profile-container`);
+  }
+
   return (
     <>
       <BackdropMUI state={{ open: backdropMUIState, setOpen: setBackdropMUIState }}
@@ -102,6 +110,7 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
         <div className={`max-w-[422px] flex flex-col`}>
           <LabelAndInput
             disabled={loading}
+            value={enteredUserInitials}
             onChangeState={{ setValueEntered: setEnteredUserInitials, valueEntered: enteredUserInitials }}
             defaultValue={currentUserInitials} labelSize={`text-xl`} labelStyle={`dark-blue`}
             name={`initials`}
@@ -121,7 +130,7 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
             inputType={`text`} />
         </div>
 
-        <ChangePassword />
+        <ChangePassword userEmail={userEmail} />
 
         <div className={`mb-10`}>
           <p className={`leading-relaxed text-sm text-zinc-900 max-w-screen-md
@@ -136,7 +145,8 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
             <Button customClasses={`disabled:animate-pulse`} disabled={loading}
                     btnVariant={`red`} mode={`lg`}
                     label={`Save Changes`} />
-            <Button customClasses={`disabled:animate-pulse`} disabled={loading} type={`button`} btnVariant={`black`}
+            <Button onClick={handleOnCancel} customClasses={`disabled:animate-pulse`} disabled={loading} type={`button`}
+                    btnVariant={`black`}
                     mode={`lg`} label={`Cancel`} />
           </div>
         )}
