@@ -27,11 +27,13 @@ export default function
     <>
 
       <div className={`flex flex-col gap-4 mb-12`}>
-        <ActivityDetail customContainerClasses={``} messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
-                        circleColor={`filledBlue`}
-                        iconType={
-                          AccountActivityIconsTypeEnum.ID} date={`PROPERTY ID`}
-                        message={propertyId} />
+        <ActivityDetail
+          requestType={`formal`}
+          customContainerClasses={``} messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
+          circleColor={`filledBlue`}
+          iconType={
+            AccountActivityIconsTypeEnum.ID} date={`PROPERTY ID`}
+          message={propertyId} />
 
         <ActivityDetail customContainerClasses={``} messageFont={`text-[19px] font-medium`} trashCanVisibility={false}
                         circleColor={`emptyBorderRed`}

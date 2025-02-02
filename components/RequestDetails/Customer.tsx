@@ -20,6 +20,7 @@ export default function Customer({ initials, email, phone, headingLabel }: Custo
         <div className={`flex flex-col gap-5`}>
           <div>
             <ActivityDetail
+              requestType={`formal`}
               customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
@@ -30,6 +31,7 @@ export default function Customer({ initials, email, phone, headingLabel }: Custo
 
           <div>
             <ActivityDetail
+              requestType={`formal`}
               customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
@@ -43,6 +45,7 @@ export default function Customer({ initials, email, phone, headingLabel }: Custo
               return (
                 <>
                   <ActivityDetail
+                    requestType={`formal`}
                     customContainerClasses={``}
                     messageFont={`text-[19px] font-medium`}
                     trashCanVisibility={false} circleColor={`emptyBorderRed`}

@@ -18,6 +18,7 @@ export default function RentPeriod({ from, to }: RentPeriodType) {
         <div className={`flex gap-12 flex-col bp-620:flex-row`}>
           <div>
             <ActivityDetail
+              requestType={`formal`}
               customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
@@ -27,6 +28,7 @@ export default function RentPeriod({ from, to }: RentPeriodType) {
           </div>
           <div>
             <ActivityDetail
+              requestType={`formal`}
               customContainerClasses={``}
               messageFont={`text-[19px] font-medium`}
               trashCanVisibility={false} circleColor={`emptyBorderRed`}
