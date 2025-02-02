@@ -23,7 +23,7 @@ type PropertyTagsType = {
   // children: ReactNode;
 }
 
-type SnackbarDataType = {
+export type SnackbarDataType = {
   severity: SnackBarSeverityType;
   message: string;
 }

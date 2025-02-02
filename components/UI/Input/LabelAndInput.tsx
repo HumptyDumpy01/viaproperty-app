@@ -8,6 +8,7 @@ type LabelAndTextType = {
   placeholder: string;
   customClassNames: string;
   label: string;
+  showDisabledLabel?: boolean;
   required?: boolean;
   showStar?: boolean;
   inputType: `text` | `email` | `password` | `number` | `tel`
@@ -36,7 +37,8 @@ export default function
                   labelSize = `text-2xl`,
                   defaultValue = ``,
                   disabled = false,
-                  onChangeState
+                  onChangeState,
+                  showDisabledLabel = false
                 }: LabelAndTextType) {
 
   let content: ReactNode = null;
@@ -84,7 +86,8 @@ export default function
         <div className={`flex gap-2 items-center`}>
           <label htmlFor={name}
                  className={disabled ? disabledLabelStyles : labelStyles}>{label} {required && showStar ? `*` : ``}</label>
-          {disabled && <span className={`text-red-500 font-semibold text-[13px] uppercase`}>Cannot be changed</span>}
+          {showDisabledLabel &&
+            <span className={`text-red-500 font-semibold text-[13px] uppercase`}>Cannot be changed</span>}
         </div>
         {content}
       </div>

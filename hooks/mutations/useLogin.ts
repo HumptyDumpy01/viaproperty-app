@@ -2,6 +2,7 @@
 
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '@/graphql/mutations/login';
+import { setAccessTokenCookie } from '@/utils/functions/setAccessTokenCookie';
 
 export const useLogin = () => {
   const [login, { loading, error, data }] = useMutation(LOGIN);
@@ -10,9 +11,7 @@ export const useLogin = () => {
     try {
       const response = await login({ variables: { email, password } });
       const { accessToken } = response.data.login;
-      if (typeof document !== 'undefined') {
-        document.cookie = `access_token=${accessToken}; path=/`;
-      }
+      setAccessTokenCookie(accessToken);
       return response;
     } catch (err) {
       console.error('Error logging in:', err);

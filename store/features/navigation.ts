@@ -25,7 +25,7 @@ const navigationSlice = createSlice({
     toggleLanguage(state, action: PayloadAction<`EN` | `RU` | `UA`>) {
       state.appSettings.language = action.payload;
     },
-    changeUserInitials(state, action: PayloadAction<string>) {
+    updateUserInitials(state, action: PayloadAction<string>) {
       state.userInitials = action.payload;
     },
     changeUserEmail(state, action: PayloadAction<string>) {

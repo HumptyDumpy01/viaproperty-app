@@ -27,7 +27,7 @@ export default function Navigation(/*{  }: NavigationType*/) {
 
   useLayoutEffect(() => {
     if (!loading && userData) {
-      dispatch(navigationSliceActions.changeUserInitials(userData.initials));
+      dispatch(navigationSliceActions.updateUserInitials(userData.initials));
       dispatch(navigationSliceActions.changeUserEmail(userData.email));
     }
   }, [userData, loading, dispatch]);

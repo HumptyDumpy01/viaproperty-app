@@ -4,14 +4,13 @@
   // children: ReactNode;
 }*/
 
-import Lottie from 'lottie-react';
-import JSONAnimationLoading from '@/animations/animation-loading.json';
 import React from 'react';
+import LoadingCircleIcon from '@/components/UI/Animation/LoadingCircleIcon';
 
 export default function LoadingScreen(/*{  }: LoadingScreenType*/) {
   return (
     <div className={`flex h-screen justify-center items-center`}>
-      <Lottie className={`w-96 h-96 mb-36`} animationData={JSONAnimationLoading} />
+      <LoadingCircleIcon className={`w-96 h-96 mb-36`} />
     </div>
   );
 }
