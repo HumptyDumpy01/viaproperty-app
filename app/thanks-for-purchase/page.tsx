@@ -31,37 +31,45 @@ export default function ThanksForPurchasePage(/*{  }: ThanksForPurchasePageType*
         <div className={`flex flex-col bp-790:flex-row bp-790:items-center gap-8`}>
 
           <div className={`flex flex-col justify-center gap-5 mt-8 bp-790:mt-0 order-2 bp-790:order-1`}>
-            <ActivityDetail copyToClipboard customContainerClasses={``} messageFont={`text-[19px] font-medium`}
-                            trashCanVisibility={false}
-                            circleColor={`filledBlue`}
-                            iconType={
-                              AccountActivityIconsTypeEnum.ID} date={`ORDER ID`}
-                            message={`66cd917717fb802dfbc4e4a9`} />
+            <ActivityDetail
+              requestType={`formal`}
+              copyToClipboard customContainerClasses={``} messageFont={`text-[19px] font-medium`}
+              trashCanVisibility={false}
+              circleColor={`filledBlue`}
+              iconType={
+                AccountActivityIconsTypeEnum.ID} date={`ORDER ID`}
+              message={`66cd917717fb802dfbc4e4a9`} />
 
-            <ActivityDetail customContainerClasses={``}
-                            makeMessageLink={{ href: `/properties/1` }}
-                            messageFont={`text-[19px] underline font-medium`}
-                            trashCanVisibility={false} circleColor={`emptyBorderRed`}
-                            iconType={
-                              AccountActivityIconsTypeEnum.houseRedUp} date={`Property`}
-                            message={`
+            <ActivityDetail
+              requestType={`formal`}
+              customContainerClasses={``}
+              makeMessageLink={{ href: `/properties/1` }}
+              messageFont={`text-[19px] underline font-medium`}
+              trashCanVisibility={false} circleColor={`emptyBorderRed`}
+              iconType={
+                AccountActivityIconsTypeEnum.houseRedUp} date={`Property`}
+              message={`
                           A beautiful house in the heart of the city`} />
 
             <OrderStatus />
 
-            <ActivityDetail customContainerClasses={``}
-                            messageFont={`text-[19px] font-medium`}
-                            trashCanVisibility={false} circleColor={`emptyBorderRed`}
-                            iconType={
-                              AccountActivityIconsTypeEnum.user} date={`Landlord`}
-                            message={`Nick Baker`} />
+            <ActivityDetail
+              requestType={`formal`}
+              customContainerClasses={``}
+              messageFont={`text-[19px] font-medium`}
+              trashCanVisibility={false} circleColor={`emptyBorderRed`}
+              iconType={
+                AccountActivityIconsTypeEnum.user} date={`Landlord`}
+              message={`Nick Baker`} />
 
-            <ActivityDetail customContainerClasses={``}
-                            messageFont={`text-[19px] font-medium`}
-                            trashCanVisibility={false} circleColor={`filledRed`}
-                            iconType={
-                              AccountActivityIconsTypeEnum.dollar} date={`Total`}
-                            message={`$165,743`} />
+            <ActivityDetail
+              requestType={`formal`}
+              customContainerClasses={``}
+              messageFont={`text-[19px] font-medium`}
+              trashCanVisibility={false} circleColor={`filledRed`}
+              iconType={
+                AccountActivityIconsTypeEnum.dollar} date={`Total`}
+              message={`$165,743`} />
           </div>
           <div className={`max-w-2xl m-auto order-1 bp-790:order-2`}>
             <OrderConfirmedAnimation />
