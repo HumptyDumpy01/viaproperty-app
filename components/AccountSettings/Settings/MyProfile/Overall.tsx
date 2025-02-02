@@ -11,7 +11,7 @@ import { navigationSliceActions } from '@/store/features/navigation';
 import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
 import { changeUserInitialsSchema } from '@/utils/schemas/auth/changeUserInitialsSchema';
-import LoadingCircleIcon from '@/components/UI/Animation/LoadingCircleIcon';
+import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 
 type OverallType = {
   userInitials: string;
@@ -25,9 +25,10 @@ type UpdateUserInitialsResponseType = {
 }
 
 export default function Overall({ userEmail, userInitials }: OverallType) {
+  const [backdropMUIState, setBackdropMUIState] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [currentUserInitials, setCurrentUserInitials] = useState(userInitials);
-  const timer = useRef<NodeJS.Timer>();
+  const snackbarTimer = useRef<NodeJS.Timer>();
 
   const { updateUserInitials, loading } = useChangeUserInitials();
   const [enableButtons, setEnableButtons] = useState(false);
@@ -50,11 +51,12 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
 
   }, [enteredUserInitials, userInitials]);
 
+
   function toggleSnackbar(severity: SnackBarSeverityType, message: string) {
     setSnackbarOpen(() => true);
     setSnackbarData({ severity, message });
 
-    timer.current = setTimeout(function() {
+    snackbarTimer.current = setTimeout(function() {
       setSnackbarOpen(() => false);
     }, 5_000);
   }
@@ -70,10 +72,12 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
     }
 
     try {
+      setBackdropMUIState(() => true);
       const response = await updateUserInitials(enteredUserInitials).then((res) =>
         res!.data.changeUserInitials) as UpdateUserInitialsResponseType;
 
       if (response.updatedInitials) {
+        setBackdropMUIState(() => false);
         setCurrentUserInitials(response.updatedInitials);
         setAccessTokenCookie(response.accessToken);
         dispatch(navigationSliceActions.updateUserInitials(response.updatedInitials));
@@ -82,12 +86,16 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
       toggleSnackbar(`success`, `The initials are changed successfully to ${enteredUserInitials}`);
 
     } catch (e) {
+      setBackdropMUIState(() => false);
       toggleSnackbar(`error`, `Failed to update user initials. Please try again later.`);
     }
   }
 
   return (
     <>
+      <BackdropMUI state={{ open: backdropMUIState, setOpen: setBackdropMUIState }}
+                   alertMessage={`Updating the data, please wait..`}
+                   circularColor={`success`} />
       <SnackbarMUI severity={snackbarData.severity} message={snackbarData.message}
                    state={{ setOpen: setSnackbarOpen, open: snackbarOpen }} />
       <form onSubmit={handleChangeUserInitials} className={`flex flex-col gap-4`}>
@@ -122,12 +130,6 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
             account&#39;s protection.
           </p>
         </div>
-
-        {loading && (
-          <div className={`flex items-center`}>
-            <LoadingCircleIcon className={`w-8 h-8`} />
-          </div>
-        )}
 
         {enableButtons && (
           <div className={`flex justify-center flex-col gap-5`}>
