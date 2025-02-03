@@ -64,11 +64,15 @@ export default function ForgotPassword(/*{ setActivePage }: ForgotPasswordType*/
           <VerificationEmailForm handleBadgeClick={() => handleBadgeClick('stepOne', 'stepTwo')} />}
 
         {activeState.stepTwo === 'active' &&
-          <EnterVerificationCodeForm userEmail={`empty.string@example.com`}
+          <EnterVerificationCodeForm enteredTokenState={{
+            enteredToken: ``, setEnteredToken: () => {
+            }
+          }} userEmail={`empty.string@example.com`}
                                      handleBadgeClick={() => handleBadgeClick('stepTwo', 'stepThree')} />}
 
         {activeState.stepThree === 'active' &&
-          <EnterNewPasswordForm handleBadgeClick={() => handleBadgeClick('stepThree', 'done')} />}
+          <EnterNewPasswordForm userEmail={'123'} enteredToken={''}
+                                handleBadgeClick={() => handleBadgeClick('stepThree', 'done')} />}
 
         {activeState.done === 'active' && (
           <TryToSignin />
