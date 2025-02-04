@@ -1,13 +1,8 @@
 'use client';
 
-import ButtonActive from '@/components/UI/Button/ButtonActive';
-import ActionBadge from '@/components/UI/Badge/ActionBadge';
-import InputSearch from '@/components/UI/Input/InputSearch';
-import BadgeSmall from '@/components/UI/Badge/BadgeSmall';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import Pagination from '@/components/UI/Pagination/Pagination';
 import React, { SetStateAction, useEffect, useState } from 'react';
-import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 
@@ -63,8 +58,8 @@ export default function
                    skipAmount
                  }: AccountDetailsType) {
   const [totalResults, setTotalResults] = useState<number>();
-  const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`All`);
-  const [activeSortingFilter, setActiveSortingFilter] = useState<ActiveSortingFilterType>(`Sort by Newest`);
+  // const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`All`);
+  // const [activeSortingFilter, setActiveSortingFilter] = useState<ActiveSortingFilterType>(`Sort by Newest`);
   const { value: currentPage, setValue: setCurrentPage } = currentPageState;
 
   // calculate the total amount of pages overall, based on the fact that each page should
@@ -78,9 +73,9 @@ export default function
     setCopiedCardItems(cardItems);
   }, [cardItems, totalItems]);
 
-  function handleWhenSortParamClicked(param: string) {
+  /*function handleWhenSortParamClicked(param: string) {
     setActiveSortingFilter(() => param as ActiveSortingFilterType);
-  }
+  }*/
 
 
   function handlePaginationBtnClick(pageNumber: number) {
@@ -90,7 +85,7 @@ export default function
   return (
     <div>
       <div className={`flex items-center justify-between mb-7 max-w-screen-bp-896`}>
-        <div className={`flex items-center gap-2`}>
+        {/*<div className={`flex items-center gap-2`}>
           <div className={`flex gap-2 items-center`}>
             <ButtonActive disabledTooltipText={`The Filtering is disabled: No Items.`} disabled={cardItems.length === 0}
                           color={`red`} size={`small`}
@@ -114,22 +109,22 @@ export default function
         </div>
         <ActionBadge disabledTooltipText={`Sorting is disabled: No items.`} disabled={cardItems.length === 0}
                      whenParamClicked={handleWhenSortParamClicked}
-                     sortParams={[`Sort by Newest`, `Sort by Oldest`]} />
+                     sortParams={[`Sort by Newest`, `Sort by Oldest`]} />*/}
       </div>
       <div>
         <h2
           className={`bg-clip-text text-transparent w-fit bg-linear-main-red font-bold text-[40px] mb-7
           account-details-heading`}>{heading}</h2>
-        <div className={`flex mb-4`}>
+        {/*<div className={`flex mb-4`}>
           <InputSearch disabled={cardItems.length === 0} placeholder={searchPlaceholder} />
-        </div>
-        <div className={`flex items-center gap-2 mb-6`}>
+        </div>*/}
+        {/*<div className={`flex items-center gap-2 mb-6`}>
           <span className={`text-zinc-600 font-semibold`}>Current Filter:</span>
           <div className={`flex items-center gap-2`}>
             <BadgeSmall label={activeCardItemsFilter} active={true} />
             <BadgeSmall label={activeSortingFilter} active={false} />
           </div>
-        </div>
+        </div>*/}
         <div className={`mb-6`}>
           <p className={`font-semibold text-zinc-500`}>Results: <span>{totalItems}</span></p>
         </div>
@@ -171,7 +166,7 @@ export default function
               imgAlt={`${item.title} Image`} imgSrc={item.images[0]} />;
           })}
         </div>
-        {totalResults && totalResults > 4 && (
+        {totalResults! > 4 && (
           <>
             <div>
               <Pagination afterPaginationBtnClickedConfig={{ selector: `.account-details-heading`, top: false }}
