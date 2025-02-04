@@ -4,6 +4,7 @@ import AccountDetails, { CardItemsType } from '@/components/AccountSettings/Sett
 import { useGetResolvedUserWishlist } from '@/hooks/queries/useGetResolvedUserWishlist';
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 import { useEffect, useState } from 'react';
+import { useRemovePropertyFromUserWishlist } from '@/hooks/mutations/useRemovePropertyFromUserWishlist';
 
 export default function MyWishlist() {
   const itemsPerPage = 4;
@@ -15,6 +16,7 @@ export default function MyWishlist() {
   const [totalItems, setTotalItems] = useState(0);
 
   const { error, data, loading } = useGetResolvedUserWishlist({ take: itemsPerPage, skip: skipItems });
+  const { removePropIdFromUserWishlist, loading: loadingRemovePropFromWishlist } = useRemovePropertyFromUserWishlist();
 
   useEffect(() => {
     if (data) {
@@ -30,6 +32,7 @@ export default function MyWishlist() {
     }
   }, [error]);
 
+
   if (loading) {
     return <LoadingScreen />;
   }
@@ -40,7 +43,7 @@ export default function MyWishlist() {
   }
 
   function handleWishlistItemDelete(propertyId: string) {
-    console.log('propertyId:', propertyId);
+    console.log('propertyId', propertyId);
   }
 
   return (

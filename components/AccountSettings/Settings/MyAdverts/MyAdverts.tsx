@@ -23,7 +23,9 @@ export default function MyAdverts(/*{  }: MyAdvertsType*/) {
       },
       btnSecondary: {
         label: `Delete Advert`,
-        visible: true
+        visible: true,
+        onClick: () => {
+        }
       }
     }} heading={`My Adverts`} searchPlaceholder={`Title, Country, Street`} />
   );

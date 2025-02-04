@@ -22,7 +22,9 @@ export default function MyPurchases(/*{  }: MyPurchasesType*/) {
         },
         btnSecondary: {
           label: `Request Refund`,
-          visible: true
+          visible: true,
+          onClick: () => {
+          }
         }
       }} heading={`My Purchases`} searchPlaceholder={`Title, Country, Street`} />
     </>
