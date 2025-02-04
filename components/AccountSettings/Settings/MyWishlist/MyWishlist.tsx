@@ -7,11 +7,11 @@
 import AccountDetails from '@/components/AccountSettings/Settings/AccountDetails';
 
 export default function MyWishlist(/*{  }: MyWishlistType*/) {
+
   return (
     <>
-      <AccountDetails cards={{
+      <AccountDetails itemType={`wishlist`} cardItems={[]} cards={{
         btnLink: {
-          href: `/properties/1`,
           label: `See Details`
         },
         btnSecondary: {

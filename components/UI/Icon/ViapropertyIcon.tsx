@@ -6,6 +6,7 @@ import { ViapropertyIconType } from '@/utils/types/ViapropertyIconType';
 
 type ViapropertyIconsType = {
   icon: ViapropertyIconType;
+  color?: `grey` | `red`;
   animation?: string;
   // children: ReactNode;
 }
@@ -13,9 +14,15 @@ type ViapropertyIconsType = {
 export default function
   ViapropertyIcon({
                     icon,
+                    color = `red`,
                     animation = `duration-150 hover:scale-110 cursor-pointer`
                   }: ViapropertyIconsType) {
   let content: ReactNode = null;
+
+  const defineColors = {
+    colorpaletteOne: color === `red` ? `#FB3838` : `#c7c7c7`,
+    colorpaletteTwo: color === `red` ? `#F27155` : `#c7c7c7`
+  };
 
   switch (icon) {
     case `share`:
@@ -28,8 +35,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_383_7883" x1="0.209961" y1="7.06294" x2="20.8848" y2="7.06294"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -42,7 +49,7 @@ export default function
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 20" fill="none">
             <path
               d="M11.9106 3.9939L11.3702 4.5142C11.4402 4.58683 11.5242 4.6446 11.617 4.68406C11.7098 4.72352 11.8097 4.74385 11.9106 4.74385C12.0114 4.74385 12.1113 4.72352 12.2041 4.68406C12.2969 4.6446 12.3809 4.58683 12.4509 4.5142L11.9106 3.9939ZM6.90864 14.9203C6.75473 14.7937 6.55683 14.7334 6.35849 14.7527C6.16015 14.7721 5.97761 14.8694 5.85103 15.0233C5.72445 15.1772 5.66419 15.3751 5.68352 15.5735C5.70285 15.7718 5.80017 15.9543 5.95409 16.0809L6.90864 14.9203ZM2.24693 11.9095C2.29424 11.996 2.35811 12.0723 2.4349 12.134C2.51168 12.1958 2.59989 12.2419 2.69447 12.2695C2.78906 12.2972 2.88817 12.306 2.98615 12.2954C3.08413 12.2848 3.17906 12.255 3.26552 12.2077C3.35198 12.1604 3.42828 12.0965 3.49006 12.0197C3.55183 11.9429 3.59788 11.8547 3.62557 11.7601C3.65326 11.6655 3.66204 11.5664 3.65143 11.4685C3.64081 11.3705 3.611 11.2755 3.5637 11.1891L2.24693 11.9095ZM2.65517 7.63302C2.65517 5.48176 3.87088 3.67671 5.53084 2.91727C7.14378 2.17984 9.31104 2.37496 11.3702 4.5142L12.4509 3.4746C10.0094 0.936121 7.1718 0.516877 4.90648 1.55248C2.69119 2.56607 1.1543 4.91944 1.1543 7.63302H2.65517ZM8.40551 18.002C8.91881 18.4063 9.46913 18.8365 10.0265 19.1627C10.5838 19.4889 11.2202 19.7531 11.9106 19.7531V18.2522C11.6004 18.2522 11.2362 18.1321 10.7839 17.867C10.3306 17.6028 9.86136 17.2386 9.33505 16.8234L8.40551 18.002ZM15.4156 18.002C16.8424 16.8764 18.6675 15.5876 20.0983 13.9757C21.5562 12.3347 22.6668 10.3006 22.6668 7.63302H21.1659C21.1659 9.83229 20.2654 11.5263 18.9767 12.9791C17.6609 14.46 16.0029 15.6277 14.4861 16.8234L15.4156 18.002ZM22.6668 7.63302C22.6668 4.91944 21.1309 2.56607 18.9146 1.55248C16.6493 0.516877 13.8137 0.936121 11.3702 3.4736L12.4509 4.5142C14.5101 2.37596 16.6773 2.17984 18.2903 2.91727C19.9502 3.67671 21.1659 5.48076 21.1659 7.63302H22.6668ZM14.4861 16.8234C13.9597 17.2386 13.4905 17.6028 13.0372 17.867C12.5839 18.1311 12.2207 18.2522 11.9106 18.2522V19.7531C12.601 19.7531 13.2373 19.4879 13.7946 19.1627C14.353 18.8365 14.9023 18.4063 15.4156 18.002L14.4861 16.8234ZM9.33505 16.8234C8.53859 16.196 7.72912 15.5956 6.90864 14.9203L5.95409 16.0809C6.78457 16.7643 7.66308 17.4167 8.40551 18.002L9.33505 16.8234ZM3.5637 11.1901C2.96087 10.1019 2.64801 8.87699 2.65517 7.63302H1.1543C1.1543 9.27197 1.57454 10.6798 2.24693 11.9095L3.5637 11.1901Z"
-              fill="#FB3838" />
+              fill={defineColors.colorpaletteOne} />
           </svg>
         </div>
       );
@@ -60,13 +67,13 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_1288_287" x1="0" y1="11.6769" x2="26" y2="11.6769"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
               <linearGradient id="paint1_linear_1288_287" x1="0" y1="11.6769" x2="26" y2="11.6769"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -79,8 +86,8 @@ export default function
           <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
             <path
               d="M13.3464 5.08064C11.5252 5.08064 9.77855 5.80411 8.49077 7.09189C7.20299 8.37967 6.47952 10.1263 6.47952 11.9475V15.4084C6.47966 15.5605 6.4444 15.7107 6.37652 15.8469L4.69218 19.2146C4.6099 19.3791 4.57105 19.5619 4.57932 19.7457C4.58759 19.9295 4.64269 20.1081 4.73941 20.2645C4.83613 20.421 4.97124 20.5502 5.13192 20.6397C5.2926 20.7293 5.47351 20.7763 5.65746 20.7763H21.0353C21.2192 20.7763 21.4001 20.7293 21.5608 20.6397C21.7215 20.5502 21.8566 20.421 21.9533 20.2645C22.05 20.1081 22.1051 19.9295 22.1134 19.7457C22.1217 19.5619 22.0828 19.3791 22.0005 19.2146L20.3172 15.8469C20.249 15.7107 20.2134 15.5606 20.2132 15.4084V11.9475C20.2132 10.1263 19.4897 8.37967 18.202 7.09189C16.9142 5.80411 15.1676 5.08064 13.3464 5.08064ZM13.3464 23.7192C12.7375 23.7195 12.1436 23.531 11.6463 23.1796C11.1491 22.8282 10.7731 22.3313 10.5702 21.7572H16.1225C15.9196 22.3313 15.5436 22.8282 15.0464 23.1796C14.5492 23.531 13.9552 23.7195 13.3464 23.7192Z"
-              fill="#FB3838" />
-            <circle cx="19.1382" cy="6.0146" r="2.89592" fill="#FF4545" />
+              fill={defineColors.colorpaletteOne} />
+            <circle cx="19.1382" cy="6.0146" r="2.89592" fill={defineColors.colorpaletteOne} />
           </svg>
         </>
       );
@@ -98,13 +105,13 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_355_9289" x1="9.32251" y1="13.7236" x2="17.7403" y2="13.7236"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
               <linearGradient id="paint1_linear_355_9289" x1="2.10742" y1="13.7243" x2="24.9554" y2="13.7243"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -129,18 +136,18 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_1016_7988" x1="0.000732422" y1="14.3897" x2="29.4993" y2="14.3897"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
               <linearGradient id="paint1_linear_1016_7988" x1="8.63403" y1="8.45448" x2="20.8657" y2="8.45448"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
               <linearGradient id="paint2_linear_1016_7988" x1="11.5122" y1="6.11586" x2="17.9878" y2="6.11586"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
               <clipPath id="clip0_1016_7988">
                 <rect width="29.5" height="23.0244" fill="white" />
@@ -159,8 +166,8 @@ export default function
               fill="url(#paint0_linear_302_3550)" />
             <defs>
               <linearGradient id="paint0_linear_302_3550" x1="0" y1="14" x2="22" y2="14" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -178,8 +185,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_440_3503" x1="7.0835" y1="19.9827" x2="32.9168" y2="19.9827"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -196,8 +203,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_407_2025" x1="2.79688" y1="18.2258" x2="32.7462" y2="18.2258"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -214,8 +221,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_414_1863" x1="4.79248" y1="14.9998" x2="25.1811" y2="14.9998"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -233,8 +240,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_721_9948" x1="0.4375" y1="11" x2="21.5625" y2="11"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -250,12 +257,12 @@ export default function
               fill="url(#paint0_linear_721_9971)" />
             <path
               d="M17.9393 5.20184C17.9491 5.415 17.9327 5.62858 17.8903 5.83773C17.8475 6.05595 17.7819 6.26908 17.6947 6.47362L17.4012 7.01168L17.0098 7.50083L16.5207 7.89215L15.9337 8.18563L15.3468 8.38127H14.0749L13.4391 8.18563L12.901 7.89215L12.4119 7.50083L11.9717 7.01168L11.6782 6.47362L11.4825 5.83773C11.4825 5.64207 11.4336 5.44641 11.4336 5.20184C11.4336 4.95726 11.4825 4.81052 11.4825 4.61486C11.4825 4.4192 11.6292 4.17463 11.6782 3.97896L11.9717 3.4409L12.4119 2.95176C12.5522 2.79525 12.7175 2.66303 12.901 2.56044L13.4391 2.26695L14.0749 2.07129H15.3468L15.9337 2.26695L16.5207 2.56044L17.0098 2.95176L17.4012 3.4409L17.6947 3.97896C17.7885 4.18103 17.8544 4.39497 17.8903 4.61486C17.9307 4.80776 17.9471 5.00491 17.9393 5.20184Z"
-              fill="#FB3838" />
+              fill={defineColors.colorpaletteOne} />
             <defs>
               <linearGradient id="paint0_linear_721_9971" x1="2.57812" y1="13.5661" x2="27.1528" y2="13.5661"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -292,8 +299,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_1078_1304" x1="6" y1="18" x2="30" y2="18"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
               <clipPath id="clip0_1078_1304">
                 <rect width="36" height="36" fill="white" />
@@ -313,8 +320,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_1055_6836" x1="3" y1="12" x2="21" y2="12"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -327,7 +334,7 @@ export default function
           <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 8 10" fill="none">
             <path
               d="M0.213179 4.43349C0.0766808 4.29954 7.71346e-07 4.11788 7.96184e-07 3.92848C8.21021e-07 3.73907 0.0766809 3.55742 0.213179 3.42347L3.48963 0.209136C3.62617 0.0752263 3.81133 4.99795e-07 4.0044 5.25113e-07C4.19746 5.50431e-07 4.38262 0.0752264 4.51916 0.209137L7.79561 3.42347C7.92824 3.55819 8.00163 3.73862 7.99997 3.92591C7.99831 4.1132 7.92174 4.29235 7.78674 4.42479C7.65175 4.55722 7.46913 4.63234 7.27823 4.63397C7.08732 4.6356 6.9034 4.5636 6.76608 4.43349L4.7325 2.49989L4.7325 9.2857C4.7325 9.47515 4.65579 9.65683 4.51924 9.79079C4.38269 9.92474 4.1975 10 4.0044 10C3.81129 10 3.6261 9.92474 3.48955 9.79079C3.35301 9.65683 3.2763 9.47515 3.2763 9.2857L3.2763 2.49989L1.24271 4.43349C1.10617 4.5674 0.921011 4.64262 0.727945 4.64262C0.534879 4.64262 0.349717 4.5674 0.213179 4.43349Z"
-              fill="#FB3838" />
+              fill={defineColors.colorpaletteOne} />
           </svg>
         </>
       );
@@ -341,8 +348,8 @@ export default function
               fill="url(#paint0_linear_656_6526)" />
             <defs>
               <linearGradient id="paint0_linear_656_6526" x1="0" y1="9" x2="16" y2="9" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>
@@ -359,8 +366,8 @@ export default function
             <defs>
               <linearGradient id="paint0_linear_1243_8668" x1="0.262451" y1="6.60935" x2="19" y2="6.60935"
                               gradientUnits="userSpaceOnUse">
-                <stop stop-color="#FB3838" />
-                <stop offset="1" stop-color="#F27155" />
+                <stop stop-color={defineColors.colorpaletteOne} />
+                <stop offset="1" stop-color={defineColors.colorpaletteTwo} />
               </linearGradient>
             </defs>
           </svg>

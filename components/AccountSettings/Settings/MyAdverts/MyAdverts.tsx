@@ -6,13 +6,12 @@
 
 import AccountDetails from '@/components/AccountSettings/Settings/AccountDetails';
 
-export type ActiveFilterType = `all` | `rent` | `sell`;
+export type ActiveFilterType = `All` | `Rent` | `Sell`;
 
 export default function MyAdverts(/*{  }: MyAdvertsType*/) {
   return (
-    <AccountDetails cards={{
+    <AccountDetails itemType={`advert`} cardItems={[]} cards={{
       btnLink: {
-        href: `/account-settings/edit-property-advert/1`,
         label: `Edit`
       },
       btnSecondary: {

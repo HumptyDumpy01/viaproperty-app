@@ -3,17 +3,40 @@
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import { useState } from 'react';
 import SortBadge from '@/components/Layout/Filter/Sorting/SortBadge';
+import { Tooltip } from '@mui/material';
 
 type SortItemsType = {
   sortParams: string[];
   position?: string;
+  whenParamClicked?: (param: string) => void;
+  disabled?: boolean;
+  disabledTooltipText?: string;
   // children: ReactNode;
 }
 
 
-export default function ActionBadge({ sortParams, position = `-top-28 left-0` }: SortItemsType) {
+export default function ActionBadge({
+                                      sortParams,
+                                      position = `-top-28 left-0`,
+                                      whenParamClicked,
+                                      disabled = false,
+                                      disabledTooltipText = `Sorting is disabled.`
+                                    }: SortItemsType) {
   const [activeSortState, setActiveSortState] = useState(sortParams[0]);
   const [popupOpen, setPopupOpen] = useState<boolean>(false);
+
+  function handleSetActiveState(param: string) {
+    if (disabled) return;
+
+    setActiveSortState(param);
+
+    if (whenParamClicked) {
+      whenParamClicked(param);
+    }
+  }
+
+  const expandBtnStyles = !disabled ?
+    `bg-clip-text text-transparent bg-linear-main-red border-red-500 font-bold ` : `text-zinc-300 border-zinc-200 font-semibold`;
 
   return (
     <>
@@ -24,23 +47,26 @@ export default function ActionBadge({ sortParams, position = `-top-28 left-0` }:
           {sortParams.map(function(param) {
             return (
               <div key={param} onClick={() => setPopupOpen(false)} className={`flex text-nowrap w-full`}>
-                <SortBadge onClick={() => setActiveSortState(param)} active={activeSortState === param}
+                <SortBadge onClick={() => handleSetActiveState(param)}
+                           active={activeSortState === param}
                            label={param} />
               </div>
             );
           })}
         </div>
-        <div onClick={() => setPopupOpen(prevState => !prevState)}
-             className={`flex items-center gap-2 cursor-pointer`}>
-            <span className={`bg-clip-text text-transparent bg-linear-main-red w-fit font-bold text-[12px] px-4 
-            py-2 border border-red-500 rounded-full text-nowrap`}>{activeSortState}</span>
-          <div /* onClick={() => setPopupOpen(prevState => !prevState)}*/
-            className={`w-6 h-6 bg-white border border-red-500 rounded-full flex items-center justify-center`}>
-            <div className={`flex transition-all duration-200 ${popupOpen ? `rotate-180` : `rotate-0`}`}>
-              <ViapropertyIcon icon={`arrow`} />
+        <Tooltip title={disabled ? disabledTooltipText : undefined}>
+          <div onClick={() => !disabled ? setPopupOpen(prevState => !prevState) : undefined}
+               className={`flex items-center gap-2 cursor-pointer`}>
+            <span className={`${expandBtnStyles} w-fit text-[12px] px-4 
+            py-2 border rounded-full text-nowrap`}>{activeSortState}</span>
+            <div /* onClick={() => setPopupOpen(prevState => !prevState)}*/
+              className={`w-6 h-6 bg-white border ${!disabled ? `border-red-500` : `border-zinc-300`} rounded-full flex items-center justify-center`}>
+              <div className={`flex transition-all duration-200 ${popupOpen ? `rotate-180` : `rotate-0`}`}>
+                <ViapropertyIcon color={disabled ? `grey` : `red`} icon={`arrow`} />
+              </div>
             </div>
           </div>
-        </div>
+        </Tooltip>
       </div>
     </>
   );

@@ -1,7 +1,8 @@
-// 'use client';
+'use client';
 
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, useRef } from 'react';
 import Link from 'next/link';
+import { Tooltip } from '@mui/material';
 
 type ButtonStatesType = {
   active: boolean;
@@ -10,6 +11,7 @@ type ButtonStatesType = {
   color?: `green` | `red`;
   mode?: `link` | `button`;
   href?: string; // Add href prop for link mode
+  disabledTooltipText?: string;
 } & ComponentPropsWithoutRef<'button'> & ComponentPropsWithoutRef<'a'>;
 
 export default function
@@ -20,6 +22,7 @@ export default function
                  color = `green`,
                  mode = `button`,
                  href,
+                 disabledTooltipText,
                  ...props
                }: ButtonStatesType) {
   const greenStyles = `text-green-700 border border-green-700`;
@@ -62,6 +65,7 @@ export default function
   }
 
   const className = `${appliedSize} ${active ? `${activeStyles} ${appliedColor}` : `${disabledStyles}`}`;
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   if (mode === `link`) {
     return (
@@ -72,8 +76,10 @@ export default function
   }
 
   return (
-    <button {...props} type={`button`} className={className}>
-      {label}
-    </button>
+    <Tooltip title={buttonRef?.current?.disabled ? disabledTooltipText || `The Button is disabled.` : ``}>
+      <button ref={buttonRef} {...props} type={`button`} className={className}>
+        {label}
+      </button>
+    </Tooltip>
   );
 }

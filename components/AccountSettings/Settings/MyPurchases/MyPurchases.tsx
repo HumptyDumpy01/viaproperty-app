@@ -9,9 +9,8 @@ import AccountDetails from '@/components/AccountSettings/Settings/AccountDetails
 export default function MyPurchases(/*{  }: MyPurchasesType*/) {
   return (
     <>
-      <AccountDetails cards={{
+      <AccountDetails itemType={`purchase`} cardItems={[]} cards={{
         btnLink: {
-          href: `/account-settings/purchase-details/1`,
           label: `Purchase Details`
         },
         btnSecondary: {
