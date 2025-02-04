@@ -1,4 +1,4 @@
-// 'use client';
+'use client';
 
 /*type MyPurchasesType = {
   // children: ReactNode;
