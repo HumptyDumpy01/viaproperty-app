@@ -39,7 +39,6 @@ export default function FilterProperties() {
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
     const results = Object.fromEntries(formData.entries()) as FilterPropertiesType;
-    console.log(`Executing originalProperties: `, originalProperties);
 
     filterSidebarResults(results);
 

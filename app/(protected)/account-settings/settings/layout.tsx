@@ -11,10 +11,10 @@ type AccountSettingsLayout = {
 
 export default function AccountSettingsLayout({ children }: AccountSettingsLayout) {
   return (
-    <ProviderContainer>
-      <CustomApolloProvider>
+    <CustomApolloProvider>
+      <ProviderContainer>
         <AccountSettings>{children}</AccountSettings>
-      </CustomApolloProvider>
-    </ProviderContainer>
+      </ProviderContainer>
+    </CustomApolloProvider>
   );
 }

@@ -6,11 +6,12 @@ import InputSearch from '@/components/UI/Input/InputSearch';
 import BadgeSmall from '@/components/UI/Badge/BadgeSmall';
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import Pagination from '@/components/UI/Pagination/Pagination';
-import { useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
+import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 
-type CardItemsType = {
+export type CardItemsType = {
   id: string;
   title: string;
   propertyFor: PropertyForType,
@@ -40,20 +41,50 @@ type AccountDetailsType = {
   },
   cardItems: CardItemsType[];
   itemType: `wishlist` | `advert` | `purchase`;
+  errorMessage?: string;
+  totalItems: number;
+  onPageChange: (pageNumber: number) => void;
+  currentPageState: { value: number, setValue: React.Dispatch<SetStateAction<number>> }
+  skipAmount: number;
   // children: ReactNode;
 }
 
-export default function AccountDetails({ heading, searchPlaceholder, cards, cardItems, itemType }: AccountDetailsType) {
+export default function
+  AccountDetails({
+                   heading,
+                   searchPlaceholder,
+                   cards,
+                   cardItems,
+                   itemType,
+                   errorMessage = ``,
+                   totalItems,
+                   onPageChange,
+                   currentPageState,
+                   skipAmount
+                 }: AccountDetailsType) {
   const [totalResults, setTotalResults] = useState<number>();
   const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`All`);
   const [activeSortingFilter, setActiveSortingFilter] = useState<ActiveSortingFilterType>(`Sort by Newest`);
+  const { value: currentPage, setValue: setCurrentPage } = currentPageState;
+
+  // calculate the total amount of pages overall, based on the fact that each page should
+  // have 4 items
+  const totalPages = Math.ceil(totalItems / 4);
+
+  const [copiedCardItems, setCopiedCardItems] = useState<CardItemsType[]>([]);
 
   useEffect(() => {
-    setTotalResults(() => cardItems.length);
-  }, [cardItems]);
+    setTotalResults(() => totalItems);
+    setCopiedCardItems(cardItems);
+  }, [cardItems, totalItems]);
 
   function handleWhenSortParamClicked(param: string) {
     setActiveSortingFilter(() => param as ActiveSortingFilterType);
+  }
+
+
+  function handlePaginationBtnClick(pageNumber: number) {
+    onPageChange(pageNumber);
   }
 
   return (
@@ -87,7 +118,8 @@ export default function AccountDetails({ heading, searchPlaceholder, cards, card
       </div>
       <div>
         <h2
-          className={`bg-clip-text text-transparent w-fit bg-linear-main-red font-bold text-[40px] mb-7`}>{heading}</h2>
+          className={`bg-clip-text text-transparent w-fit bg-linear-main-red font-bold text-[40px] mb-7
+          account-details-heading`}>{heading}</h2>
         <div className={`flex mb-4`}>
           <InputSearch disabled={cardItems.length === 0} placeholder={searchPlaceholder} />
         </div>
@@ -99,18 +131,22 @@ export default function AccountDetails({ heading, searchPlaceholder, cards, card
           </div>
         </div>
         <div className={`mb-6`}>
-          <p className={`font-semibold text-zinc-500`}>Results: <span>{totalResults}</span></p>
+          <p className={`font-semibold text-zinc-500`}>Results: <span>{totalItems}</span></p>
         </div>
         <div className={`grid bp-896:grid-cols-2 gap-y-9 gap-8 pb-9`}>
 
-          {cardItems.length === 0 && (
+          {errorMessage && (
+            <ErrorMessage errorMessage={errorMessage} />
+          )}
+
+          {!errorMessage && copiedCardItems.length === 0 && (
             <>
               <p className={`text-zinc-800 font-semibold text-2xl text-center`}>Oops! No Items to be seen here!
                 Let&#39;s add
                 some!</p>
             </>
           )}
-          {cardItems.length > 0 && cardItems.map((item, i) => {
+          {copiedCardItems.length > 0 && copiedCardItems.map((item, i) => {
             let href = ``;
 
             switch (itemType) {
@@ -135,11 +171,13 @@ export default function AccountDetails({ heading, searchPlaceholder, cards, card
               imgAlt={`${item.title} Image`} imgSrc={item.images[0]} />;
           })}
         </div>
-        {cardItems.length > 6 && (
+        {totalResults && totalResults > 4 && (
           <>
             <div>
-              <Pagination currentPage={1} onPageChange={() => {
-              }} showing={6} total={19} pages={3} />
+              <Pagination afterPaginationBtnClickedConfig={{ selector: `.account-details-heading`, top: false }}
+                          currentPage={currentPage} onPageChange={handlePaginationBtnClick}
+                          showing={cardItems.length + skipAmount}
+                          total={totalItems} pages={totalPages} />
             </div>
           </>
         )}
