@@ -20,11 +20,11 @@ export type CardItemsType = {
   createdAt: string;
 }
 
-type ActiveSortingFilterType = `Sort by Newest` | `Sort by Oldest`;
+// type ActiveSortingFilterType = `Sort by Newest` | `Sort by Oldest`;
 
 type AccountDetailsType = {
   heading: string;
-  searchPlaceholder: string;
+  searchPlaceholder?: string;
   cards: {
     btnLink: {
       label: string;
@@ -32,6 +32,7 @@ type AccountDetailsType = {
     btnSecondary: {
       label: string;
       visible: boolean;
+      onClick: (propId: string) => void;
     };
   },
   cardItems: CardItemsType[];
@@ -47,7 +48,6 @@ type AccountDetailsType = {
 export default function
   AccountDetails({
                    heading,
-                   searchPlaceholder,
                    cards,
                    cardItems,
                    itemType,
@@ -55,7 +55,7 @@ export default function
                    totalItems,
                    onPageChange,
                    currentPageState,
-                   skipAmount
+                   skipAmount,
                  }: AccountDetailsType) {
   const [totalResults, setTotalResults] = useState<number>();
   // const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`All`);
@@ -159,6 +159,7 @@ export default function
             return <CardPropertyHorizontal
               price={item.description.priceAndTaskHistory.price}
               key={item.id}
+              id={item.id}
               btnSecondary={cards.btnSecondary}
               btnLink={{ href, label: cards.btnLink.label }} type={item.propertyFor} createdAt={item.createdAt}
               paragraph={item.description.overall}

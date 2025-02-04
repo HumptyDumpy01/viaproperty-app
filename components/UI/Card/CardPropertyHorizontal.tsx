@@ -5,6 +5,7 @@ import { CldImage } from 'next-cloudinary';
 import React from 'react';
 
 type CardPropertyLongType = {
+  id?: string;
   imgSrc: string;
   imgAlt: string;
   heading: string;
@@ -19,6 +20,7 @@ type CardPropertyLongType = {
   btnSecondary?: {
     visible: boolean;
     label: string;
+    onClick?: (id: string) => void;
   }
   // children: ReactNode;
 }
@@ -34,9 +36,12 @@ export default function
                            btnLink,
                            btnSecondary = {
                              visible: false,
-                             label: ``
+                             label: ``,
+                             onClick: (id: string) => {
+                             }
                            },
-                           price
+                           price,
+                           id
                          }: CardPropertyLongType) {
   const trimmedHeading = heading.length > 40 ? heading.slice(0, 40) + `..` : heading;
   const trimmedParagraph = paragraph.length > 70 ? paragraph.slice(0, 70) + `..` : paragraph;
@@ -47,6 +52,7 @@ export default function
   const differenceInTime = currentDate.getTime() - date.getTime();
   const differenceInDays = differenceInTime / (1000 * 3600 * 24);
   const createdAtDays = Math.floor(differenceInDays);
+
 
   return (
     <>
@@ -89,7 +95,7 @@ export default function
             </div>
             {btnSecondary?.visible && (
               <>
-                <button className={`text-[15px] font-semibold text-zinc-600
+                <button onClick={() => btnSecondary?.onClick ? btnSecondary.onClick(id!) : undefined} className={`text-[15px] font-semibold text-zinc-600
                 transition-all duration-200 hover:scale-105 hover:text-red-600`}>{btnSecondary.label}</button>
               </>
             )}

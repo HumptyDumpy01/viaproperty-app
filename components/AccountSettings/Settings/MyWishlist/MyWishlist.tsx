@@ -39,6 +39,10 @@ export default function MyWishlist() {
     setCurrentPage(() => pageNumber);
   }
 
+  function handleWishlistItemDelete(propertyId: string) {
+    console.log('propertyId:', propertyId);
+  }
+
   return (
     <>
       <AccountDetails
@@ -55,7 +59,8 @@ export default function MyWishlist() {
           },
           btnSecondary: {
             label: `Delete`,
-            visible: true
+            visible: true,
+            onClick: handleWishlistItemDelete
           }
         }}
         heading={`My Wishlist`}
