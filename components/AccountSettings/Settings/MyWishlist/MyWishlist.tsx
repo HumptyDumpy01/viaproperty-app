@@ -5,6 +5,7 @@ import { useGetResolvedUserWishlist } from '@/hooks/queries/useGetResolvedUserWi
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 import { useEffect, useState } from 'react';
 import { useRemovePropertyFromUserWishlist } from '@/hooks/mutations/useRemovePropertyFromUserWishlist';
+import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
 
 export default function MyWishlist() {
   const itemsPerPage = 4;
@@ -22,11 +23,14 @@ export default function MyWishlist() {
 
   useEffect(() => {
     if (data) {
-      setShowItems(data.getResolvedUserWishlist?.resolvedWishlist?.slice((currentPage - 1) * itemsPerPage, 4));
-      setAllItems(data.getResolvedUserWishlist?.resolvedWishlist);
+      const sortedItemsByNewest = [...(data.getResolvedUserWishlist?.resolvedWishlist || [])]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+      setShowItems(sortedItemsByNewest?.slice((currentPage - 1) * itemsPerPage, 4));
+      setAllItems(sortedItemsByNewest);
       setTotalItems(() => data.getResolvedUserWishlist?.resolvedWishlist?.length);
     }
-    console.log(`executes...`);
+
   }, [data]);
 
   useEffect(() => {
@@ -69,12 +73,58 @@ export default function MyWishlist() {
     });
   }
 
+  function handleSortWishlistItems(param = `Sort By Newest`, sortByPropertyType: ActiveFilterType) {
+    onPageChange(1);
+
+    const sortedItems = [...(allItems || [])];
+
+    switch (param) {
+      case `Sort by Oldest`:
+        sortedItems.sort((a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+        break;
+      case `Sort by Newest`:
+        sortedItems.sort((a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        break;
+    }
+
+    switch (sortByPropertyType) {
+      case 'Default':
+        break;
+      case 'Rent First':
+        sortedItems.sort((a, b) => {
+          if (a.propertyFor === 'rent' && b.propertyFor === 'sell') {
+            return -1;
+          } else if (a.propertyFor === 'sell' && b.propertyFor === 'rent') {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        break;
+      case 'Sell First':
+        sortedItems.sort((a, b) => {
+          if (a.propertyFor === 'sell' && b.propertyFor === 'rent') {
+            return -1;
+          } else if (a.propertyFor === 'rent' && b.propertyFor === 'sell') {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+    }
+
+    setAllItems(sortedItems);
+    setShowItems(sortedItems.slice(0, itemsPerPage));
+  }
 
   return (
     <>
       <AccountDetails
+        handleSortItems={handleSortWishlistItems}
         skippedItems={skippedItems}
-        currentPageState={{ value: currentPage, setValue: setCurrentPage }}
+        currentPage={currentPage}
         onPageChange={onPageChange}
         totalItems={totalItems}
         errorMessage={errorMessage}

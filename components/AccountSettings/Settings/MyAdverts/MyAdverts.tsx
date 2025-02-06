@@ -7,16 +7,18 @@
 import AccountDetails from '@/components/AccountSettings/Settings/AccountDetails';
 import { useState } from 'react';
 
-export type ActiveFilterType = `All` | `Rent` | `Sell`;
+export type ActiveFilterType = `Default` | `Rent First` | `Sell First`;
 
 export default function MyAdverts(/*{  }: MyAdvertsType*/) {
   const [currentPage, setCurrentPage] = useState(1);
   return (
     <AccountDetails
+      handleSortItems={() => {
+      }}
       skippedItems={0}
       onPageChange={() => {
       }}
-      currentPageState={{ value: currentPage, setValue: setCurrentPage }}
+      currentPage={currentPage}
       totalItems={0} itemType={`advert`} cardItems={[]} cards={{
       btnLink: {
         label: `Edit`

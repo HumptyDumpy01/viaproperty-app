@@ -15,7 +15,7 @@ export default function MyPurchases(/*{  }: MyPurchasesType*/) {
         skippedItems={0}
         onPageChange={() => {
         }}
-        currentPageState={{ value: currentPage, setValue: setCurrentPage }}
+        currentPage={currentPage}
         totalItems={0} itemType={`purchase`} cardItems={[]} cards={{
         btnLink: {
           label: `Purchase Details`

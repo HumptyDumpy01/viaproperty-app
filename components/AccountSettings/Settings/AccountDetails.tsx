@@ -2,14 +2,14 @@
 
 import CardPropertyHorizontal from '@/components/UI/Card/CardPropertyHorizontal';
 import Pagination from '@/components/UI/Pagination/Pagination';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
-import InputSearch from '@/components/UI/Input/InputSearch';
 import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
 import ActionBadge from '@/components/UI/Badge/ActionBadge';
 import BadgeSmall from '@/components/UI/Badge/BadgeSmall';
+import InputSearch from '@/components/UI/Input/InputSearch';
 
 export type CardItemsType = {
   id: string;
@@ -25,7 +25,7 @@ export type CardItemsType = {
   createdAt: string;
 }
 
-type ActiveSortingFilterType = `Sort by Newest` | `Sort by Oldest`;
+export type ActiveSortingFilterType = `Sort by Newest` | `Sort by Oldest`;
 
 type AccountDetailsType = {
   heading: string;
@@ -45,8 +45,9 @@ type AccountDetailsType = {
   errorMessage?: string;
   totalItems: number;
   onPageChange: (pageNumber: number) => void;
-  currentPageState: { value: number, setValue: React.Dispatch<SetStateAction<number>> }
+  currentPage: number;
   skippedItems: number;
+  handleSortItems: (param: string, sortByPropertyType: ActiveFilterType) => void;
   // children: ReactNode;
 }
 
@@ -57,30 +58,31 @@ export default function
                    cardItems,
                    itemType,
                    errorMessage = ``,
-                   searchPlaceholder = ``,
                    totalItems,
                    onPageChange,
-                   currentPageState,
-                   skippedItems
+                   searchPlaceholder = `Enter Country, Title, etc.`,
+                   currentPage,
+                   skippedItems,
+                   handleSortItems
                  }: AccountDetailsType) {
-  const [totalResults, setTotalResults] = useState<number>();
-  const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`All`);
+
+  const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`Default`);
   const [activeSortingFilter, setActiveSortingFilter] = useState<ActiveSortingFilterType>(`Sort by Newest`);
-  const { value: currentPage, setValue: setCurrentPage } = currentPageState;
 
   // calculate the total amount of pages overall, based on the fact that each page should
   // have 4 items
   const totalPages = Math.ceil(totalItems / 4);
 
-  const [copiedCardItems, setCopiedCardItems] = useState<CardItemsType[]>([]);
-
   useEffect(() => {
-    setTotalResults(() => totalItems);
-    setCopiedCardItems(cardItems);
-  }, [cardItems, totalItems]);
+    if (totalItems) {
+      handleWhenSortParamClicked();
+    }
+  }, [activeCardItemsFilter]);
 
-  function handleWhenSortParamClicked(param: string) {
+
+  function handleWhenSortParamClicked(param = `Sort By Newest`) {
     setActiveSortingFilter(() => param as ActiveSortingFilterType);
+    handleSortItems(param, activeCardItemsFilter);
   }
 
 
@@ -95,22 +97,28 @@ export default function
           <div className={`flex gap-2 items-center`}>
             <ButtonActive disabledTooltipText={`The Filtering is disabled: No Items.`} disabled={cardItems.length === 0}
                           color={`red`} size={`small`}
-                          onClick={() => setActiveCardItemsFilter('All')}
-                          active={activeCardItemsFilter === 'All'}
-                          label={`All`} />
+                          onClick={() => {
+                            setActiveCardItemsFilter('Default');
+                          }}
+                          active={activeCardItemsFilter === 'Default'}
+                          label={`Default`} />
             <ButtonActive
               disabledTooltipText={`The Filtering is disabled: No Items.`}
-              disabled={cardItems.length === 0} color={`red`} size={`small`}
-              onClick={() => setActiveCardItemsFilter('Rent')}
-              active={activeCardItemsFilter === 'Rent'}
-              label={`Rent`} />
+              color={`red`} size={`small`}
+              onClick={() => {
+                setActiveCardItemsFilter('Rent First');
+              }}
+              active={activeCardItemsFilter === 'Rent First'}
+              label={`Rent First`} />
 
             <ButtonActive
               disabledTooltipText={`The Filtering is disabled: No Items.`}
-              disabled={cardItems.length === 0} color={`red`} size={`small`}
-              onClick={() => setActiveCardItemsFilter('Sell')}
-              active={activeCardItemsFilter === 'Sell'}
-              label={`Sell`} />
+              color={`red`} size={`small`}
+              onClick={() => {
+                setActiveCardItemsFilter('Sell First');
+              }}
+              active={activeCardItemsFilter === 'Sell First'}
+              label={`Sell First`} />
           </div>
         </div>
         <ActionBadge disabledTooltipText={`Sorting is disabled: No items.`} disabled={cardItems.length === 0}
@@ -147,7 +155,7 @@ export default function
                 some!</p>
             </>
           )}
-          {copiedCardItems.length > 0 && copiedCardItems.map((item, i) => {
+          {cardItems.length > 0 && cardItems.map((item, _) => {
             let href = ``;
 
             switch (itemType) {
@@ -173,12 +181,12 @@ export default function
               imgAlt={`${item.title} Image`} imgSrc={item.images[0]} />;
           })}
         </div>
-        {totalResults! > 4 && (
+        {totalItems! > 4 && (
           <>
             <div>
               <Pagination afterPaginationBtnClickedConfig={{ selector: `.account-details-heading`, top: false }}
                           currentPage={currentPage} onPageChange={handlePaginationBtnClick}
-                          showing={skippedItems + (copiedCardItems?.length || 0)}
+                          showing={skippedItems + (cardItems?.length || 0)}
                           total={totalItems} pages={totalPages} />
             </div>
           </>
