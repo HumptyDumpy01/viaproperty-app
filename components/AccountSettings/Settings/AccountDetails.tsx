@@ -46,7 +46,7 @@ type AccountDetailsType = {
   totalItems: number;
   onPageChange: (pageNumber: number) => void;
   currentPageState: { value: number, setValue: React.Dispatch<SetStateAction<number>> }
-  skipAmount: number;
+  skippedItems: number;
   // children: ReactNode;
 }
 
@@ -61,7 +61,7 @@ export default function
                    totalItems,
                    onPageChange,
                    currentPageState,
-                   skipAmount
+                   skippedItems
                  }: AccountDetailsType) {
   const [totalResults, setTotalResults] = useState<number>();
   const [activeCardItemsFilter, setActiveCardItemsFilter] = useState<ActiveFilterType>(`All`);
@@ -178,7 +178,7 @@ export default function
             <div>
               <Pagination afterPaginationBtnClickedConfig={{ selector: `.account-details-heading`, top: false }}
                           currentPage={currentPage} onPageChange={handlePaginationBtnClick}
-                          showing={cardItems.length + skipAmount}
+                          showing={skippedItems + (copiedCardItems?.length || 0)}
                           total={totalItems} pages={totalPages} />
             </div>
           </>

@@ -1,13 +1,8 @@
 import gql from 'graphql-tag';
 
-export type GetResolvedUserWishlistInputType = {
-  take: number;
-  skip: number;
-}
-
 export const GET_RESOLVED_USER_WISHLIST = gql`
-  query GetResolvedUserWishlist($getResolvedUserWishlistInput: GetResolvedUserWishlistInput!) {
-    getResolvedUserWishlist(getResolvedUserWishlistInput: $getResolvedUserWishlistInput) {
+  query GetResolvedUserWishlist {
+    getResolvedUserWishlist {
       resolvedWishlist {
         id
         title
@@ -21,7 +16,6 @@ export const GET_RESOLVED_USER_WISHLIST = gql`
         images
         createdAt
       }
-      total
     }
   }
 `;

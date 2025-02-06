@@ -8,20 +8,23 @@ import { useRemovePropertyFromUserWishlist } from '@/hooks/mutations/useRemovePr
 
 export default function MyWishlist() {
   const itemsPerPage = 4;
-  const [skipItems, setSkipItems] = useState(0);
   const [showItems, setShowItems] = useState<CardItemsType[]>([]);
   const [errorMessage, setErrorMessage] = useState(``);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
+  const [skippedItems, setSkippedItems] = useState(0);
 
-  const { error, data, loading } = useGetResolvedUserWishlist({ take: itemsPerPage, skip: skipItems });
+  const [allItems, setAllItems] = useState<CardItemsType[]>();
+
+  const { error, data, loading } = useGetResolvedUserWishlist();
   const { removePropIdFromUserWishlist, loading: loadingRemovePropFromWishlist } = useRemovePropertyFromUserWishlist();
 
   useEffect(() => {
     if (data) {
-      setShowItems(data.getResolvedUserWishlist?.resolvedWishlist);
-      setTotalItems(data.getResolvedUserWishlist.total);
+      setShowItems(data.getResolvedUserWishlist?.resolvedWishlist?.slice((currentPage - 1) * itemsPerPage, 4));
+      setAllItems(data.getResolvedUserWishlist?.resolvedWishlist);
+      setTotalItems(() => data.getResolvedUserWishlist?.resolvedWishlist?.length);
     }
   }, [data]);
 
@@ -38,8 +41,10 @@ export default function MyWishlist() {
   }
 
   function onPageChange(pageNumber: number) {
-    setSkipItems(() => itemsPerPage * (pageNumber - 1));
+    const allItemsCopy = [...allItems!];
     setCurrentPage(() => pageNumber);
+    setShowItems(() => allItemsCopy.slice((pageNumber - 1) * itemsPerPage, pageNumber * itemsPerPage));
+    setSkippedItems(() => (pageNumber - 1) * itemsPerPage);
   }
 
   function handleWishlistItemDelete(propertyId: string) {
@@ -49,7 +54,7 @@ export default function MyWishlist() {
   return (
     <>
       <AccountDetails
-        skipAmount={skipItems}
+        skippedItems={skippedItems}
         currentPageState={{ value: currentPage, setValue: setCurrentPage }}
         onPageChange={onPageChange}
         totalItems={totalItems}
