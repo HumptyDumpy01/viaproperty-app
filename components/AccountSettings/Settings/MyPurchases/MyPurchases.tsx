@@ -12,7 +12,7 @@ export default function MyPurchases(/*{  }: MyPurchasesType*/) {
   return (
     <>
       <AccountDetails
-        skipAmount={0}
+        skippedItems={0}
         onPageChange={() => {
         }}
         currentPageState={{ value: currentPage, setValue: setCurrentPage }}

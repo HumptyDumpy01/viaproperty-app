@@ -13,7 +13,7 @@ export default function MyAdverts(/*{  }: MyAdvertsType*/) {
   const [currentPage, setCurrentPage] = useState(1);
   return (
     <AccountDetails
-      skipAmount={0}
+      skippedItems={0}
       onPageChange={() => {
       }}
       currentPageState={{ value: currentPage, setValue: setCurrentPage }}
