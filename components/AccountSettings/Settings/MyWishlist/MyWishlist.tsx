@@ -26,6 +26,7 @@ export default function MyWishlist() {
       setAllItems(data.getResolvedUserWishlist?.resolvedWishlist);
       setTotalItems(() => data.getResolvedUserWishlist?.resolvedWishlist?.length);
     }
+    console.log(`executes...`);
   }, [data]);
 
   useEffect(() => {
@@ -35,6 +36,16 @@ export default function MyWishlist() {
     }
   }, [error]);
 
+
+  useEffect(() => {
+    if (showItems.length === 0 && currentPage > 1) {
+      setCurrentPage((prevState) => {
+        const newPage = prevState - 1;
+        setShowItems(allItems?.slice((newPage - 1) * itemsPerPage, newPage * itemsPerPage) || []);
+        return newPage;
+      });
+    }
+  }, [showItems, currentPage, allItems]);
 
   if (loading) {
     return <LoadingScreen />;
@@ -48,8 +59,16 @@ export default function MyWishlist() {
   }
 
   function handleWishlistItemDelete(propertyId: string) {
-    console.log('propertyId', propertyId);
+    setTotalItems((prevState) => prevState - 1);
+    setAllItems((prevState) => {
+      const updatedItems = prevState?.filter((item) => item.id !== propertyId);
+      const updatedShowItems = updatedItems?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage) || [];
+      setShowItems(updatedShowItems);
+
+      return updatedItems;
+    });
   }
+
 
   return (
     <>

@@ -140,7 +140,7 @@ export default function
             <ErrorMessage errorMessage={errorMessage} />
           )}
 
-          {!errorMessage && copiedCardItems.length === 0 && (
+          {!errorMessage && totalItems === 0 && (
             <>
               <p className={`text-zinc-800 font-semibold text-2xl text-center`}>Oops! No Items to be seen here!
                 Let&#39;s add
