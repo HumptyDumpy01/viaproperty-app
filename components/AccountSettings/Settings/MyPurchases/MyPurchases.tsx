@@ -12,6 +12,8 @@ export default function MyPurchases(/*{  }: MyPurchasesType*/) {
   return (
     <>
       <AccountDetails
+        handleSortItems={() => {
+        }}
         skippedItems={0}
         onPageChange={() => {
         }}
