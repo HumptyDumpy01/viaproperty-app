@@ -7,9 +7,7 @@ import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterR
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import { ActiveFilterType } from '@/components/AccountSettings/Settings/MyAdverts/MyAdverts';
 import ButtonActive from '@/components/UI/Button/ButtonActive';
-import ActionBadge from '@/components/UI/Badge/ActionBadge';
 import BadgeSmall from '@/components/UI/Badge/BadgeSmall';
-import InputSearch from '@/components/UI/Input/InputSearch';
 
 export type CardItemsType = {
   id: string;
@@ -60,7 +58,6 @@ export default function
                    errorMessage = ``,
                    totalItems,
                    onPageChange,
-                   searchPlaceholder = `Enter Country, Title, etc.`,
                    currentPage,
                    skippedItems,
                    handleSortItems
@@ -121,17 +118,11 @@ export default function
               label={`Sell First`} />
           </div>
         </div>
-        <ActionBadge disabledTooltipText={`Sorting is disabled: No items.`} disabled={cardItems.length === 0}
-                     whenParamClicked={handleWhenSortParamClicked}
-                     sortParams={[`Sort by Newest`, `Sort by Oldest`]} />
       </div>
       <div>
         <h2
           className={`bg-clip-text text-transparent w-fit bg-linear-main-red font-bold text-[40px] mb-7
           account-details-heading`}>{heading}</h2>
-        <div className={`flex mb-4`}>
-          <InputSearch disabled={cardItems.length === 0} placeholder={searchPlaceholder} />
-        </div>
         <div className={`flex items-center gap-2 mb-6`}>
           <span className={`text-zinc-600 font-semibold`}>Current Filter:</span>
           <div className={`flex items-center gap-2`}>

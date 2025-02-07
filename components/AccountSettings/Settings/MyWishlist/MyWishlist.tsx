@@ -91,6 +91,8 @@ export default function MyWishlist() {
 
     switch (sortByPropertyType) {
       case 'Default':
+        setAllItems(data.getResolvedUserWishlist?.resolvedWishlist);
+        setShowItems(data.getResolvedUserWishlist?.resolvedWishlist.slice(0, itemsPerPage));
         break;
       case 'Rent First':
         sortedItems.sort((a, b) => {
@@ -102,6 +104,9 @@ export default function MyWishlist() {
             return 0;
           }
         });
+
+        setAllItems(sortedItems);
+        setShowItems(sortedItems.slice(0, itemsPerPage));
         break;
       case 'Sell First':
         sortedItems.sort((a, b) => {
@@ -113,10 +118,11 @@ export default function MyWishlist() {
             return 0;
           }
         });
+
+        setAllItems(sortedItems);
+        setShowItems(sortedItems.slice(0, itemsPerPage));
     }
 
-    setAllItems(sortedItems);
-    setShowItems(sortedItems.slice(0, itemsPerPage));
   }
 
   return (
