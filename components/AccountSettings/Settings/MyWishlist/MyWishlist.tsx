@@ -62,7 +62,7 @@ export default function MyWishlist() {
     setSkippedItems(() => (pageNumber - 1) * itemsPerPage);
   }
 
-  function handleWishlistItemDelete(propertyId: string) {
+  async function handleWishlistItemDelete(propertyId: string) {
     setTotalItems((prevState) => prevState - 1);
     setAllItems((prevState) => {
       const updatedItems = prevState?.filter((item) => item.id !== propertyId);
@@ -71,6 +71,7 @@ export default function MyWishlist() {
 
       return updatedItems;
     });
+    await removePropIdFromUserWishlist(propertyId);
   }
 
   function handleSortWishlistItems(param = `Sort By Newest`, sortByPropertyType: ActiveFilterType) {
