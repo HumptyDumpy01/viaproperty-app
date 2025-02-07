@@ -22,7 +22,7 @@ export default function AppSettingsBadge({ icon, links, onClick }: AppSettingsBa
   return (
     <>
       <div className={`flex items-center gap-3.5`}>
-        <div className={(userAuthenticated && logoutIconChosen) ? `rotate-180` : ``}>
+        <div className={(userAuthenticated && logoutIconChosen) ? `rotate-180` : `rotate-0`}>
           <AppSettingsIcons icon={icon} />
         </div>
         <div className={`flex items-center gap-2`}>

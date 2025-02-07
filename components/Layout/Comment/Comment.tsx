@@ -100,6 +100,11 @@ export default function
   }
 
   async function handleCommentAction() {
+    if (!userData?.id) {
+      setValidationReplyError(() => 'Please log in first in order to like.');
+      setSnackbarOpen(() => true);
+      return;
+    }
     if (likesArray!.includes(userData!.email)) {
       // optimistic update
       setLikesArray((prevState) => prevState!.filter((like) => like !== userData!.email));
@@ -130,6 +135,10 @@ export default function
 
   async function handleSubmitReply(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!userData?.id) {
+      return;
+    }
+
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
     const results = Object.fromEntries(formData.entries()) as { reply: string };
@@ -185,9 +194,14 @@ export default function
         </div>
         <div className={`flex items-center gap-1`}>
           <div onClick={handleCommentAction}>
-            {!loading && likesArray && (
+            {!loading && likesArray && userData?.id && (
               <>
                 <ViapropertyIcon icon={likesArray.includes(userData!.email) ? `heart-filled` : `heart`} />
+              </>
+            )}
+            {!loading && likesArray && !userData?.id && (
+              <>
+                <ViapropertyIcon icon={`heart`} />
               </>
             )}
           </div>
@@ -219,7 +233,14 @@ export default function
         <div className={`flex gap-3`}>
           {(!leaveReplyOpen && leaveReplyEnabled) && (
             <>
-              <div onClick={() => setLeaveReplyOpen(true)}>
+              <div onClick={() => {
+                if (userData?.id) {
+                  setLeaveReplyOpen(true);
+                } else {
+                  setValidationReplyError(() => 'Please log in first in order to reply.');
+                  setSnackbarOpen(() => true);
+                }
+              }}>
                 <Button mode={`sm`} label={`Reply`}
                         btnVariant={`black`} />
               </div>

@@ -26,6 +26,16 @@ export async function middleware(request: NextRequest) {
   }
 }
 
+// export const config = {
+//   matcher: ['/((?!auth|api|_next/static|favicon.ico|.*\\.css$|public|assets|.*\\.(?:png|jpg|jpeg|gif|svg)).*)']
+// };
+
+
 export const config = {
-  matcher: ['/((?!auth|api|_next/static|favicon.ico|.*\\.css$|public|assets|.*\\.(?:png|jpg|jpeg|gif|svg)).*)']
+  matcher: [
+    '/account-settings/:path*',
+    '/sell/:path*',
+    '/checkout/:path*',
+    '/thanks-for-purchase/:path*'
+  ]
 };

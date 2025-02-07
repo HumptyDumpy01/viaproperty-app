@@ -9,6 +9,7 @@ type UserCredentialsType = {
   location: string;
   abbrInitials: string;
   popupAvailable?: boolean;
+  userEmail: string | undefined;
   // children: ReactNode;
 }
 
@@ -17,6 +18,7 @@ export default function
                     initials,
                     abbrInitials,
                     location,
+                    userEmail,
                     popupAvailable = true
                   }: UserCredentialsType) {
   const [openAppSettingsPopup, setOpenAppSettingsPopup] = useState<boolean>(false);
@@ -28,6 +30,12 @@ export default function
     // get rid of the token from cookies
     if (document !== undefined) {
       document.cookie = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+      window.location.href = `/auth/login`;
+    }
+  }
+
+  function handleLogin() {
+    if (document !== undefined) {
       window.location.href = `/auth/login`;
     }
   }
@@ -106,14 +114,26 @@ export default function
                   }
                 ]} icon={`settings`} />
 
-                <AppSettingsBadge onClick={handleLogout} links={[
-                  {
-                    componentType: `button`,
-                    active: true,
-                    underline: false,
-                    label: `Logout`
-                  }
-                ]} icon={`logout`} />
+                {userEmail && (
+                  <AppSettingsBadge onClick={handleLogout} links={[
+                    {
+                      componentType: `button`,
+                      active: true,
+                      underline: false,
+                      label: `Logout`
+                    }
+                  ]} icon={`logout`} />
+                )}
+                {!userEmail && (
+                  <AppSettingsBadge onClick={handleLogin} links={[
+                    {
+                      componentType: `button`,
+                      active: true,
+                      underline: false,
+                      label: `Login`
+                    }
+                  ]} icon={`login`} />
+                )}
 
               </div>
             </>

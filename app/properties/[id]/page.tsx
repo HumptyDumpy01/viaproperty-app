@@ -139,23 +139,25 @@ export default function PropertyDescription({ params }: { params: { id: string }
               </CustomApolloProvider>
             </div>
           </div>
-          <ProviderContainer>
-            <SidebarContainer propertyDetails={{
-              landlordData: {
-                contacts: property.description.contacts.contacts
-              },
-              dataForCheckout: {
-                title: property.title,
-                propertyId: property.id,
-                images: property.images
-              },
-              price: property.description.priceAndTaskHistory.price,
-              onSale: property.onSale,
-              propertyFor: property.propertyFor,
-              location: property.description.location.title,
-              extraPricing: property.extraPricing
-            }} />
-          </ProviderContainer>
+          <CustomApolloProvider>
+            <ProviderContainer>
+              <SidebarContainer propertyDetails={{
+                landlordData: {
+                  contacts: property.description.contacts.contacts
+                },
+                dataForCheckout: {
+                  title: property.title,
+                  propertyId: property.id,
+                  images: property.images
+                },
+                price: property.description.priceAndTaskHistory.price,
+                onSale: property.onSale,
+                propertyFor: property.propertyFor,
+                location: property.description.location.title,
+                extraPricing: property.extraPricing
+              }} />
+            </ProviderContainer>
+          </CustomApolloProvider>
         </div>
       </div>
       <div className={`mt-20`}>

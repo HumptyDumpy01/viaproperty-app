@@ -94,10 +94,11 @@ export default function Navigation(/*{  }: NavigationType*/) {
             {!loading && (
               <>
                 <UserCredentials
+                  userEmail={userData?.email}
                   initials={userInitials || `Guest`}
                   location={userData?.email ? trimString(userData.email, 13) : `unknown`}
                   abbrInitials={userInitials ? abbreviateInitials(userInitials) : `G`}
-                  popupAvailable={!!userData?.email}
+                  popupAvailable={true}
                 />
               </>
             )}

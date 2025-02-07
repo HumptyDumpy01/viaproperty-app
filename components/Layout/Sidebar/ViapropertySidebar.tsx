@@ -11,6 +11,7 @@ import { sellPropertySchema } from '@/utils/schemas/sellPropertySchema';
 import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterReviewsMetrics';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { useRouter } from 'next/navigation';
+import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
 
 export type PropertyOnSaleType = {
   isOnSale: boolean;
@@ -47,6 +48,9 @@ export type ViapropertySidebarType = {
 }
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
+  const { userData, loading: loadingUser } = useUserDataOnClient();
+
+
   const router = useRouter();
 
   const [errorMessage, setErrorMessage] = useState<string>(``);
@@ -112,6 +116,13 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!userData?.id) {
+      setErrorMessage(`Please log in first to ${propertyFor} this property.`);
+      setOpenSnackbar(true);
+      return;
+    }
+
     const currObject = e.currentTarget;
     const formData = new FormData(currObject);
     const results = Object.fromEntries(formData.entries()) as any;

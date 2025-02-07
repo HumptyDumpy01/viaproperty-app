@@ -110,6 +110,9 @@ export default function AppSettingsIcons({ icon }: AppSettingsIconsType) {
     case `logout`:
       chosenIcon = logoutIcon;
       break;
+    case `login`:
+      chosenIcon = logoutIcon;
+      break;
   }
 
 
