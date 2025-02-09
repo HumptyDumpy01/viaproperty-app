@@ -26,13 +26,13 @@ export default function OurServices(/*{  }: OurServicesType*/) {
 
           <div className={`overflow-x-auto`}>
             <div className={`flex gap-6 w-max`}>
-              <CardLink href={`/properties?type=buy`} heading={`Buy a Property`} metric={1315} metricText={`offers`}
+              <CardLink href={`/properties`} heading={`Buy a Property`} metric={1315} metricText={`offers`}
                         srcImg={BuyServiceImg} altImg={`Buy a Property Image`} />
-              <CardLink href={`/properties?type=rent`} heading={`Rent a Property`} metric={2645} metricText={`offers`}
+              <CardLink href={`/properties`} heading={`Rent a Property`} metric={2645} metricText={`offers`}
                         srcImg={RentServiceImg} altImg={`Rent a Property Image`} />
               <CardLink href={`/sell`} heading={`Sell a Property`} metric={1} metricText={`offer`}
                         srcImg={SellServiceImg} altImg={`Sell a Property Image`} />
-              <CardLink href={`/properties?type=commercial`} heading={`Commercial`} metric={611} metricText={`offers`}
+              <CardLink href={`/properties`} heading={`Commercial`} metric={611} metricText={`offers`}
                         srcImg={CommercialServiceImg} altImg={`Commercial Property Image`} />
             </div>
           </div>
