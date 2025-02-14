@@ -21,7 +21,7 @@ type PasswordInputType = {
     setValue: React.Dispatch<React.SetStateAction<string>>
   }
   // children: ReactNode;
-}
+};
 
 export default function
   PasswordInput({
@@ -43,6 +43,8 @@ export default function
     <>
       <div className={`relative`}>
         <LabelAndInput
+          minLength={8}
+          maxLength={100}
           disabled={disabled}
           onChangeState={valueEnteredState ? {
             valueEntered: valueEnteredState.value,

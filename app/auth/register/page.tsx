@@ -12,7 +12,7 @@ export default function Register() {
       <div className={`flex flex-col mt-12 max-w-[464px] m-auto`}>
         <h1
           className={`bg-clip-text mb-6 text-transparent self-center
-            pb-3 text-6xl bg-linear-main-dark-blue font-bold w-fit`}>
+            pb-3 text-6xl bg-linear-main-dark-blue font-bold w-fit register-heading`}>
           Register Now!
         </h1>
         <div className={`flex items-center gap-2.5 text-left mb-9 overflow-x-auto scrollbar-corner-red-400`}>

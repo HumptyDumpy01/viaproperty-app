@@ -1,6 +1,12 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, {
+  ComponentPropsWithoutRef,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  ReactNode,
+  TextareaHTMLAttributes
+} from 'react';
 
 type LabelAndTextType = {
   name: string;
@@ -22,7 +28,7 @@ type LabelAndTextType = {
     setValueEntered: React.Dispatch<React.SetStateAction<string>>;
   }
   // children: ReactNode;
-}
+} & ComponentPropsWithoutRef<'input' | 'textarea'>;
 
 export default function
   LabelAndInput({
@@ -39,7 +45,8 @@ export default function
                   defaultValue = ``,
                   disabled = false,
                   onChangeState,
-                  showDisabledLabel = false
+                  showDisabledLabel = false,
+                  ...props
                 }: LabelAndTextType) {
 
   let content: ReactNode = null;
@@ -52,6 +59,7 @@ export default function
   const inputNode: ReactNode = (
     <>
       <input
+        {...props as DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>}
         value={onChangeState?.valueEntered}
         onChange={onChangeState?.setValueEntered ? (e) => onChangeState!.setValueEntered(e.currentTarget.value)
           : undefined}
@@ -67,7 +75,8 @@ export default function
 
   const textareaNode: ReactNode = (
     <>
-      <textarea defaultValue={defaultValue} disabled={disabled} id={`${name}`} name={`${name}`}
+      <textarea {...props as DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>}
+                defaultValue={defaultValue} disabled={disabled} id={`${name}`} name={`${name}`}
                 className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
           focus:outline-none border-2 border-transparent transition-all duration-300 focus:border-red-500 focus:bg-white`}
                 placeholder={placeholder} required={required} />
