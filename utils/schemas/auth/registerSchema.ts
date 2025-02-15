@@ -7,7 +7,7 @@ export const registerSchema = z.object({
     `The password should be at least 8 characters!`).max(100,
     `The password should be less than 100 characters!`).regex(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, 'The password should have at least 1 upper, 1 lower case letter, and 1 special character.'),
   confirmPassword: z.string(),
-  authMethod: z.enum(['code', 'password', '2FA'], { message: `The auth method can be rather code, password or 2FA.` })
+  authenticationMethod: z.enum(['code', 'password', '2FA'], { message: `The auth method can be rather code, password or 2FA.` })
 }).refine((data) => data.password === data.confirmPassword, {
   message: `The passwords do not match!`,
   path: [`confirmPassword`]
