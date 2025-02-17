@@ -30,7 +30,9 @@ export default function LoginForm() {
 
   useEffect(() => {
     // clean any params in url
-    window.history.replaceState({}, document.title, window.location.pathname);
+    if (window) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
   }, []);
 
 
