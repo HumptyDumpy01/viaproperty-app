@@ -12,7 +12,8 @@ export async function middleware(request: NextRequest) {
     const response = await fetch(new URL('/api/verify-token', request.url).toString(), {
       method: 'POST',
       headers: {
-        Cookie: `access_token=${token}`
+        Cookie: `access_token=${token}`,
+        'Authorization': `Bearer ${token}`
       }
     });
 

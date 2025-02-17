@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import PasswordInput from '@/components/UI/Input/PasswordInput';
 import TextualTooltip from '@/components/Layout/Tooltip/TextualTooltip';
@@ -12,6 +12,7 @@ import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { LoginSchema } from '@/utils/schemas/auth/loginSchema';
 import { useLogin } from '@/hooks/mutations/useLogin';
+import { BACKEND_URL } from '@/utils/generics/generics';
 
 export type LoginType = {
   email: string;
@@ -19,9 +20,19 @@ export type LoginType = {
 }
 
 export default function LoginForm() {
-  const [errorMessage, setErrorMessage] = useState<string>(`Please sign in first to proceed.`);
+  // access to params in url - error param:
+  const urlParams = new URLSearchParams(window?.location?.search);
+  const error = urlParams.get('error');
+
+  const [errorMessage, setErrorMessage] = useState<string>(error || `Please sign in first to proceed.`);
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const { loginUser } = useLogin();
+
+  useEffect(() => {
+    // clean any params in url
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }, []);
+
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -58,6 +69,19 @@ export default function LoginForm() {
       setLoginLoading(false);
       console.error('Error logging in:', e);
       return;
+    }
+  }
+
+  async function handleGoogleSignIn() {
+    try {
+      if (typeof window !== 'undefined') {
+        setLoginLoading(() => true);
+        window.location.href = `${BACKEND_URL}/auth/google`;
+      }
+    } catch (e) {
+      setLoginLoading(() => false);
+      setErrorMessage(() => `Failed to log in via Google Provider. Please try again later.`);
+      console.error(e);
     }
   }
 
@@ -98,7 +122,7 @@ export default function LoginForm() {
               className={`bg-clip-text text-2xl uppercase text-transparent bg-linear-main-dark-blue font-bold`}>or</span>
             <div className={`h-1 w-1/2 bg-zinc-100`}></div>
           </div>
-          <BtnFullScreen icon={`google`} type={`button`} label={`Sign In`} size={`md`} />
+          <BtnFullScreen onClick={handleGoogleSignIn} icon={`google`} type={`button`} label={`Sign In`} size={`md`} />
         </div>
       </form>
     </>
