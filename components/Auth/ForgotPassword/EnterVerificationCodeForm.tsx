@@ -18,15 +18,18 @@ type EnterVerificationCodeFormType = {
   enteredTokenState: {
     enteredToken: string;
     setEnteredToken: React.Dispatch<React.SetStateAction<string>>;
-  }
+  },
+  handleBadgeClickValue: string;
   // children: ReactNode;
 }
-export default function EnterVerificationCodeForm({
-                                                    handleBadgeClick,
-                                                    userEmail,
-                                                    handleGoBackFunc,
-                                                    enteredTokenState
-                                                  }: EnterVerificationCodeFormType) {
+export default function
+  EnterVerificationCodeForm({
+                              handleBadgeClick,
+                              userEmail,
+                              handleGoBackFunc,
+                              enteredTokenState,
+                              handleBadgeClickValue
+                            }: EnterVerificationCodeFormType) {
   const { enteredToken, setEnteredToken } = enteredTokenState;
   const [errorMessage, setErrorMessage] = useState(``);
   const [backdropOpen, setBackdropOpen] = useState(false);
@@ -34,6 +37,7 @@ export default function EnterVerificationCodeForm({
 
   async function handleConfirmToken() {
     if (enteredToken.trim() === `` || isNaN(Number(enteredToken))) {
+      console.log('Not number');
       return;
     }
 
@@ -56,7 +60,8 @@ export default function EnterVerificationCodeForm({
     const tokenIsValid = response?.data?.validateToken?.tokenIsValid;
 
     if (tokenIsValid) {
-      handleBadgeClick(`stepTwo`);
+      // @ts-ignore
+      handleBadgeClick(handleBadgeClickValue);
       setBackdropOpen(() => false);
 
     } else {
@@ -99,8 +104,7 @@ export default function EnterVerificationCodeForm({
           </>
         )} />
 
-        <Button disabled={loading} customClasses={`disabled:animate-pulse`} type={`button`}
-                onClick={() => handleConfirmToken()}
+        <Button onClick={handleConfirmToken} disabled={loading} customClasses={`disabled:animate-pulse`} type={`button`}
                 btnVariant={`dark-blue`} mode={`lg`}
                 label={`Verify`} />
       </div>

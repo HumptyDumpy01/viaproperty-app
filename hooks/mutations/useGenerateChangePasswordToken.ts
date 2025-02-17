@@ -1,7 +1,8 @@
 import { useMutation } from '@apollo/client';
 import { GENERATE_CHANGE_PASSWORD_TOKEN } from '@/graphql/mutations/create-change-password-token';
 
-class CreateChangePasswordTokenInputType {
+type CreateChangePasswordTokenInputType = {
+  email: string;
 }
 
 export const useGenerateChangePasswordToken = () => {

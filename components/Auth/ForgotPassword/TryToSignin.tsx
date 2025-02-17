@@ -9,8 +9,8 @@ export default function TryToSignin(/*{ setActivePage }: TryToSigninType*/) {
     <>
       <div>
         <h2 className={`text-2xl font-bold text-zinc-800 mb-3`}>Password Reset Successfully!</h2>
-        <p className={`leading-relaxed text-zinc-900 mb-12`}>Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Amet eius labore laudantium recusandae suscipit.</p>
+        <p className={`leading-relaxed text-zinc-900 mb-12`}>Success, it seems! Try to log in again with your new
+          password.</p>
 
         <div>
           <BulkyLink

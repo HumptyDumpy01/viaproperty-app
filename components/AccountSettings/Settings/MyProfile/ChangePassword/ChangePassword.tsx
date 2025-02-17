@@ -32,7 +32,8 @@ export default function ChangePassword({ userEmail }: ChangePasswordType) {
     case 1:
       content = (
         <>
-          <EnterVerificationCodeForm enteredTokenState={{ enteredToken, setEnteredToken }}
+          <EnterVerificationCodeForm handleBadgeClickValue={`stepTwo`}
+                                     enteredTokenState={{ enteredToken, setEnteredToken }}
                                      handleGoBackFunc={() => setChangePasswordStages(() => 0)} userEmail={userEmail}
                                      handleBadgeClick={() => setChangePasswordStages(2)} />
         </>
