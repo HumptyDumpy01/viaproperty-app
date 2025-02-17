@@ -5,7 +5,7 @@ export const useAuthRedirect = () => {
   const { userData, loading } = useUserDataOnClient();
 
   useEffect(() => {
-    if (!loading && userData && window) {
+    if (!loading && userData && typeof window !== 'undefined') {
       window.location.href = `/`;
     }
   }, [loading, userData]);
