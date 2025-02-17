@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import PasswordInput from '@/components/UI/Input/PasswordInput';
 import TextualTooltip from '@/components/Layout/Tooltip/TextualTooltip';
@@ -20,18 +20,22 @@ export type LoginType = {
 }
 
 export default function LoginForm() {
-  // access to params in url - error param:
-  const urlParams = new URLSearchParams(window?.location?.search);
-  const error = urlParams.get('error');
-
-  const [errorMessage, setErrorMessage] = useState<string>(error || `Please sign in first to proceed.`);
+  const timerRef = useRef<NodeJS.Timeout>();
+  const [errorMessage, setErrorMessage] = useState<string>();
   const [loginLoading, setLoginLoading] = useState<boolean>(false);
   const { loginUser } = useLogin();
 
   useEffect(() => {
-    // clean any params in url
     if (typeof window !== 'undefined') {
-      window.history.replaceState({}, document.title, window.location.pathname);
+      const urlParams = new URLSearchParams(window.location.search);
+      const error = urlParams.get('error');
+      setErrorMessage(error || `Please sign in first to proceed.`);
+
+      // clean any params in url
+      timerRef.current = setTimeout(function() {
+        window.history.replaceState({}, document.title, window.location.pathname);
+        return () => clearTimeout(timerRef.current);
+      }, 1_000);
     }
   }, []);
 
