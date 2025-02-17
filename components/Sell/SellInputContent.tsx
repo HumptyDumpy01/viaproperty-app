@@ -6,7 +6,8 @@
 
 import SellForms from '@/components/Sell/SellForms';
 import NotAuthorized from '@/components/Layout/Auth/NotAuthorized';
-import HighlightText from '@/components/Typography/HighlightText';
+import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
+import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
 
 export type activeStateType = {
   stepOne: `disabled` | `active` | `completed`;
@@ -17,7 +18,13 @@ export type activeStateType = {
 };
 
 export default function SellInputContent(/*{  }: SellInputContentType*/) {
-  const isAuthenticated = true;
+  const { userData, loading } = useUserDataOnClient();
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
+
+  const isAuthenticated = userData !== null;
   return (
     <>
       {isAuthenticated && (
@@ -26,14 +33,12 @@ export default function SellInputContent(/*{  }: SellInputContentType*/) {
       {!isAuthenticated && (
         <NotAuthorized heading={`Only logged in users can start selling or renting their property!`} error={401} text={(
           <>
-            Lorem ipsum dolor sit amet, <HighlightText
-            text={`consectetur adipiscing elit, `} />sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+            Please log in in order to sell your property or rent it to your customers. We do care about security!
           </>
         )} links={[{
-          linkStyle: `red`, href: `/auth?page=login`, label: `Log in`, orSeparator: true
+          linkStyle: `red`, href: `/auth/login`, label: `Log in`, orSeparator: true
         }, {
-          linkStyle: `emptyBlack`, href: `/auth?page=register`, label: `Register`
+          linkStyle: `emptyBlack`, href: `/auth/register`, label: `Register`
         }]}
         />
       )}

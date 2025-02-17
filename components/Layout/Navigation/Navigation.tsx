@@ -71,7 +71,7 @@ export default function Navigation(/*{  }: NavigationType*/) {
           <div className={`bp-1178:flex gap-12 mr-20 hidden items-center`}>
             <NavLink label={`Home`} path={`/`} />
             <NavLink label={`Properties`} path={`/properties`} />
-            <NavLink label={`Sell My Property`} path={`/sell`} />
+            <NavLink label={`Create Advert`} path={`/sell`} />
           </div>
           <div className={`hidden bp-750:flex`}>
             <Input />

@@ -26,7 +26,7 @@ export default function NavigationFullScreen({ setNavigationOpen }: NavigationFu
           </li>
           <li onClick={() => setNavigationOpen(false)}>
             <NavLink customFontSizeActive={`text-[30px]`} customFontSizeDefault={`text-[25px]`}
-                     label={`Sell My Property`} path={`/sell`} isActive={pathname === '/sell'} />
+                     label={`Create Advert`} path={`/sell`} isActive={pathname === '/sell'} />
           </li>
           <li onClick={() => setNavigationOpen(false)}>
             <NavLink customFontSizeActive={`text-[30px]`} customFontSizeDefault={`text-[25px]`}
