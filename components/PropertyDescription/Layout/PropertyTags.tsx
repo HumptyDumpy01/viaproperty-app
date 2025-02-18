@@ -126,11 +126,10 @@ export default function
         state={{ open: snackbarOpen, setOpen: setSnackbarOpen }} />
       <div className={`mb-5 mt-3 flex flex-row items-center justify-between gap-y-3 flex-wrap`}>
         <div className={`flex gap-3 items-center mt-3 ml-2 overflow-x-auto scrollbar-thin`}>
-          {rating && (
-            <div className={`mr-4 flex items-center`}>
-              <RatingBadge rating={rating} />
-            </div>
-          )}
+          {/*// @ts-ignore*/}
+          <div className={`mr-4 flex items-center`}>
+            <RatingBadge rating={rating! || 0} />
+          </div>
           {tags.map(function(tag, index) {
             // capitalize the first letter of the tag
             const capitalizedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
@@ -139,12 +138,12 @@ export default function
             );
           })}
           <div className={`flex items-center gap-0.5`}>
-            {rating && Array.from({ length: 5 }, (_, index) => {
+            {rating ? Array.from({ length: 5 }, (_, index) => {
               const starState = rating >= index + 1 ? `filled` : `empty`;
               return (
                 <StarIcon key={index} size={`sm`} state={starState} />
               );
-            })}
+            }) : undefined}
           </div>
         </div>
         <div className={`flex gap-6 items-center`}>

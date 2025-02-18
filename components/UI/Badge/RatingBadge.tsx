@@ -6,7 +6,7 @@ type RatingBadgeType = {
 }
 
 export default function RatingBadge({ rating }: RatingBadgeType) {
-  let ratingLabel = null;
+  let ratingLabel;
 
   if (rating >= 4.5) {
     ratingLabel = `Excellent`;
@@ -16,12 +16,14 @@ export default function RatingBadge({ rating }: RatingBadgeType) {
     ratingLabel = `Good`;
   } else if (rating >= 3.0) {
     ratingLabel = `Average`;
+  } else {
+    ratingLabel = `Unrated`;
   }
 
   return (
     <>
       <div className={`flex items-center gap-2`}>
-        <span className={`p-2 bg-blue-100 rounded-md font-semibold text-sm`}>{rating.toFixed(1)}</span>
+        <span className={`p-2 bg-blue-100 rounded-md font-semibold text-sm text-blue-900`}>{rating.toFixed(1)}</span>
         <p className={`text-blue-900 font-semibold text-nowrap`}>{ratingLabel}</p>
       </div>
     </>
