@@ -133,6 +133,18 @@ export default function Overall({ userEmail, userInitials, authMethod }: Overall
             inputType={`text`} />
         </div>
 
+        <div className={`max-w-[422px] flex flex-col`}>
+          <LabelAndInput
+            type={`textarea`}
+            defaultValue={`Your bio`}
+            labelSize={`text-xl`}
+            labelStyle={`dark-blue`}
+            name={`bio`}
+            placeholder={`Your bio`}
+            customClassNames={`text-sm`} label={`Biography`}
+            inputType={`text`} />
+        </div>
+
         {authMethod !== `google-provider` && (
           <ChangePassword userEmail={userEmail} />
         )}
