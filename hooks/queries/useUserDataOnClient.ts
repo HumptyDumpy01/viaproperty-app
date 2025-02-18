@@ -21,15 +21,22 @@ export const useUserDataOnClient = () => {
       return;
     }
     const tokenCookie = cookieString.split('; ').find(row => row.startsWith('access_token='));
-    if (tokenCookie) {
-      const token = tokenCookie.split('=')[1];
-      if (token) {
-        const decoded = jwtDecode<JWTPayloadDataType>(token);
-        setUserData(decoded);
+    try {
+      if (tokenCookie) {
+        const token = tokenCookie.split('=')[1];
+        if (token) {
+          const decoded = jwtDecode<JWTPayloadDataType>(token);
+          setUserData(decoded);
+        } else {
+          setUserData(null);
+        }
       } else {
         setUserData(null);
       }
-    } else {
+
+    } catch (e) {
+      // get rid of cookie and redirect to log in
+      document.cookie = 'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       setUserData(null);
     }
     setLoading(false);

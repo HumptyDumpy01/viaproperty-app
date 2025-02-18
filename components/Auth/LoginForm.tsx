@@ -12,6 +12,7 @@ import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { LoginSchema } from '@/utils/schemas/auth/loginSchema';
 import { useLogin } from '@/hooks/mutations/useLogin';
+import { setAccessTokenCookie } from '@/utils/functions/setAccessTokenCookie';
 
 export type LoginType = {
   email: string;
@@ -28,7 +29,13 @@ export default function LoginForm() {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const error = urlParams.get('error');
+      const accessToken = urlParams.get('accessToken');
       setErrorMessage(error || `Please sign in first to proceed.`);
+
+      if (accessToken) {
+        // validate token right here
+        setAccessTokenCookie(accessToken);
+      }
 
       // clean any params in url
       timerRef.current = setTimeout(function() {
@@ -82,6 +89,7 @@ export default function LoginForm() {
       if (typeof window !== 'undefined') {
         setLoginLoading(() => true);
         window.location.href = `https://viaproperty-nestjs.onrender.com/auth/google`;
+        // window.location.href = `http://localhost:3001/auth/google`;
       }
     } catch (e) {
       setLoginLoading(() => false);
