@@ -49,7 +49,7 @@ export type ViapropertySidebarType = {
 }
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
-  const { userData, loading } = useUserDataOnClient();
+  const { userData } = useUserDataOnClient();
 
   const router = useRouter();
 
@@ -211,7 +211,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
             )}
             {!onSale.isOnSale && (
               <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
-              {formatCurrency(price.toString().replace(`,`, ``))}<span
+              {formatCurrency(price.toString().replaceAll(`,`, ``))}<span
                 className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
             </span>
             )}
