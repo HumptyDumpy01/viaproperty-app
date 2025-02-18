@@ -12,7 +12,6 @@ import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { LoginSchema } from '@/utils/schemas/auth/loginSchema';
 import { useLogin } from '@/hooks/mutations/useLogin';
-import { BACKEND_URL } from '@/utils/generics/generics';
 
 export type LoginType = {
   email: string;
@@ -82,7 +81,7 @@ export default function LoginForm() {
     try {
       if (typeof window !== 'undefined') {
         setLoginLoading(() => true);
-        window.location.href = `${BACKEND_URL}/auth/google`;
+        window.location.href = `https://viaproperty-nestjs.onrender.com/auth/google`;
       }
     } catch (e) {
       setLoginLoading(() => false);

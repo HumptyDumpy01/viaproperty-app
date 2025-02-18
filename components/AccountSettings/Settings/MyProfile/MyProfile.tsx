@@ -51,6 +51,7 @@ export default function MyProfile(/*{  }: MyProfileType*/) {
         </div>
         <div className={`flex flex-col`}>
           {activeProfilePage === `overall` && (
+            // @ts-ignore
             <Overall authMethod={currentAuthMethod} userInitials={userInitials} userEmail={userEmail} />
           )}
           {activeProfilePage === `security` && (
