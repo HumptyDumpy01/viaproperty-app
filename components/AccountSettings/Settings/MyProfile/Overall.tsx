@@ -13,10 +13,13 @@ import { SnackbarDataType } from '@/components/PropertyDescription/Layout/Proper
 import { changeUserInitialsSchema } from '@/utils/schemas/auth/changeUserInitialsSchema';
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
+import { AuthMethodType } from '@/components/AccountSettings/Settings/MyProfile/Security';
+import TextualTooltip from '@/components/Layout/Tooltip/TextualTooltip';
 
 type OverallType = {
   userInitials: string;
   userEmail: string;
+  authMethod: AuthMethodType;
   // children: ReactNode;
 }
 
@@ -25,7 +28,7 @@ type UpdateUserInitialsResponseType = {
   updatedInitials: string;
 }
 
-export default function Overall({ userEmail, userInitials }: OverallType) {
+export default function Overall({ userEmail, userInitials, authMethod }: OverallType) {
   const [backdropMUIState, setBackdropMUIState] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [currentUserInitials, setCurrentUserInitials] = useState(userInitials);
@@ -130,14 +133,30 @@ export default function Overall({ userEmail, userInitials }: OverallType) {
             inputType={`text`} />
         </div>
 
-        <ChangePassword userEmail={userEmail} />
+        {authMethod !== `google-provider` && (
+          <ChangePassword userEmail={userEmail} />
+        )}
 
         <div className={`mb-10`}>
-          <p className={`leading-relaxed text-sm text-zinc-900 max-w-screen-md
+          {authMethod !== `google-provider` && (
+            <>
+              <p className={`leading-relaxed text-sm text-zinc-900 max-w-screen-md
                   `}>
-            Secure your account by updating your password. Click the button to set a new password and enhance your
-            account&#39;s protection.
-          </p>
+                Secure your account by updating your password. Click the button to set a new password and enhance your
+                account&#39;s protection.
+              </p>
+            </>
+          )}
+
+          {authMethod === `google-provider` && (
+            <>
+              <p className={`leading-relaxed text-sm text-zinc-900 max-w-screen-md
+                  `}>
+                <TextualTooltip text={`You account was registered by using Provider. You cannot change or set your password, nor change
+                the authentication method.`} />
+              </p>
+            </>
+          )}
         </div>
 
         {enableButtons && (

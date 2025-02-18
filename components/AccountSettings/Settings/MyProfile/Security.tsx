@@ -6,9 +6,8 @@
 
 import Paragraph from '@/components/Typography/Paragraph';
 import SelectAndTooltip from '@/components/UI/Select/SelectAndTooltip';
-import { useGetUserAuthMethod } from '@/hooks/queries/useGetUserAuthMethod';
 import LoadingScreen from '@/components/Layout/Loading/LoadingScreen';
-import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, SyntheticEvent, useRef, useState } from 'react';
 import { changeAuthMethodSchema } from '@/utils/schemas/auth/changeAuthMethodSchema';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
@@ -22,12 +21,15 @@ export type OptionsSelectType = {
   value: string;
   label: string;
 }
-
-export default function Security(/*{  }: SecurityType*/) {
+type SecurityType = {
+  data: any;
+  loading: boolean;
+  currentAuthMethod: AuthMethodType;
+  setCurrentAuthMethod: Dispatch<SetStateAction<AuthMethodType>>;
+}
+export default function Security({ loading, currentAuthMethod, setCurrentAuthMethod }: SecurityType) {
   const { updateUserAuthMethod } = useChangeUserAuthMethod();
-  const { data, loading } = useGetUserAuthMethod();
 
-  const [currentAuthMethod, setCurrentAuthMethod] = useState<AuthMethodType>();
   const [errorMessage, setErrorMessage] = useState(``);
 
   const [backdropOpen, setBackdropOpen] = useState(false);
@@ -40,11 +42,6 @@ export default function Security(/*{  }: SecurityType*/) {
   });
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  useEffect(() => {
-    if (data) {
-      setCurrentAuthMethod(() => data?.getUserAuthMethod?.authMethod);
-    }
-  }, [data, loading]);
 
   if (loading) {
     return <LoadingScreen />;
@@ -115,7 +112,7 @@ export default function Security(/*{  }: SecurityType*/) {
         </div>
       )}
       <form className={`flex flex-col justify-center max-w-[422px] gap-12`}>
-        {currentAuthMethod && (
+        {currentAuthMethod !== `google-provider` && (
 
           <SelectAndTooltip
             disabled={disableSelect}
