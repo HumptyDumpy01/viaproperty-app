@@ -12,6 +12,7 @@ import { PropertyForType } from '@/components/PropertyDescription/Layout/RenterR
 import BackdropMUI from '@/components/UI/Backdrop/BackdropMUI';
 import { useRouter } from 'next/navigation';
 import { useUserDataOnClient } from '@/hooks/queries/useUserDataOnClient';
+import { formatCurrency } from '@/utils/functions/formatCurrency';
 
 export type PropertyOnSaleType = {
   isOnSale: boolean;
@@ -48,8 +49,7 @@ export type ViapropertySidebarType = {
 }
 
 export default function ViapropertySidebar({ propertyDetails }: ViapropertySidebarType) {
-  const { userData, loading: loadingUser } = useUserDataOnClient();
-
+  const { userData, loading } = useUserDataOnClient();
 
   const router = useRouter();
 
@@ -100,8 +100,8 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
 
   const overallProperties = [
     {
-      label: `Property Price ${propertyFor === `rent` ? `/` : ``}`,
-      span: onSale.isOnSale ? String(onSale.newPrice) : String(price)
+      label: `Property Price${propertyFor === `rent` ? `/day` : ``}`,
+      span: price
     },
     onSale.isOnSale ? {
       label: `Discount ${onSale.discount}`,
@@ -118,7 +118,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
     e.preventDefault();
 
     if (!userData?.id) {
-      setErrorMessage(`Please log in first to ${propertyFor} this property.`);
+      setErrorMessage(`Please log in first to request ${propertyFor === `rent` ? `renting` : `buying`} this property.`);
       setOpenSnackbar(true);
       return;
     }
@@ -201,16 +201,18 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
             {onSale.isOnSale && (
               <>
               <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
-                ${onSale.newPrice}<span className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
+                {formatCurrency(onSale.newPrice!.toString().replaceAll(`,`, ``))}<span
+                className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
               </span>
                 <span className={`text-zinc-300 inline-block line-through`}>
-                {price}
+                {formatCurrency(price.toString().replaceAll(`,`, ``))}
               </span>
               </>
             )}
             {!onSale.isOnSale && (
               <span className={`bg-clip-text inline-block text-transparent bg-linear-main-red font-bold text-2xl`}>
-              ${price}<span className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
+              {formatCurrency(price.toString().replace(`,`, ``))}<span
+                className={`text-sm`}>{propertyFor === `rent` ? `/day` : ``}</span>
             </span>
             )}
           </div>
@@ -245,7 +247,7 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
               <FoldList enableFold={false} type={`checkbox`} checkboxes={extraPricing.map((extra) => ({
                 checkboxLabel: extra.title,
                 checkboxName: slugifyText(extra.title),
-                spanLabel: extra.price.toString(),
+                spanLabel: formatCurrency(extra.price.toString()),
                 onChange: (isChecked: boolean) => handleExtraChange(extra.title, isChecked)
               }))} label={`Extra Features`} />
             </div>
@@ -255,7 +257,8 @@ export default function ViapropertySidebar({ propertyDetails }: ViapropertySideb
           <div className={`flex items-center justify-between mt-7 mb-3`}>
             <span className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>Total</span>
             <span
-              className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>{totalPrice}$</span>
+              className={`bg-clip-text text-2xl text-transparent bg-linear-main-red font-bold`}>
+              {formatCurrency(totalPrice.toString())}$</span>
           </div>
           <div className={`w-full flex items-center`}>
             <button

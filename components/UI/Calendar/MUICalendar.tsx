@@ -13,7 +13,8 @@ export default function MUICalendar({ onChange }: { onChange: (date: [dayjs.Dayj
         // @ts-ignore
         onChange={(date) => onChange(date)}
         name="date"
-        defaultValue={[dayjs(), dayjs().add(7, 'day')]}
+        disablePast={true}
+        defaultValue={[dayjs().add(1, `day`), dayjs().add(30, 'day')]}
       />
     </LocalizationProvider>
   );

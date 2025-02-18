@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import ExpandIcon from '@/components/UI/Icon/ExpandIcon';
 import CheckboxAndLabelBetween from '@/components/UI/Checkbox/CheckboxAndLabelBetween';
+import { formatCurrency } from '@/utils/functions/formatCurrency';
 
 type FoldListType = {
   label: string;
@@ -42,7 +43,8 @@ export default function FoldList({ label, checkboxes, type, defaultProperties, e
                   <span className={`text-[14px] truncate text-zinc-500 font-medium`}>{item.label}</span>
                   <div className={`bg-zinc-100 rounded-xl`}>
                     <p className={`bg-zinc-100 rounded-xl text-sm truncate px-2 py-1
-                      ${item.type === `discount` ? `bg-clip-text text-transparent bg-linear-main-red font-semibold` : ``}`}>{item.span}</p>
+                      ${item.type === `discount` ? `bg-clip-text text-transparent bg-linear-main-red font-semibold` : ``}`}>{formatCurrency(item.span.toString()
+                      .replaceAll(`,`, ``))}</p>
                   </div>
                 </div>
               ))}
