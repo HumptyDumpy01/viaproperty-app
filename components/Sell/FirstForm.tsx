@@ -12,29 +12,20 @@ import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import ValidationParagraph from '@/components/Typography/ValidationParagraph';
 import {
   descriptionSchema,
+  ownershipSchema,
   propertyAreaSchema,
   propertyForSchema,
+  propertyPriceSchema,
   titleSchema
-} from '@/utils/schemas/sell/sellSchemas';
+} from '@/utils/schemas/sell/first-step/sellSchemasFirstStep';
 import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
 import { useState } from 'react';
 import { getGeocode } from '@/utils/map/geocode';
-
-type FirstFormDefValuesType = {
-  title: string;
-  description: string;
-  location: string;
-  locationDescription: string;
-  images: string[];
-  ownership: string;
-  propertyArea: number;
-  price: number;
-};
+import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
   mode: `createAdvert` | `editAdvert`;
-  defaultValues?: FirstFormDefValuesType;
   // children: ReactNode;
 }
 
@@ -52,9 +43,10 @@ type PropertyLocationType = {
 export default function
   FirstForm({
               setActiveState,
-              defaultValues = {} as FirstFormDefValuesType,
               mode
             }: FirstFormType) {
+  const [expandOptionalFields, setExpandOptionalFields] = useState(false);
+
   const [images, setImages] = useState<ImagesArrayType[]>([]);
   const [mapChosenCoordinates, setMapChosenCoordinates] = useState<PropertyLocationType>();
   const { value: titleEntered, setValue: setTitleEntered, validationStage: titleInputStage } = useValidation(
@@ -98,6 +90,24 @@ export default function
     ``
   );
 
+  const {
+    value: propertyPriceEntered,
+    setValue: setPropertyPriceEntered,
+    validationStage: propertyPriceInputStage
+  } = useValidation(
+    propertyPriceSchema,
+    ``
+  );
+
+  const {
+    value: ownershipSelected,
+    setValue: setOwnershipSelected,
+    validationStage: ownershipInputStage
+  } = useValidation(
+    ownershipSchema,
+    ``
+  );
+
 
   const handleMapClick = async (coordinates: { lat: number; lng: number }) => {
     try {
@@ -123,60 +133,30 @@ export default function
       setActiveStateFunc(activeState, setActiveState);
   }
 
-  const {
-    title,
-    description,
-    location,
-    locationDescription,
-    // images,
-    ownership,
-    propertyArea,
-    price
-  }: FirstFormDefValuesType = defaultValues;
-
   return (
     <>
       <div className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
         <div>
-          <LabelAndInput onChangeState={{ setValueEntered: setTitleEntered, valueEntered: titleEntered }}
-                         defaultValue={title}
-                         label={`Title`} required name={`title`}
-                         customClassNames={`bp-620:w-96`}
-                         placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
+          <LabelAndInput
+            onChangeState={{ setValueEntered: setTitleEntered, valueEntered: titleEntered }}
+            defaultValue={titleEntered}
+            label={`Title`} required name={`title`}
+            customClassNames={`bp-620:w-96`}
+            placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
           <ValidationParagraph text={`Title should contain from 5 to 100 characters long.`} stage={titleInputStage} />
         </div>
         <div>
           <LabelAndInput
             onChangeState={{ setValueEntered: setDescriptionEntered, valueEntered: descriptionEntered }}
-            defaultValue={description}
+            defaultValue={descriptionEntered}
             type={`textarea`}
             label={`Description`}
             required
-            name={`title`}
+            name={`description`}
             customClassNames={`bp-620:w-[537px] min-h-[155px]`}
             placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
           <ValidationParagraph text={`Description should contain from 5 to 700 characters long.`}
                                stage={descriptionInputStage} />
-        </div>
-
-        <div className={`mb-9`}>
-          <div className={`mb-2`}>
-            <LabelAndSelect
-              defaultValue={propertyForChosen}
-              onChange={(e) => setPropertyForChosen(e.currentTarget.value)}
-              disabled={mode === `editAdvert`} label={`This property is for..`}
-              options={[{ value: ``, label: `Tap to choose` }, { value: `rent`, label: `Rent` }, {
-                value: `sell`,
-                label: `Sell`
-              }]} />
-            <div className={`mb-2`}>
-              <ValidationParagraph text={`Property for can be either for rent or sell`}
-                                   stage={propertyForInputStage} />
-            </div>
-          </div>
-          <p className={`text-zinc-700 text-sm`}>{
-            mode === `editAdvert` ? `You can't change this property` : `You can't change this property after creating the advert`
-          }</p>
         </div>
 
         <div>
@@ -207,7 +187,7 @@ export default function
               type={`textarea`}
               label={`Tell your potential customer shortly about location`}
               required
-              defaultValue={locationDescription}
+              defaultValue={locationDescriptionEntered}
               name={`locationDescription`}
               customClassNames={`bp-620:w-[537px] min-h-[155px]`}
               placeholder={`e.g. This place is located at N Street, with calm neighborhood... `}
@@ -228,49 +208,91 @@ export default function
               onChangeState={{ setValueEntered: setPropertyAreaEntered, valueEntered: propertyAreaEntered }}
               type={`input`}
               label={`Property Area(In Sqft)`}
-              defaultValue={propertyArea?.toString() ? propertyArea.toString() : ``}
+              defaultValue={propertyAreaEntered}
               required
-              name={`locationDescription`}
+              name={`propertyArea`}
               customClassNames={`bp-620:w-96`}
               placeholder={`e.g. 1000`}
               inputType={`number`} labelStyle={`grey-and-small`} />
 
             <div className={`mt-2`}>
-              <ValidationParagraph text={`Property Area should be provided from 5 to 9,999`}
+              <ValidationParagraph text={`Property Area should be provided from 5 to 9999`}
                                    stage={propertyAreaInputStage} />
             </div>
           </div>
+
+          <div className={`mb-9`}>
+            <div className={`mb-2`}>
+              <LabelAndSelect
+                name={`propertyFor`}
+                defaultValue={propertyAreaEntered}
+                onChange={(e) => setPropertyForChosen(e.currentTarget.value)}
+                disabled={mode === `editAdvert`} label={`This property is for..`}
+                options={[{ value: ``, label: `Tap to choose` }, { value: `rent`, label: `Rent` }, {
+                  value: `sell`,
+                  label: `Sell`
+                }]} />
+              <div className={`mb-2`}>
+                <ValidationParagraph text={`Property for can be either for rent or sell`}
+                                     stage={propertyForInputStage} />
+              </div>
+            </div>
+            <p className={`text-zinc-700 text-sm`}>{
+              mode === `editAdvert` ? `You can't change this property` : `You can't change this property after creating the advert`
+            }</p>
+          </div>
+
           <div className={`mb-12`}>
             <LabelAndInput
+              onChangeState={{ setValueEntered: setPropertyPriceEntered, valueEntered: propertyPriceEntered }}
+              disabled={propertyForChosen === ``}
               type={`input`}
-              label={`Price(In USD)`}
-              defaultValue={price?.toString()}
+              label={`Price ${propertyForChosen === `rent` ? `per one day of rent` : ``}(In USD)`}
+              defaultValue={propertyPriceEntered}
               required
-              name={`locationDescription`}
+              name={`propertyPrice`}
               customClassNames={`bp-620:w-96`}
-              placeholder={`e.g. 144999`}
+              placeholder={propertyForChosen === `` ? `Not Available` : propertyForChosen === `rent` ? `e.g. 50` : `e.g. 144999`}
               inputType={`number`} labelStyle={`grey-and-small`} />
+            <div className={`mt-2`}>
+              <ValidationParagraph
+                text={propertyForChosen === `` ? `Please select what your property is for first (rent or sell)` :
+                  `Your price should be in range from 5 dollars to 10 millions.`}
+                stage={propertyPriceInputStage} />
+            </div>
           </div>
-          <div className={`mb-9`}>
-            <LabelAndSelect
-              required={false}
-              defaultValue={ownership}
-              label={`Ownership`}
-              options={[{ value: `default`, label: `No Reference` }, { value: `leasehold`, label: `Leasehold` },
-                { value: `freehold`, label: `Freehold` }
-              ]} />
-          </div>
-          {/*<Button type={`button`} label={`Next`}*/}
-          {/*  // @ts-ignore*/}
-          {/*        onClick={() => setActiveState((prevState: activeStateType) => ({*/}
-          {/*          ...prevState, stepOne: `completed`, stepTwo: `active`*/}
-          {/*        }))} />*/}
 
+          <div className={`mb-8`}>
+            <button onClick={() => setExpandOptionalFields((prevState) => !prevState)}
+                    className={`text-zinc-700 font-semibold text-lg flex items-center gap-3`}>
+              <ChevronIcon className={expandOptionalFields ? `rotate-180` : ``} />
+              {expandOptionalFields ? `Fold` : `Expand`} Optional Fields
+            </button>
+          </div>
+
+          {expandOptionalFields && (
+            <div className={`mb-9`}>
+              <LabelAndSelect
+                onChange={(event) => setOwnershipSelected(() => event.target.value)}
+                name={`ownership`}
+                required={false}
+                defaultValue={ownershipSelected}
+                label={`Ownership`}
+                options={[{ value: ``, label: `No Reference` }, { value: `leasehold`, label: `Leasehold` },
+                  { value: `freehold`, label: `Freehold` }
+                ]} />
+              <div className={`mb-2`}>
+                <ValidationParagraph text={`Ownership can either be leasehold or freehold.`}
+                                     stage={ownershipInputStage} />
+              </div>
+            </div>
+          )}
           {setActiveState && (
             <>
               <Button type={`button`} label={`Next`}
                 // @ts-ignore
-                      onClick={() => setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` })} />
+                //       onClick={() => setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` })}
+              />
             </>
           )}
 
