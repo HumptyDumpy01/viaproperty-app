@@ -39,7 +39,7 @@ export default function SellForms(/*{ mode }: SellFormsType*/) {
         <h2 className={`text-3xl bg-clip-text text-transparent bg-linear-main-red font-bold
           mb-5`}>{heading}</h2>
         <p className={`text-zinc-800`}>
-          Almost all of the fields are optional. Do not worry that there are many! Let's just start filling the most
+          Almost all of the fields are optional. Do not worry that there are many! Let&#39;s just start filling the most
           important.</p>
       </div>
       <div className={`flex gap-2.5 items-center overflow-x-auto scrollbar-thin`}>

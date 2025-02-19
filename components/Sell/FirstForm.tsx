@@ -22,7 +22,6 @@ import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
 import { useState } from 'react';
 import { getGeocode } from '@/utils/map/geocode';
 import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
-import SelectLocationOnMap from '@/components/UI/Map/SelectLocationOnMap';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -177,7 +176,7 @@ export default function
               <ValidationParagraph text={`Please select your  valid property location.`}
                                    stage={mapChosenCoordinates?.location.coordinates ? `success` : `neutral`} />
             </div>
-            <SelectLocationOnMap onMapClick={handleMapClick} />
+            {/*<SelectLocationOnMap onMapClick={handleMapClick} />*/}
           </div>
           <div className={`mb-9`}>
             <LabelAndInput
