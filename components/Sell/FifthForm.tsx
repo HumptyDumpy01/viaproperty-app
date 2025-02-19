@@ -4,11 +4,6 @@ import { activeStateType } from '@/components/Sell/SellInputContent';
 import HighlightText from '@/components/Typography/HighlightText';
 import InfoBadge from '@/components/UI/Badge/InfoBadge';
 import ImagePreview from '@/components/UI/Input/ChooseImage/ImagePreview';
-import PropertyImg1 from '@/assets/sell/property-img/property-img-1.png';
-import PropertyImg2 from '@/assets/sell/property-img/property-img-2.png';
-import PropertyImg3 from '@/assets/sell/property-img/property-img-3.png';
-import PropertyImg4 from '@/assets/sell/property-img/property-img-4.png';
-import PropertyImg5 from '@/assets/sell/property-img/property-img-5.png';
 import ImageGalleryFullScreen from '@/components/Layout/Gallery/ImageGalleryFullScreen';
 import { useState } from 'react';
 import Button from '@/components/UI/Button/Button';
@@ -63,23 +58,23 @@ export default function FifthForm({ setActiveState }: FifthFormType) {
           <span className={`text-zinc-700 font-semibold inline-block mb-2.5`}>Front Images Picked(13)</span>
           <div className={`flex items-center gap-4 max-w-4xl overflow-x-auto scrollbar-thin`}>
             <div onClick={() => setImgGalleryOpen(true)}>
-              <ImagePreview imgSrc={PropertyImg1} />
+              <ImagePreview index={1} />
             </div>
 
             <div onClick={() => setImgGalleryOpen(true)}>
-              <ImagePreview imgSrc={PropertyImg2} />
+              <ImagePreview index={2} />
             </div>
 
             <div onClick={() => setImgGalleryOpen(true)}>
-              <ImagePreview imgSrc={PropertyImg3} />
+              <ImagePreview index={3} />
             </div>
 
             <div onClick={() => setImgGalleryOpen(true)}>
-              <ImagePreview imgSrc={PropertyImg4} />
+              <ImagePreview index={4} />
             </div>
 
             <div onClick={() => setImgGalleryOpen(true)}>
-              <ImagePreview imgSrc={PropertyImg5} />
+              <ImagePreview index={5} />
             </div>
           </div>
         </div>
