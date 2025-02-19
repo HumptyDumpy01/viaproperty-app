@@ -12,6 +12,12 @@ export const propertyForSchema = z.object({
   property: z.enum([`rent`, `sell`])
 });
 
-export const imagesSchema = z.object({
-  property: z.array(z.object({ index: z.number().max(5), src: z.string() })).nonempty().min(2).max(6)
+export const propertyAreaSchema = z.object({
+  property: z.string().min(1).max(4)
+}).refine((arg) => {
+  return Number(arg.property) >= 5 && Number(arg.property) <= 10000;
+});
+
+export const propertyPriceSchema = z.object({
+  property: z.string()
 });

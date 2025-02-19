@@ -3,7 +3,7 @@ import { ZodSchema } from 'zod';
 
 type ValidationParStages = 'error' | 'neutral' | 'success';
 
-export function useValidation(schema: ZodSchema<any>, initialState: any) {
+export function useValidation(schema: ZodSchema<any>, initialState: string) {
   const [value, setValue] = useState<string>(initialState);
   const [validationStage, setValidationStage] = useState<ValidationParStages>('neutral');
 

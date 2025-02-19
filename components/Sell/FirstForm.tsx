@@ -10,7 +10,12 @@ import HighlightText from '@/components/Typography/HighlightText';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import ValidationParagraph from '@/components/Typography/ValidationParagraph';
-import { descriptionSchema, propertyForSchema, titleSchema } from '@/utils/schemas/sell/sellSchemas';
+import {
+  descriptionSchema,
+  propertyAreaSchema,
+  propertyForSchema,
+  titleSchema
+} from '@/utils/schemas/sell/sellSchemas';
 import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
 import { useState } from 'react';
 import { getGeocode } from '@/utils/map/geocode';
@@ -82,6 +87,15 @@ export default function
   } = useValidation(
     descriptionSchema,
     ''
+  );
+
+  const {
+    value: propertyAreaEntered,
+    setValue: setPropertyAreaEntered,
+    validationStage: propertyAreaInputStage
+  } = useValidation(
+    propertyAreaSchema,
+    ``
   );
 
 
@@ -204,9 +218,14 @@ export default function
 
           <div className={`mb-9`}>
             <ChooseImage imagesState={{ images, setImages }} min={2} max={6} />
+            <div className={`mt-2`}>
+              <ValidationParagraph text={`Select at least 2 images. Up to 6.`}
+                                   stage={images.length === 0 ? `neutral` : images.length >= 2 && images.length <= 6 ? `success` : `error`} />
+            </div>
           </div>
           <div className={`mb-9`}>
             <LabelAndInput
+              onChangeState={{ setValueEntered: setPropertyAreaEntered, valueEntered: propertyAreaEntered }}
               type={`input`}
               label={`Property Area(In Sqft)`}
               defaultValue={propertyArea?.toString() ? propertyArea.toString() : ``}
@@ -215,6 +234,11 @@ export default function
               customClassNames={`bp-620:w-96`}
               placeholder={`e.g. 1000`}
               inputType={`number`} labelStyle={`grey-and-small`} />
+
+            <div className={`mt-2`}>
+              <ValidationParagraph text={`Property Area should be provided from 5 to 9,999`}
+                                   stage={propertyAreaInputStage} />
+            </div>
           </div>
           <div className={`mb-12`}>
             <LabelAndInput
