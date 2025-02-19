@@ -6,12 +6,16 @@ import { Tooltip } from '@mui/material';
 import { ChangeEvent, useRef, useState } from 'react';
 import MUIDialogConfirm from '@/components/UI/Dialog/MUIDialogConfirm';
 
+export type FileBufferType = string | ArrayBuffer | null;
+
 type ImagePreviewType = {
   index: number;
+  onSave?: (newImage: FileBufferType, index: number) => void;
+  onRemove?: (index: number) => void;
   // children: ReactNode;
 }
 
-export default function ImagePreview({ index }: ImagePreviewType) {
+export default function ImagePreview({ index, onSave, onRemove }: ImagePreviewType) {
   const [dialogConfirmState, setDialogConfirmState] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -22,6 +26,7 @@ export default function ImagePreview({ index }: ImagePreviewType) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result as string);
+        if (onSave) onSave(reader.result, index);
       };
       reader.readAsDataURL(file);
     }
@@ -30,6 +35,7 @@ export default function ImagePreview({ index }: ImagePreviewType) {
   function handleImageRemoval() {
     setImageSrc(() => ``);
     fileInputRef.current!.value = ``;
+    if (onRemove) onRemove(index);
   }
 
   return (
@@ -39,7 +45,8 @@ export default function ImagePreview({ index }: ImagePreviewType) {
         heading: `You sure you want to remove this image?`,
         content: `If you want to remove this particular image, please select "Remove Image" down below.`
       }} state={{ open: dialogConfirmState, setOpen: setDialogConfirmState }} />
-      <input ref={fileInputRef} onChange={handleFileExtraction} required={index < 3} type={`file`} id={`image_${index}`}
+      <input accept={'.png, .jpeg, .jpg'} ref={fileInputRef} onChange={handleFileExtraction} required={index < 3}
+             type={`file`} id={`image_${index}`}
              className={`hidden`} />
       <div className={`w-28 h-28 overflow-hidden cursor-pointer transition-all duration-200
         hover:rotate-3 hover:scale-95`}>

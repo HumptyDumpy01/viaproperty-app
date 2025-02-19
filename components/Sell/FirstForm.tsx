@@ -4,7 +4,7 @@ import { activeStateType } from '@/components/Sell/SellInputContent';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import LabelAndSelect from '@/components/UI/Select/LabelAndSelect';
 import LocationLabel from '@/components/UI/Label/LocationLabel';
-import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
+import ChooseImage, { ImagesArrayType } from '@/components/UI/Input/ChooseImage/ChooseImage';
 import Button from '@/components/UI/Button/Button';
 import HighlightText from '@/components/Typography/HighlightText';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
@@ -50,6 +50,7 @@ export default function
               defaultValues = {} as FirstFormDefValuesType,
               mode
             }: FirstFormType) {
+  const [images, setImages] = useState<ImagesArrayType[]>([]);
   const [mapChosenCoordinates, setMapChosenCoordinates] = useState<PropertyLocationType>();
   const { value: titleEntered, setValue: setTitleEntered, validationStage: titleInputStage } = useValidation(
     titleSchema,
@@ -58,7 +59,7 @@ export default function
 
   const {
     value: locationDescriptionEntered,
-    setValue: setlocationDescriptionEntered,
+    setValue: setLocationDescriptionEntered,
     validationStage: locationDescriptionInputStage
   } = useValidation(
     descriptionSchema,
@@ -186,7 +187,7 @@ export default function
           <div className={`mb-9`}>
             <LabelAndInput
               onChangeState={{
-                setValueEntered: setlocationDescriptionEntered,
+                setValueEntered: setLocationDescriptionEntered,
                 valueEntered: locationDescriptionEntered
               }}
               type={`textarea`}
@@ -202,7 +203,7 @@ export default function
           </div>
 
           <div className={`mb-9`}>
-            <ChooseImage min={4} max={6} />
+            <ChooseImage imagesState={{ images, setImages }} min={2} max={6} />
           </div>
           <div className={`mb-9`}>
             <LabelAndInput
