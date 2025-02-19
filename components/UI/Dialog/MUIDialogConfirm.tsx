@@ -11,11 +11,22 @@ type MUIDialogType = {
   state: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }
   text: { heading: string; content: ReactNode }
   handleConfirmDialog?: () => void;
+  buttonLabels?: {
+    affirmative?: string;
+    negative?: string;
+  }
 }
 
-export default function MUIDialogConfirm({ state, text, handleConfirmDialog }: MUIDialogType) {
+export default function
+  MUIDialogConfirm({
+                     state,
+                     text,
+                     handleConfirmDialog,
+                     buttonLabels = { affirmative: `agree`, negative: `Disagree` }
+                   }: MUIDialogType) {
   const { open, setOpen } = state;
   const { heading, content } = text;
+  const { affirmative, negative } = buttonLabels;
 
   const handleClose = () => {
     setOpen(false);
@@ -43,9 +54,9 @@ export default function MUIDialogConfirm({ state, text, handleConfirmDialog }: M
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose}>{negative}</Button>
           <Button onClick={handleConfirm} autoFocus>
-            Agree
+            {affirmative}
           </Button>
         </DialogActions>
       </Dialog>

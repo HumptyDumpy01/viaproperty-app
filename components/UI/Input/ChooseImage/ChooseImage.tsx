@@ -1,6 +1,5 @@
 // 'use client';
 
-import { StaticImageData } from 'next/image';
 import ImagePreview from '@/components/UI/Input/ChooseImage/ImagePreview';
 
 type ChooseImageType = {
@@ -10,9 +9,14 @@ type ChooseImageType = {
   // children: ReactNode;
 }
 
+type ImagesArrayType = {
+  index: number;
+  src: string;
+}
 
 export default function ChooseImage({ max, min, required = true }: ChooseImageType) {
-  const images: StaticImageData[] = [];
+  // @ts-ignore
+  let images: ImagesArrayType[];
   return (
     <>
       <div className={`flex flex-col justify-center gap-4`}>
@@ -26,7 +30,7 @@ export default function ChooseImage({ max, min, required = true }: ChooseImageTy
           {/*<RectangularButton btnLabel={`pick`} />*/}
           {Array.from({ length: max }).map((_, index) => (
             <div key={index}>
-              <ImagePreview index={index} key={index} imgSrc={images[index]} />
+              <ImagePreview index={index} key={index} />
             </div>
           ))}
         </div>
