@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckoutDataType } from '@/app/checkout/page';
+import { CheckoutDataType } from '@/app/(protected)/checkout/page';
 import ErrorMessage from '@/components/Layout/Error/ErrorMessage';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import Button from '@/components/UI/Button/Button';

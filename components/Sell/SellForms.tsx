@@ -55,7 +55,7 @@ export default function SellForms({ mode }: SellFormsType) {
         <h2 className={`text-3xl bg-clip-text text-transparent bg-linear-main-red font-bold
           mb-5`}>{mode === `createAdvert` ? heading : `Let's Edit your advert!`}</h2>
         <p className={`text-zinc-800`}>{
-          mode === `createAdvert` ? `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`
+          mode === `createAdvert` ? `Almost all of the fields are optional. Do not worry that there are many! Let's just start filling the most important.`
             : `Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`
         }</p>
       </div>

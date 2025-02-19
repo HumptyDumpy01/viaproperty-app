@@ -75,11 +75,17 @@ export default function
 
   const textareaNode: ReactNode = (
     <>
-      <textarea {...props as DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>}
-                defaultValue={defaultValue} disabled={disabled} id={`${name}`} name={`${name}`}
-                className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
+      <textarea
+        onChange={onChangeState?.setValueEntered ? (e) => onChangeState!.setValueEntered(e.currentTarget.value)
+          : undefined}
+        {...props as DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        id={`${name}`}
+        name={`${name}`}
+        className={`bg-zinc-50 p-4 rounded-xl ${customClassNames} text-zinc-900
           focus:outline-none border-2 border-transparent transition-all duration-300 focus:border-red-500 focus:bg-white`}
-                placeholder={placeholder} required={required} />
+        placeholder={placeholder} required={required} />
     </>
   );
 

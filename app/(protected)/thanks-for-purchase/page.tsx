@@ -88,7 +88,7 @@ export default function ThanksForPurchasePage(/*{  }: ThanksForPurchasePageType*
         </div>
         <div className={`flex flex-col gap-6 mt-11`}>
           <BulkyLink linkStyle={`red`} href={`/account-settings/request-details/1`} label={`See Details`} />
-          <BulkyLink linkStyle={`emptyBlack`} href={`/`} label={`Home`} />
+          <BulkyLink linkStyle={`emptyBlack`} href={`/public`} label={`Home`} />
         </div>
       </div>
     </MainContainer>
