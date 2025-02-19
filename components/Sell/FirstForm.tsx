@@ -22,7 +22,7 @@ import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
 import { useState } from 'react';
 import { getGeocode } from '@/utils/map/geocode';
 import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
-import SelectLocationOnMap from '@/components/UI/Map/SelectLocationOnMap';
+import AIButton from '@/components/AI/buttons/AIButton';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -137,27 +137,33 @@ export default function
   return (
     <>
       <div className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
-        <div>
-          <LabelAndInput
-            onChangeState={{ setValueEntered: setTitleEntered, valueEntered: titleEntered }}
-            defaultValue={titleEntered}
-            label={`Title`} required name={`title`}
-            customClassNames={`bp-620:w-96`}
-            placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
-          <ValidationParagraph text={`Title should contain from 5 to 100 characters long.`} stage={titleInputStage} />
+        <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
+          <div>
+            <LabelAndInput
+              onChangeState={{ setValueEntered: setTitleEntered, valueEntered: titleEntered }}
+              defaultValue={titleEntered}
+              label={`Title`} required name={`title`}
+              customClassNames={`bp-620:w-96`}
+              placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
+            <ValidationParagraph text={`Title should contain from 5 to 100 characters long.`} stage={titleInputStage} />
+          </div>
+          <AIButton className={`mt-6`} />
         </div>
-        <div>
-          <LabelAndInput
-            onChangeState={{ setValueEntered: setDescriptionEntered, valueEntered: descriptionEntered }}
-            defaultValue={descriptionEntered}
-            type={`textarea`}
-            label={`Description`}
-            required
-            name={`description`}
-            customClassNames={`bp-620:w-[537px] min-h-[155px]`}
-            placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
-          <ValidationParagraph text={`Description should contain from 5 to 700 characters long.`}
-                               stage={descriptionInputStage} />
+        <div className={`flex gap-3 items-center flex-col bp-620:flex-row`}>
+          <div>
+            <LabelAndInput
+              onChangeState={{ setValueEntered: setDescriptionEntered, valueEntered: descriptionEntered }}
+              defaultValue={descriptionEntered}
+              type={`textarea`}
+              label={`Description`}
+              required
+              name={`description`}
+              customClassNames={`bp-620:w-[537px] min-h-[155px]`}
+              placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
+            <ValidationParagraph text={`Description should contain from 5 to 700 characters long.`}
+                                 stage={descriptionInputStage} />
+          </div>
+          <AIButton />
         </div>
 
         <div>
@@ -177,24 +183,31 @@ export default function
               <ValidationParagraph text={`Please select your  valid property location.`}
                                    stage={mapChosenCoordinates?.location.coordinates ? `success` : `neutral`} />
             </div>
-            <SelectLocationOnMap onMapClick={handleMapClick} />
+            {/*<SelectLocationOnMap onMapClick={handleMapClick} />*/}
           </div>
           <div className={`mb-9`}>
-            <LabelAndInput
-              onChangeState={{
-                setValueEntered: setLocationDescriptionEntered,
-                valueEntered: locationDescriptionEntered
-              }}
-              type={`textarea`}
-              label={`Tell your potential customer shortly about location`}
-              required
-              defaultValue={locationDescriptionEntered}
-              name={`locationDescription`}
-              customClassNames={`bp-620:w-[537px] min-h-[155px]`}
-              placeholder={`e.g. This place is located at N Street, with calm neighborhood... `}
-              inputType={`text`} labelStyle={`grey-and-small`} />
-            <ValidationParagraph text={`Location description is expected to be 5 to 700 characters.`}
-                                 stage={locationDescriptionInputStage} />
+            <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
+              <div>
+                <LabelAndInput
+                  onChangeState={{
+                    setValueEntered: setLocationDescriptionEntered,
+                    valueEntered: locationDescriptionEntered
+                  }}
+                  type={`textarea`}
+                  label={`Tell your potential customer shortly about location`}
+                  required
+                  defaultValue={locationDescriptionEntered}
+                  name={`locationDescription`}
+                  customClassNames={`bp-620:w-[537px] min-h-[155px]`}
+                  placeholder={`e.g. This place is located at N Street, with calm neighborhood... `}
+                  inputType={`text`} labelStyle={`grey-and-small`} />
+                <ValidationParagraph text={`Location description is expected to be 5 to 700 characters.`}
+                                     stage={locationDescriptionInputStage} />
+              </div>
+              <div className={``}>
+                <AIButton />
+              </div>
+            </div>
           </div>
 
           <div className={`mb-9`}>
