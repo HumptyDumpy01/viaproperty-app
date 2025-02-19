@@ -131,7 +131,12 @@ export default function ThirdForm({ setActiveState, defaultValues }: ThirdFormTy
                              customClassNames={`bp-620:w-72 h-36 text-custom-medium`} label={`Short Description`}
                              inputType={`text`} />
               <div className={`overflow-x-auto scrollbar-thin max-w-[270px]`}>
-                <ChooseImage max={3} min={0} />
+                <ChooseImage
+                  imagesState={{
+                    setImages: () => {
+                    }, images: []
+                  }}
+                  max={3} min={0} />
               </div>
               <div className={`mt-3`}>
                 <button type={`button`}
