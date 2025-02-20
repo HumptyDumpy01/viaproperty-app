@@ -6,6 +6,7 @@ import { makeStyles } from '@mui/styles';
 import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { generateTextSchema } from '@/utils/schemas/AI/generateTextSchema';
 import ConfigureAIRequest from '@/components/AI/layouts/ConfigureAIRequest';
+import AIResponse from '@/components/AI/layouts/AIResponse';
 
 export type GenerationForType = `Property Description` | `Property Title` | `Property Location Description`;
 export type AIToneType = `Professional` | `Trendy` | `Inviting` | `Minimalist`;
@@ -61,7 +62,7 @@ function AIModal({ modalState, generationFor }: AIModalType) {
             root: classes.backdrop
           }
         }}
-        maxWidth={`lg`} onClose={handleClose} open={open}>
+        maxWidth={`md`} onClose={handleClose} open={open}>
         <div className={`py-9 px-8`}>
           <div className={`flex items-center gap-5 mb-8`}>
             <div className={`min-w-14 h-14 bg-linear-main-red flex items-center justify-center rounded-full`}>
@@ -71,9 +72,19 @@ function AIModal({ modalState, generationFor }: AIModalType) {
               Assistant</h2>
           </div>
           {AIResponseState === `start` && (
-            <ConfigureAIRequest toneState={{ value: activeTone, setValue: setActiveTone }} handleClose={handleClose}
-                                handleGenerateText={handleGenerateText}
-                                generationFor={generationFor || `Property Title`} inputRef={inputRef} />
+            <ConfigureAIRequest
+              toneState={{ value: activeTone, setValue: setActiveTone }} handleClose={handleClose}
+              handleGenerateText={handleGenerateText}
+              generationFor={generationFor || `Property Title`} inputRef={inputRef} />
+          )}
+          {AIResponseState === `response` && (
+            <>
+              <AIResponse
+                handleClosePopup={handleClose}
+                setAIResponseState={setAIResponseState}
+                generatedFor={generationFor || `Property Title`}
+                generatedText={`Lorem ipsum dolor sit amet consectetur. Praesent morbi mollis non aenean. Eu dictumst eleifend consequat ultricies ac ante tellus. Elementum proin fermentum nulla turpis augue etiam. Lectus nunc porta dapibus ultricies leo libero facilisis placerat non.  Fermentum nulla turpis augue etiam. Lectus nunc porta dapibus ultricies leo libero facilisis placerat non.`} />
+            </>
           )}
         </div>
       </Dialog>

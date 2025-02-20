@@ -24,7 +24,7 @@ export default function AIBadgeTone({ active, label, ...props }: AIBadgeToneType
   return (
     <>
       <button {...props} type={`button`}
-              className={`rounded-full py-2 px-6 border text-[15px] ${styles}`}>{label}</button>
+              className={`rounded-full py-2 px-6 border text-[15px] transition-all duration-200 ${styles}`}>{label}</button>
     </>
   );
 }

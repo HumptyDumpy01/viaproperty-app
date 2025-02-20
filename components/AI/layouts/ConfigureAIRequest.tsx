@@ -75,7 +75,7 @@ export default function
             active={activeTone === `Minimalist`} label={`Minimalist`} />
         </div>
       </div>
-      <div className={`flex items-center gap-28 justify-end text-red-500`}>
+      <div className={`flex items-center gap-20 justify-end text-red-500`}>
         <div className={`flex items-center gap-9`}>
           <motion.button
             disabled={loading}
