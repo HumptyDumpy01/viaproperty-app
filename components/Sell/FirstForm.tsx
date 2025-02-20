@@ -24,7 +24,7 @@ import { getGeocode } from '@/utils/map/geocode';
 import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
 import AIButton from '@/components/AI/buttons/AIButton';
 import { windowExists } from '@/utils/functions/windowExists';
-import AIModal from '@/components/AI/modals/AIModal';
+import AIModal, { GenerationForType } from '@/components/AI/modals/AIModal';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -48,6 +48,7 @@ export default function
               mode
             }: FirstFormType) {
   const [AIModalState, setAIModalState] = useState(true);
+  const [generationFor, setGenerationFor] = useState<GenerationForType | null>(null);
   const [expandOptionalFields, setExpandOptionalFields] = useState(false);
 
   const [mapChosenCoordinates, setMapChosenCoordinates] = useState<PropertyLocationType>();
@@ -162,6 +163,11 @@ export default function
     }
   };
 
+  function handleAIModalOpen(generationFor: GenerationForType) {
+    setGenerationFor(() => generationFor);
+    setAIModalState(() => true);
+  }
+
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
     if (setActiveState)
@@ -170,7 +176,7 @@ export default function
 
   return (
     <>
-      <AIModal modalState={{ open: AIModalState, setOpen: setAIModalState }} />
+      <AIModal generationFor={generationFor} modalState={{ open: AIModalState, setOpen: setAIModalState }} />
       <div className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
         <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
           <div>
@@ -182,7 +188,7 @@ export default function
               placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
             <ValidationParagraph text={`Title should contain from 5 to 100 characters long.`} stage={titleInputStage} />
           </div>
-          <AIButton className={`mt-6`} />
+          <AIButton onClick={() => handleAIModalOpen(`Property Title`)} className={`mt-6`} />
         </div>
         <div className={`flex gap-3 items-center flex-col bp-620:flex-row`}>
           <div>
@@ -198,7 +204,7 @@ export default function
             <ValidationParagraph text={`Description should contain from 5 to 700 characters long.`}
                                  stage={descriptionInputStage} />
           </div>
-          <AIButton />
+          <AIButton onClick={() => handleAIModalOpen(`Property Description`)} />
         </div>
 
         <div>
@@ -243,7 +249,7 @@ export default function
                                      stage={locationDescriptionInputStage} />
               </div>
               <div className={``}>
-                <AIButton />
+                <AIButton onClick={() => handleAIModalOpen(`Property Location Description`)} />
               </div>
             </div>
           </div>
