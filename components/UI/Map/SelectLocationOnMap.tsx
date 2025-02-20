@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -21,10 +21,17 @@ const center = {
 
 type GoogleMapProps = {
   onMapClick: (coordinates: { lat: number; lng: number }) => void;
+  initialCoordinates?: CoordinatesType | null;
 };
 
-const SelectLocationOnMap: React.FC<GoogleMapProps> = ({ onMapClick }) => {
-  const [coordinates, setCoordinates] = useState<CoordinatesType | null>(null);
+const SelectLocationOnMap: React.FC<GoogleMapProps> = ({ onMapClick, initialCoordinates }) => {
+  const [coordinates, setCoordinates] = useState<CoordinatesType | null>(initialCoordinates || null);
+
+  useEffect(() => {
+    if (initialCoordinates) {
+      setCoordinates(() => initialCoordinates);
+    }
+  }, [initialCoordinates]);
 
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
     if (event.latLng) {

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { ZodSchema } from 'zod';
+import { windowExists } from '@/utils/functions/windowExists';
 
 type ValidationParStages = 'error' | 'neutral' | 'success';
 
 export function useValidation(schema: ZodSchema<any>, initialState: string, storeToLocalStorage?: boolean, propertyName?: string) {
   const [value, setValue] = useState<string>(() => {
-    if (storeToLocalStorage && typeof window !== 'undefined' && propertyName) {
+    if (storeToLocalStorage && windowExists() && propertyName) {
       return window.localStorage.getItem(propertyName) || initialState;
     }
     return initialState;
@@ -13,7 +14,7 @@ export function useValidation(schema: ZodSchema<any>, initialState: string, stor
   const [validationStage, setValidationStage] = useState<ValidationParStages>('neutral');
 
   useEffect(() => {
-    if (storeToLocalStorage && typeof window !== 'undefined') {
+    if (storeToLocalStorage && windowExists()) {
       window.localStorage.setItem(`${propertyName}`, value);
     }
   }, [propertyName, storeToLocalStorage, value]);

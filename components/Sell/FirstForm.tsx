@@ -23,6 +23,8 @@ import { useEffect, useState } from 'react';
 import { getGeocode } from '@/utils/map/geocode';
 import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
 import AIButton from '@/components/AI/buttons/AIButton';
+import SelectLocationOnMap from '@/components/UI/Map/SelectLocationOnMap';
+import { windowExists } from '@/utils/functions/windowExists';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -38,7 +40,6 @@ type PropertyLocationType = {
     type: `Point`,
     coordinates: number[]
   },
-  description: string;
 };
 
 export default function
@@ -48,18 +49,22 @@ export default function
             }: FirstFormType) {
   const [expandOptionalFields, setExpandOptionalFields] = useState(false);
 
+  const [mapChosenCoordinates, setMapChosenCoordinates] = useState<PropertyLocationType>();
   const [images, setImages] = useState<ImagesArrayType[]>([]);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (windowExists()) {
       const images = window.localStorage.getItem('images');
+      const mapCoordinates = window.localStorage.getItem('mapCoordinates');
       if (images) {
         setImages(() => JSON.parse(images));
+      }
+      if (mapCoordinates) {
+        setMapChosenCoordinates(() => JSON.parse(mapCoordinates));
       }
     }
   }, []);
 
-  const [mapChosenCoordinates, setMapChosenCoordinates] = useState<PropertyLocationType>();
   const { value: titleEntered, setValue: setTitleEntered, validationStage: titleInputStage } = useValidation(
     titleSchema,
     '',
@@ -137,16 +142,20 @@ export default function
   const handleMapClick = async (coordinates: { lat: number; lng: number }) => {
     try {
       const { country, city, address } = await getGeocode(coordinates.lat, coordinates.lng);
-      setMapChosenCoordinates({
+      const newMapObject: PropertyLocationType = {
         title: address || null,
         country: country || null,
         city: city || null,
         location: {
           type: 'Point',
           coordinates: [coordinates.lng, coordinates.lat]
-        },
-        description: `` // You can customize this as needed
-      });
+        }
+      };
+      setMapChosenCoordinates(newMapObject);
+
+      if (windowExists()) {
+        window.localStorage.setItem('mapCoordinates', JSON.stringify(newMapObject));
+      }
     } catch (error) {
       console.error('Error fetching geocode:', error);
     }
@@ -207,7 +216,10 @@ export default function
               <ValidationParagraph text={`Please select your  valid property location.`}
                                    stage={mapChosenCoordinates?.location.coordinates ? `success` : `neutral`} />
             </div>
-            {/*<SelectLocationOnMap onMapClick={handleMapClick} />*/}
+            <SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {
+              lat: mapChosenCoordinates.location.coordinates[1], lng:
+                mapChosenCoordinates.location.coordinates[0]
+            } : null} onMapClick={handleMapClick} />
           </div>
           <div className={`mb-9`}>
             <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
