@@ -1,19 +1,25 @@
 // 'use client';
 
-import { type ReactNode } from 'react';
+import { ComponentPropsWithoutRef, type ReactNode } from 'react';
 
 type ParagraphType = {
   text: ReactNode;
   color?: `dark`;
   customClasses?: string;
   fontSize?: `text-sm`;
-}
+} & ComponentPropsWithoutRef<'p'>;
 
-export default function Paragraph({ text, color = `dark`, customClasses = ``, fontSize = `text-sm` }: ParagraphType) {
+export default function Paragraph({
+                                    text,
+                                    color = `dark`,
+                                    customClasses = ``,
+                                    fontSize = `text-sm`,
+                                    ...props
+                                  }: ParagraphType) {
   const colorStyle = color === `dark` ? `text-zinc-900` : ``;
   return (
     <>
-      <p className={`leading-relaxed ${colorStyle} ${customClasses} ${fontSize}`}>{text}</p>
+      <p {...props} className={`leading-relaxed ${colorStyle} ${customClasses} ${fontSize}`}>{text}</p>
     </>
   );
 }

@@ -15,6 +15,7 @@
     "@lottiefiles/dotlottie-react": "^0.9.2",
     "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.5",
+    "@mui/styles": "^6.4.5",
     "@mui/x-date-pickers": "^7.23.0",
     "@mui/x-date-pickers-pro": "^7.23.0",
     "@react-google-maps/api": "^2.20.3",
