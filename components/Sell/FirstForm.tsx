@@ -19,7 +19,7 @@ import {
   titleSchema
 } from '@/utils/schemas/sell/first-step/sellSchemasFirstStep';
 import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getGeocode } from '@/utils/map/geocode';
 import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
 import AIButton from '@/components/AI/buttons/AIButton';
@@ -49,10 +49,22 @@ export default function
   const [expandOptionalFields, setExpandOptionalFields] = useState(false);
 
   const [images, setImages] = useState<ImagesArrayType[]>([]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const images = window.localStorage.getItem('images');
+      if (images) {
+        setImages(() => JSON.parse(images));
+      }
+    }
+  }, []);
+
   const [mapChosenCoordinates, setMapChosenCoordinates] = useState<PropertyLocationType>();
   const { value: titleEntered, setValue: setTitleEntered, validationStage: titleInputStage } = useValidation(
     titleSchema,
-    ''
+    '',
+    true,
+    `title`
   );
 
   const {
@@ -61,7 +73,9 @@ export default function
     validationStage: locationDescriptionInputStage
   } = useValidation(
     descriptionSchema,
-    ''
+    '',
+    true,
+    `locationDescription`
   );
 
   const {
@@ -70,7 +84,9 @@ export default function
     validationStage: propertyForInputStage
   } = useValidation(
     propertyForSchema,
-    ''
+    '',
+    true,
+    'propertyFor'
   );
 
   const {
@@ -79,7 +95,9 @@ export default function
     validationStage: descriptionInputStage
   } = useValidation(
     descriptionSchema,
-    ''
+    '',
+    true,
+    'propertyDescription'
   );
 
   const {
@@ -88,7 +106,9 @@ export default function
     validationStage: propertyAreaInputStage
   } = useValidation(
     propertyAreaSchema,
-    ``
+    ``,
+    true,
+    `propertyArea`
   );
 
   const {
@@ -97,7 +117,9 @@ export default function
     validationStage: propertyPriceInputStage
   } = useValidation(
     propertyPriceSchema,
-    ``
+    ``,
+    true,
+    `propertyPrice`
   );
 
   const {
@@ -106,7 +128,9 @@ export default function
     validationStage: ownershipInputStage
   } = useValidation(
     ownershipSchema,
-    ``
+    ``,
+    true,
+    `ownership`
   );
 
 
@@ -239,7 +263,7 @@ export default function
             <div className={`mb-2`}>
               <LabelAndSelect
                 name={`propertyFor`}
-                defaultValue={propertyAreaEntered}
+                defaultValue={propertyForChosen}
                 onChange={(e) => setPropertyForChosen(e.currentTarget.value)}
                 disabled={mode === `editAdvert`} label={`This property is for..`}
                 options={[{ value: ``, label: `Tap to choose` }, { value: `rent`, label: `Rent` }, {

@@ -3,9 +3,20 @@ import { ZodSchema } from 'zod';
 
 type ValidationParStages = 'error' | 'neutral' | 'success';
 
-export function useValidation(schema: ZodSchema<any>, initialState: string) {
-  const [value, setValue] = useState<string>(initialState);
+export function useValidation(schema: ZodSchema<any>, initialState: string, storeToLocalStorage?: boolean, propertyName?: string) {
+  const [value, setValue] = useState<string>(() => {
+    if (storeToLocalStorage && typeof window !== 'undefined' && propertyName) {
+      return window.localStorage.getItem(propertyName) || initialState;
+    }
+    return initialState;
+  });
   const [validationStage, setValidationStage] = useState<ValidationParStages>('neutral');
+
+  useEffect(() => {
+    if (storeToLocalStorage && typeof window !== 'undefined') {
+      window.localStorage.setItem(`${propertyName}`, value);
+    }
+  }, [propertyName, storeToLocalStorage, value]);
 
   useEffect(() => {
     if (value) {

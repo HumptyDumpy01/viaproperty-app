@@ -1,7 +1,5 @@
-// 'use client';
-
-import ImagePreview, { FileBufferType } from '@/components/UI/Input/ChooseImage/ImagePreview';
 import { Dispatch, SetStateAction, useEffect } from 'react';
+import ImagePreview, { FileBufferType } from '@/components/UI/Input/ChooseImage/ImagePreview';
 
 type ChooseImageType = {
   max: number;
@@ -23,22 +21,36 @@ export default function ChooseImage({ max, min, imagesState, required = true }: 
   const { images, setImages } = imagesState;
 
   useEffect(() => {
-    console.log(images);
-  }, [images]);
+    if (typeof window !== 'undefined') {
+      const storedImages = window.localStorage.getItem('images');
+      if (storedImages) {
+        setImages(JSON.parse(storedImages));
+      }
+    }
+  }, [setImages]);
+
+  function setImagesToLocalStorage(images: ImagesArrayType[]) {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('images', JSON.stringify(images));
+    }
+  }
 
   function handleOnSave(newImage: FileBufferType, index: number) {
     setImages((prevImages) => {
       const newImages = prevImages?.length ? [...prevImages] : [];
       newImages.push({ index: index, src: newImage });
-      // remove empty cells from it
-      return newImages.filter((image) => image.src);
+      const result = newImages.filter((image) => image.src);
+      setImagesToLocalStorage(result);
+      return result;
     });
   }
 
   function handleOnRemove(index: number) {
     setImages((prevImages) => {
       const newImages = prevImages?.length ? [...prevImages] : [];
-      return newImages.filter((image) => image.index !== index);
+      const result = newImages.filter((image) => image.index !== index);
+      setImagesToLocalStorage(result);
+      return result;
     });
   }
 
@@ -50,7 +62,13 @@ export default function ChooseImage({ max, min, imagesState, required = true }: 
         <div className={`flex gap-4 items-center overflow-x-auto scrollbar-thin max-w-3xl`}>
           {Array.from({ length: max }).map((_, index) => (
             <div key={index}>
-              <ImagePreview onRemove={handleOnRemove} onSave={handleOnSave} index={index} key={index} />
+              <ImagePreview
+                onRemove={handleOnRemove}
+                onSave={handleOnSave}
+                index={index}
+                key={index}
+                imageSrc={images.find(image => image.index === index)?.src || null}
+              />
             </div>
           ))}
         </div>

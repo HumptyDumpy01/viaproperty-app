@@ -1,9 +1,7 @@
-// 'use client';
-
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Image from 'next/image';
 import { Tooltip } from '@mui/material';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import MUIDialogConfirm from '@/components/UI/Dialog/MUIDialogConfirm';
 
 export type FileBufferType = string | ArrayBuffer | null;
@@ -12,13 +10,18 @@ type ImagePreviewType = {
   index: number;
   onSave?: (newImage: FileBufferType, index: number) => void;
   onRemove?: (index: number) => void;
+  imageSrc?: FileBufferType;
   // children: ReactNode;
 }
 
-export default function ImagePreview({ index, onSave, onRemove }: ImagePreviewType) {
+export default function ImagePreview({ index, onSave, onRemove, imageSrc: initialImageSrc }: ImagePreviewType) {
   const [dialogConfirmState, setDialogConfirmState] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [imageSrc, setImageSrc] = useState<string | null>(null);
+  const [imageSrc, setImageSrc] = useState<FileBufferType>(initialImageSrc || null);
+
+  useEffect(() => {
+    setImageSrc(initialImageSrc || null);
+  }, [initialImageSrc]);
 
   function handleFileExtraction(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -52,6 +55,7 @@ export default function ImagePreview({ index, onSave, onRemove }: ImagePreviewTy
         hover:rotate-3 hover:scale-95`}>
         {imageSrc && (
           <Tooltip title={`Click to remove the image.`}>
+            {/*// @ts-ignore*/}
             <Image onClick={() => setDialogConfirmState(() => true)} width={112} height={112} src={imageSrc}
                    alt={`Property Image ${index}`}
                    className={`object-cover w-full h-full rounded-2xl border border-transparent`} />
