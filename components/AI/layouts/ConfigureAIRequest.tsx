@@ -7,6 +7,7 @@ import AIBadgeTone from '@/components/AI/UI/AIBadgeTone';
 import { motion } from 'framer-motion';
 import * as React from 'react';
 import { Dispatch, SetStateAction } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 type ConfigureAIRequestType = {
   generationFor: GenerationForType;
@@ -17,6 +18,7 @@ type ConfigureAIRequestType = {
   },
   handleGenerateText: () => void;
   handleClose: () => void;
+  loading?: boolean;
   // children: ReactNode;
 }
 
@@ -26,7 +28,8 @@ export default function
                        inputRef,
                        toneState,
                        handleGenerateText,
-                       handleClose
+                       handleClose,
+                       loading = false
                      }: ConfigureAIRequestType) {
   const { value: activeTone, setValue: setActiveTone } = toneState;
 
@@ -72,14 +75,21 @@ export default function
             active={activeTone === `Minimalist`} label={`Minimalist`} />
         </div>
       </div>
-      <div className={`flex items-center gap-44 justify-end`}>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: .9 }}
-          onClick={handleGenerateText}
-          type={`button`}
-          className={`px-16 py-6 font-semibold text-4xl  bg-linear-main-red text-white rounded-full`}>Generate
-        </motion.button>
+      <div className={`flex items-center gap-28 justify-end text-red-500`}>
+        <div className={`flex items-center gap-9`}>
+          <motion.button
+            disabled={loading}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: .9 }}
+            onClick={handleGenerateText}
+            type={`button`}
+            className={`px-16 py-6 font-semibold text-4xl  bg-linear-main-red text-white rounded-full`}>Generate
+          </motion.button>
+
+          <div className={`${!loading ? `opacity-0 pointer-events-none` : ``}`}>
+            <CircularProgress className={`text-red-500`} color={`inherit`} />
+          </div>
+        </div>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: .9 }}

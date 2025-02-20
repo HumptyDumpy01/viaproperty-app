@@ -22,8 +22,7 @@ const useStyles = makeStyles({
 });
 
 function AIModal({ modalState, generationFor }: AIModalType) {
-  const [AIResponseState, setAIResponseState] = useState<0 | 1>(0);
-
+  const [AIResponseState, setAIResponseState] = useState<`start` | `response`>(`start`);
   const [snackbarState, setSnackbarState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(``);
 
@@ -71,7 +70,7 @@ function AIModal({ modalState, generationFor }: AIModalType) {
             <h2 className={`font-bold text-5xl bg-clip-text text-transparent bg-linear-main-red pb-1`}>Viaproperty
               Assistant</h2>
           </div>
-          {AIResponseState === 0 && (
+          {AIResponseState === `start` && (
             <ConfigureAIRequest toneState={{ value: activeTone, setValue: setActiveTone }} handleClose={handleClose}
                                 handleGenerateText={handleGenerateText}
                                 generationFor={generationFor || `Property Title`} inputRef={inputRef} />
