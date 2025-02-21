@@ -7,6 +7,7 @@ import SnackbarMUI from '@/components/UI/Snackbar/SnackbarMUI';
 import { generateTextSchema } from '@/utils/schemas/AI/generateTextSchema';
 import ConfigureAIRequest from '@/components/AI/layouts/ConfigureAIRequest';
 import AIResponse from '@/components/AI/layouts/AIResponse';
+import { useCreateAIResponse } from '@/hooks/mutations/AI/useCreateAIResponse';
 
 export type GenerationForType = `Property Description` | `Property Title` | `Property Location Description`;
 export type AIToneType = `Professional` | `Trendy` | `Inviting` | `Minimalist`;
@@ -23,6 +24,8 @@ const useStyles = makeStyles({
 });
 
 function AIModal({ modalState, generationFor }: AIModalType) {
+  const [aiResponse, setAiResponse] = useState<{ response: string; id: string }>();
+
   const [AIResponseState, setAIResponseState] = useState<`start` | `response`>(`start`);
   const [snackbarState, setSnackbarState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(``);
@@ -32,6 +35,8 @@ function AIModal({ modalState, generationFor }: AIModalType) {
   const [activeTone, setActiveTone] = useState<AIToneType>(`Professional`);
   const classes = useStyles();
 
+  const { generateText, loading: generatingTextLoading } = useCreateAIResponse();
+
   function handleSnackbarOpen(message: string) {
     setSnackbarMessage(() => message);
     setSnackbarState(() => true);
@@ -39,17 +44,30 @@ function AIModal({ modalState, generationFor }: AIModalType) {
 
   const handleClose = () => {
     setOpen(() => false);
+    setAIResponseState(() => `start`);
   };
 
-  function handleGenerateText() {
-    const validate = generateTextSchema.safeParse({ generationFor, tags: inputRef?.current?.value, tone: activeTone });
+  async function handleGenerateText() {
+    const valueEntered = inputRef?.current?.value || ``;
+    const validate = generateTextSchema.safeParse({ generationFor, tags: valueEntered, tone: activeTone });
 
     if (!validate.success) {
       handleSnackbarOpen(validate.error.errors[0].message);
       return;
     }
+    const response = await generateText({
+      generationFor: generationFor as GenerationForType,
+      tags: valueEntered,
+      tone: activeTone,
+      type: `propertyAdvert`
+    });
 
-    console.log(`Clicked`);
+    if (!response || response?.data?.message) {
+      handleSnackbarOpen(response.data.message);
+      return;
+    }
+    setAiResponse(() => response.data.createAIResponse);
+    setAIResponseState(() => `response`);
   }
 
   return (
@@ -73,6 +91,7 @@ function AIModal({ modalState, generationFor }: AIModalType) {
           </div>
           {AIResponseState === `start` && (
             <ConfigureAIRequest
+              loading={generatingTextLoading}
               toneState={{ value: activeTone, setValue: setActiveTone }} handleClose={handleClose}
               handleGenerateText={handleGenerateText}
               generationFor={generationFor || `Property Title`} inputRef={inputRef} />
@@ -80,10 +99,11 @@ function AIModal({ modalState, generationFor }: AIModalType) {
           {AIResponseState === `response` && (
             <>
               <AIResponse
+                responseId={aiResponse?.id || ``}
                 handleClosePopup={handleClose}
                 setAIResponseState={setAIResponseState}
                 generatedFor={generationFor || `Property Title`}
-                generatedText={`Lorem ipsum dolor sit amet consectetur. Praesent morbi mollis non aenean. Eu dictumst eleifend consequat ultricies ac ante tellus. Elementum proin fermentum nulla turpis augue etiam. Lectus nunc porta dapibus ultricies leo libero facilisis placerat non.  Fermentum nulla turpis augue etiam. Lectus nunc porta dapibus ultricies leo libero facilisis placerat non.`} />
+                generatedText={aiResponse?.response || `Lorem ipsum dolor sit amet`} />
             </>
           )}
         </div>

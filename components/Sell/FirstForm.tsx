@@ -25,7 +25,6 @@ import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
 import AIButton from '@/components/AI/buttons/AIButton';
 import { windowExists } from '@/utils/functions/windowExists';
 import AIModal, { GenerationForType } from '@/components/AI/modals/AIModal';
-import SelectLocationOnMap from '@/components/UI/Map/SelectLocationOnMap';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -225,10 +224,10 @@ export default function
               <ValidationParagraph text={`Please select your  valid property location.`}
                                    stage={mapChosenCoordinates?.location.coordinates ? `success` : `neutral`} />
             </div>
-            <SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {
-              lat: mapChosenCoordinates.location.coordinates[1], lng:
-                mapChosenCoordinates.location.coordinates[0]
-            } : null} onMapClick={handleMapClick} />
+            {/*<SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {*/}
+            {/*  lat: mapChosenCoordinates.location.coordinates[1], lng:*/}
+            {/*    mapChosenCoordinates.location.coordinates[0]*/}
+            {/*} : null} onMapClick={handleMapClick} />*/}
           </div>
           <div className={`mb-9`}>
             <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>

@@ -5,7 +5,7 @@ export const titleSchema = z.object({
 });
 
 export const descriptionSchema = z.object({
-  property: z.string().trim().min(5).max(700)
+  property: z.string().trim().min(5).max(4_000)
 });
 
 export const propertyForSchema = z.object({

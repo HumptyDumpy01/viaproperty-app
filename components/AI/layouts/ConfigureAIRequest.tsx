@@ -43,7 +43,7 @@ export default function
         </div>
         <div className={`flex gap-5 mb-4 `}>
           <h3 className={`text-3xl bg-clip-text text-transparent bg-linear-main-red font-bold text-nowrap`}>Add
-            tags:</h3>
+            context:</h3>
           <input min={5} minLength={5} maxLength={1000} required ref={inputRef} type="text" name={`tags`}
                  className={`px-6 py-3.5 rounded-[10px] border border-red-500 placeholder-red-500 
             font-semibold max-w-[461px] text-red-500 w-full outline-none focus:outline-red-500 transition-all duration-200`}
@@ -51,7 +51,7 @@ export default function
         </div>
         <Paragraph customClasses={`mb-5`} text={(
           <>
-            Do NOT be descriptive! Just type a few words about your property, separated by a comma. <HighlightText
+            DO NOT be descriptive! Just type a few words about your property, separated by a comma. <HighlightText
             text={`The AI would
               generate a fancy text for you!`} />
           </>
@@ -83,7 +83,8 @@ export default function
             whileTap={{ scale: .9 }}
             onClick={handleGenerateText}
             type={`button`}
-            className={`px-16 py-6 font-semibold text-4xl  bg-linear-main-red text-white rounded-full`}>Generate
+            className={`px-16 py-6 font-semibold text-4xl  bg-linear-main-red text-white rounded-full
+            ${loading ? `animate-pulse` : ``}`}>Generate
           </motion.button>
 
           <div className={`${!loading ? `opacity-0 pointer-events-none` : ``}`}>
