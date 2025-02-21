@@ -2,7 +2,7 @@
 
 import { GenerationForType } from '@/components/AI/modals/AIModal';
 import * as React from 'react';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import StarIconSmall from '@/components/UI/Icon/StarIconSmall';
 import { motion } from 'framer-motion';
 import Paragraph from '@/components/Typography/Paragraph';
@@ -17,6 +17,12 @@ type AIResponseType = {
   setAIResponseState: Dispatch<SetStateAction<`start` | `response`>>;
   handleClosePopup: () => void;
   responseId: string;
+  handlePasteResponse: () => void;
+  updatePastePropLoading: boolean;
+  textareaValueState: {
+    value: { val: string; generatedFor: GenerationForType };
+    setValue: Dispatch<SetStateAction<{ val: string; generatedFor: GenerationForType }>>
+  }
   // children: ReactNode;
 }
 
@@ -25,7 +31,10 @@ export default function AIResponse({
                                      generatedFor,
                                      setAIResponseState,
                                      handleClosePopup,
-                                     responseId
+                                     responseId,
+                                     handlePasteResponse,
+                                     updatePastePropLoading,
+                                     textareaValueState
                                    }: AIResponseType) {
   const [snackbarState, setSnackbarState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(``);
@@ -33,7 +42,13 @@ export default function AIResponse({
 
   const [confirmDialogState, setConfirmDialogState] = useState(false);
   const [ratedResponse, setRatedResponse] = useState<number>(0);
-  const [textareaValue, setTextareaValue] = useState(generatedText);
+  const { value: textareaValue, setValue: setTextareaValue } = textareaValueState;
+
+  useEffect(() => {
+    if (generatedText) {
+      setTextareaValue({ val: generatedText, generatedFor });
+    }
+  }, [generatedFor, generatedText]);
 
   function handleSnackbarOpen(message: string) {
     setSnackbarState(() => true);
@@ -53,9 +68,6 @@ export default function AIResponse({
       return;
     }
     await rateAIResponse({ id: responseId, rated });
-  }
-
-  async function handlePasteResponse() {
   }
 
   return (
@@ -82,12 +94,15 @@ export default function AIResponse({
         </div>
         <div className={`flex flex-col justify-center gap-4 mb-4`}>
           <textarea
-            onChange={(event) => setTextareaValue(() => event.currentTarget.value)}
+            disabled={updatePastePropLoading}
+            onChange={(event) => setTextareaValue(() => ({
+              val: event?.currentTarget?.value, generatedFor
+            }))}
             id={`response`}
             name={`response`}
             className={`w-full p-5 border border-blue-950 rounded-[10px] h-44 scrollbar-hide
              transition-all duration-200 text-zinc-900 text-[15px] focus:outline-red-500`}
-            defaultValue={textareaValue} />
+            value={textareaValue.val} />
           <div className={`flex items-center gap-2`}>
             <p className={`text-lg font-bold text-transparent bg-linear-main-red bg-clip-text`}>Rate Response:</p>
             <div className={`flex items-center gap-0.5`}>

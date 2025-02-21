@@ -8,6 +8,9 @@ import { generateTextSchema } from '@/utils/schemas/AI/generateTextSchema';
 import ConfigureAIRequest from '@/components/AI/layouts/ConfigureAIRequest';
 import AIResponse from '@/components/AI/layouts/AIResponse';
 import { useCreateAIResponse } from '@/hooks/mutations/AI/useCreateAIResponse';
+import { useUpdateResponsePasted } from '@/hooks/mutations/AI/useUpdateResponsePasted';
+import { windowExists } from '@/utils/functions/windowExists';
+import { convertToLocalStorageName } from '@/utils/functions/sell/convertToLocalStorageName';
 
 export type GenerationForType = `Property Description` | `Property Title` | `Property Location Description`;
 export type AIToneType = `Professional` | `Trendy` | `Inviting` | `Minimalist`;
@@ -15,6 +18,10 @@ export type AIToneType = `Professional` | `Trendy` | `Inviting` | `Minimalist`;
 export type AIModalType = {
   modalState: { open: boolean; setOpen: Dispatch<SetStateAction<boolean>>; }
   generationFor: GenerationForType | null;
+  textareaValueState: {
+    value: { val: string; generatedFor: GenerationForType };
+    setValue: Dispatch<SetStateAction<{ val: string; generatedFor: GenerationForType }>>
+  };
 }
 
 const useStyles = makeStyles({
@@ -23,8 +30,9 @@ const useStyles = makeStyles({
   }
 });
 
-function AIModal({ modalState, generationFor }: AIModalType) {
+function AIModal({ modalState, generationFor, textareaValueState }: AIModalType) {
   const [aiResponse, setAiResponse] = useState<{ response: string; id: string }>();
+  const { value: textareaValue, setValue: setTextareaValue } = textareaValueState;
 
   const [AIResponseState, setAIResponseState] = useState<`start` | `response`>(`start`);
   const [snackbarState, setSnackbarState] = useState(false);
@@ -32,10 +40,12 @@ function AIModal({ modalState, generationFor }: AIModalType) {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const { setOpen, open } = modalState;
+
   const [activeTone, setActiveTone] = useState<AIToneType>(`Professional`);
   const classes = useStyles();
 
   const { generateText, loading: generatingTextLoading } = useCreateAIResponse();
+  const { updateResponsePastedProp, loading: updatePastePropLoading } = useUpdateResponsePasted();
 
   function handleSnackbarOpen(message: string) {
     setSnackbarMessage(() => message);
@@ -44,8 +54,17 @@ function AIModal({ modalState, generationFor }: AIModalType) {
 
   const handleClose = () => {
     setOpen(() => false);
-    setAIResponseState(() => `start`);
   };
+
+  function handleCleanForm() {
+    handleClose();
+    // @ts-ignore
+    setTextareaValue(() => null);
+    setActiveTone(`Professional`);
+    setAIResponseState(() => `start`);
+    setAiResponse({ id: ``, response: `` });
+    if (inputRef?.current) inputRef.current.value = ``;
+  }
 
   async function handleGenerateText() {
     const valueEntered = inputRef?.current?.value || ``;
@@ -68,6 +87,22 @@ function AIModal({ modalState, generationFor }: AIModalType) {
     }
     setAiResponse(() => response.data.createAIResponse);
     setAIResponseState(() => `response`);
+  }
+
+  async function handlePasteResponse() {
+    if (updatePastePropLoading) {
+      handleSnackbarOpen('We handle the pasting of this response.. Please stand by..');
+      return;
+    }
+    if (!aiResponse || !generationFor) return;
+
+    await updateResponsePastedProp({ id: aiResponse.id, pastedText: textareaValue.val });
+
+    if (windowExists()) {
+      window.localStorage.setItem(convertToLocalStorageName(generationFor), textareaValue.val);
+      // TODO: reflect the new value onto the corresponding field
+      handleCleanForm();
+    }
   }
 
   return (
@@ -94,16 +129,19 @@ function AIModal({ modalState, generationFor }: AIModalType) {
               loading={generatingTextLoading}
               toneState={{ value: activeTone, setValue: setActiveTone }} handleClose={handleClose}
               handleGenerateText={handleGenerateText}
-              generationFor={generationFor || `Property Title`} inputRef={inputRef} />
+              generationFor={generationFor!} inputRef={inputRef} />
           )}
-          {AIResponseState === `response` && (
+          {AIResponseState === `response` && aiResponse?.id && (
             <>
               <AIResponse
-                responseId={aiResponse?.id || ``}
+                textareaValueState={{ value: textareaValue, setValue: setTextareaValue }}
+                updatePastePropLoading={updatePastePropLoading}
+                handlePasteResponse={handlePasteResponse}
+                responseId={aiResponse.id}
                 handleClosePopup={handleClose}
                 setAIResponseState={setAIResponseState}
-                generatedFor={generationFor || `Property Title`}
-                generatedText={aiResponse?.response || `Lorem ipsum dolor sit amet`} />
+                generatedFor={generationFor!}
+                generatedText={aiResponse.response} />
             </>
           )}
         </div>

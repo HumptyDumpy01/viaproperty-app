@@ -48,6 +48,10 @@ export default function
               mode
             }: FirstFormType) {
   const [AIModalState, setAIModalState] = useState(false);
+  const [textareaValue, setTextareaValue] = useState<{ val: string; generatedFor: GenerationForType; }>({
+    val: ``,
+    generatedFor: `Property Title`
+  });
   const [generationFor, setGenerationFor] = useState<GenerationForType | null>(null);
   const [expandOptionalFields, setExpandOptionalFields] = useState(false);
 
@@ -176,7 +180,8 @@ export default function
 
   return (
     <>
-      <AIModal generationFor={generationFor} modalState={{ open: AIModalState, setOpen: setAIModalState }} />
+      <AIModal textareaValueState={{ value: textareaValue, setValue: setTextareaValue }} generationFor={generationFor}
+               modalState={{ open: AIModalState, setOpen: setAIModalState }} />
       <div className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
         <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
           <div>
@@ -201,7 +206,7 @@ export default function
               name={`description`}
               customClassNames={`bp-620:w-[537px] min-h-[155px]`}
               placeholder={`e.g. Arizona Cottage close to Street N..`} inputType={`text`} />
-            <ValidationParagraph text={`Description should contain from 5 to 700 characters long.`}
+            <ValidationParagraph text={`Description should contain from 5 to 4000 characters long.`}
                                  stage={descriptionInputStage} />
           </div>
           <AIButton onClick={() => handleAIModalOpen(`Property Description`)} />
@@ -245,10 +250,10 @@ export default function
                   customClassNames={`bp-620:w-[537px] min-h-[155px]`}
                   placeholder={`e.g. This place is located at N Street, with calm neighborhood... `}
                   inputType={`text`} labelStyle={`grey-and-small`} />
-                <ValidationParagraph text={`Location description is expected to be 5 to 700 characters.`}
+                <ValidationParagraph text={`Location description is expected to be 5 to 4000 characters.`}
                                      stage={locationDescriptionInputStage} />
               </div>
-              <div className={``}>
+              <div>
                 <AIButton onClick={() => handleAIModalOpen(`Property Location Description`)} />
               </div>
             </div>
