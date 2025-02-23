@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import AIIcon from '@/components/UI/Icon/AIIcon';
 import { makeStyles } from '@mui/styles';
@@ -34,6 +34,10 @@ function AIModal({ modalState, generationFor, textareaValueState }: AIModalType)
   const [aiResponse, setAiResponse] = useState<{ response: string; id: string }>();
   const { value: textareaValue, setValue: setTextareaValue } = textareaValueState;
 
+  useEffect(() => {
+    console.log('textareaValue:', textareaValue);
+  }, [textareaValue]);
+
   const [AIResponseState, setAIResponseState] = useState<`start` | `response`>(`start`);
   const [snackbarState, setSnackbarState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(``);
@@ -63,7 +67,7 @@ function AIModal({ modalState, generationFor, textareaValueState }: AIModalType)
     setActiveTone(`Professional`);
     setAIResponseState(() => `start`);
     setAiResponse({ id: ``, response: `` });
-    if (inputRef?.current) inputRef.current.value = ``;
+    if (inputRef?.current?.value) inputRef.current.value = ``;
   }
 
   async function handleGenerateText() {
@@ -132,15 +136,18 @@ function AIModal({ modalState, generationFor, textareaValueState }: AIModalType)
               generationFor={generationFor!} inputRef={inputRef} />
           )}
           {AIResponseState === `response` && aiResponse?.id && (
+            // {AIResponseState === `response` && (
             <>
               <AIResponse
                 textareaValueState={{ value: textareaValue, setValue: setTextareaValue }}
                 updatePastePropLoading={updatePastePropLoading}
                 handlePasteResponse={handlePasteResponse}
                 responseId={aiResponse.id}
+                // responseId={``}
                 handleClosePopup={handleClose}
                 setAIResponseState={setAIResponseState}
                 generatedFor={generationFor!}
+                // generatedText={aiResponse?.response || `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore est modi molestias neque officiis provident.`} />
                 generatedText={aiResponse.response} />
             </>
           )}

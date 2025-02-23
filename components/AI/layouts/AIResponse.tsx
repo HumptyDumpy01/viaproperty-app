@@ -48,7 +48,7 @@ export default function AIResponse({
     if (generatedText) {
       setTextareaValue({ val: generatedText, generatedFor });
     }
-  }, [generatedFor, generatedText]);
+  }, [generatedFor, generatedText, setTextareaValue]);
 
   function handleSnackbarOpen(message: string) {
     setSnackbarState(() => true);
@@ -95,7 +95,7 @@ export default function AIResponse({
         <div className={`flex flex-col justify-center gap-4 mb-4`}>
           <textarea
             disabled={updatePastePropLoading}
-            onChange={(event) => setTextareaValue(() => ({
+            onChange={(event) => setTextareaValue(({
               val: event?.currentTarget?.value, generatedFor
             }))}
             id={`response`}
