@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import AIIcon from '@/components/UI/Icon/AIIcon';
 import { makeStyles } from '@mui/styles';
@@ -22,6 +22,7 @@ export type AIModalType = {
     value: { val: string; generatedFor: GenerationForType };
     setValue: Dispatch<SetStateAction<{ val: string; generatedFor: GenerationForType }>>
   };
+  handleFillTheCorrespondingInput: () => void;
 }
 
 const useStyles = makeStyles({
@@ -30,13 +31,9 @@ const useStyles = makeStyles({
   }
 });
 
-function AIModal({ modalState, generationFor, textareaValueState }: AIModalType) {
+function AIModal({ modalState, generationFor, textareaValueState, handleFillTheCorrespondingInput }: AIModalType) {
   const [aiResponse, setAiResponse] = useState<{ response: string; id: string }>();
   const { value: textareaValue, setValue: setTextareaValue } = textareaValueState;
-
-  useEffect(() => {
-    console.log('textareaValue:', textareaValue);
-  }, [textareaValue]);
 
   const [AIResponseState, setAIResponseState] = useState<`start` | `response`>(`start`);
   const [snackbarState, setSnackbarState] = useState(false);
@@ -105,6 +102,7 @@ function AIModal({ modalState, generationFor, textareaValueState }: AIModalType)
     if (windowExists()) {
       window.localStorage.setItem(convertToLocalStorageName(generationFor), textareaValue.val);
       // TODO: reflect the new value onto the corresponding field
+      handleFillTheCorrespondingInput();
       handleCleanForm();
     }
   }

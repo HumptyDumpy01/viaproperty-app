@@ -52,6 +52,11 @@ export default function
     val: ``,
     generatedFor: `Property Title`
   });
+
+  useEffect(() => {
+    console.log('textareaValue:', textareaValue);
+  }, [textareaValue]);
+
   const [generationFor, setGenerationFor] = useState<GenerationForType | null>(null);
   const [expandOptionalFields, setExpandOptionalFields] = useState(false);
 
@@ -145,6 +150,22 @@ export default function
   );
 
 
+  function handleFillTheCorrespondingInput() {
+    if (textareaValue?.val) {
+      switch (textareaValue.generatedFor) {
+        case 'Property Title':
+          setTitleEntered(textareaValue.val);
+          break;
+        case 'Property Description':
+          setDescriptionEntered(textareaValue.val);
+          break;
+        case 'Property Location Description':
+          setLocationDescriptionEntered(textareaValue.val);
+          break;
+      }
+    }
+  }
+
   const handleMapClick = async (coordinates: { lat: number; lng: number }) => {
     try {
       const { country, city, address } = await getGeocode(coordinates.lat, coordinates.lng);
@@ -180,8 +201,11 @@ export default function
 
   return (
     <>
-      <AIModal textareaValueState={{ value: textareaValue, setValue: setTextareaValue }} generationFor={generationFor}
-               modalState={{ open: AIModalState, setOpen: setAIModalState }} />
+      <AIModal
+        handleFillTheCorrespondingInput={handleFillTheCorrespondingInput}
+        textareaValueState={{ value: textareaValue, setValue: setTextareaValue }}
+        generationFor={generationFor}
+        modalState={{ open: AIModalState, setOpen: setAIModalState }} />
       <div className={`max-w-screen-md mt-8 flex justify-center flex-col gap-6`}>
         <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
           <div>
