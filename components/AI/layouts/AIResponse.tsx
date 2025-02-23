@@ -26,16 +26,18 @@ type AIResponseType = {
   // children: ReactNode;
 }
 
-export default function AIResponse({
-                                     generatedText,
-                                     generatedFor,
-                                     setAIResponseState,
-                                     handleClosePopup,
-                                     responseId,
-                                     handlePasteResponse,
-                                     updatePastePropLoading,
-                                     textareaValueState
-                                   }: AIResponseType) {
+export default function
+  AIResponse({
+
+               generatedText,
+               generatedFor,
+               setAIResponseState,
+               handleClosePopup,
+               responseId,
+               handlePasteResponse,
+               updatePastePropLoading,
+               textareaValueState
+             }: AIResponseType) {
   const [snackbarState, setSnackbarState] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState(``);
   const { rateAIResponse, loading } = useUpdateResponseRating();
@@ -102,7 +104,7 @@ export default function AIResponse({
             name={`response`}
             className={`w-full p-5 border border-blue-950 rounded-[10px] h-44 scrollbar-hide
              transition-all duration-200 text-zinc-900 text-[15px] focus:outline-red-500`}
-            value={textareaValue.val} />
+            value={textareaValue?.val || ``} />
           <div className={`flex items-center gap-2`}>
             <p className={`text-lg font-bold text-transparent bg-linear-main-red bg-clip-text`}>Rate Response:</p>
             <div className={`flex items-center gap-0.5`}>
