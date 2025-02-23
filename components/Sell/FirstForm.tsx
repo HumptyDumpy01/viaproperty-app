@@ -53,10 +53,6 @@ export default function
     generatedFor: `Property Title`
   });
 
-  useEffect(() => {
-    console.log('textareaValue:', textareaValue);
-  }, [textareaValue]);
-
   const [generationFor, setGenerationFor] = useState<GenerationForType | null>(null);
   const [expandOptionalFields, setExpandOptionalFields] = useState(false);
 

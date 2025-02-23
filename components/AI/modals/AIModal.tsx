@@ -64,7 +64,6 @@ function AIModal({ modalState, generationFor, textareaValueState, handleFillTheC
     setActiveTone(`Professional`);
     setAIResponseState(() => `start`);
     setAiResponse({ id: ``, response: `` });
-    if (inputRef?.current?.value) inputRef.current.value = ``;
   }
 
   async function handleGenerateText() {
