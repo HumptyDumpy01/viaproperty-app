@@ -10,7 +10,7 @@ import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import ChooseFeatureImages, { ImagesArrayType } from '@/components/Sell/ChooseFeatureImages';
-import { tagSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
+import { tagSchema, tagsSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
 import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
 import { windowExists } from '@/utils/functions/windowExists';
@@ -77,6 +77,13 @@ export default function
       if (propertyHasParsed) {
         setPropertyHas(propertyHasParsed);
       }
+
+      const tagsField = window.localStorage.getItem('propertyTags') || null;
+      const tagsFieldParsed = tagsField ? JSON.parse(tagsField) as string[] : null;
+
+      if (tagsFieldParsed) {
+        setPropertyTags(tagsFieldParsed);
+      }
     }
   }, []);
 
@@ -95,7 +102,12 @@ export default function
   }
 
   function excludeTag(label: string) {
-    setPropertyTags((prevState: string[]) => prevState.filter((tag: string) => tag !== label));
+    const currentTags = [...propertyTags].filter((tag: string) => tag !== label);
+    setPropertyTags(currentTags);
+
+    if (windowExists()) {
+      window.localStorage.setItem('propertyTags', JSON.stringify(currentTags));
+    }
   }
 
   function excludeFeatureDescription(label: string) {
@@ -115,20 +127,31 @@ export default function
 
     const validate = tagSchema.safeParse({ tag: results.newTag });
 
+    const validateTags = tagsSchema.safeParse({ tags: [...propertyTags, results.newTag] });
+
     if (!validate.success) {
-      handleSnackbarState(`warning`, validate.error.errors[0].message);
+      handleSnackbarState(`error`, validate.error.errors[0].message);
+      return;
+    }
+
+    if (!validateTags.success) {
+      handleSnackbarState(`error`, validateTags.error.errors[0].message);
       return;
     }
 
     // @ts-ignore
     if (propertyTags.includes(`${results.newTag}`)) {
-      handleSnackbarState(`warning`, `Your cannot add the same tag twice.`);
+      handleSnackbarState(`error`, `Your cannot add the same tag twice.`);
       return;
     }
 
     const currentTags = [...propertyTags];
     currentTags.push(results.newTag);
     setPropertyTags(currentTags);
+
+    if (windowExists()) {
+      window.localStorage.setItem('propertyTags', JSON.stringify(currentTags));
+    }
     currObject.reset();
   }
 
