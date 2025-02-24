@@ -1,17 +1,27 @@
 'use client';
 
 import { activeStateType } from '@/components/Sell/SellInputContent';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import ChooseAmount from '@/components/UI/Input/ChooseAmount';
 import TagBadge from '@/components/UI/Badge/TagBadge';
-import SetOfCheckboxes from '@/components/Sell/SetOfCheckboxes';
 import HighlightText from '@/components/Typography/HighlightText';
-import Features from '@/components/Sell/Features';
 import Button from '@/components/UI/Button/Button';
 import LabelAndInput from '@/components/UI/Input/LabelAndInput';
-import ChooseImage from '@/components/UI/Input/ChooseImage/ChooseImage';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
+import ChooseFeatureImages, { ImagesArrayType } from '@/components/Sell/ChooseFeatureImages';
+import { tagSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
+import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
+import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
+
+export type PropertyHasType = {
+  beds: number;
+  showers: number;
+  baths: number;
+  bedrooms: number;
+  kitchens: number;
+  parkingSlots: number;
+};
 
 type SecondFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -50,14 +60,20 @@ export default function
                  featureDescription: []
                }
              }: SecondFormType) {
-  const [beds, setBeds] = useState<number>(defaultValues.beds);
-  const [showers, setShowers] = useState<number>(defaultValues.showers);
-  const [baths, setBaths] = useState<number>(defaultValues.baths);
-  const [bedrooms, setBedrooms] = useState<number>(defaultValues.bedrooms);
-  const [kitchens, setKitchens] = useState<number>(defaultValues.kitchens);
-  const [parkingSlots, setParkingSlots] = useState<number>(defaultValues.parkingSlots);
+  const [propertyHas, setPropertyHas] = useState<PropertyHasType>({
+    beds: defaultValues.beds,
+    showers: defaultValues.showers,
+    baths: defaultValues.baths,
+    bedrooms: defaultValues.bedrooms,
+    kitchens: defaultValues.kitchens,
+    parkingSlots: defaultValues.parkingSlots
+  });
   const [propertyTags, setPropertyTags] = useState<string[] | []>(defaultValues.propertyTags || []);
   const [featureDescription, setFeatureDescription] = useState<FeatureDescriptionType[]>(defaultValues.featureDescription || []);
+  const [featureImagesPicked, setFeatureImagesPicked] = useState<ImagesArrayType[]>([]);
+
+  const [snackbarState, setSnackbarState] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<SnackbarDataType>({ severity: `warning`, message: `` });
 
   function setActiveStateDeclaration(activeState: activeStateType) {
     scrollIntoViewFunc(`.sell-heading`);
@@ -74,147 +90,157 @@ export default function
     setFeatureDescription((prevState: FeatureDescriptionType[]) => prevState.filter((tag: FeatureDescriptionType) => tag.heading !== label));
   }
 
+  function handleSnackbarState(severity: SnackBarSeverityType, message: string) {
+    setSnackbarState(true);
+    setSnackbarMessage({ severity, message });
+  }
+
+  function handleAddTag(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const currObject = e.currentTarget;
+    const formData = new FormData(currObject);
+    const results = Object.fromEntries(formData.entries()) as { newTag: string };
+
+    const validate = tagSchema.safeParse({ tag: results.newTag });
+
+    if (!validate.success) {
+      handleSnackbarState(`warning`, validate.error.errors[0].message);
+      return;
+    }
+
+    // @ts-ignore
+    if (propertyTags.includes(`${results.newTag}`)) {
+      handleSnackbarState(`warning`, `Your cannot add the same tag twice.`);
+      return;
+    }
+
+    const currentTags = [...propertyTags];
+    currentTags.push(results.newTag);
+    setPropertyTags(currentTags);
+    currObject.reset();
+  }
 
   // @ts-ignore
   return (
     <>
-      <form className={`flex flex-col mt-9`}>
+      <SnackbarMUI severity={snackbarMessage.severity} message={snackbarMessage.message}
+                   state={{ open: snackbarState, setOpen: setSnackbarState }} />
+      <section className={`flex flex-col mt-9`}>
         <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-2xl
-          mb-10`}>My Property has..</h2>
+          mb-10`}>My Property has (Optional)</h2>
         <div className={`flex items-center mb-12`}>
           <div className={`flex justify-center flex-col gap-7`}>
             <div
               className={`flex flex-col bp-620:flex-row bp-620:items-center bp-620:gap-12 gap-4 bp-620:justify-between`}>
-              <ChooseAmount label={`Beds`} item={beds} setItem={setBeds} />
-              <ChooseAmount label={`Bedrooms`} item={bedrooms} setItem={setBedrooms} />
+              <ChooseAmount propertyLabel={`beds`} label={`Beds`} items={propertyHas.beds} setItems={setPropertyHas} />
+              <ChooseAmount propertyLabel={`bedrooms`} label={`Bedrooms`} items={propertyHas.bedrooms}
+                            setItems={setPropertyHas} />
             </div>
 
             <div
               className={`flex flex-col bp-620:flex-row bp-620:items-center bp-620:gap-12 gap-4 bp-620:justify-between`}>
-              <ChooseAmount label={`Showers`} item={showers} setItem={setShowers} />
-              <ChooseAmount label={`Kitchens`} item={kitchens} setItem={setKitchens} />
+              <ChooseAmount propertyLabel={`showers`} label={`Showers`} items={propertyHas.showers}
+                            setItems={setPropertyHas} />
+              <ChooseAmount propertyLabel={`kitchens`} label={`Kitchens`} items={propertyHas.kitchens}
+                            setItems={setPropertyHas} />
             </div>
 
             <div
               className={`flex flex-col bp-620:flex-row bp-620:items-center bp-620:gap-12 gap-4 bp-620:justify-between`}>
-              <ChooseAmount label={`Baths`} item={baths} setItem={setBaths} />
-              <ChooseAmount label={`Parking Slots`} item={parkingSlots} setItem={setParkingSlots} />
+              <ChooseAmount propertyLabel={`baths`} label={`Baths`} items={propertyHas.baths}
+                            setItems={setPropertyHas} />
+              <ChooseAmount propertyLabel={`parkingSlots`} label={`Parking Slots`} items={propertyHas.parkingSlots}
+                            setItems={setPropertyHas} />
             </div>
           </div>
         </div>
 
         <div>
-          <h2 className={`bg-clip-text text-2xl mb-5 text-transparent bg-linear-main-red font-bold`}>Add Property Tags!
+          <h2 className={`bg-clip-text text-2xl mb-5 text-transparent bg-linear-main-red font-bold`}>Add Property Tags
             (Optional)</h2>
-          <p className={`max-w-3xl text-zinc-900 leading-relaxed mb-6`}>Lorem ipsum dolor sit amet, consectetur
-            adipiscing
-            elit, sed do eiusmod tempor incididunt.
-            Lorem ipsum dolor sit amet, <HighlightText text={`consectetur adipiscing elit, sed do.`} />
+          <p className={`max-w-3xl text-zinc-900 leading-relaxed mb-6`}>Want your property to have higher changes to be
+            on the top of the search list? Provide some tags about your property, and <HighlightText
+              text={`you may have more views!`} /> For example, &#34;Balcony&#34;, &#34;Posh
+            Fireplace&#34;, &#34;Wi-fi&#34; ,etc.
           </p>
 
           <div className={`mb-10`}>
-            <div className={`flex gap-3.5 items-center overflow-x-auto scrollbar-thin `}>
-              {propertyTags.length === 0 && (
-                <>
-                  <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl`}>No Tags
-                    Added!</h2>
-                </>
-              )}
-              {propertyTags.length > 0 && propertyTags.map((tag: string, index: number) => (
-                /*@ts-ignore*/
-                <TagBadge setItems={excludeTag} key={index} label={tag} />
-              ))}
+            <div className={`flex flex-col justify-center gap-4`}>
+              <h2
+                className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl flex items-center gap-2`}>Tags
+                Added:
+                {propertyTags.length === 0 && ` None`}
+                {propertyTags.length > 0 && propertyTags.map((tag: string, index: number) => (
+                  /*@ts-ignore*/
+                  <TagBadge setItems={excludeTag} key={index} label={tag} />
+                ))}</h2>
+              <form onSubmit={handleAddTag} className={`flex items-center gap-3`}>
+                <input
+                  type="text"
+                  name={`newTag`}
+                  className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
+                       transition-all duration-300 outline-none focus:outline-red-500 font-medium hover:outline-red-400`}
+                  placeholder={`Your custom tag`} />
+                <button className={`py-3 px-4 text-lg font-medium rounded-2xl border border-red-500 text-red-500
+                hover:bg-red-500 hover:text-white transition-all duration-100 
+                active:bg-red-400 active:scale-95`}>Add
+                </button>
+              </form>
             </div>
           </div>
           <div className={`mb-10`}>
-            <SetOfCheckboxes setOfCheckboxes={[
-              /*@ts-ignore*/
-              { name: `garden`, label: `Garden`, checked: propertyTags.includes('Garden') },
-              /*@ts-ignore*/
-              { name: `balcony`, label: `Balcony`, checked: propertyTags.includes('Balcony') },
-              /*@ts-ignore*/
-              { name: `swimming-pool`, label: `Swimming Pool`, checked: propertyTags.includes('Swimming Pool') },
-              /*@ts-ignore*/
-              { name: `fireplace`, label: `Fireplace`, checked: propertyTags.includes('Fireplace') },
-              /*@ts-ignore*/
-              { name: `terrace`, label: `Terrace`, checked: propertyTags.includes('Terrace') },
-              /*@ts-ignore*/
-              { name: `furnished`, label: `Furnished`, checked: propertyTags.includes('Furnished') },
-              /*@ts-ignore*/
-              { name: `basement`, label: `Basement`, checked: propertyTags.includes('Basement') },
-              {
-                name: `air-conditioning`,
-                label: `Air Conditioning`,
-                /*@ts-ignore*/
-                checked: propertyTags.includes('Air Conditioning')
-              },
-              /*@ts-ignore*/
-              { name: `security-system`, label: `Security System`, checked: propertyTags.includes('Security System') }
-            ]} questionMark={{
-              visible: true,
-              content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, alias asperiores delectus est ipsam mollitia quasi rem repellat rerum soluta.`
-            }} label={`Add additional conveniences`} />
-            <p className={`leading-relaxed max-w-4xl text-zinc-900 text-sm mt-5`}>Ut enim ad minim veniam, quis nostrud
-              exercitation
-              ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in <HighlightText
-                text={`reprehenderit in voluptate velit esse`} /> cillum
-              dolore eu
-              fugiat nulla
-              pariatur. </p>
           </div>
 
           <div>
 
             <h2 className={`bg-clip-text text-2xl mb-5 text-transparent bg-linear-main-red font-bold`}>Want to describe
               each Feature?(Optional)</h2>
-            <p className={`max-w-3xl text-zinc-900 leading-relaxed mb-6 text-sm`}>Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.</p>
+            <p className={`max-w-3xl text-zinc-900 leading-relaxed mb-6 text-sm`}>The looks of your advert can be
+              outstanding by providing each feature a description and images!</p>
           </div>
           <div className={`flex gap-3.5 items-center mb-6 overflow-x-auto scrollbar-thin`}>
-            {featureDescription.length === 0 && (
-              <>
-                <h2 className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl`}>No Tags
-                  Added!</h2>
-              </>
-            )}
-            {featureDescription.length > 0 && featureDescription.map((tag, index) => (
-              /*@ts-ignore*/
-              <TagBadge setItems={excludeFeatureDescription} key={index} label={tag.heading} />
-            ))}
+            <h2
+              className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl flex items-center gap-2`}>Tags
+              Added:
+              {featureDescription.length === 0 && <span className={`text-inherit`}>None</span>}
+              {
+                featureDescription.length > 0 && featureDescription.map((tag, index) => (
+                  /*@ts-ignore*/
+                  <TagBadge setItems={excludeFeatureDescription} key={index} label={tag.heading} />
+                ))
+              }</h2>
           </div>
           <div className={`mb-10`}>
-            <Features featureHeading={`Features`}>
+            <form className={`flex justify-center flex-col gap-3 max-w-xl`}>
+              <input type="text"
+                     name={`heading`}
+                     className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
+                       transition-all duration-300 outline-none focus:outline-red-500 font-medium hover:outline-red-400`}
+                     placeholder={`Heading`} />
 
-              <LabelAndInput labelStyle={`grey-and-small`} name={`heading`} placeholder={`e.g. Posh Fireplace`}
-                             customClassNames={`bp-620:w-72 text-custom-medium`}
-                             label={`Heading`} inputType={`text`} />
+              <textarea
+                name={`shortDescription`}
+                className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
+                       transition-all duration-300 outline-none focus:outline-red-500 font-medium hover:outline-red-400 h-24`}
+                placeholder={`Short Description`} />
 
-              <LabelAndInput type={`textarea`} labelStyle={`grey-and-small`} name={`short-description`}
-                             placeholder={`e.g. This fireplace is the perfect place to relax after a long day.`}
-                             customClassNames={`bp-620:w-72 h-36 text-custom-medium`}
-                             label={`Short Description`} inputType={`text`} />
-              <div className={`overflow-x-auto scrollbar-thin max-w-[270px]`}>
-                <ChooseImage imagesState={{
-                  setImages: () => {
-                  }, images: []
-                }} max={3} min={0} />
+              <div className={`overflow-x-auto scrollbar-thin`}>
+                <ChooseFeatureImages imagesState={{ images: featureImagesPicked, setImages: setFeatureImagesPicked }}
+                                     min={0} max={3} />
               </div>
-              <div className={`mt-3`}>
-                <button type={`button`}
-                        className={`bg-clip-text text-lg text-transparent bg-linear-main-red font-bold`}>Add
-                </button>
-              </div>
-            </Features>
+
+              <button className={`py-3 px-10 font-medium rounded-2xl border bg-red-500 border-red-500 text-white mt-7
+                hover:bg-red-600 hover:text-white text-2xl transition-all duration-100 
+                active:bg-red-400 active:scale-95 w-fit`}>Add
+              </button>
+            </form>
           </div>
 
           <div className={`mb-10`}>
             <h3 className={`bg-clip-text text-transparent bg-linear-main-red font-bold
             text-2xl w-fit mb-6`}>Do you want to apply discount? (Optional)</h3>
-            <p className={`text-zinc-900 leading-relaxed max-w-4xl`}>Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. A
-              ad cumque ducimus earum facilis iusto laborum
-              maxime, obcaecati officiis <HighlightText text={`recusandae repellendus, tempore voluptate.`} /></p>
+            <p className={`text-zinc-900 leading-relaxed max-w-4xl`}>Please provide a valid discount number from 1 to
+              100. We will recalculate the total price for your property.</p>
 
             <div className={`mt-4`}>
               <LabelAndInput defaultValue={defaultValues?.discount?.toString() || ``} customClassNames={`bp-620:w-96`}
@@ -240,15 +266,9 @@ export default function
                         onClick={() => setActiveStateDeclaration({ stepTwo: `completed`, stepThree: `active` })} />
               </>
             )}
-
-            {!setActiveState && (
-              <>
-                <Button type={`button`} label={`Save Changes`} />
-              </>
-            )}
           </div>
         </div>
-      </form>
+      </section>
     </>
   );
 }

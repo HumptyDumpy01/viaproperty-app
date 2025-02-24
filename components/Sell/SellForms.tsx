@@ -19,8 +19,8 @@ import BulkyLink from '@/components/UI/Link/BulkyLink';
 export default function SellForms(/*{ mode }: SellFormsType*/) {
 
   const createAdvertStack = {
-    stepOne: `active`,
-    stepTwo: `disabled`,
+    stepOne: `completed`,
+    stepTwo: `active`,
     stepThree: `disabled`,
     stepFour: `disabled`,
     finishingSteps: `disabled`

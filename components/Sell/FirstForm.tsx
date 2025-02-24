@@ -245,8 +245,8 @@ export default function
       handleShowSnackbar('Please provide a valid amount of images.', `warning`);
       return;
     }
-    console.log(`Validated`);
-
+    // @ts-ignore
+    setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` });
   }
 
   return (
