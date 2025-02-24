@@ -10,10 +10,12 @@ import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import ChooseFeatureImages, { ImagesArrayType } from '@/components/Sell/ChooseFeatureImages';
-import { tagSchema, tagsSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
+import { discountSchema, tagSchema, tagsSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
 import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
 import { windowExists } from '@/utils/functions/windowExists';
+import ValidationParagraph from '@/components/Typography/ValidationParagraph';
+import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
 
 export type PropertyHasType = {
   beds: number;
@@ -69,6 +71,13 @@ export default function
     kitchens: defaultValues.kitchens,
     parkingSlots: defaultValues.parkingSlots
   });
+
+  const { value: discount, setValue: setDiscount, validationStage: discountInputStage } = useValidation(
+    discountSchema,
+    '',
+    true,
+    `propertyDiscount`
+  );
 
   useEffect(() => {
     if (windowExists()) {
@@ -278,11 +287,16 @@ export default function
               100. We will recalculate the total price for your property.</p>
 
             <div className={`mt-4`}>
-              <LabelAndInput defaultValue={defaultValues?.discount?.toString() || ``} customClassNames={`bp-620:w-96`}
-                             labelStyle={`grey-and-small`}
-                             label={`Sale (In Percentages)`}
-                             name={`discount`}
-                             placeholder={`e.g. 5`} inputType={`number`} />
+              <LabelAndInput
+                onChangeState={{ valueEntered: discount, setValueEntered: setDiscount }}
+                defaultValue={discount}
+                customClassNames={`bp-620:w-96`}
+                labelStyle={`grey-and-small`}
+                label={`Discount (In Percentages)`}
+                name={`discount`}
+                placeholder={`e.g. 5`} inputType={`number`} />
+              <ValidationParagraph stage={discountInputStage}
+                                   text={`Please provide a valid discount: between 1 to 100`} />
             </div>
           </div>
 
