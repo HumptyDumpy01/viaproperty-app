@@ -155,7 +155,7 @@ export default function
     }
 
     const currentTags = [...propertyTags];
-    currentTags.push(results.newTag);
+    currentTags.push(results.newTag.trim());
     setPropertyTags(currentTags);
 
     if (windowExists()) {
