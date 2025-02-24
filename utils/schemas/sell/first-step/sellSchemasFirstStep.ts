@@ -27,3 +27,11 @@ export const propertyPriceSchema = z.object({
 export const ownershipSchema = z.object({
   property: z.enum(['leasehold', 'freehold'])
 });
+
+export const mapChosenCoordinatesSchema = z.object({
+  title: z.string().min(1),
+  country: z.string().min(1),
+  city: z.string().min(1),
+  location: z.object({ type: z.enum(['Point', 'Polygon']), coordinates: z.array(z.number()) })
+
+});

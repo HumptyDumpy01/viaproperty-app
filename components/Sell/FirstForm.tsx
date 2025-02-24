@@ -12,6 +12,7 @@ import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import ValidationParagraph from '@/components/Typography/ValidationParagraph';
 import {
   descriptionSchema,
+  mapChosenCoordinatesSchema,
   ownershipSchema,
   propertyAreaSchema,
   propertyForSchema,
@@ -25,6 +26,9 @@ import ChevronIcon from '@/components/UI/Icon/ChevronIcon';
 import AIButton from '@/components/AI/buttons/AIButton';
 import { windowExists } from '@/utils/functions/windowExists';
 import AIModal, { GenerationForType } from '@/components/AI/modals/AIModal';
+import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
+import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
+import { validateForm } from '@/utils/functions/sell/validateForm';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -47,6 +51,12 @@ export default function
               setActiveState,
               mode
             }: FirstFormType) {
+  const [snackbarState, setSnackbarState] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState<SnackbarDataType>({
+    severity: `warning`,
+    message: ``
+  });
+
   const [AIModalState, setAIModalState] = useState(false);
   const [textareaValue, setTextareaValue] = useState<{ val: string; generatedFor: GenerationForType; }>({
     val: ``,
@@ -145,6 +155,10 @@ export default function
     `ownership`
   );
 
+  function handleShowSnackbar(message: string, severity: SnackBarSeverityType) {
+    setSnackbarState(() => true);
+    setSnackbarMessage({ message, severity });
+  }
 
   function handleFillTheCorrespondingInput() {
     if (textareaValue?.val) {
@@ -174,12 +188,20 @@ export default function
           coordinates: [coordinates.lng, coordinates.lat]
         }
       };
+      const validate = mapChosenCoordinatesSchema.safeParse(newMapObject);
+
+      if (!validate.success) {
+        handleShowSnackbar('Please provide a valid location on map.', `warning`);
+        return;
+      }
+
       setMapChosenCoordinates(newMapObject);
 
       if (windowExists()) {
         window.localStorage.setItem('mapCoordinates', JSON.stringify(newMapObject));
       }
     } catch (error) {
+      handleShowSnackbar('Please provide a valid location on map.', `error`);
       console.error('Error fetching geocode:', error);
     }
   };
@@ -195,8 +217,42 @@ export default function
       setActiveStateFunc(activeState, setActiveState);
   }
 
+  function handleNextFormSwitch() {
+
+    const validate = [
+      { stage: titleInputStage, label: `title`, optional: false },
+      { stage: descriptionInputStage, label: `description`, optional: false },
+      { stage: locationDescriptionInputStage, label: `location  description`, optional: false },
+      { stage: ownershipInputStage, label: `ownership`, optional: true },
+      { stage: propertyAreaInputStage, label: `property area`, optional: false },
+      { stage: propertyPriceInputStage, label: `property price`, optional: false },
+      { stage: propertyForInputStage, label: `property for`, optional: false }
+    ];
+    const failed = validateForm(validate);
+    if (failed) {
+      handleShowSnackbar(failed, `error`);
+      return;
+    }
+
+    const validateMapCoordinates = mapChosenCoordinatesSchema.safeParse(mapChosenCoordinates);
+
+    if (!validateMapCoordinates.success) {
+      handleShowSnackbar('Please provide a valid location on map.', `warning`);
+      return;
+    }
+
+    if (images.length < 2 || images.length > 6) {
+      handleShowSnackbar('Please provide a valid amount of images.', `warning`);
+      return;
+    }
+    console.log(`Validated`);
+
+  }
+
   return (
     <>
+      <SnackbarMUI severity={snackbarMessage.severity} message={snackbarMessage.message}
+                   state={{ open: snackbarState, setOpen: setSnackbarState }} />
       <AIModal
         handleFillTheCorrespondingInput={handleFillTheCorrespondingInput}
         textareaValueState={{ value: textareaValue, setValue: setTextareaValue }}
@@ -249,10 +305,10 @@ export default function
               <ValidationParagraph text={`Please select your  valid property location.`}
                                    stage={mapChosenCoordinates?.location.coordinates ? `success` : `neutral`} />
             </div>
-            {/*<SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {*/}
-            {/*  lat: mapChosenCoordinates.location.coordinates[1], lng:*/}
-            {/*    mapChosenCoordinates.location.coordinates[0]*/}
-            {/*} : null} onMapClick={handleMapClick} />*/}
+            {/*<SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {
+              lat: mapChosenCoordinates.location.coordinates[1], lng:
+                mapChosenCoordinates.location.coordinates[0]
+            } : null} onMapClick={handleMapClick} />*/}
           </div>
           <div className={`mb-9`}>
             <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>
@@ -372,7 +428,7 @@ export default function
           )}
           {setActiveState && (
             <>
-              <Button type={`button`} label={`Next`}
+              <Button onClick={handleNextFormSwitch} type={`button`} label={`Next`}
                 // @ts-ignore
                 //       onClick={() => setActiveStateDeclaration({ stepOne: `completed`, stepTwo: `active` })}
               />
