@@ -2,6 +2,7 @@
 
 import { PropertyHasType } from '@/components/Sell/SecondForm';
 import { Dispatch, SetStateAction } from 'react';
+import { windowExists } from '@/utils/functions/windowExists';
 
 type PropertyLabelType = `beds` | `showers` | `bedrooms` | `kitchens` | `parkingSlots` | `baths`;
 
@@ -20,9 +21,15 @@ export default function ChooseAmount({ label, items, setItems, propertyLabel }: 
       switch (action) {
         case 'decrease':
           newState[propertyLabel] = newState[propertyLabel] - 1;
+          if (windowExists()) {
+            window.localStorage.setItem('propertyHas', JSON.stringify(newState));
+          }
           break;
         case 'increase':
           newState[propertyLabel] = newState[propertyLabel] + 1;
+          if (windowExists()) {
+            window.localStorage.setItem('propertyHas', JSON.stringify(newState));
+          }
           break;
       }
       return newState;

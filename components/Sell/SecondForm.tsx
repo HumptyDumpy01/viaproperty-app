@@ -1,7 +1,7 @@
 'use client';
 
 import { activeStateType } from '@/components/Sell/SellInputContent';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import ChooseAmount from '@/components/UI/Input/ChooseAmount';
 import TagBadge from '@/components/UI/Badge/TagBadge';
 import HighlightText from '@/components/Typography/HighlightText';
@@ -13,6 +13,7 @@ import ChooseFeatureImages, { ImagesArrayType } from '@/components/Sell/ChooseFe
 import { tagSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
 import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
+import { windowExists } from '@/utils/functions/windowExists';
 
 export type PropertyHasType = {
   beds: number;
@@ -68,6 +69,17 @@ export default function
     kitchens: defaultValues.kitchens,
     parkingSlots: defaultValues.parkingSlots
   });
+
+  useEffect(() => {
+    if (windowExists()) {
+      const propertyHasField = window.localStorage.getItem('propertyHas') || null;
+      const propertyHasParsed = propertyHasField ? JSON.parse(propertyHasField) as PropertyHasType : null;
+      if (propertyHasParsed) {
+        setPropertyHas(propertyHasParsed);
+      }
+    }
+  }, []);
+
   const [propertyTags, setPropertyTags] = useState<string[] | []>(defaultValues.propertyTags || []);
   const [featureDescription, setFeatureDescription] = useState<FeatureDescriptionType[]>(defaultValues.featureDescription || []);
   const [featureImagesPicked, setFeatureImagesPicked] = useState<ImagesArrayType[]>([]);
