@@ -239,6 +239,9 @@ export default function
     if (windowExists()) {
       window.localStorage.setItem('propertyFeatures', JSON.stringify(features));
     }
+    setFeatureHeading(``);
+    setFeatureShortDescription(``);
+    setFeatureImagesPicked([]);
   }
 
   function handleNextStep() {
@@ -339,7 +342,8 @@ export default function
           <div className={`mb-10`}>
             <div className={`flex justify-center flex-col gap-3 max-w-xl`}>
               <div className={`flex flex-col mb-3`}>
-                <input onChange={(event) => setFeatureHeading(event?.currentTarget?.value)} type="text"
+                <input value={featureHeading} onChange={(event) => setFeatureHeading(event?.currentTarget?.value)}
+                       type="text"
                        name={`heading`}
                        className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
                        transition-all duration-300 outline-none focus:outline-red-500 font-medium hover:outline-red-400`}
@@ -350,6 +354,7 @@ export default function
 
               <div className={`flex flex-col mb-3`}>
               <textarea
+                value={featureShortDescription}
                 onChange={(event) => setFeatureShortDescription(event?.currentTarget.value)}
                 name={`shortDescription`}
                 className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
