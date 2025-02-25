@@ -13,3 +13,11 @@ export const discountSchema = z.object({
 }).refine(({ property: discount }) => {
   return !isNaN(Number(discount)) && Number(discount) >= 1 && Number(discount) <= 100;
 });
+
+export const featureHeadingSchema = z.object({
+  property: z.string().trim().min(2, 'The heading for your feature should be from 2 to 100 characters long.').max(100, 'The heading for your feature should be from 2 to 100 characters long.')
+});
+
+export const featureShortDescriptionSchema = z.object({
+  property: z.string().trim().min(5, 'The description for your feature should be from 5 to 1000 characters long.').max(1_000, 'The description for your feature should be from 5 to 1000 characters long.')
+});

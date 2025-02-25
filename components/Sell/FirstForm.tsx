@@ -29,6 +29,7 @@ import AIModal, { GenerationForType } from '@/components/AI/modals/AIModal';
 import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
 import { validateForm } from '@/utils/functions/sell/validateForm';
+import SelectLocationOnMap from '@/components/UI/Map/SelectLocationOnMap';
 
 type FirstFormType = {
   setActiveState?: (prevState: activeStateType) => void;
@@ -305,10 +306,10 @@ export default function
               <ValidationParagraph text={`Please select your  valid property location.`}
                                    stage={mapChosenCoordinates?.location.coordinates ? `success` : `neutral`} />
             </div>
-            {/*<SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {
+            <SelectLocationOnMap initialCoordinates={mapChosenCoordinates ? {
               lat: mapChosenCoordinates.location.coordinates[1], lng:
                 mapChosenCoordinates.location.coordinates[0]
-            } : null} onMapClick={handleMapClick} />*/}
+            } : null} onMapClick={handleMapClick} />
           </div>
           <div className={`mb-9`}>
             <div className={`flex items-center gap-3 flex-col bp-620:flex-row`}>

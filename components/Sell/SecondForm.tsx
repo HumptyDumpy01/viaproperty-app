@@ -10,12 +10,19 @@ import LabelAndInput from '@/components/UI/Input/LabelAndInput';
 import { scrollIntoViewFunc } from '@/utils/functions/scrollIntoViewFunc';
 import { setActiveStateFunc } from '@/utils/functions/sell/setActiveStateFunc';
 import ChooseFeatureImages, { ImagesArrayType } from '@/components/Sell/ChooseFeatureImages';
-import { discountSchema, tagSchema, tagsSchema } from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
+import {
+  discountSchema,
+  featureHeadingSchema,
+  featureShortDescriptionSchema,
+  tagSchema,
+  tagsSchema
+} from '@/utils/schemas/sell/second-step/sellSchemasSecondStep';
 import SnackbarMUI, { SnackBarSeverityType } from '@/components/UI/Snackbar/SnackbarMUI';
 import { SnackbarDataType } from '@/components/PropertyDescription/Layout/PropertyTags';
 import { windowExists } from '@/utils/functions/windowExists';
 import ValidationParagraph from '@/components/Typography/ValidationParagraph';
 import { useValidation } from '@/hooks/custom-hooks/useValidateInput';
+import { trimString } from '@/utils/functions/trimString';
 
 export type PropertyHasType = {
   beds: number;
@@ -46,7 +53,7 @@ type SecondFormType = {
 type FeatureDescriptionType = {
   heading: string;
   shortDescription: string;
-  images: string[];
+  images: ImagesArrayType[];
 };
 
 export default function
@@ -79,10 +86,33 @@ export default function
     `propertyDiscount`
   );
 
+  const {
+    value: featureHeading,
+    setValue: setFeatureHeading,
+    validationStage: featureHeadingInputStage
+  } = useValidation(
+    featureHeadingSchema,
+    '',
+    false,
+    ``
+  );
+
+  const {
+    value: featureShortDescription,
+    setValue: setFeatureShortDescription,
+    validationStage: featureShortDescriptionInputStage
+  } = useValidation(
+    featureShortDescriptionSchema,
+    '',
+    false,
+    ``
+  );
+
   useEffect(() => {
     if (windowExists()) {
       const propertyHasField = window.localStorage.getItem('propertyHas') || null;
       const propertyHasParsed = propertyHasField ? JSON.parse(propertyHasField) as PropertyHasType : null;
+
       if (propertyHasParsed) {
         setPropertyHas(propertyHasParsed);
       }
@@ -93,6 +123,14 @@ export default function
       if (tagsFieldParsed) {
         setPropertyTags(tagsFieldParsed);
       }
+
+      const propertyFeaturesField = window.localStorage.getItem('propertyFeatures') || null;
+      const propertyFeaturesParsed = propertyFeaturesField ? JSON.parse(propertyFeaturesField) : null;
+
+      if (propertyFeaturesParsed) {
+        setFeatureDescription(propertyFeaturesParsed);
+      }
+
     }
   }, []);
 
@@ -120,7 +158,11 @@ export default function
   }
 
   function excludeFeatureDescription(label: string) {
-    setFeatureDescription((prevState: FeatureDescriptionType[]) => prevState.filter((tag: FeatureDescriptionType) => tag.heading !== label));
+    const updatedFeatures = featureDescription.filter((tag: FeatureDescriptionType) => tag.heading !== label);
+    setFeatureDescription(updatedFeatures);
+    if (windowExists()) {
+      window.localStorage.setItem('propertyFeatures', JSON.stringify(updatedFeatures));
+    }
   }
 
   function handleSnackbarState(severity: SnackBarSeverityType, message: string) {
@@ -157,11 +199,51 @@ export default function
     const currentTags = [...propertyTags];
     currentTags.push(results.newTag.trim());
     setPropertyTags(currentTags);
+    handleSnackbarState(`success`, `A tag "${results.newTag}" was successfully added to the list.`);
 
     if (windowExists()) {
       window.localStorage.setItem('propertyTags', JSON.stringify(currentTags));
     }
     currObject.reset();
+  }
+
+  function handleAddNewFeature() {
+    for (const feature of featureDescription) {
+      if (feature.heading === featureHeading) {
+        handleSnackbarState(`error`, `Your cannot add the feature heading twice.`);
+        return;
+      }
+    }
+    if (featureHeadingInputStage !== `success`) {
+      handleSnackbarState(`error`, `Please provide a valid heading for a feature.`);
+      return;
+    }
+    if (featureShortDescriptionInputStage !== `success`) {
+      handleSnackbarState(`error`, `Please provide a valid short description for a feature.`);
+      return;
+    }
+    if (featureDescription.length > 10) {
+      handleSnackbarState(`error`, `You reached the limit of max features you can add to a property(10)`);
+      return;
+    }
+
+    const features = [...featureDescription];
+    features.push({
+      heading: featureHeading,
+      shortDescription: featureShortDescription, images: featureImagesPicked
+    });
+
+    setFeatureDescription(features);
+    handleSnackbarState(`success`, `A new feature "${trimString(featureHeading, 12)}" was successfully added to the list.`);
+
+    if (windowExists()) {
+      window.localStorage.setItem('propertyFeatures', JSON.stringify(features));
+    }
+  }
+
+  function handleNextStep() {
+    // @ts-ignore
+    setActiveStateDeclaration({ stepTwo: `completed`, stepThree: `active` });
   }
 
   // @ts-ignore
@@ -244,7 +326,7 @@ export default function
           </div>
           <div className={`flex gap-3.5 items-center mb-6 overflow-x-auto scrollbar-thin`}>
             <h2
-              className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl flex items-center gap-2`}>Tags
+              className={`bg-clip-text text-transparent bg-linear-main-red font-bold text-xl flex items-center gap-2`}>Features
               Added:
               {featureDescription.length === 0 && <span className={`text-inherit`}>None</span>}
               {
@@ -255,29 +337,38 @@ export default function
               }</h2>
           </div>
           <div className={`mb-10`}>
-            <form className={`flex justify-center flex-col gap-3 max-w-xl`}>
-              <input type="text"
-                     name={`heading`}
-                     className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
+            <div className={`flex justify-center flex-col gap-3 max-w-xl`}>
+              <div className={`flex flex-col mb-3`}>
+                <input onChange={(event) => setFeatureHeading(event?.currentTarget?.value)} type="text"
+                       name={`heading`}
+                       className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
                        transition-all duration-300 outline-none focus:outline-red-500 font-medium hover:outline-red-400`}
-                     placeholder={`Heading`} />
+                       placeholder={`Heading`} />
+                <ValidationParagraph stage={featureHeadingInputStage}
+                                     text={`Please provide the heading from 2 to 100 characters.`} />
+              </div>
 
+              <div className={`flex flex-col mb-3`}>
               <textarea
+                onChange={(event) => setFeatureShortDescription(event?.currentTarget.value)}
                 name={`shortDescription`}
                 className={`placeholder:text-red-500 py-4 px-4 rounded-2xl border border-red-500 text-red-500
                        transition-all duration-300 outline-none focus:outline-red-500 font-medium hover:outline-red-400 h-24`}
                 placeholder={`Short Description`} />
+                <ValidationParagraph stage={featureShortDescriptionInputStage}
+                                     text={`Feature description should be from 5 to 1000 characters long.`} />
+              </div>
 
               <div className={`overflow-x-auto scrollbar-thin`}>
                 <ChooseFeatureImages imagesState={{ images: featureImagesPicked, setImages: setFeatureImagesPicked }}
                                      min={0} max={3} />
               </div>
 
-              <button className={`py-3 px-10 font-medium rounded-2xl border bg-red-500 border-red-500 text-white mt-7
+              <button onClick={handleAddNewFeature} type={`button`} className={`py-3 px-10 font-medium rounded-2xl border bg-red-500 border-red-500 text-white mt-7
                 hover:bg-red-600 hover:text-white text-2xl transition-all duration-100 
                 active:bg-red-400 active:scale-95 w-fit`}>Add
               </button>
-            </form>
+            </div>
           </div>
 
           <div className={`mb-10`}>
@@ -312,7 +403,7 @@ export default function
               <>
                 <Button type={`button`} label={`Next`}
                   // @ts-ignore
-                        onClick={() => setActiveStateDeclaration({ stepTwo: `completed`, stepThree: `active` })} />
+                        onClick={handleNextStep} />
               </>
             )}
           </div>

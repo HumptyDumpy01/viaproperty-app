@@ -1,7 +1,7 @@
 import ViapropertyIcon from '@/components/UI/Icon/ViapropertyIcon';
 import Image from 'next/image';
 import { Tooltip } from '@mui/material';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react';
 import MUIDialogConfirm from '@/components/UI/Dialog/MUIDialogConfirm';
 
 export type FileBufferType = string | ArrayBuffer | null;
@@ -12,9 +12,15 @@ type ImagePreviewType = {
   onRemove?: (index: number) => void;
   imageSrc?: FileBufferType;
   // children: ReactNode;
-}
+} & ComponentPropsWithoutRef<'input'>;
 
-export default function ImagePreview({ index, onSave, onRemove, imageSrc: initialImageSrc }: ImagePreviewType) {
+export default function ImagePreview({
+                                       index,
+                                       onSave,
+                                       onRemove,
+                                       imageSrc: initialImageSrc,
+                                       ...props
+                                     }: ImagePreviewType) {
   const [dialogConfirmState, setDialogConfirmState] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [imageSrc, setImageSrc] = useState<FileBufferType>(initialImageSrc || null);
@@ -48,7 +54,8 @@ export default function ImagePreview({ index, onSave, onRemove, imageSrc: initia
         heading: `You sure you want to remove this image?`,
         content: `If you want to remove this particular image, please select "Remove Image" down below.`
       }} state={{ open: dialogConfirmState, setOpen: setDialogConfirmState }} />
-      <input accept={'.png, .jpeg, .jpg'} ref={fileInputRef} onChange={handleFileExtraction} required={index < 3}
+      <input {...props} name={`image_${index}`} accept={'.png, .jpeg, .jpg'} ref={fileInputRef}
+             onChange={handleFileExtraction}
              type={`file`} id={`image_${index}`}
              className={`hidden`} />
       <div className={`w-28 h-28 overflow-hidden cursor-pointer transition-all duration-200

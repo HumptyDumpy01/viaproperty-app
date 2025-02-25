@@ -46,6 +46,7 @@ export default function ChooseFeatureImages({ max, min, imagesState, required = 
           {Array.from({ length: max }).map((_, index) => (
             <div key={index}>
               <ImagePreview
+                required={false}
                 onRemove={handleOnRemove}
                 onSave={handleOnSave}
                 index={index}
